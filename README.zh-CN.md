@@ -247,7 +247,7 @@ python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider o
 python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider gemini --model gemini-2.5-flash-image
 ```
 
-已有 `OPENAI_API_KEY` / `GEMINI_API_KEY` 环境变量时加 `--no-key`。之后由 Agent 执行：`--check` 验证配置（免费）、`--dry-run` 预演、`--pages 2` 先生成一页、再生成其余缺图。结果按清单文件名保存，用页面纸色补边到清单比例，状态写回 `image-manifest.json`；生成后仍逐张查看，不合格改简报后 `--force` 重生成，原图自动保留版本。支持 provider：`openai`（OpenAI Images API 及兼容代理，含 `gpt-image-1`、`dall-e-3`）、`gemini`（`gemini-2.5-flash-image` 等）。字段、请求形式与边界见 [通过生图 API 自动生成配图](skills/white-blue-slides/references/image-api.md)。
+国内常见的中转服务可用预设，例如 Right Code：`--setup --preset rightapi --model gpt-image-2.5`（异步画图接口，脚本自动提交任务并轮询）。已有 `OPENAI_API_KEY` / `GEMINI_API_KEY` 环境变量时加 `--no-key`。之后由 Agent 执行：`--check` 验证配置（免费）、`--dry-run` 预演、`--pages 2` 先生成一页、再生成其余缺图。结果按清单文件名保存，用页面纸色补边到清单比例，状态写回 `image-manifest.json`；生成后仍逐张查看，不合格改简报后 `--force` 重生成，原图自动保留版本。支持 provider：`openai`（OpenAI Images API 及兼容代理，含 `gpt-image-1`、`dall-e-3`）、`gemini`（`gemini-2.5-flash-image` 等）。字段、请求形式与边界见 [通过生图 API 自动生成配图](skills/white-blue-slides/references/image-api.md)。
 
 </details>
 

@@ -8,6 +8,7 @@ getpass) or exports an environment variable. Standard library only; Pillow is op
 for padding the result to the exact aspect ratio with the page paper colour.
 
   python3 generate_images.py --setup --provider openai --url https://api.openai.com/v1 --model gpt-image-1
+  python3 generate_images.py --setup --preset rightapi --model gpt-image-2.5
   python3 generate_images.py --check
   python3 generate_images.py <project>/deck.json --dry-run
   python3 generate_images.py <project>/deck.json [--pages 3,5] [--force]
@@ -41,6 +42,16 @@ PROVIDERS = {
 }
 REFERENCE_MODES = ('auto', 'on', 'off')
 FIT_MODES = ('pad', 'none')
+SIZE_STYLES = ('pixels', 'ratio')
+REFERENCE_TRANSPORTS = ('multipart', 'data_url')
+TASK_PENDING = {'queued', 'pending', 'processing', 'in_progress', 'running', 'submitted'}
+# Relay services that wrap the Images API with their own conventions. `--setup --preset NAME` copies these fields into the config.
+PRESETS = {
+    'rightapi': {'provider': 'openai', 'url': 'https://www.rightapi.ai/draw/v1', 'model': 'gpt-image-2.5', 'async': True,
+                 'tasks_url': 'https://www.rightapi.ai/v1/tasks/{task_id}', 'check_url': 'https://www.rightapi.ai/v1/models',
+                 'size_style': 'ratio', 'ratios': ['1:1', '16:9', '9:16', '4:3'], 'reference_transport': 'data_url',
+                 'label': 'Right Code 中转（异步画图接口）'},
+}
 GEMINI_RATIOS = ['1:1', '2:3', '3:2', '3:4', '4:3', '4:5', '5:4', '9:16', '16:9', '21:9']
 RETRY_STATUS = {408, 409, 425, 429, 500, 502, 503, 504}
 USER_AGENT = 'ppt-workbench-generate-images/1.0'
@@ -96,7 +107,7 @@ def resolve_settings(args, environ=None):
     for key, name in ENV.items():
         if environ.get(name):
             settings[key] = environ[name]
-    for key in ('provider', 'url', 'model', 'reference', 'fit', 'quality', 'timeout'):
+    for key in ('provider', 'url', 'model', 'reference', 'fit', 'quality', 'timeout', 'image_size'):
         value = getattr(args, key, None)
         if value is not None:
             settings[key] = value
@@ -120,6 +131,27 @@ def resolve_settings(args, environ=None):
     if not isinstance(sizes, dict) or any(not isinstance(k, str) or not isinstance(v, str) for k, v in sizes.items()):
         raise ValueError('sizes 需要 {"比例或 landscape/portrait/square": "WxH"} 映射')
     settings['sizes'] = sizes
+    settings['async'] = bool(settings.get('async', False))
+    tasks_url = settings.get('tasks_url') or settings['url'] + '/tasks/{task_id}'
+    if not isinstance(tasks_url, str) or '{task_id}' not in tasks_url:
+        raise ValueError('tasks_url 需要包含 {task_id} 占位符，例如 https://host/v1/tasks/{task_id}')
+    settings['tasks_url'] = tasks_url
+    settings['size_style'] = settings.get('size_style', 'pixels')
+    if settings['size_style'] not in SIZE_STYLES:
+        raise ValueError('size_style 可选 ' + ' / '.join(SIZE_STYLES))
+    ratios = settings.get('ratios') or sorted(IMAGE_RATIOS)
+    if not isinstance(ratios, list) or any(not isinstance(r, str) or not re.fullmatch(r'\d+:\d+', r) for r in ratios):
+        raise ValueError('ratios 需要形如 "16:9" 的比例数组')
+    settings['ratios'] = ratios
+    settings['reference_transport'] = settings.get('reference_transport', 'multipart')
+    if settings['reference_transport'] not in REFERENCE_TRANSPORTS:
+        raise ValueError('reference_transport 可选 ' + ' / '.join(REFERENCE_TRANSPORTS))
+    if settings.get('image_size') is not None and not isinstance(settings['image_size'], str):
+        raise ValueError('image_size 需要字符串，例如 1K / 2K / 4K')
+    poll = settings.get('poll_timeout', 600)
+    if isinstance(poll, bool) or not isinstance(poll, (int, float)) or not 30 <= poll <= 3600:
+        raise ValueError('poll_timeout 需要 30–3600 秒')
+    settings['poll_timeout'] = poll
     key = environ.get(ENV['api_key']) or settings.get('api_key')
     if not key:
         for name in (settings.get('api_key_env'), PROVIDERS[provider]['key_env']):
@@ -146,13 +178,20 @@ def setup(args):
     """Write provider settings; read the key from the user's own terminal, never from arguments."""
     path = config_path(args.config)
     data = read_config(path)
+    if args.preset:
+        if args.preset not in PRESETS:
+            raise ValueError('--preset 可选 ' + ' / '.join(f'{k}（{v["label"]}）' for k, v in PRESETS.items()))
+        for key, value in PRESETS[args.preset].items():
+            if key != 'label':
+                data[key] = value
+        data['preset'] = args.preset
     provider = args.provider or data.get('provider')
     if provider not in PROVIDERS:
-        raise ValueError('--setup 需要 --provider，可选 ' + ' / '.join(f'{k}（{v["label"]}）' for k, v in PROVIDERS.items()))
+        raise ValueError('--setup 需要 --provider，可选 ' + ' / '.join(f'{k}（{v["label"]}）' for k, v in PROVIDERS.items()) + '；或 --preset ' + ' / '.join(PRESETS))
     data['provider'] = provider
     data['url'] = normalize_url(provider, args.url if args.url is not None else data.get('url'))
     data['model'] = (args.model or data.get('model') or PROVIDERS[provider]['model']).strip()
-    for key in ('reference', 'fit', 'quality', 'timeout'):
+    for key in ('reference', 'fit', 'quality', 'timeout', 'image_size'):
         value = getattr(args, key, None)
         if value is not None:
             data[key] = value
@@ -174,7 +213,8 @@ def setup(args):
         data.pop('api_key', None)
         key_note = f'当前不是交互终端，未读取密钥；请在自己的终端重新运行 --setup，或设置环境变量 {ENV["api_key"]}'
     write_config(path, data)
-    print(json.dumps({'config': str(path), 'provider': provider, 'url': data['url'], 'model': data['model'], 'api_key': key_note}, ensure_ascii=False, indent=2))
+    print(json.dumps({'config': str(path), 'provider': provider, 'preset': data.get('preset'), 'url': data['url'], 'model': data['model'],
+                      'async': bool(data.get('async')), 'api_key': key_note}, ensure_ascii=False, indent=2))
 
 
 # ---------------------------------------------------------------- HTTP
@@ -260,9 +300,23 @@ def openai_size(settings, ratio):
     return {'square': '1024x1024', 'landscape': '1536x1024', 'portrait': '1024x1536'}[kind]
 
 
-def gemini_ratio(ratio):
+def nearest_ratio(ratio, choices):
+    """Closest supported ratio; a landscape request never falls back to a portrait size (and vice versa) when the orientation exists."""
     target = math.log(ratio_value(ratio))
-    return min(GEMINI_RATIOS, key=lambda r: abs(math.log(ratio_value(r)) - target))
+    same = [r for r in choices if orientation(r) == orientation(ratio)]
+    return min(same or choices, key=lambda r: abs(math.log(ratio_value(r)) - target))
+
+
+def gemini_ratio(ratio):
+    return nearest_ratio(ratio, GEMINI_RATIOS)
+
+
+def request_size(settings, ratio):
+    if settings['provider'] == 'gemini':
+        return gemini_ratio(ratio)
+    if settings['size_style'] == 'ratio':
+        return settings['sizes'].get(ratio) or nearest_ratio(ratio, settings['ratios'])
+    return openai_size(settings, ratio)
 
 
 def uses_reference(settings, reference_file):
@@ -271,7 +325,7 @@ def uses_reference(settings, reference_file):
         return False
     if mode == 'on':
         return True
-    if settings['provider'] == 'gemini':
+    if settings['provider'] == 'gemini' or settings['reference_transport'] == 'data_url':
         return True
     return settings['model'].lower().startswith('gpt-image')
 
@@ -286,6 +340,8 @@ def _decode_image_field(item):
     if isinstance(item.get('b64_json'), str):
         return base64.b64decode(item['b64_json'])
     if isinstance(item.get('url'), str):
+        if item['url'].startswith('data:'):
+            return base64.b64decode(item['url'].split(',', 1)[1])
         status, _, payload = http_request('GET', item['url'], {}, None, 120)
         if status >= 300:
             raise RuntimeError(f'下载生成图片失败：{api_error(status, payload)}')
@@ -293,11 +349,55 @@ def _decode_image_field(item):
     raise RuntimeError('响应中没有 b64_json 或 url 图片字段')
 
 
+def poll_task(settings, task_id, describe):
+    """Async relays return a task id; poll until the task completes and hand back the final payload."""
+    url = settings['tasks_url'].replace('{task_id}', task_id)
+    headers = _openai_headers(settings)
+    deadline = time.time() + settings['poll_timeout']
+    interval = 4
+    while True:
+        status, _, payload = http_request('GET', url, headers, None, settings['timeout'])
+        if status >= 300 and status not in RETRY_STATUS:
+            raise RuntimeError(f'{describe}：查询任务失败 {api_error(status, payload)}')
+        data = None
+        if status < 300:
+            try:
+                data = json.loads(payload.decode('utf-8'))
+            except ValueError:
+                raise RuntimeError(f'{describe}：任务查询响应不是 JSON')
+        if isinstance(data, dict):
+            state = str(data.get('status') or '').lower()
+            if state == 'failed' or (isinstance(data.get('error'), dict) and state not in TASK_PENDING):
+                err = data.get('error') or {}
+                raise RuntimeError(f'{describe}：任务失败 ' + (err.get('message') if isinstance(err, dict) else str(err)))
+            if state == 'completed' or data.get('data') or data.get('candidates'):
+                return payload
+            if state and state not in TASK_PENDING:
+                raise RuntimeError(f'{describe}：任务状态未知 {state}')
+            progress = data.get('progress')
+            print(f'  任务 {task_id[:18]}… {state or "处理中"}' + (f' {progress}%' if isinstance(progress, (int, float)) else ''), file=sys.stderr)
+        if time.time() >= deadline:
+            raise RuntimeError(f'{describe}：任务 {task_id} 在 {settings["poll_timeout"]} 秒内未完成；稍后可用 --pages 重试')
+        time.sleep(interval)
+        interval = min(interval + 2, 15)
+
+
 def generate_openai(settings, entry, reference, retries):
-    size = openai_size(settings, entry['ratio'])
+    size = request_size(settings, entry['ratio'])
     model = settings['model']
     describe = f'第 {entry["page"]} 页 {entry["file"]}'
-    if reference:
+    if reference and settings['reference_transport'] == 'data_url':
+        mime, data = read_raster(reference)
+        body = {'model': model, 'prompt': entry['prompt'], 'n': 1, 'size': size, 'image': [f'data:{mime};base64,' + base64.b64encode(data).decode('ascii')]}
+        if settings.get('quality'):
+            body['quality'] = settings['quality']
+        if settings.get('image_size'):
+            body['imageSize'] = settings['image_size']
+        if settings['async']:
+            body['async'] = True
+        headers = dict(_openai_headers(settings), **{'Content-Type': 'application/json'})
+        payload = call_with_retry('POST', settings['url'] + '/images/generations', headers, json.dumps(body).encode('utf-8'), settings['timeout'], retries, describe)
+    elif reference:
         fields = [('model', model), ('prompt', entry['prompt']), ('n', '1'), ('size', size)]
         if settings.get('quality'):
             fields.append(('quality', settings['quality']))
@@ -310,12 +410,23 @@ def generate_openai(settings, entry, reference, retries):
         body = {'model': model, 'prompt': entry['prompt'], 'n': 1, 'size': size}
         if settings.get('quality'):
             body['quality'] = settings['quality']
-        if not model.lower().startswith('gpt-image'):
+        if settings.get('image_size'):
+            body['imageSize'] = settings['image_size']
+        if settings['async']:
+            body['async'] = True
+        elif not model.lower().startswith('gpt-image'):
             body['response_format'] = 'b64_json'
         headers = dict(_openai_headers(settings), **{'Content-Type': 'application/json'})
         payload = call_with_retry('POST', settings['url'] + '/images/generations', headers, json.dumps(body).encode('utf-8'), settings['timeout'], retries, describe)
     try:
         data = json.loads(payload.decode('utf-8'))
+    except ValueError:
+        raise RuntimeError(f'{describe}：响应不是 JSON')
+    if settings['async'] and isinstance(data, dict) and data.get('task_id') and not data.get('data'):
+        print(f'  已提交任务 {data["task_id"]}，等待完成…', file=sys.stderr)
+        payload = poll_task(settings, str(data['task_id']), describe)
+        data = json.loads(payload.decode('utf-8'))
+    try:
         items = data['data']
     except (ValueError, KeyError, TypeError):
         raise RuntimeError(f'{describe}：响应不是 Images API 格式（缺少 data 数组）')
@@ -359,7 +470,7 @@ def check_connection(settings):
     if settings['provider'] == 'gemini':
         status, _, payload = http_request('GET', settings['url'] + '/models?pageSize=1', {'x-goog-api-key': settings['api_key']}, None, 30)
     else:
-        status, _, payload = http_request('GET', settings['url'] + '/models', _openai_headers(settings), None, 30)
+        status, _, payload = http_request('GET', settings.get('check_url') or settings['url'] + '/models', _openai_headers(settings), None, 30)
     if status in (401, 403):
         return 'fail', f'鉴权失败：{api_error(status, payload)}'
     if status == 404 or status == 405:
@@ -478,12 +589,12 @@ def generate(args):
     settings = resolve_settings(args)
     reference = handoff / manifest['style_reference'] if manifest.get('style_reference') else None
     with_reference = uses_reference(settings, reference)
-    plan = {'provider': settings['provider'], 'model': settings['model'], 'url': settings['url'], 'reference': with_reference,
+    plan = {'provider': settings['provider'], 'preset': settings.get('preset'), 'model': settings['model'], 'url': settings['url'], 'async': settings['async'], 'reference': with_reference,
             'fit': settings['fit'], 'api_key': masked(settings['api_key']), 'to_generate': [e['file'] for e in entries]}
     if args.dry_run:
         for e in entries:
             plan.setdefault('requests', []).append({'page': e['page'], 'file': e['file'], 'ratio': e['ratio'],
-                                                    'size': openai_size(settings, e['ratio']) if settings['provider'] == 'openai' else gemini_ratio(e['ratio']),
+                                                    'size': request_size(settings, e['ratio']),
                                                     'prompt_chars': len(e['prompt'])})
         print(json.dumps(plan, ensure_ascii=False, indent=2))
         return 0
@@ -543,11 +654,13 @@ def main(argv=None):
     p.add_argument('--setup', action='store_true', help='写入 provider/url/model，并在交互终端中读取 API Key')
     p.add_argument('--check', action='store_true', help='验证配置与连通性，不生图')
     p.add_argument('--provider', choices=sorted(PROVIDERS))
+    p.add_argument('--preset', choices=sorted(PRESETS), help='--setup 时套用中转服务预设（基址、异步任务、参考图方式），再用 --model 指定模型')
     p.add_argument('--url', help='API 基址，例如 https://api.openai.com/v1')
     p.add_argument('--model', help='图像模型名，例如 gpt-image-1 或 gemini-2.5-flash-image')
     p.add_argument('--reference', choices=REFERENCE_MODES, help='是否随提示词附上风格参考图（默认 auto）')
     p.add_argument('--fit', choices=FIT_MODES, help='结果不符合清单比例时用纸色补边（pad，默认）或保留原样（none）')
     p.add_argument('--quality', help='OpenAI 兼容接口的 quality 参数，例如 high / medium / low / standard / hd')
+    p.add_argument('--image-size', dest='image_size', help='部分中转服务的 imageSize 参数，例如 1K / 2K / 4K')
     p.add_argument('--timeout', type=float, help='单次请求超时秒数（默认 180）')
     p.add_argument('--key-env', help='--setup 时记录密钥所在环境变量名，而不保存密钥本身')
     p.add_argument('--no-key', action='store_true', help='--setup 时不读取密钥')

@@ -97,7 +97,7 @@ class GenerateImages(unittest.TestCase):
             self.assertEqual(self.config.stat().st_mode & 0o777, 0o600)
 
     def test_sizes_and_reference_policy(self):
-        base = {'sizes': {}, 'model': 'gpt-image-1', 'provider': 'openai', 'reference': 'auto'}
+        base = {'sizes': {}, 'model': 'gpt-image-1', 'provider': 'openai', 'reference': 'auto', 'reference_transport': 'multipart', 'size_style': 'pixels', 'ratios': ['1:1', '16:9', '9:16', '4:3']}
         self.assertEqual(gi.openai_size(base, '16:9'), '1536x1024')
         self.assertEqual(gi.openai_size(base, '3:4'), '1024x1536')
         self.assertEqual(gi.openai_size(dict(base, model='dall-e-3'), '4:3'), '1792x1024')
@@ -113,6 +113,12 @@ class GenerateImages(unittest.TestCase):
         self.assertTrue(gi.uses_reference(dict(base, model='dall-e-3', reference='on'), ref))
         self.assertFalse(gi.uses_reference(dict(base, reference='off'), ref))
         self.assertFalse(gi.uses_reference(base, self.handoff / 'absent.png'))
+        self.assertTrue(gi.uses_reference(dict(base, model='dall-e-3', reference_transport='data_url'), ref))
+        ratio_style = dict(base, size_style='ratio')
+        self.assertEqual(gi.request_size(ratio_style, '16:9'), '16:9')
+        self.assertEqual(gi.request_size(ratio_style, '3:1'), '16:9')
+        self.assertEqual(gi.request_size(ratio_style, '3:4'), '9:16')
+        self.assertEqual(gi.request_size(dict(ratio_style, sizes={'3:1': '2048x683'}), '3:1'), '2048x683')
 
     def test_dry_run_needs_no_key_and_calls_nothing(self):
         self.config.write_text(json.dumps({'provider': 'openai'}), encoding='utf-8')
@@ -209,8 +215,77 @@ class GenerateImages(unittest.TestCase):
         self.assertIn(b'name="model"\r\n\r\ngpt-image-1', call['body'])
 
 
+class AsyncRelay(FakeTransport):
+    """Mimics an asynchronous relay: generations returns a task id, the tasks endpoint completes on the second poll."""
+
+    def __init__(self):
+        super().__init__(); self.polls = 0
+
+    def __call__(self, method, url, headers, body=None, timeout=180):
+        self.calls.append({'method': method, 'url': url, 'headers': dict(headers), 'body': body, 'timeout': timeout})
+        if url.endswith('/images/generations'):
+            return 200, {}, json.dumps({'task_id': 'task_abc123', 'status': 'processing', 'progress': 0}).encode()
+        if '/tasks/' in url:
+            self.polls += 1
+            if self.polls == 1:
+                return 200, {}, json.dumps({'task_id': 'task_abc123', 'status': 'in_progress', 'progress': 45}).encode()
+            return 200, {}, json.dumps({'created': 1, 'data': [{'url': 'https://cdn.test/result.png'}]}).encode()
+        if url == 'https://cdn.test/result.png':
+            return 200, {}, self.image
+        if url.endswith('/models'):
+            return 200, {}, json.dumps({'data': [{'id': 'gpt-image-2.5'}]}).encode()
+        return 404, {}, b'{"error":"no"}'
+
+
+class Presets(GenerateImages):
+    def test_preset_setup_async_submission_and_polling(self):
+        self.assertEqual(self.run_cli('--setup', '--preset', 'rightapi', '--model', 'gpt-image-2.5', '--no-key'), 0)
+        stored = json.loads(self.config.read_text(encoding='utf-8'))
+        self.assertEqual((stored['preset'], stored['url'], stored['async'], stored['tasks_url'], stored['reference_transport']),
+                         ('rightapi', 'https://www.rightapi.ai/draw/v1', True, 'https://www.rightapi.ai/v1/tasks/{task_id}', 'data_url'))
+        os.environ[gi.ENV['api_key']] = 'sk-relay-key-123456'
+        (self.handoff / 'style-reference.png').write_bytes(placeholder_png(32, 32))
+        manifest = self.manifest(); manifest['style_reference'] = 'style-reference.png'
+        (self.handoff / 'image-manifest.json').write_text(json.dumps(manifest, ensure_ascii=False), encoding='utf-8')
+        fake = AsyncRelay(); gi.http_request = fake
+        gi.time.sleep = lambda s: None
+        self.assertEqual(self.run_cli('--check'), 0)
+        self.assertEqual(fake.calls[0]['url'], 'https://www.rightapi.ai/v1/models')
+        self.assertEqual(self.run_cli(str(self.root / 'deck.json'), '--pages', '2'), 0)
+        submit = [c for c in fake.calls if c['url'].endswith('/images/generations')][0]
+        self.assertEqual(submit['url'], 'https://www.rightapi.ai/draw/v1/images/generations')
+        body = json.loads(submit['body'])
+        self.assertTrue(body['async'])
+        self.assertEqual(body['model'], 'gpt-image-2.5')
+        self.assertIn(body['size'], ['1:1', '16:9', '9:16', '4:3'])
+        self.assertTrue(body['image'][0].startswith('data:image/png;base64,'))
+        self.assertNotIn('response_format', body)
+        polls = [c for c in fake.calls if '/tasks/' in c['url']]
+        self.assertEqual(len(polls), 2)
+        self.assertEqual(polls[0]['url'], 'https://www.rightapi.ai/v1/tasks/task_abc123')
+        self.assertEqual(polls[0]['headers']['Authorization'], 'Bearer sk-relay-key-123456')
+        entry = [e for e in self.manifest()['images'] if e['page'] == 2][0]
+        self.assertEqual((entry['status'], entry['method'], entry['reference_used']), ('generated', 'api:openai/gpt-image-2.5', True))
+
+    def test_failed_task_is_reported_not_saved(self):
+        self.assertEqual(self.run_cli('--setup', '--preset', 'rightapi', '--no-key'), 0)
+        os.environ[gi.ENV['api_key']] = 'sk-relay-key-123456'
+        class Failing(AsyncRelay):
+            def __call__(self, method, url, headers, body=None, timeout=180):
+                if '/tasks/' in url:
+                    return 200, {}, json.dumps({'task_id': 'task_abc123', 'status': 'failed', 'progress': 100, 'error': {'message': '上游生成失败', 'code': ''}}).encode()
+                return super().__call__(method, url, headers, body, timeout)
+        gi.http_request = Failing(); gi.time.sleep = lambda s: None
+        self.assertEqual(self.run_cli(str(self.root / 'deck.json'), '--pages', '3'), 1)
+        entry = [e for e in self.manifest()['images'] if e['page'] == 3][0]
+        self.assertEqual(entry['status'], 'missing')
+        self.assertIn('上游生成失败', entry['error'])
+        self.assertFalse((self.root / entry['file']).exists())
+
+
 def run():
-    suite = unittest.defaultTestLoader.loadTestsFromTestCase(GenerateImages)
+    suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(GenerateImages),
+                                unittest.defaultTestLoader.loadTestsFromNames([f'{__name__}.Presets.{n}' for n in ('test_preset_setup_async_submission_and_polling', 'test_failed_task_is_reported_not_saved')])])
     result = unittest.TextTestRunner(verbosity=1).run(suite)
     return 0 if result.wasSuccessful() else 1
 

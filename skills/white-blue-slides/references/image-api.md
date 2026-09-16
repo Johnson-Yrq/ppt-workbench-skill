@@ -18,6 +18,13 @@
    python3 <shared>/scripts/generate_images.py --setup --provider gemini --model gemini-2.5-flash-image
    ```
 
+   中转服务（用自己的域名转发 OpenAI 格式接口，常见于国内）先看是否有预设：`--setup --preset rightapi --model <模型名>` 会一次写入基址、异步任务地址与参考图方式，不需要用户查文档。没有预设的中转服务把 `--url` 换成服务商给的基址（到 `/v1` 为止），需要异步任务或非标准字段时按下文“中转服务与异步任务”配置。
+
+   ```sh
+   # Right Code（rightapi.ai）中转：异步画图接口
+   python3 <shared>/scripts/generate_images.py --setup --preset rightapi --model gpt-image-2.5
+   ```
+
    用户已有 `OPENAI_API_KEY` / `GEMINI_API_KEY` 环境变量时，加 `--no-key` 即可，脚本会自动回退到这些变量；也可用 `--key-env 变量名` 指定其他变量。**Agent 不要求用户把密钥贴进对话，不代替用户输入密钥，也不把密钥写进任何项目文件**。用户若已在对话中贴出密钥，提醒其轮换，并仍按上面的方式配置。
 4. **验证配置**（免费，不生图）：
 
@@ -52,12 +59,31 @@
 | `sizes` | 覆盖请求尺寸，键为比例（`"4:3"`）或 `landscape / portrait / square`，值为 `WxH`。兼容服务支持其他尺寸时使用 |
 | `quality` | 透传给 OpenAI 兼容接口的 `quality`（如 `high / medium / low`，DALL·E 用 `standard / hd`） |
 | `timeout` | 单次请求超时秒数，默认 180 |
+| `preset` | `--setup --preset` 写入的预设名，仅作记录 |
+| `async` | `true` 时请求体带 `"async": true`，收到 `task_id` 后轮询 `tasks_url` 直到完成 |
+| `tasks_url` | 任务查询地址模板，含 `{task_id}`；默认 `{url}/tasks/{task_id}` |
+| `check_url` | `--check` 使用的模型列表地址；中转服务的列表接口常在站点级 `/v1/models` 而不在画图基址下 |
+| `size_style` | `pixels`（默认，发送 `WxH`）或 `ratio`（发送 `16:9` 这类比例串，取 `ratios` 中最接近且同方向的一项） |
+| `ratios` | `size_style: ratio` 时服务支持的比例列表，默认为套件全部比例 |
+| `reference_transport` | `multipart`（默认，走 `/images/edits`）或 `data_url`（参考图以 data URL 数组放在 generations 请求体的 `image` 字段） |
+| `image_size` | 透传 `imageSize`（如 `1K / 2K / 4K`），部分中转服务支持 |
+| `poll_timeout` | 异步任务最长等待秒数，默认 600 |
 
 环境变量 `SLIDES_IMAGE_PROVIDER / SLIDES_IMAGE_API_URL / SLIDES_IMAGE_MODEL / SLIDES_IMAGE_API_KEY` 覆盖配置文件；命令行 `--provider / --url / --model / --reference / --fit / --quality / --timeout` 覆盖两者。
 
+## 中转服务与异步任务
+
+内置预设：
+
+| 预设 | 基址 | 特点 |
+|---|---|---|
+| `rightapi` | `https://www.rightapi.ai/draw/v1` | 请求体固定 `async: true`；轮询 `https://www.rightapi.ai/v1/tasks/{task_id}`（站点级，不带 `/draw`）；`size` 用比例串（`1:1 / 16:9 / 9:16 / 4:3`）；参考图为 data URL 数组；模型名按服务商列表，如 `gpt-image-2.5`、`nano-banana-fast` |
+
+其他中转服务用 `--setup --provider openai --url <基址>` 后，在配置文件中按需补 `async / tasks_url / size_style / ratios / reference_transport / image_size` 字段。轮询把 `queued / processing / in_progress` 视为进行中，`completed`（或直接返回 `data`）视为完成，`failed` 读取 `error.message` 记入清单。
+
 ## 请求与结果
 
-- openai：无参考图时 `POST {url}/images/generations`；附参考图时 `POST {url}/images/edits`（multipart，`gpt-image*` 用 `image[]` 字段）。`gpt-image*` 不发送 `response_format`，其他模型请求 `b64_json`。尺寸默认横图 `1536x1024`、竖图 `1024x1536`、方图 `1024x1024`；`dall-e` 模型改为 `1792x1024 / 1024x1792 / 1024x1024`。
+- openai：无参考图时 `POST {url}/images/generations`；附参考图时 `POST {url}/images/edits`（multipart，`gpt-image*` 用 `image[]` 字段），`reference_transport: data_url` 时改为 generations 请求体的 `image` 数组。结果 `url` 为 data URL 时直接解码。`gpt-image*` 不发送 `response_format`，其他模型请求 `b64_json`。尺寸默认横图 `1536x1024`、竖图 `1024x1536`、方图 `1024x1024`；`dall-e` 模型改为 `1792x1024 / 1024x1792 / 1024x1024`。
 - gemini：`POST {url}/models/{model}:generateContent`，`responseModalities: ["TEXT","IMAGE"]`，`imageConfig.aspectRatio` 取与清单比例最接近的受支持比例（如 `2:1` → `16:9`，`3:1` → `21:9`），再按 `fit` 补边。
 - 限流与 5xx 自动重试（默认 2 次，指数退避）；401/403 立即停止并提示检查密钥；单页失败记录到清单 `error`，继续下一页，最后退出码为 1。
 - 结果按清单文件名保存（扩展名决定 PNG/JPEG/WebP），清单条目更新为 `status: generated`、`method: api:<provider>/<model>`、`request_size`、`pixels`、`generated_at`、`reference_used`，补边时附 `note`。已有文件不覆盖，除非 `--force`。
