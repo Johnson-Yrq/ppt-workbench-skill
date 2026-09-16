@@ -204,6 +204,8 @@ def setup(args):
         key_note = f'未保存密钥；运行前设置环境变量 {ENV["api_key"]} 或 {PROVIDERS[provider]["key_env"]}'
     elif sys.stdin.isatty():
         entered = getpass.getpass(f'请输入 {PROVIDERS[provider]["label"]} 的 API Key（输入不回显，直接回车保留现有设置）：').strip()
+        if entered and (re.match(r'https?://', entered) or ' ' in entered or len(entered) < 8):
+            raise ValueError('输入的不像 API Key（密钥通常是一串以 sk- 等开头、不含空格的长字符串，不是网址）。请到服务商的 API Key 页面复制密钥后重新运行 --setup。')
         if entered:
             data['api_key'] = entered
             key_note = '密钥已保存到配置文件（仅当前用户可读）'
@@ -479,9 +481,9 @@ def check_connection(settings):
         return 'warn', f'模型列表接口返回 {api_error(status, payload)}'
     try:
         data = json.loads(payload.decode('utf-8'))
-        names = [m.get('id') or m.get('name', '') for m in (data.get('data') or data.get('models') or [])]
-    except ValueError:
-        names = []
+        names = [m.get('id') or m.get('name', '') for m in (data.get('data') or data.get('models') or []) if isinstance(m, dict)]
+    except (ValueError, AttributeError):
+        return 'warn', f'{settings.get("check_url") or settings["url"] + "/models"} 返回的不是模型列表 JSON；请确认基址正确，再用 --pages 生成一页验证'
     model = settings['model']
     if names and not any(n.endswith(model) or n == model for n in names):
         return 'warn', f'连接正常，但模型列表中没有 {model}（列表可能不完整，共 {len(names)} 项）'
