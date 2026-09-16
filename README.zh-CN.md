@@ -16,7 +16,7 @@
   <a href="#构建与检查">构建与检查</a>
 </p>
 
-<p><code>Codex / Claude Code</code> &nbsp; <code>共享套件 v3.1.2</code> &nbsp; <a href="LICENSE">MIT 许可证</a></p>
+<p><code>Codex / Claude Code</code> &nbsp; <code>共享套件 v3.4.0</code> &nbsp; <a href="LICENSE">MIT 许可证</a></p>
 
 </div>
 
@@ -227,9 +227,29 @@ Agent 只询问缺少的选择；当前任务已经确认的风格和类型直�
 |---|---|
 | **已有图片** | 先查看并复用，按页面内容核对图片与文字的对应关系。 |
 | **有可直接调用的内置生图工具** | 按逐页简报生成、查看和调整，再构建成稿。 |
-| **没有内置生图工具** | 先导出逐页完整提示词和供图清单，收到图片后继续制作；可以分批提供。 |
+| **没有内置生图工具，用户愿意配置生图 API** | Agent 引导用户在自己的终端配置 provider、基址、模型与密钥，脚本按清单自动生成并写回状态；密钥不经过对话。 |
+| **没有内置生图工具，也不用 API** | 先导出逐页完整提示词和供图清单，收到图片后继续制作；可以分批提供。 |
 
 每张缺图都需要本页独有的 `image.brief`，描述对象与数量、动作或系统处理、关系机制、层级细节与构图。导出器会检查缺项和跨页重复的简报。页面标题、真实数据、业务说明和架构标注留在可编辑内容中。
+
+<details>
+<summary><strong>在 Claude Code 等环境中用自己的生图 API 自动生成</strong></summary>
+
+Claude Code、Cursor 等环境没有内置生图工具。Agent 会先完成拆页、`deck.json` 与提示词导出，然后询问是否使用你自己的生图 API；同意后把配置命令交给你在**自己的终端**执行，密钥以不回显方式输入，保存到 `~/.config/ppt-workbench/image-api.json`（仅当前用户可读），不会出现在对话或项目文件中。
+
+```bash
+# OpenAI 官方或兼容服务（url 换成实际基址，model 换成实际模型名）
+python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider openai --url https://api.openai.com/v1 --model gpt-image-1
+```
+
+```bash
+# Google Gemini
+python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider gemini --model gemini-2.5-flash-image
+```
+
+已有 `OPENAI_API_KEY` / `GEMINI_API_KEY` 环境变量时加 `--no-key`。之后由 Agent 执行：`--check` 验证配置（免费）、`--dry-run` 预演、`--pages 2` 先生成一页、再生成其余缺图。结果按清单文件名保存，用页面纸色补边到清单比例，状态写回 `image-manifest.json`；生成后仍逐张查看，不合格改简报后 `--force` 重生成，原图自动保留版本。支持 provider：`openai`（OpenAI Images API 及兼容代理，含 `gpt-image-1`、`dall-e-3`）、`gemini`（`gemini-2.5-flash-image` 等）。字段、请求形式与边界见 [通过生图 API 自动生成配图](skills/white-blue-slides/references/image-api.md)。
+
+</details>
 
 <details>
 <summary><strong>配图内文字与交付文件</strong></summary>
@@ -412,8 +432,8 @@ python3 skills/white-blue-slides/scripts/style_packs.py --list --include-drafts
 
 | 用途 | 依赖 |
 |---|---|
-| 构建 HTML、导出提示词、列出风格 | Python 3.9+ 标准库 |
-| 可选 WebP 压缩 | Pillow；缺少时保留原图格式 |
+| 构建 HTML、导出提示词、列出风格、调用生图 API | Python 3.9+ 标准库 |
+| 可选 WebP 压缩、API 生成结果按比例补边 | Pillow；缺少时保留原图格式 |
 | 配图底色校准 | NumPy + Pillow |
 | 自动浏览器审查 | Node.js + Playwright + Chrome/Chromium |
 | 命令行导出可编辑 PPTX | Playwright + Chrome/Chromium（工具栏按钮不需要任何依赖） |
@@ -421,7 +441,7 @@ python3 skills/white-blue-slides/scripts/style_packs.py --list --include-drafts
 | 已有 PDF 转离线演示版 | Python + Poppler（`pdfinfo`、`pdftocairo`） |
 | 可选总览拼图 | Sharp |
 
-ECharts 5.6.0 已随套件内置，无需额外安装或访问 CDN。生图能力由当前 Agent 环境提供，安装 Skill 不等于安装生图工具。无法运行自动审查时，使用可用浏览器逐页检查并说明验证范围。
+ECharts 5.6.0 已随套件内置，无需额外安装或访问 CDN。生图能力由当前 Agent 环境提供，安装 Skill 不等于安装生图工具；没有内置工具时可由用户自行配置生图 API（见上文），或人工供图。无法运行自动审查时，使用可用浏览器逐页检查并说明验证范围。
 
 修改脚本或资源后运行自测：
 
@@ -429,7 +449,7 @@ ECharts 5.6.0 已随套件内置，无需额外安装或访问 CDN。生图能�
 python3 skills/white-blue-slides/scripts/selftest.py
 ```
 
-自测覆盖共享组件、两种类型、风格独立性、动态新增风格、图表输入与缺图恢复。主题或版式发生变化时，再使用真实配图构建并逐页检查；自测不替代视觉验收。
+自测覆盖共享组件、两种类型、风格独立性、动态新增风格、图表输入、缺图恢复与生图 API 脚本（离线假传输，不联网）。主题或版式发生变化时，再使用真实配图构建并逐页检查；自测不替代视觉验收。
 
 ## 许可证与素材
 

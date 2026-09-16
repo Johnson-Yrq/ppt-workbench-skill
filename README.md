@@ -16,7 +16,7 @@
   <a href="#build-and-check">Build &amp; check</a>
 </p>
 
-<p><code>Codex / Claude Code</code> &nbsp; <code>Toolkit v3.1.2</code> &nbsp; <a href="LICENSE">MIT License</a></p>
+<p><code>Codex / Claude Code</code> &nbsp; <code>Toolkit v3.4.0</code> &nbsp; <a href="LICENSE">MIT License</a></p>
 
 </div>
 
@@ -231,9 +231,29 @@ The library, data, and SVG charts work offline without a CDN. Supported inputs a
 |---|---|
 | **Existing images** | Inspect and reuse them, checking that each image matches its slide's content. |
 | **A directly callable image-generation tool** | Generate from per-slide briefs, inspect the images, and refine them before building. |
-| **No built-in image-generation tool** | Export complete per-slide prompts and an asset checklist, then continue when images are supplied. Images can arrive in batches. |
+| **No built-in tool, but the user has an image API** | The agent guides the user to configure the provider, base URL, model, and key in their own terminal; a script then generates every missing image from the checklist and records the result. The key never passes through the chat. |
+| **No built-in tool and no API** | Export complete per-slide prompts and an asset checklist, then continue when images are supplied. Images can arrive in batches. |
 
 Each missing image needs a unique `image.brief` describing subjects and counts, actions or system behavior, relationships, hierarchy, detail, and composition. The exporter checks for missing fields and repeated briefs across slides. Keep titles, real data, business explanations, and architecture labels in editable content.
+
+<details>
+<summary><strong>Generate with your own image API in Claude Code and similar environments</strong></summary>
+
+Claude Code, Cursor, and other terminal agents have no built-in image tool. The agent first finishes the slide plan, `deck.json`, and the prompt export, then asks whether you want to use your own image API. If you agree, it hands you a setup command to run in **your own terminal**. The key is read without echo and stored in `~/.config/ppt-workbench/image-api.json` (readable only by you); it never appears in the conversation or in project files.
+
+```bash
+# OpenAI or an OpenAI-compatible service (replace the base URL and model as needed)
+python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider openai --url https://api.openai.com/v1 --model gpt-image-1
+```
+
+```bash
+# Google Gemini
+python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider gemini --model gemini-2.5-flash-image
+```
+
+Add `--no-key` if `OPENAI_API_KEY` or `GEMINI_API_KEY` is already set. The agent then runs `--check` (a free connectivity test), `--dry-run` (a preview that needs no key), `--pages 2` to generate one slide first, and finally the remaining missing images. Results are saved under the checklist file names, padded to the requested ratio with the page paper colour, and recorded in `image-manifest.json`. Every generated image is still inspected; rewrite the brief and rerun with `--force` to regenerate, and earlier versions are kept automatically. Supported providers: `openai` (the OpenAI Images API and compatible proxies, including `gpt-image-1` and `dall-e-3`) and `gemini` (`gemini-2.5-flash-image` and similar). See [Generating illustrations through an image API](skills/white-blue-slides/references/image-api.md) for fields, request shapes, and limits.
+
+</details>
 
 <details>
 <summary><strong>Text inside illustrations and delivery files</strong></summary>
@@ -414,8 +434,8 @@ See [adding an independent style package](skills/white-blue-slides/references/ad
 
 | Task | Dependencies |
 |---|---|
-| Build HTML, export prompts, list styles | Python 3.9+ standard library |
-| Optional WebP compression | Pillow; original formats are preserved if unavailable |
+| Build HTML, export prompts, list styles, call an image API | Python 3.9+ standard library |
+| Optional WebP compression; padding API results to the requested ratio | Pillow; original formats are preserved if unavailable |
 | Match illustration backgrounds | NumPy + Pillow |
 | Automated browser inspection | Node.js + Playwright + Chrome/Chromium |
 | Editable PPTX export from the command line | Playwright + Chrome/Chromium (the toolbar button needs nothing) |
@@ -423,7 +443,7 @@ See [adding an independent style package](skills/white-blue-slides/references/ad
 | Offline presentation from an existing PDF | Python + Poppler (`pdfinfo`, `pdftocairo`) |
 | Optional overview contact sheet | Sharp |
 
-ECharts 5.6.0 is bundled; no separate installation or CDN is needed. Image generation depends on the agent environment and is not installed with the skills. If automated inspection is unavailable, inspect each slide in an available browser and state the scope of validation.
+ECharts 5.6.0 is bundled; no separate installation or CDN is needed. Image generation depends on the agent environment and is not installed with the skills; without a built-in tool, the user can configure their own image API (see above) or supply images manually. If automated inspection is unavailable, inspect each slide in an available browser and state the scope of validation.
 
 After changing scripts or assets, run:
 
@@ -431,7 +451,7 @@ After changing scripts or assets, run:
 python3 skills/white-blue-slides/scripts/selftest.py
 ```
 
-The self-test covers shared components, both modes, style isolation, dynamic style discovery, chart inputs, and recovery from missing images. After theme or layout changes, also build with real illustrations and inspect every slide; self-tests do not replace visual review.
+The self-test covers shared components, both modes, style isolation, dynamic style discovery, chart inputs, recovery from missing images, and the image API script (offline fake transport, no network). After theme or layout changes, also build with real illustrations and inspect every slide; self-tests do not replace visual review.
 
 ## License and assets
 

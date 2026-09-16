@@ -2,7 +2,7 @@
 name: white-blue-slides
 description: 在用户选择素白蓝调风格或续做该风格项目时，根据PPT大纲制作可编辑、可离线单文件HTML演示稿，采用暖白纸底、明亮主蓝与白色哑光模型配图。与其他风格共用制作、排版与检查套件；未选择风格的通用请求先经 ppt-workbench 确认。明确要求PPTX时不能以HTML替代。
 metadata:
-  version: "3.3.0"
+  version: "3.4.0"
 ---
 
 # 场景化 HTML 演示稿
@@ -18,7 +18,8 @@ metadata:
 ## 运行路径
 
 - **当前环境有可直接调用的内置生图工具**（例如 Codex 的 image_gen）：逐页生成场景图，保存到项目内，再完成 HTML。按当前工具文档调用，不固定工具命名、模型或 API；不索要 API Key，不静默改走付费 CLI。
-- **没有内置生图工具**（Claude Code 等）：先交付逐页、可直接复制的完整生图提示词和文件名清单，请用户生成并回传图片，再继续排版。精确说明缺哪些图，先完成不依赖图片的内容与版式规划。
+- **没有内置生图工具但用户愿意配置生图 API**（Claude Code 等）：按 [通过生图 API 自动生成配图](references/image-api.md) 引导。先问一次是否使用自己的 API；同意后把 `generate_images.py --setup` 命令交给用户在自己的终端执行（密钥不回显、不经过对话），再 `--check` 验证、`--dry-run` 预演、`--pages` 试生成一页，合格后生成其余缺图并逐张查看。
+- **没有内置生图工具且不用 API**：先交付逐页、可直接复制的完整生图提示词和文件名清单，请用户生成并回传图片，再继续排版。精确说明缺哪些图，先完成不依赖图片的内容与版式规划。
 - 用户已给图时先检查并复用，不为满足流程而重生成。以实际能力为依据，不声称调用了不可用的工具。
 
 最终交付物是 **一个 `.html` 文件**。提示词、图片清单、`deck.json`、截图和 QA 报告都是过程文件；不把缺图草稿交付为成品。
@@ -48,7 +49,7 @@ metadata:
 1. **理解大纲并规划每页。** 保留主线、必要信息和明确页数，一般每页一个结论。演讲型可将讲解细节放讲稿；阅读型把独立理解所需的机制、比较、来源与边界保留在页面上，通过流程、矩阵、分层和职责对应增加可视化信息。不固定套用某个页数，不把参考图里的业务内容当成通用事实。关键事实保留来源或待核验状态，不编造政策、业绩、联系人或产品截图。
 2. **选择版式和设计元素。** 根据关系选择场景、左右说明、三段控制、横向比较/阶段、架构、关系链、公式、表格或收束。独立说明用图标标题与横线；并列能力、比较项、实施阶段用浅底信息块；实体用标签，状态用状态标签。整稿有节奏，不按奇偶页或卡片比例机械轮换。
 3. **建立 `deck.json` 并先检设计。** 阅读 [数据结构与构建方法](references/deck-format.md)。每页 `visual` 写明角色、分组处理、理由；把大纲明确的"每格一个图标""四个状态""深浅两组阶段"等逐条转成 `requirements`，不可漏读视觉段落。原始大纲与事实说明保留在 `notes`。运行 `--check-plan`：它同时核对设计决策和每页结构（项数、字段类型、坐标范围），不需要图片；缺项先补齐再生图，脚本不代替大纲理解。
-4. **准备场景图。** 阅读 [配图与人工供图流程](references/image-workflow.md)，为需要配图的页面写**本页独有**的 `image.brief`：对象清单带数量、人物动作、表达关系的物理机制、层级与细节、构图。目标是剖开的建筑比例模型那种密度（参考图里的四层楼、盖布的五个站台、共用底座的通道），不是空平台上站三个人。`prepare_images.py` 会拒绝模板句和跨页复制的简报。有内置生图则直接生成；否则导出完整提示词给用户。收到图片后逐张查看，核对映射、层级、留白与乱码。
+4. **准备场景图。** 阅读 [配图与人工供图流程](references/image-workflow.md)，为需要配图的页面写**本页独有**的 `image.brief`：对象清单带数量、人物动作、表达关系的物理机制、层级与细节、构图。目标是剖开的建筑比例模型那种密度（参考图里的四层楼、盖布的五个站台、共用底座的通道），不是空平台上站三个人。`prepare_images.py` 会拒绝模板句和跨页复制的简报。有内置生图则直接生成；否则导出完整提示词，由用户配置的生图 API 自动生成或由用户人工供图。收到图片后逐张查看，核对映射、层级、留白与乱码。
 5. **构建并迭代。** 优先用现有 12 种版式及阅读型复合版式；用随附构建器生成单文件 HTML（默认把配图转成 WebP 内嵌，需要 Pillow）。按实际渲染调整图文尺寸、间距、标注和密度：`custom_css` 只调内容区，一稿最多新增一两种 `--builder` 版式，且只能拼装 `heading / point / icon / image / bottom` 共享组件，不能覆盖内置版式或组件、不写 `!important`、不以过小字号堆叠图表。演讲型场景可占主要面积；阅读型按主体版面分区选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图；主体版面不含页头页脚及全宽摘要。先确定配图分区，再用图表、图标、矩阵和文字组织其余内容。有可靠数量数据时可使用 ECharts；不得缩小字号、重复插图或补造指标，放不下则拆页。审查器以 `reading-composition-mismatch` 检查分区比例与位置，并检查配图相对图区是否过小。常规排版自行修复，不把内部验收转交用户。
 6. **逐页验证后交付。** 阅读 [验收标准](references/quality-check.md)。分别确认功能、设计契约与逐页视觉：计划的图标/底板/标签在 DOM 中真实可见，场景或信息图承担足够内容、背景融合、标注准确；阅读型还要检查无口头补充时是否能理解。总览截图与"全部通过"一句话不能代替逐页对照。修复后才交付独立 HTML。
 
@@ -66,6 +67,14 @@ python3 <skill>/scripts/build_deck.py <project>/deck.json --check-plan --out <pr
 
 # 只导出提示词和供图清单，不调用模型或网络
 python3 <skill>/scripts/prepare_images.py <project>/deck.json --out <project>/image-handoff
+
+# 无内置生图工具时，用户在自己的终端配置生图 API（密钥不回显；已有 OPENAI_API_KEY / GEMINI_API_KEY 时加 --no-key）
+python3 <skill>/scripts/generate_images.py --setup --provider openai --url https://api.openai.com/v1 --model gpt-image-1
+# 验证配置（免费）→ 预演（不需密钥）→ 先生成一页 → 生成其余缺图；结果写回 image-manifest.json
+python3 <skill>/scripts/generate_images.py --check
+python3 <skill>/scripts/generate_images.py <project>/deck.json --dry-run
+python3 <skill>/scripts/generate_images.py <project>/deck.json --pages 2
+python3 <skill>/scripts/generate_images.py <project>/deck.json
 
 # 收到图片后先把背景贴平到纸色（消除图框四边的淡矩形；原图备份到 images/original/）
 python3 <skill>/scripts/match_paper.py <project>/images/*.png
@@ -92,7 +101,7 @@ python3 <skill>/scripts/pdf_to_slides.py <project>/演示稿.pdf --out <project>
 python3 <skill>/scripts/selftest.py
 ```
 
-构建器只依赖 Python 标准库，Pillow 仅用于可选的图片压缩，底色校准另需 numpy；内嵌 CSS、JS、Logo、图标和图片，不联网。审查器需要本地 Playwright，PDF 导出（导出时一并核对页数与尺寸）另需 pdf-lib，联系表可选 Sharp；用环境已有的 Python/Node，不假定安装路径。不能运行审查器时用可用浏览器逐页检查并说明范围，不伪称自动验证通过。
+构建器与 API 生图脚本只依赖 Python 标准库，Pillow 仅用于可选的图片压缩和生成结果按比例补边，底色校准另需 numpy；内嵌 CSS、JS、Logo、图标和图片，不联网。审查器需要本地 Playwright，PDF 导出（导出时一并核对页数与尺寸）另需 pdf-lib，联系表可选 Sharp；用环境已有的 Python/Node，不假定安装路径。不能运行审查器时用可用浏览器逐页检查并说明范围，不伪称自动验证通过。
 
 画布保持 1920 × 1080。全屏按实际可用区域完整等比适配；编辑模式为工具栏留出空间。PDF 使用 PowerPoint 宽屏纸张 960 × 540 pt（13⅓ × 7.5 英寸），所有页保持与单页观看相同的纵向布局。播放器“导出 PDF / 打印”打开浏览器打印窗口；需要稳定纸张尺寸与单页适配偏好时用 `export_pdf.cjs`。阅读器可能忽略 PDF 观看偏好，此时选择“适合页面”；非 16:9 屏幕保留边带。旧 HTML 内嵌旧播放器，不会随 Skill 更新自动变化；从源项目重建，浏览器编辑过的旧稿须先保留另存副本，避免覆盖修改。
 

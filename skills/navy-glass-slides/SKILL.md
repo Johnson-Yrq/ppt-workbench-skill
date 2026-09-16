@@ -27,7 +27,7 @@ metadata:
 1. **按已确认用途拆页。** 保留主线、必要事实、明确页数与交付格式；通常一页一个结论。演讲型可将讲解细节放 `notes`；阅读型把理解结论所需的流程、比较、来源、条件和边界放在页面上，`notes` 只作补充；不制造业绩、联系人或产品截图。大纲已含尾页或限制页数时不额外加页，否则可补有配图的简洁收束页。
 2. **选择共享版式。** 按关系选择 `cover / scene / split / triad / journey / architecture / flow / domains / formula / table / relations / closing / reading`。普通说明使用图标标题与留白；同层级条目保持相同缩进、正文大小与间距，需要轻量强调时按设计系统设置 `emphasis`，标题与图标可略微放大，不因强调单独增加卡片；真实分组可用浅底面板；字段或状态用标签。按内容形成节奏，不能把每页变成同一块深蓝仪表盘加三台电脑。
 3. **建立并检查计划。** 使用共享数据结构，写明每页 `visual` 的角色、分组处理与理由。大纲明确的项数、图标、状态、深浅分组、架构层级等逐条进入 `requirements`。运行 `--check-plan`，先修复结构或缺项，再生图。分组标题默认选语义相关的共享 SVG 图标；不适用时填具体的 `icon_omit_reason`，不为凑数添加。
-4. **按需要准备配图。** 阅读 [配图流程](references/image-workflow.md)，对需要配图的页面，按本页对象、用户操作或系统处理、业务关系、层次细节与构图写 `image.brief`。有可直接调用的内置生图工具就生成并查看；用户已给图先看后复用。没有内置工具时导出完整提示词与文件名清单，继续完成独立的文字和版式工作，准确列出尚缺图片。
+4. **按需要准备配图。** 阅读 [配图流程](references/image-workflow.md)，对需要配图的页面，按本页对象、用户操作或系统处理、业务关系、层次细节与构图写 `image.brief`。有可直接调用的内置生图工具就生成并查看；用户已给图先看后复用。没有内置工具时导出完整提示词与文件名清单，询问用户是否用自己的生图 API 按共享 [image-api](../white-blue-slides/references/image-api.md) 自动生成，否则人工供图；继续完成独立的文字和版式工作，准确列出尚缺图片。
 5. **构建与排版。** 调用共享构建器，自动加载本目录主题与配图基底。页面标题、正文、流程、矩阵、架构标注和真实指标始终可编辑。阅读型按主体版面分区选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图；主体版面不含页头页脚及全宽摘要。先确定配图分区，再用图表、图标、矩阵和文字组织其余内容。有可靠数量数据时可使用 ECharts；不得缩小字号、重复插图或补造指标，放不下则拆页。需要展示的场景主体完整，按实际可见本体调整 `zoom` 与偏移；架构文字直接对齐模块，不能用面板遮错。`custom_css` 只微调内容区，确需新关系时按共享契约新增一两种版式，不覆盖公共组件。
 6. **验证并交付。** 按 [质量检查](references/quality-check.md) 完成自动检查及逐页视觉检查，修复图文对应、层次、溢出、缺图和离线功能问题。最终必需交付是独立 `.html`；提示词、JSON、截图、QA 报告是过程文件。用户明确要求的其他导出仍须完成，不能拿 HTML 替代 PPTX。
 
@@ -42,6 +42,8 @@ metadata:
 ```sh
 python3 <shared>/scripts/build_deck.py <project>/deck.json --check-plan --out <project>/design-plan.json
 python3 <shared>/scripts/prepare_images.py <project>/deck.json --out <project>/image-handoff
+# 无内置生图工具且用户同意使用自己的 API：用户在终端 --setup 后，--check → --dry-run → --pages 试一页 → 生成其余缺图
+python3 <shared>/scripts/generate_images.py <project>/deck.json --dry-run
 python3 <shared>/scripts/build_deck.py <project>/deck.json --out <project>/演示稿.html
 node <shared>/scripts/audit_deck.cjs <project>/演示稿.html --out <project>/qa --browser chrome
 ```

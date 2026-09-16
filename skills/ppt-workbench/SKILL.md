@@ -30,6 +30,8 @@ python3 <shared>/scripts/style_packs.py --list
 
 两种类型的规则见 [用途与信息密度](../white-blue-slides/references/presentation-modes.md)：演讲型围绕结论和少量支撑展开；阅读型把机制、依据与边界留在页面，用图表、流程、矩阵、图标和文字增加信息。阅读型按主体版面（不含页头页脚及全宽摘要）选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图。配图保持作用和面积，图表有可靠数据才采用 [离线 ECharts](../white-blue-slides/references/charts.md)。
 
+配图取图方式与风格无关：有内置生图工具直接生成；没有时先问用户是否用自己的生图 API（按共享 [image-api](../white-blue-slides/references/image-api.md) 由用户在终端配置，密钥不经过对话），否则人工供图。
+
 最终按用户要求交付并完成对应验证。本套件的构建器生成单文件 HTML；如明确要求 PPTX，保留风格和类型选择，转入能生成 PPTX 的可用制作流程，不将 HTML 当作替代交付物。
 
 ## 持续新增风格

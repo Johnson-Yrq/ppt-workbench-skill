@@ -33,10 +33,12 @@ metadata:
 ```sh
 python3 <shared>/scripts/build_deck.py <project>/deck.json --check-plan --out <project>/design-plan.json
 python3 <shared>/scripts/prepare_images.py <project>/deck.json --out <project>/image-handoff
+# 无内置生图工具且用户同意使用自己的 API：用户在终端 --setup 后，--check → --dry-run → --pages 试一页 → 生成其余缺图
+python3 <shared>/scripts/generate_images.py <project>/deck.json --dry-run
 python3 <shared>/scripts/build_deck.py <project>/deck.json --out <project>/演示稿.html
 node <shared>/scripts/audit_deck.cjs <project>/演示稿.html --out <project>/qa --browser chrome
 ```
 
 CSS、脚本、图表、图标、Logo 与配图全部内嵌。构建用 Python 标准库，Pillow 可压缩配图；审查器需要 Node、Playwright 与浏览器。使用环境已有运行时。没有审查器时用允许的浏览器逐页验证并说明范围，`--draft` 仅供缺图预排，不是成品。
 
-已有素材先查看后复用。有内置生图工具时直接生成和检查；不可用时导出完整供图清单，继续独立的文字与布局工作，如实列出尚缺素材，不静默改走付费 API。修改本包或共享脚本后运行 `<shared>/scripts/selftest.py` 并用真实配图验证。未来增加方向按 [新增独立风格包](../white-blue-slides/references/adding-styles.md) 创建同级包。
+已有素材先查看后复用。有内置生图工具时直接生成和检查；不可用时导出完整供图清单，询问用户是否用自己的生图 API 按共享 [image-api](../white-blue-slides/references/image-api.md) 自动生成，否则人工供图；继续独立的文字与布局工作，如实列出尚缺素材，不静默改走付费 API。修改本包或共享脚本后运行 `<shared>/scripts/selftest.py` 并用真实配图验证。未来增加方向按 [新增独立风格包](../white-blue-slides/references/adding-styles.md) 创建同级包。

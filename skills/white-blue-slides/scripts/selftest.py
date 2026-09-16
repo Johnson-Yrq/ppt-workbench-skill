@@ -282,6 +282,8 @@ def run():
     check('independent style regressions', run_style_tests() == 0)
     from test_refinements import run as run_refinement_tests
     check('reading layout refinements', run_refinement_tests() == 0)
+    from test_generate_images import run as run_generator_tests
+    check('image API generator (offline fake transport)', run_generator_tests() == 0)
     print(f'\n{"FAILED" if FAILURES else "OK"}: {len(FAILURES)} failure(s)')
     return 1 if FAILURES else 0
 
