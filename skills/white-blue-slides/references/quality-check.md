@@ -1,6 +1,6 @@
 # 质量检查
 
-先按已确认的[演讲型或阅读型用途](presentation-modes.md)决定信息密度。下文关于大场景主导、少量说明的常规版式要求适用于演讲型；阅读型按主体版面分区选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图；主体版面不含页头页脚及全宽摘要。先确定配图分区，再用图表、图标、矩阵和文字组织其余内容。有可靠数量数据时可使用 ECharts；不得缩小字号、重复插图或补造指标，放不下则拆页。阅读型内容不可仅放在讲稿中，也不可通过整体缩小来增加密度。
+先按已确认的[演讲型或阅读型用途](presentation-modes.md)决定信息密度。下文关于大场景主导、少量说明的要求适用于演讲型；阅读型的四类图文分区、容量与对齐规则见该文，放不下就拆页，不缩小字号或把必需内容放进讲稿。
 
 程序不能判断场景含义和美感。先看总览节奏，再实际查看每页；架构、长标题、高密度列表和尾页放大检查。仅 DOM 没溢出不足以完成。
 
@@ -29,33 +29,28 @@
 - 总览与打印中，非当前页的页头、主体、页脚布局与逐页观看一致，不能因缺少 active 状态而挤成横向排布。
 - 用户要 PDF 时才导出并检查：一页一张 16:9，每页 960 × 540 pt，无额外空白页；导出后文字可提取、图表和底色完整。制作过程中不预先验证 PDF。
 - 区分 HTML 播放器与 Chrome PDF 阅读器的全屏。PDF 打开偏好不能保证阅读器隐藏相邻页；若使用 `pdf_to_slides.py` 演示副本，逐页核对 SVG 转换的字体轮廓、图片、透明度及页数，并在实际全屏和不同屏幕比例下检查无相邻页露出、内容不裁切、翻页和退出正常。
-- 导出 PPTX 得到可打开的文件（审查器 `pptxExport`）；交付 PPTX 时在 PowerPoint 中逐页对照 HTML：文本框不多折行、面板与横线位置一致、图片裁切正确、图表类别顺序与数值一致、备注含讲稿。
+- PDF 全屏露出下一页白条等阅读器问题，按 [导出](export.md#pdf-阅读器全屏白条) 排查。
+- 交付 PPTX 时在 PowerPoint 中逐页对照 HTML：文本框不多折行、面板与横线位置一致、图片裁切正确、图表类别顺序与数值一致、备注含讲稿。
 - 没有缺图占位、草稿标识、空联系人、假二维码或未完成文本。
 
 ## 检查器
 
-先运行 `build_deck.py --check-plan`：检查每页设计理由、图标选择、明确视觉要求和架构标注，并对每页做一次不落盘的结构干跑（项数范围、字段类型、坐标是否在画板内、Logo 是否存在），报告里以“结构：”开头；表格页另按列宽与折行估算高度，明显放不下即报错，阅读页按 composition 核对模块数量。它不需要图片，不根据 HTML 倒推预期。
+先运行 `build_deck.py --check-plan`：检查每页设计理由、图标选择、明确视觉要求、架构标注与阅读页模块数量，并对每页做一次不落盘的结构干跑（项数范围、字段类型、坐标是否在画板内、Logo 是否存在），报告里以“结构：”开头；封面字数超限是警告。它不需要图片。
 
-`audit_deck.cjs` 使用独立本地无头浏览器，不读取用户浏览器会话；`brandOK` 按主题变量逐页核对纸底、标题层级、章节标签底、页码、页脚（deck 给了 Logo 时一并核对其可见）与封面左文右图，`warnings` 里的 `image-area-small` 与 `cover-without-labels` 不阻断但要处理或说明；没有 Playwright 自带的 Chromium 时加 `--browser chrome` 用本机 Chrome，默认不做打印验证；PDF 的页数与纸张尺寸在真正导出时由 `export_pdf.cjs` 核对，需要在审查阶段一并检查打印结构时加 `--pdf`。输出逐页截图、可选联系表和报告；功能检查下载的 `save-test.html`、`export-test.pptx` 等临时文件在检查完成后自动删除（`--keep-artifacts` 保留以便排查）。逐页看完截图并填好复核记录后，最后一次审查加 `--clean`，会删除截图、联系表和复核模板，只留下 `report.json` 与复核记录；报告的 `cleaned` 列出已删文件。`technicalOK` 检查文字越界/重叠、缺图、外部依赖与功能；`designContractOK` 独立核对计划与实际可见的 SVG、底板、标签、状态、架构标注、步骤与关系，并以 `image-area-too-small` 检查上图下文的图框高度、占比、配图填充与说明行高。隐藏图标、透明底板、缺失契约或遗漏明确文本均返回非零。`ok` 保持原兼容含义，等同于 `automatedOK`，仅表示自动检查通过；仍需实际视觉审阅，不能声称审美与图文对位已由程序验证。 阅读型页面另核对 `reading-composition-mismatch`（分区比例与位置）、`reading-image-underfilled`（配图相对图区过小）、`reading-block-overflow`（模块内容超出分区高度）、`reading-heading-not-top`（模块标题贴分区上沿）与 `reading-region-not-centered`（标题下内容、配图与说明在分区内上下留白相等），以及 `chart-label-clipped`（图表标签出界）。
+`audit_deck.cjs` 用独立本地无头浏览器渲染成稿（没有 Playwright 自带的 Chromium 时加 `--browser chrome`），输出逐页截图、可选联系表和 `report.json`。它只检查内容：文字越界、重叠、溢出、碰页脚、阅读页字号过小，缺图，外部依赖与草稿标识，架构标注底板，上图下文图框面积（`image-area-too-small`），图表未渲染或标签出界；阅读型另查 `reading-image-underfilled`、`reading-block-overflow`、`reading-heading-not-top` 与 `reading-region-not-centered`（标题下内容在分区内上下留白相等）。`warnings` 不阻断但要处理或说明。`ok` 只表示自动检查通过，审美与图文对位仍须看截图判断。品牌形态由构建器把关：`custom_css` 触碰页头、页脚、封面、尾页会被拒绝。
 
 架构图文叠放正常，检查器不把所有图文相交都判错。图中对象遮挡、语义和对位必须实际看图。首次失败先辨别依赖、权限或真实布局错误，不反复跑同一失败命令；改用当前环境允许的等价验证。部分检查就如实说范围，不称全部通过。
 
-修改过 Skill 自身的脚本或资源后，先跑 `python3 <skill>/scripts/selftest.py`（不需要浏览器），再用一份真实项目跑一遍审查器。播放器修改还须比较总览、全屏、全屏编辑与打印后的结构；审查器以 `overviewLayout / fullscreenFit / fullscreenEditFit` 记录结果，加 `--pdf` 时另记录 `printLayout / printSize / printReturnLayout`。PDF 页数、尺寸与单页适配观看偏好由 `export_pdf.cjs`（需要 pdf-lib）在导出时核对。
-
-最终链接成稿 HTML；可附预览。中间图片、JSON 和报告不是用户必须携带的依赖。
-
-## 复核记录
-
-审查器输出 `visual-review.template.json`。逐页查看截图（导出了 PDF 时再看实际 PDF 页面）后，复制为 `visual-review.json` 并填写每页 `checks`：背景 `background`、信息层次 `hierarchy`、整体占幅 `composition`、图文对应 `alignment`；生成 PDF 时还包含 `pdf`。值为 `passed / needs_changes / pending`，`pdf` 项只在带 `--pdf` 审查时出现，`observation` 写该页具体观察或修正，不能批量把未看过的页面标为通过。模板不代表复核结果。
+修改过 Skill 自身的脚本或资源后，先跑 `python3 <skill>/scripts/selftest.py`（不需要浏览器），再用一份真实项目跑一遍审查器。改动播放器、导出器、图表、模板或主题 CSS 时，另用任一成稿跑播放器回归测试；它检查翻页、总览、讲稿、编辑、图表数据编辑、另存后重开、PPTX 导出、手机与全屏适配，加 `--pdf` 再查打印结构与 PDF 页数尺寸：
 
 ```sh
-node <shared>/scripts/audit_deck.cjs <project>/演示稿.html --out <project>/qa --browser chrome --visual-review <project>/qa/visual-review.json
+node <shared>/scripts/test_player.cjs <project>/演示稿.html --browser chrome [--pdf]
 ```
 
-`automatedOK` 表示程序检查，`visualReview.status` 表示记录状态，`readyForDelivery` 需要两者通过。无复核记录时保持 pending，普通自动检查命令仍返回原有退出码；显式传入未完成、失效或缺页的复核记录则返回非零。记录绑定当前 HTML 的 SHA-256，改稿后需重新审阅受影响页面、核对其他页面未受影响，再更新指纹及观察。记录只能证明制作方填写了观察，不证明程序理解了美感。
+最终链接成稿 HTML；可附预览。中间图片、JSON 和报告不是用户必须携带的依赖。
 
 对控制区核对长标签断行、校验与异常的层次；对架构核对编号／模块／治理／流向的差异和真实位置；对阶段页核对场景本体与整页占幅。`control-label-wrapped`、`journey-caption-narrow` 是需要处理或解释的提示，不是固定审美阈值。
 
 维护版式时至少复用这三类代表案例，并补一个不同阶段数的阶段页；测试字号、可编辑内容、错误输入和导出，不把特定页码、四阶段或固定行高固化为通用规则。
 
-新增组件可用 `node <shared>/scripts/test_visual_review.cjs` 验证复核状态；用 `node <shared>/scripts/test_browser_refinements.cjs 验证稿.html` 检查真实浏览器中的共享行高、窄／宽栏切换、可编辑字段和 PPTX 使用的纸色映射。验证稿包含启用 align_control_rows 的并排 flow、含 prefix/detail 的 architecture，以及含 period/fields 的 journey；旧白底兼容路径测试使用已确认纯白底的现有素材。
+新增组件可用 `node <shared>/scripts/test_browser_refinements.cjs 验证稿.html` 检查真实浏览器中的共享行高、窄／宽栏切换、可编辑字段和 PPTX 使用的纸色映射。验证稿包含启用 align_control_rows 的并排 flow、含 prefix/detail 的 architecture，以及含 period/fields 的 journey；旧白底兼容路径测试使用已确认纯白底的现有素材。

@@ -1,6 +1,6 @@
 # 海蓝玻璃配图
 
-先确认 `presentation_mode`。阅读型按主体版面分区选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图；主体版面不含页头页脚及全宽摘要。先确定配图分区，再用图表、图标、矩阵和文字组织其余内容。有可靠数量数据时可使用 ECharts；不得缩小字号、重复插图或补造指标，放不下则拆页。流程、矩阵、详细标签和真实数据仍用可编辑组件组织。单图用 `image`，`reading` 版式的多图用 `images`（1–3 张），两者互斥。每张图都有独立的 src、alt 与缺图时的 brief；导出清单通过 page、slide_id、image_index 和文件名对应，可分批补齐。已有图继续使用，不重复生图。
+先确认 `presentation_mode`；阅读型先按[四类图文分区](../../white-blue-slides/references/presentation-modes.md#阅读型的四类图文分区)定好配图位置，再写简报。流程、矩阵、详细标签和真实数据仍用可编辑组件组织。单图用 `image`，`reading` 版式的多图用 `images`（1–3 张），两者互斥。每张图都有独立的 src、alt 与缺图时的 brief；导出清单通过 page、slide_id、image_index 和文件名对应，可分批补齐。已有图继续使用，不重复生图。
 
 风格以 `assets/reference-design/approved-product-overview.png` 为已确认样本，`target-style.png` 为补充目标。生成新场景时可附已确认样本作风格参考，并说明只继承材质、尺度、光照与层级。不要复制参考图中的品牌、金额或业务对象。
 

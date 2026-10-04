@@ -7,15 +7,13 @@ import copy
 import io
 import json
 import shutil
-import struct
 import sys
 import tempfile
-import zlib
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from common import ASSETS, image_size, load_deck, pillow, read_raster  # noqa: E402
+from common import ASSETS, image_size, load_deck, pillow, placeholder_png, read_raster  # noqa: E402
 from build_deck import Builder, check_plan  # noqa: E402
 from design_contract import analyze_deck  # noqa: E402
 from prepare_images import prepare  # noqa: E402
@@ -27,14 +25,6 @@ def check(name, condition, detail=''):
     print(('PASS ' if condition else 'FAIL ') + name + (f'  {detail}' if detail and not condition else ''))
     if not condition:
         FAILURES.append(name)
-
-
-def solid_png(width, height, rgb=(247, 246, 242)):
-    """Minimal valid PNG using only the standard library."""
-    raw = b''.join(b'\x00' + bytes(rgb) * width for _ in range(height))
-    def chunk(kind, data):
-        return struct.pack('>I', len(data)) + kind + data + struct.pack('>I', zlib.crc32(kind + data) & 0xFFFFFFFF)
-    return b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 2, 0, 0, 0)) + chunk(b'IDAT', zlib.compress(raw, 9)) + chunk(b'IEND', b'')
 
 
 def run():
@@ -59,7 +49,6 @@ def run():
         # 3. Malformed field types produce clean errors, never tracebacks or miscounts.
         cases = {
             'string item in list': lambda s: s['left'].__setitem__(0, '纯字符串'),
-            'benefits as string': lambda s: s.__setitem__('benefits', '对象清楚'),
             'visual as string': lambda s: s.__setitem__('visual', 'open'),
             'formula terms as strings': lambda s: s.update(layout='formula', formula={'terms': ['a', 'b']}, visual={'role': 'formula', 'treatment': 'panels', 'rationale': 'x', 'requirements': []}),
         }
@@ -85,17 +74,15 @@ def run():
             case = copy.deepcopy(example); mutate(case['slides'][1])
             check(f'plan rejects: {name}', not analyze_deck(case)['ok'])
 
-        # 4b. Cover copy budget: one line per tier, promise xor description, short benefit words.
+        # 4b. Cover copy budget is advisory: one line per tier, promise xor description, short benefit words.
         for name, mutate, expect in [
             ('two-line promise', lambda s: s.__setitem__('promise', '围绕同一业务对象\n让相关团队共享上下文'), '只写一行'),
             ('promise plus description', lambda s: s.__setitem__('description', '把分散的协作连接成一条可追溯路径。'), '只保留一个'),
-            ('subtitle too long', lambda s: s.__setitem__('subtitle', '从需求、决策到履约，连接任务、责任、证据与每一次交接记录'), '上限 24'),
+            ('subtitle too long', lambda s: s.__setitem__('subtitle', '从需求、决策到履约，连接任务、责任、证据与每一次交接记录'), '不超过 24'),
             ('benefit word too long', lambda s: s.__setitem__('benefits', ['对象清楚', '过程可见', '证据完整可追溯']), '超过 4 字'),
         ]:
             case = copy.deepcopy(example); mutate(case['slides'][0]); r = analyze_deck(case)
-            check(f'cover rule: {name}', not r['ok'] and any(expect in e for e in r['errors']), json.dumps(r['errors'], ensure_ascii=False))
-        drp = copy.deepcopy(example); drp['slides'][0].update(chapter='集团监管数字化底座', title_prefix='DRP 智能化', title='穿透式监管平台', subtitle='面向超大型集团的穿透式监管操作系统', promise='从集团全局，直达业务与凭证', benefits=['看得清', '看得透', '看得全', '管得住', '防得早', '查得清'], platforms=['本体数据建模平台', 'DRP 智能体平台'])
-        check('cover rule: approved DRP cover passes', analyze_deck(drp)['ok'])
+            check(f'cover warning: {name}', r['ok'] and any(expect in w for w in r['warnings']), json.dumps(r['warnings'], ensure_ascii=False))
 
         # 5. Handoff: prompts export with missing images; formal build refuses; draft builds with markers.
         manifest = prepare(deck_path, work / 'handoff')
@@ -112,14 +99,14 @@ def run():
         # 6. Full build with generated images: single logo symbol, embedded payloads, conversion when Pillow exists.
         (work / 'images').mkdir(exist_ok=True)
         for i in (1, 2, 3):
-            (work / 'images' / f'{i:02d}.png').write_bytes(solid_png(64, 48))
+            (work / 'images' / f'{i:02d}.png').write_bytes(placeholder_png(64, 48))
         manifest = prepare(deck_path, work / 'handoff2')
         check('prepare_images marks provided images', all(i['status'] == 'provided' for i in manifest['images']))
         data, root = load_deck(deck_path)
         builder = Builder(data, root)
         html = builder.render()
         check('no logo and no company name without a deck-level brand', html.count('id="brand-logo"') == 0 and html.count('<use href="#brand-logo"') == 0 and '<div class="brand"><span data-edit>' in html)
-        (work / 'logo.png').write_bytes(solid_png(324, 215, (59, 123, 200)))
+        (work / 'logo.png').write_bytes(placeholder_png(324, 215, (59, 123, 200)))
         branded = Builder({**data, 'logo': 'logo.png', 'company': '示例公司'}, root).render()
         check('deck-level logo gives one symbol, one use per slide and the company name', branded.count('id="brand-logo"') == 1 and branded.count('<use href="#brand-logo"') == 3 and '示例公司' in branded)
         cover_html = html.split('</section>')[0]
@@ -133,15 +120,21 @@ def run():
         kept = Builder(data, root, embed_format='keep').render()
         check('--embed-format keep preserves png', 'data:image/png' in kept and 'data:image/webp' not in kept)
 
-        # 6b. PPTX export: the exporter and its toolbar button ship inside every build; the CLI injects the same file for older decks.
-        template = (ASSETS / 'template.html').read_text(encoding='utf-8')
-        exporter = (ASSETS / 'pptx-export.js').read_text(encoding='utf-8')
-        check('template has the PPTX button', 'id="pptx"' in template and "$('#pptx')" in (ASSETS / 'player.js').read_text(encoding='utf-8'))
-        check('build embeds the PPTX exporter before the player', html.index('window.deckPptx=') < html.index('window.deckAPI=') and '</script' not in exporter.lower())
-        cli = (HERE / 'export_pptx.cjs').read_text(encoding='utf-8')
-        check('export_pptx.cjs injects assets/pptx-export.js when a deck lacks it', "'pptx-export.js'" in cli and 'window.deckPptx' in cli)
-        audit_src = (HERE / 'audit_deck.cjs').read_text(encoding='utf-8')
-        check('audit removes function-check downloads and documents --clean', all(k in audit_src for k in ('--clean', '--keep-artifacts', 'save-test.html', 'export-test.pptx')) and '--clean' in (HERE.parent / 'references' / 'quality-check.md').read_text(encoding='utf-8'))
+        # 6a. Header styles: root default, per-slide override, cover/closing keep their own frame.
+        headed = Builder({**data, 'header': 'band'}, root).render().split('</section>')
+        check('root header applies to content pages only', 'head-band' in headed[1] and 'head-' not in headed[0].split('>')[0] and 'head-' not in headed[2].split('>')[0])
+        case = copy.deepcopy(example); case['header'] = 'band'; case['slides'][1]['header'] = 'ghost'
+        d2, r2 = load_deck(_write(work, 'header.json', case))
+        check('slide header overrides the root', 'head-ghost' in Builder(d2, r2).render())
+        for name, mutate in {'unknown header': lambda c: c.__setitem__('header', 'fancy'), 'header on cover': lambda c: c['slides'][0].__setitem__('header', 'band')}.items():
+            case = copy.deepcopy(example); mutate(case)
+            try:
+                load_deck(_write(work, 'header-bad.json', case)); check(f'rejects {name}', False, 'no error')
+            except ValueError as e:
+                check(f'rejects {name}', 'header' in str(e), str(e))
+
+        # 6b. PPTX export: the exporter ships inside every build, before the player.
+        check('build embeds the PPTX exporter before the player', html.index('window.deckPptx=') < html.index('window.deckAPI='))
         node = shutil.which('node')
         if node:
             import subprocess
@@ -214,7 +207,7 @@ def run():
             print('SKIP match_paper (numpy not installed)')
 
         # 10. Header parsing for logo dimensions.
-        check('png size parsed', image_size('image/png', solid_png(64, 48)) == (64, 48))
+        check('png size parsed', image_size('image/png', placeholder_png(64, 48)) == (64, 48))
         Image = pillow()
         if Image:
             im = Image.new('RGB', (37, 21), (200, 200, 200))
@@ -224,37 +217,8 @@ def run():
             buf = io.BytesIO(); im.save(buf, 'WEBP', lossless=True)
             check('webp lossless size parsed', image_size('image/webp', buf.getvalue()) == (37, 21))
 
-        # 11. Layout constraints: contract keys, CSS geometry and audit issue names stay in sync; capacity rules hold.
-        import re as _re
-        from design_contract import IMAGE_BALANCE, READING_IMAGE, TABLE_GEOMETRY, content_height
-        audit_js = (HERE / 'audit_deck.cjs').read_text(encoding='utf-8')
-        quality_doc = (HERE.parent / 'references' / 'quality-check.md').read_text(encoding='utf-8')
-        theme_css = (ASSETS / 'theme.css').read_text(encoding='utf-8')
-        reading_css = (ASSETS / 'reading.css').read_text(encoding='utf-8')
-        check('audit reads every IMAGE_BALANCE key', all(f'target.{k}' in audit_js for k in IMAGE_BALANCE) and 'min_width_ratio' not in audit_js)
-        check('audit reads the reading fill threshold from the contract', 'illustration_fill' in audit_js and all(k in audit_js for k in READING_IMAGE))
-        table_rule = _re.search(r'\.table-layout\{[^}]*\}', theme_css).group(0)
-        speech_col = _re.search(r'minmax\(0,1fr\) (\d+)px', table_rule)
-        reading_col = _re.search(r'reading"\] \.table-layout\{grid-template-columns:minmax\(0,1fr\) (\d+)px', reading_css)
-        check('table geometry mirrors theme.css and reading.css', bool(speech_col and reading_col) and int(speech_col.group(1)) == TABLE_GEOMETRY['speech']['image_column'] and int(reading_col.group(1)) == TABLE_GEOMETRY['reading']['image_column'])
-        check('table overflow cannot spill above the header', 'align-items:safe center' in table_rule)
-        for name in ('image-area-too-small', 'reading-composition-mismatch', 'reading-image-underfilled', 'reading-block-overflow', 'reading-heading-not-top', 'reading-region-not-centered', 'chart-label-clipped'):
-            check(f'audit issue implemented and documented: {name}', name in audit_js and name in quality_doc)
-        check('content height follows the header block', content_height({'title': '指标与口径', 'subtitle': '一行副标题'}) == 775 and content_height({'title': '指标与口径', 'subtitle': '一行副标题', 'chapter': '章节'}) == 742)
-        wide = ['指标名称', '统计口径说明', '数据来源系统', '更新频率', '责任部门']
-        dense = [[f'指标{i}名称', '按业务对象逐条汇总统计', '业务系统与凭证库', '每日凌晨更新', '运营管理部'] for i in range(10)]
-        def table_slide(columns, rows):
-            return {'id': 'tbl', 'layout': 'table', 'title': '指标与口径', 'subtitle': '一行副标题', 'columns': columns, 'rows': rows,
-                    'image': {'src': 'images/t.png', 'alt': '表格页示意'}, 'visual': {'role': 'table', 'treatment': 'none', 'rationale': '容量测试', 'requirements': []}}
-        for name, mode, columns, rows, ok in [
-            ('reading 5x10 dense', 'reading', wide, dense, False),
-            ('speech 5x7 dense', 'speech', wide, dense[:7], False),
-            ('reading 2x10 short', 'reading', ['业务', '能力'], [['任务入口', '统一接收']] * 10, True),
-            ('reading 4x8 short', 'reading', wide[:4], [['指标名称', '逐条汇总统计', '业务系统', '每日更新']] * 8, True),
-        ]:
-            deck = {'version': 1, 'title': '表格容量', 'style': 'scene-white', 'presentation_mode': mode, 'slides': [table_slide(columns, rows)]}
-            data, root = load_deck(_write(work, 'table-cap.json', deck)); r = check_plan(data, root)
-            check(f'table capacity: {name}', r['ok'] == ok and (ok or any('表格估算高度' in e for e in r['errors'])), json.dumps(r['errors'], ensure_ascii=False))
+        # 11. Reading composition capacity.
+        from design_contract import READING_IMAGE
         facts = lambda n: {'type': 'facts', 'title': f'边界{n}', 'icon': 'ShieldCheck', 'rows': [{'label': '前提', 'text': '对象已明确'}, {'label': '边界', 'text': '只覆盖已接入系统'}]}
         process = lambda span=1: {'type': 'process', 'title': '流程', 'icon': 'Workflow', 'span': span, 'steps': [{'title': f'步骤{i}', 'text': '核对材料'} for i in range(3)]}
         picture = lambda n: {'src': f'images/r{n}.png', 'alt': f'阅读配图{n}'}

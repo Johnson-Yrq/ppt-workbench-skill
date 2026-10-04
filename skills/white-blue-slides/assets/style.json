@@ -17,9 +17,5 @@
     "architecture": "Display: one complete layered architecture model carries the whole structure; the number of tiers and modules must match the details. Leave clean surfaces on each tier front edge and beside each module for HTML labels added later; no text, label plates or frames inside the image."
   },
   "default_ui_text": "none",
-  "audit": {
-    "max_radius": 8,
-    "page_number_min": 100,
-    "cover_labels_expected": true
-  }
+  "cover_labels_expected": true
 }

@@ -40,6 +40,21 @@ def presentation_mode(deck):
     return mode
 
 
+HEADER_STYLES = ('standard', 'compact', 'rail', 'band', 'aside', 'ghost')
+
+
+def header_style(deck, slide):
+    """Root `header` sets the default for content pages; a slide's own `header` overrides it. Cover and closing keep their own frame."""
+    if slide['layout'] in ('cover', 'closing'):
+        if 'header' in slide:
+            raise ValueError(f'{slide["layout"]} 页使用固定页头，不能设置 header')
+        return 'standard'
+    value = slide.get('header', deck.get('header', 'standard'))
+    if value not in HEADER_STYLES:
+        raise ValueError('header 可选 ' + ' / '.join(HEADER_STYLES))
+    return value
+
+
 def slide_images(slide):
     """Normalize single and multiple illustrations without accepting ignored fields."""
     if 'images' in slide:
@@ -113,6 +128,7 @@ def load_deck(filename, layouts=LAYOUTS):
             if mode != 'reading':
                 raise ValueError('reading 版式需要 presentation_mode: reading；制作前先确认阅读型用途')
             reading_composition(s)
+        header_style(data, s)
         for im in slide_images(s):
             if 'ratio' in im and (not isinstance(im['ratio'], str) or im['ratio'] not in IMAGE_RATIOS):
                 raise ValueError(f'第 {i} 页图片比例可选：' + ' / '.join(sorted(IMAGE_RATIOS)))

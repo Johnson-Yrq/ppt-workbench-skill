@@ -28,7 +28,7 @@
 |---|---|---|
 | 封面、文字、配图与尾页遵循同一套视觉规范。 | 演讲型服务现场讲解，阅读型保留独立理解所需的解释与依据。 | CSS、JS、图片、图标和图表全部内嵌，支持编辑、另存与打印。 |
 
-> **交付格式**：构建器输出独立 `.html` 文件。明确需要 `.pptx` 时，应使用相应的 PowerPoint 制作流程；本套件不提供 HTML 转 PPTX 导出。
+> **交付格式**：构建器输出独立 `.html` 文件。明确需要 `.pptx` 时，用播放器“导出 PPTX”或 `export_pptx.cjs` 从成稿导出可编辑 PowerPoint，并在 PowerPoint 中逐页核对。
 
 ## 视觉风格
 
@@ -219,6 +219,23 @@ Agent 只询问缺少的选择；当前任务已经确认的风格和类型直�
 
 图表库、数据与 SVG 图表均随 HTML 离线工作，无需 CDN。当前模板支持 2–8 个类别、1–3 组有限非负数；环形图仅一组且合计大于零。详细约束、字段与示例见 [图表使用说明](skills/white-blue-slides/references/charts.md)。
 
+### 页头样式
+
+内容页的页头有六种排布，由 Agent 按每页内容自动选择，不额外询问；想统一用某一种时直接说明即可。颜色和质感跟随所选风格，封面与尾页不变。
+
+![六种页头样式](skills/white-blue-slides/assets/header-styles.png)
+
+| `header` | 适合 |
+|---|---|
+| `standard` 标准 | 常规内容页（默认） |
+| `compact` 紧凑 | 阅读型高密度页、表格、架构 |
+| `rail` 侧栏编号 | 分章节推进、议程、分步讲解 |
+| `band` 浅底横幅 | 章节开头、重点结论 |
+| `aside` 标题副标题分栏 | 标题短、副标题较长的页 |
+| `ghost` 水印页码 | 留白多的页、表格页 |
+
+在 `deck.json` 根字段写 `"header": "band"` 作用于整稿，单页写 `header` 可覆盖。
+
 ## 制作流程与配图
 
 **确认风格与类型 → 理解大纲 → 选择版式 → 建立 `deck.json` → 检查计划 → 准备配图 → 构建 → 逐页检查 → 交付**
@@ -307,7 +324,7 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
   --out project/qa --browser chrome
 ```
 
-自动检查覆盖结构、图文分区、可见组件和播放器功能（含 PPTX 导出）；逐页视觉检查还需核对配图主体、图文对应和独立阅读时的完整性。审查器会生成 `visual-review.template.json`，制作方逐页看图后填写复核记录并用 `--visual-review qa/visual-review.json` 回传，报告中的 `readyForDelivery` 需要自动检查与复核记录同时通过；不传记录时退出码与以前相同。
+自动检查覆盖文字越界与重叠、缺图、外部依赖、图文分区和图表渲染；逐页视觉检查还需核对配图主体、图文对应和独立阅读时的完整性。修改播放器、导出器或主题后，用 `test_player.cjs` 对任一成稿跑播放器回归测试（翻页、编辑、另存、PPTX 导出、全屏适配）。
 
 <details>
 <summary><strong>构建选项与 13 种共享版式</strong></summary>
@@ -318,7 +335,6 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
 | `--embed-format keep` | 保留原始图片格式；默认优先转 WebP 内嵌 |
 | `--embed-quality 85` | 设置图片压缩质量 |
 | `--builder` | 加载项目新增版式；复用共享组件 |
-| `audit_deck.cjs … --clean` | 最后一次审查时删除截图、联系表与复核模板，只保留报告与复核记录；功能检查的临时下载文件每次都会自动清理 |
 | `--allow-restyle` | 用户明确要求超出所选主题，自定义封面或页头页脚时使用 |
 
 选择现有命名风格无需 `--allow-restyle`。

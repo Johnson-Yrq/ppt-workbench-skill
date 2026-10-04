@@ -8,7 +8,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
-from common import ASSETS, EMBED_FORMATS, LAYOUTS, convert_image, image_size, load_deck, local_path, number, read_raster, presentation_mode, slide_images, reading_composition
+from common import ASSETS, EMBED_FORMATS, LAYOUTS, header_style, convert_image, image_size, load_deck, local_path, number, read_raster, presentation_mode, slide_images, reading_composition
 from design_contract import analyze_deck, presentation_for, visual_for
 from style_packs import resolve_style, paper_color
 
@@ -485,6 +485,8 @@ class Builder:
         self.current_slide = s
         layout = s['layout']
         extra_cls = ' no-cover-labels' if layout == 'cover' and not s.get('labels') else ''
+        if (head_style := header_style(self.deck, s)) != 'standard':
+            extra_cls += f' head-{head_style}'
         style = ''
         if 'title_size' in s:
             style += f'--title-size:{number(s["title_size"], 46, 36, 110, "title_size")}px;'
@@ -502,7 +504,9 @@ class Builder:
         else:
             head += editable('h1', s['title'], required=True) + subtitle
             main = getattr(self, layout)(s)
-        contract = escape(json.dumps(self.design['pages'][n-1], ensure_ascii=False, separators=(',', ':')), quote=True)
+        # Only what the browser audit measures against: image thresholds and the manual checks to look at.
+        page = self.design['pages'][n-1]
+        contract = escape(json.dumps({k: page[k] for k in ('image_balance', 'illustration_fill', 'manual') if page.get(k)}, ensure_ascii=False, separators=(',', ':')), quote=True)
         return f'<section id="{s["id"]}" class="slide layout-{layout}{extra_cls}' + (' active' if n == 1 else '') + f'" style="{style}" data-design-contract="{contract}" data-speaker-notes="{escape(notes, quote=True)}" aria-label="第 {n} 页" aria-hidden="' + ('false' if n == 1 else 'true') + '"><header><div class="head-copy">' + head + f'</div><div class="page-number">{n:02d}</div></header><main>{main}</main>{self.footer()}</section>'
 
     def structural_errors(self):
@@ -542,8 +546,7 @@ class Builder:
         values = {'TITLE': escape(self.deck['title']), 'CSS': css,
                   'LICENSE': '<!--\n' + (ASSETS / 'lucide-LICENSE.txt').read_text(encoding='utf-8').replace('--', '—') + '\n-->',
                   'BODY_ATTR': (' class="draft"' if self.draft else '') + (' data-restyle="true"' if self.allow_restyle else '')
-                  + ' data-presentation-mode="' + self.mode + '" data-style="' + self.style_pack['id'] + '" data-style-contract="'
-                  + escape(json.dumps(self.style_pack['audit'], separators=(',', ':')), quote=True) + '"',
+                  + ' data-presentation-mode="' + self.mode + '" data-style="' + self.style_pack['id'] + '"',
                   'LOGO_DEFS': self.logo_defs(), 'SLIDES': '\n'.join(slides),
                   'COUNT': str(len(slides)), 'JS': (ASSETS / 'pptx-export.js').read_text(encoding='utf-8') + '\n' + (ASSETS / 'player.js').read_text(encoding='utf-8')}
         if any(im.get('background_mode') == 'white-matte' for s in self.deck['slides'] for im in slide_images(s)):
@@ -606,9 +609,8 @@ def main():
     p.add_argument('--allow-restyle', action='store_true', help='仅当用户明确要求更换品牌或版式风格时使用：允许 custom_css 改动页头页脚封面尾页，并在 HTML 标记 data-restyle')
     args = p.parse_args()
     try:
-        data, root = load_deck(args.deck, layouts=None)
+        data, root = load_deck(args.deck, layouts=None)  # the Builder checks layouts against its own LAYOUTS
         builder_cls = load_builder(root, args.builder) if args.builder else Builder
-        load_deck(args.deck, layouts=builder_cls.LAYOUTS)
         if args.check_plan:
             report = check_plan(data, root, builder_cls, allow_restyle=args.allow_restyle)
             report_text = json.dumps(report, ensure_ascii=False, indent=2) + '\n'

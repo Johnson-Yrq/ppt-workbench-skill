@@ -33,6 +33,30 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .brand i{width:1px;height:24px;background:#B8D0EA}
 .footer-label{text-align:right}
 
+/* ---- header variants (deck/slide `header`; cover and closing keep their own frame) ----
+   compact: one line for dense pages · rail: folio on the left behind a divider
+   band: header on a full-width light band · aside: subtitle beside the title
+   ghost: oversized light folio behind the title.
+   Themes size the folio through --folio-small / --folio-rail; --chapter-band:none for themes whose chapter has no tag. */
+.head-compact header{align-items:center}
+.head-compact .head-copy{display:flex;flex-wrap:wrap;align-items:center;column-gap:22px}
+.head-compact h1{margin:0;font-size:var(--title-size,40px)}
+.head-compact .subtitle{flex-basis:100%;margin-top:6px;font-size:23px}
+.head-compact .page-number{font-size:var(--folio-small,56px)}
+.head-compact main{margin-top:24px}
+.head-rail header{justify-content:flex-start;align-items:center;gap:44px}
+.head-rail .page-number{order:-1;align-self:stretch;display:flex;align-items:center;font-size:var(--folio-rail,110px);padding:0 44px 0 0;border-bottom:0;border-right:2px solid var(--line)}
+.head-band header{margin:-48px -80px 0;padding:40px 80px 30px;background:var(--panel);align-items:center}
+.head-band .chapter{background:var(--chapter-band,var(--paper))}
+.head-band .page-number{font-size:var(--folio-small,56px)}
+.head-band main{margin-top:36px}
+.head-aside header{align-items:flex-end}
+.head-aside .head-copy{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;column-gap:40px}
+.head-aside .chapter{grid-column:1 / -1;justify-self:start}
+.head-aside .subtitle{margin:0 0 6px;padding-left:40px;border-left:2px solid var(--line)}
+.head-aside .page-number{font-size:var(--folio-small,56px)}
+.head-ghost .page-number{position:absolute;right:-12px;top:-44px;z-index:-1;font-size:250px;color:var(--panel);border-bottom:0;padding:0}
+
 /* ---- scene image & placeholders ---- */
 .scene-image{margin:0;position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;isolation:isolate}
 .scene-image img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;transform:translate(var(--image-x,0px),var(--image-y,0px)) scale(var(--image-zoom,1));transform-origin:center;mask-image:linear-gradient(to right,transparent,#000 var(--image-fade,4%),#000 calc(100% - var(--image-fade,4%)),transparent),linear-gradient(to bottom,transparent,#000 var(--image-fade,4%),#000 calc(100% - var(--image-fade,4%)),transparent);mask-composite:intersect;mix-blend-mode:normal}

@@ -44,13 +44,7 @@ new-style-slides/
     "none": "No text in the illustration. Keep labels and factual data as editable page content."
   },
   "layout_hints": {},
-  "audit": {
-    "max_radius": 8,
-    "page_number_min": 36,
-    "cover_labels_expected": false,
-    "chapter_panel": false,
-    "closing_title_token": "--ink"
-  }
+  "cover_labels_expected": false
 }
 ```
 
@@ -58,7 +52,7 @@ new-style-slides/
 - `css / image_prompt / image_reference` 路径相对本包 `assets/`，不接受绝对路径或目录外资源。`image_prompt` 必填；`image_reference` 可选，填写后提示词导出器会随供图清单复制它。`css` 可为 null，但会沿用基础主题；独立新视觉应提供自己的主题。
 - `ui_text_modes / default_ui_text / ui_text_prompts` 定义配图内的文字策略，默认值须列于可用策略且每种策略有提示。页面标题、真实数据和业务说明始终由可编辑内容承载；图片上的示意界面不作为事实来源。
 - `layout_hints` 可选：`above` 补充上图下文构图，`architecture` 补充分层结构要求。未提供时不注入其他风格的构图提示。
-- `audit` 是本风格可检查的约束：最大圆角、最小页码字号、封面是否需层级标签、章节标签是否需底板、尾页标题对应的颜色令牌。数值按设计设置，不能为了跳过真实问题随意降低标准。
+- `cover_labels_expected` 可选，默认 true：封面右图是否应带层级标注；为 true 而缺少时 `--check-plan` 给出警告。
 
 ## 主题与共享边界
 

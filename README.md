@@ -28,7 +28,7 @@ Start with [`ppt-workbench`](skills/ppt-workbench/SKILL.md), choose a visual sty
 |---|---|---|
 | Matching covers, typography, illustrations, and closing slides. | Concise slides for live talks, or detailed pages for independent reading. | Embedded CSS, JavaScript, images, icons, and charts, with editing and printing built in. |
 
-> **Output format:** the builder produces a self-contained `.html` file. For an explicit `.pptx` request, use a PowerPoint-capable workflow; this toolkit does not export HTML to PPTX.
+> **Output format:** the builder produces a self-contained `.html` file. For an explicit `.pptx` request, export an editable PowerPoint from the finished deck with the player's **Export PPTX** button or `export_pptx.cjs`, then check it page by page in PowerPoint.
 
 ## Visual styles
 
@@ -223,6 +223,23 @@ In the player, select **Edit text** (`编辑文字`), then expand **Edit chart d
 
 The library, data, and SVG charts work offline without a CDN. Supported inputs are 2–8 categories and 1–3 series of finite, nonnegative values. Donut charts accept one series with a positive total. See the [chart reference](skills/white-blue-slides/references/charts.md).
 
+### Header styles
+
+Content pages offer six header arrangements; the agent picks one per page from the content without asking, or uses the one you name. Colors follow the chosen style; covers and closings stay unchanged.
+
+![Six header styles](skills/white-blue-slides/assets/header-styles.png)
+
+| `header` | Best for |
+|---|---|
+| `standard` | Regular content pages (default) |
+| `compact` | Dense reading pages, tables, architecture |
+| `rail` | Chaptered progressions, agendas, step-by-step pages |
+| `band` | Chapter openers, key conclusions |
+| `aside` | Short titles with longer subtitles |
+| `ghost` | Pages with generous white space, tables |
+
+Set `"header": "band"` at the root of `deck.json` for the whole deck; a slide's own `header` overrides it.
+
 ## Workflow and illustrations
 
 **Choose style and mode → Read the outline → Plan layouts → Write `deck.json` → Check the plan → Prepare images → Build → Inspect every slide → Deliver**
@@ -309,7 +326,7 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/presentation.html \
   --out project/qa --browser chrome
 ```
 
-Automated checks cover structure, image/content regions, visible components, and player behavior (including the PPTX export). Visual review must also verify complete image subjects, accurate image/text relationships, and sufficient context for independent readers. The auditor writes `visual-review.template.json`; after inspecting every page, fill in the review record and pass it back with `--visual-review qa/visual-review.json`. `readyForDelivery` in the report requires both the automated checks and the review record to pass; without a record the exit code is unchanged.
+Automated checks cover text overflow and overlap, missing images, external dependencies, image/content regions and chart rendering. Visual review must also verify complete image subjects, accurate image/text relationships, and sufficient context for independent readers. After changing the player, exporters or a theme, run `test_player.cjs` on any built deck as a player regression test (navigation, editing, save, PPTX export, fullscreen fit).
 
 <details>
 <summary><strong>Build options and all 13 shared layouts</strong></summary>
@@ -320,7 +337,6 @@ Automated checks cover structure, image/content regions, visible components, and
 | `--embed-format keep` | Keep the original image format instead of the default WebP preference. |
 | `--embed-quality 85` | Set image compression quality. |
 | `--builder` | Load project-specific layouts that reuse shared components. |
-| `audit_deck.cjs … --clean` | On the final audit, delete screenshots, the contact sheet and the review template, keeping only the report and the review record; temporary downloads from the function checks are always removed. |
 | `--allow-restyle` | Allow cover, header, or footer customization beyond the chosen theme when explicitly requested by the user. |
 
 Selecting a supplied style does not require `--allow-restyle`.

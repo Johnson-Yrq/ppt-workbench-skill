@@ -1,10 +1,8 @@
-"""Plan-level design checks, independent of the HTML renderer.
+"""Plan-level design checks: visual decisions, explicit outline requirements and reading-page capacity.
 
-This contract records what should be visible. The browser audit counts what
-actually rendered, including when a project supplies its own layout methods.
+Field shapes and item counts are left to the builder's dry-run render (build_deck.check_plan).
 """
 import json
-import math
 from common import ASSETS, presentation_mode, reading_composition
 
 ROLES = {'cover', 'closing', 'explanation', 'capabilities', 'comparison', 'process',
@@ -30,14 +28,10 @@ READING_IMAGE = {'min_fill_ratio': 0.60}
 # Reading compositions: how many blocks the module area holds. half_lr stacks blocks in one column beside the image;
 # half_tb keeps them in one row of the lower half; diagonal / quarter counts are fixed by reading_composition().
 COMPOSITION_BLOCKS = {'half_lr': {'max_blocks': 3}, 'half_tb': {'max_rows': 1}}
-# Table page geometry mirrored from theme.css / reading.css (.table-layout, .table-wrap); selftest cross-checks the widths.
-TABLE_GEOMETRY = {'speech': {'image_column': 420, 'gap': 45, 'cell_padding_x': 18, 'cell_padding_y': 20},
-                  'reading': {'image_column': 864, 'gap': 32, 'cell_padding_x': 15, 'cell_padding_y': 11}}
-CONTENT_WIDTH, CELL_FONT, HEAD_FONT, TABLE_LINE_HEIGHT = 1760, 23, 25, 1.55
 
 
 def dicts(value):
-    """Dict entries of a list-valued field; anything malformed counts as empty here and is reported by shape_errors."""
+    """Dict entries of a list-valued field; anything malformed counts as empty here and is reported by the dry-run render."""
     return [v for v in value if isinstance(v, dict)] if isinstance(value, list) else []
 
 
@@ -75,135 +69,42 @@ def heading_units(slide):
     return units
 
 
-def shape_errors(slide):
-    """Field-type problems that would otherwise crash or silently miscount."""
-    errors = []
-    def expect_dicts(key, value):
-        if value is not None and (not isinstance(value, list) or any(not isinstance(v, dict) for v in value)):
-            errors.append(f'{key} 必须为对象数组')
-    def expect_strings(key, value):
-        if value is not None and (not isinstance(value, list) or any(not isinstance(v, str) for v in value)):
-            errors.append(f'{key} 必须为字符串数组')
-    for key in ['left', 'right', 'items', 'groups', 'steps', 'labels']:
-        expect_dicts(key, slide.get(key))
-    for key in ['benefits', 'platforms', 'columns']:
-        expect_strings(key, slide.get(key))
-    for item in dicts(slide.get('items')):
-        expect_strings('items[].states', item.get('states'))
-        if item.get('state') is not None and not isinstance(item['state'], str):
-            errors.append('items[].state 必须为字符串')
-    for group in dicts(slide.get('groups')):
-        expect_dicts('groups[].rows', group.get('rows'))
-    if slide.get('formula') is not None:
-        if not isinstance(slide['formula'], dict):
-            errors.append('formula 必须为对象')
-        else:
-            expect_dicts('formula.terms', slide['formula'].get('terms'))
-    chains = slide.get('chains')
-    if chains is not None:
-        if not isinstance(chains, list):
-            errors.append('chains 必须为数组')
-        else:
-            for chain in chains:
-                nodes = chain.get('nodes') if isinstance(chain, dict) else chain
-                if not isinstance(nodes, list) or any(not isinstance(n, (str, dict)) for n in nodes):
-                    errors.append('chains 每条须为节点数组或含 nodes 数组的对象；节点为字符串或 {text, icon}')
-                    break
-    rows = slide.get('rows')
-    if rows is not None and (not isinstance(rows, list) or any(not isinstance(r, (list, dict)) for r in rows)):
-        errors.append('rows 每行须为单元格数组或含 cells 的对象')
-    bottom = slide.get('bottom')
-    if bottom is not None:
-        if not isinstance(bottom, dict):
-            errors.append('bottom 必须为对象')
-        elif bottom.get('type') in {'tags', 'factors'}:
-            expect_strings('bottom.items', bottom.get('items'))
-    return errors
-
-
 # Cover copy budget: every tier is one line at its fixed size, and the three copy tiers never say the same thing twice.
 COVER_LIMITS = {'chapter': 12, 'title_prefix': 10, 'title': 9, 'subtitle': 24, 'promise': 18, 'description': 24}
 
 
 def cover_rules(slide):
-    """Errors and warnings for the cover's left column; see design-system 「封面文案层级」."""
-    errors, warnings = [], []
+    """Warnings for the cover's left column (see design-system 「封面文案层级」); the browser audit catches real overflow."""
+    warnings = []
     for key, limit in COVER_LIMITS.items():
         value = slide.get(key)
-        if not isinstance(value, str) or not value.strip():
-            continue
-        text = value.strip()
-        if '\n' in text:
-            errors.append(f'封面 {key} 只写一行，不用换行；多出的意思放 notes 或尾页')
-        elif len(text) > limit:
-            errors.append(f'封面 {key} 有 {len(text)} 字，上限 {limit}：一行读完，不靠缩字号')
-    tiers = [k for k in ('subtitle', 'promise', 'description') if isinstance(slide.get(k), str) and slide[k].strip()]
-    if 'promise' in tiers and 'description' in tiers:
-        errors.append('封面 promise 与 description 只保留一个：subtitle 写对象与范围，promise 写一句价值；description 仅在没有 promise 时使用')
-    benefits = strings(slide.get('benefits'))
-    for text in benefits:
+        if isinstance(value, str) and value.strip():
+            text = value.strip()
+            if '\n' in text:
+                warnings.append(f'封面 {key} 只写一行，不用换行；多出的意思放 notes 或尾页')
+            elif len(text) > limit:
+                warnings.append(f'封面 {key} 有 {len(text)} 字，建议不超过 {limit}：一行读完，不靠缩字号')
+    if all(isinstance(slide.get(k), str) and slide[k].strip() for k in ('promise', 'description')):
+        warnings.append('封面 promise 与 description 只保留一个：subtitle 写对象与范围，promise 写一句价值')
+    for text in strings(slide.get('benefits')):
         if len(text.strip()) > 4:
-            errors.append(f'封面 benefits「{text}」超过 4 字：用能排进一格的短词')
-    if benefits and len(benefits) not in (3, 6):
+            warnings.append(f'封面 benefits「{text}」超过 4 字：用能排进一格的短词')
+    if strings(slide.get('benefits')) and len(strings(slide.get('benefits'))) not in (3, 6):
         warnings.append('封面 benefits 用 3 或 6 个短词才能排成整行')
-    for text in strings(slide.get('platforms')):
-        if len(text.strip()) > 10:
-            errors.append(f'封面 platforms「{text}」超过 10 字')
-    return errors, warnings
+    return warnings
 
 
 def reading_errors(slide):
-    """Validate the content semantics before the composite renderer runs."""
+    """Semantic and capacity rules for reading pages; field shapes and item counts are checked by the dry-run render."""
     errors = []
-    if not isinstance(slide.get('summary'), str) or not slide['summary'].strip():
-        errors.append('阅读页需要可独立理解的 summary')
-    blocks = slide.get('blocks')
-    if not isinstance(blocks, list) or not 1 <= len(blocks) <= 4 or any(not isinstance(b, dict) for b in blocks):
-        return errors + ['阅读页 blocks 需要 1–4 个模块对象']
-    if not any(isinstance(b.get('type'), str) and b['type'] in {'process', 'matrix', 'layers', 'chart'} for b in blocks):
-        errors.append('阅读页至少需要一种流程、矩阵或层级关系，不能只把正文拆成多个框')
+    blocks = dicts(slide.get('blocks'))
+    if blocks and not any(isinstance(b.get('type'), str) and b['type'] in {'process', 'matrix', 'layers', 'chart'} for b in blocks):
+        errors.append('阅读页至少需要一种流程、矩阵、层级或图表关系，不能只把正文拆成多个框')
     rows, filled = 1, 0
-    def required_text(value, label):
-        if not isinstance(value, str) or not value.strip(): errors.append(f'{label} 需要非空字符串')
     for b in blocks:
-        kind, span = b.get('type'), b.get('span', 1)
-        if isinstance(span, bool) or span not in (1, 2):
-            errors.append('blocks[].span 可选 1 / 2'); span = 1
+        span = b.get('span', 1) if b.get('span') in (1, 2) else 1
         if filled + span > 2: rows, filled = rows + 1, 0
         filled += span
-        required_text(b.get('title'), '阅读模块标题')
-        if 'note' in b: required_text(b['note'], '阅读模块 note')
-        if not isinstance(kind, str) or kind not in {'process', 'matrix', 'layers', 'facts', 'chart'}:
-            errors.append('blocks[].type 可选 process / matrix / layers / facts / chart'); continue
-        if kind == 'chart':
-            from chart_contract import chart_errors
-            errors.extend(chart_errors(b))
-            continue
-        key, low, high = {'process': ('steps', 3, 6), 'matrix': ('rows', 2, 6), 'layers': ('layers', 2, 4), 'facts': ('rows', 2, 5)}[kind]
-        values = b.get(key)
-        if not isinstance(values, list) or not low <= len(values) <= high:
-            errors.append(f'{kind}.{key} 需要 {low}–{high} 项'); continue
-        if kind == 'matrix':
-            cols = b.get('columns')
-            if not isinstance(cols, list) or not 2 <= len(cols) <= 5:
-                errors.append('matrix.columns 需要 2–5 个表头'); continue
-            for c in cols: required_text(c, '矩阵表头')
-            for row in values:
-                if not isinstance(row, list) or len(row) != len(cols):
-                    errors.append('阅读矩阵每行单元格数量须与 columns 相同'); continue
-                for cell in row: required_text(cell, '矩阵单元格')
-        else:
-            for v in values:
-                if not isinstance(v, dict): errors.append(f'{kind}.{key} 每项需要对象'); continue
-                required_text(v.get('label' if kind == 'facts' else 'title'), f'{kind} 条目标题')
-                if kind == 'layers':
-                    modules = v.get('items')
-                    if not isinstance(modules, list) or not 1 <= len(modules) <= 5:
-                        errors.append('layers[].items 需要 1–5 个模块'); continue
-                    for module in modules: required_text(module, '分层模块')
-                else:
-                    required_text(v.get('text'), f'{kind} 条目说明')
-                    if 'output' in v: required_text(v['output'], '步骤 output')
     try:
         composition = reading_composition(slide)
     except ValueError as e:
@@ -214,49 +115,6 @@ def reading_errors(slide):
         errors.append('half_tb 的模块区只有下半页高度，只能放一行：2 个并排模块，或 1 个 span: 2 的整行模块；更多内容拆页')
     elif rows > 2: errors.append('阅读页模块超过两行；调整 span 或拆页，保留足够的阅读空间')
     return errors
-
-
-def em_width(text):
-    """Approximate text width in em: CJK and other full-width glyphs count 1, ASCII about 0.55."""
-    return sum(0.55 if ord(c) < 0x2E80 else 1 for c in text)
-
-
-def text_lines(text, width_px, font_px):
-    """Lines a text needs at a fixed width; explicit line breaks count separately."""
-    per_line = max(1, int(width_px / font_px))
-    return sum(max(1, math.ceil(em_width(part) / per_line)) for part in str(text).split('\n'))
-
-
-def content_height(slide):
-    """Height of <main> on the 1080px page: padding, header block and the optional bottom row, per theme.css."""
-    title = slide.get('title') if isinstance(slide.get('title'), str) else ''
-    head = 14 + text_lines(title, 1570, 46) * 46 * 1.25
-    if slide.get('chapter'): head += 33
-    if isinstance(slide.get('subtitle'), str) and slide['subtitle'].strip(): head += 12 + text_lines(slide['subtitle'], 1570, 25) * 37.5
-    main = 1080 - 48 - 104 - max(head, 110) - 32
-    if slide.get('bottom'): main -= 100
-    if slide.get('footnote'): main -= 50
-    return round(main)
-
-
-def table_capacity(slide, mode):
-    """Rough rendered height of a table page versus the content area it has, from the CSS table geometry.
-
-    Returns (estimate, available) or None when the shape is invalid (the dry run reports that). The browser audit
-    stays the ground truth; this only stops clearly overflowing tables before any image is generated.
-    """
-    columns, rows = strings(slide.get('columns')), slide.get('rows')
-    if not columns or not isinstance(rows, list): return None
-    geometry = TABLE_GEOMETRY[mode]
-    text_width = (CONTENT_WIDTH - geometry['gap'] - geometry['image_column'] - 2) / len(columns) - 2 * geometry['cell_padding_x']
-    def row_height(cells, font):
-        return max(text_lines(c, text_width, font) for c in cells) * font * TABLE_LINE_HEIGHT + 2 * geometry['cell_padding_y'] + 1
-    height = 2 + row_height(columns, HEAD_FONT)
-    for row in rows:
-        cells = row.get('cells') if isinstance(row, dict) else row
-        if not isinstance(cells, list) or len(cells) != len(columns) or any(not isinstance(c, str) for c in cells): return None
-        height += row_height(cells, CELL_FONT)
-    return round(height), content_height(slide)
 
 
 def planned_features(slide):
@@ -341,17 +199,9 @@ def analyze_deck(deck):
     result = {'version': 2, 'presentation_mode': mode, 'mode_recorded': 'presentation_mode' in deck, 'errors': [], 'warnings': [], 'pages': []}
     for n, slide in enumerate(deck['slides'], 1):
         prefix = f'第 {n} 页（{slide["title"]}）'
-        errors, warnings = shape_errors(slide), []
-        if slide.get('layout') == 'table':
-            capacity = table_capacity(slide, mode)
-            if capacity:
-                estimate, available = capacity
-                message = f'表格估算高度约 {estimate}px，内容区约 {available}px（按{"阅读型" if mode == "reading" else "演讲型"}列宽、{CELL_FONT}px 字号与折行估算）：减少行数或列数、精简单元格文字，或拆页'
-                if estimate > available * 1.08: errors.append(message)
-                elif estimate > available: warnings.append('可能放不下：' + message)
+        errors, warnings = [], []
         if slide.get('layout') == 'reading':
             errors.extend(reading_errors(slide))
-            if mode != 'reading': errors.append('reading 版式需要 presentation_mode: reading')
         raw = slide.get('visual')
         if not isinstance(raw, dict):
             errors.append('需要 visual 设计决策，包含 role、treatment、rationale、requirements；先按本页内容选择设计元素')
@@ -379,8 +229,6 @@ def analyze_deck(deck):
                 errors.append(f'「{title}」在 mixed 版式中需要显式选择 presentation: open/panel')
             if 'presentation' in item and item['presentation'] not in {'open', 'panel'}:
                 errors.append(f'「{title}」的 presentation 无效')
-            if 'emphasis' in item and not isinstance(item['emphasis'], bool):
-                errors.append(f'「{title}」的 emphasis 须为布尔值')
         counts, texts = planned_features(dict(slide, visual=visual))
         requirements, manual = [], []
         for req in raw.get('requirements', []) if isinstance(raw.get('requirements'), list) else []:
@@ -409,22 +257,17 @@ def analyze_deck(deck):
         if visual['role'] == 'architecture' and not counts['architecture_labels']:
             errors.append('架构角色需要对应模型的 labels；不能只用普通段落代替直接标注')
         if slide.get('layout') == 'cover':
-            cover_errors, cover_warnings = cover_rules(slide)
-            errors.extend(cover_errors); warnings.extend(cover_warnings)
-            if style['audit'].get('cover_labels_expected', True) and not slide.get('labels'):
+            warnings.extend(cover_rules(slide))
+            if style.get('cover_labels_expected', True) and not slide.get('labels'):
                 warnings.append('封面没有右侧层级标注 labels；配图含可指的层级、站点或对象时应逐项标注（参照默认封面）')
-        # Include planned components even when the outline did not prescribe a count.
-        expected = [{'feature': k, 'min': v, 'source': '本页设计决策'} for k, v in counts.items() if v]
-        expected.extend(requirements)
         page = {'slide_id': slide['id'], 'page': n, 'presentation_mode': mode, 'role': visual['role'], 'treatment': visual['treatment'],
-                'rationale': raw.get('rationale', ''), 'expected': expected, 'manual': manual,
+                'rationale': raw.get('rationale', ''), 'requirements': requirements, 'manual': manual,
                 'omissions': omissions, 'planned': counts, 'errors': errors, 'warnings': warnings}
         if mode == 'reading':
             if slide.get('layout') == 'reading':
                 try:
                     composition = reading_composition(slide)
                     page['composition'] = composition
-                    page['illustration_region_ratio'] = .25 if composition == 'quarter' else .5
                     page['illustration_fill'] = dict(READING_IMAGE)
                 except ValueError:
                     pass  # already reported by reading_errors

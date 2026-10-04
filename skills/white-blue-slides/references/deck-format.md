@@ -31,6 +31,7 @@ Python 3.9+，标准库即可。安装了 Pillow 时构建器把配图转成 Web
   "title": "本次演示稿名称",
   "style": "scene-white",
   "presentation_mode": "speech",
+  "header": "standard",
   "footer_label": "解决方案 · 简短名称",
   "slides": []
 }
@@ -39,6 +40,21 @@ Python 3.9+，标准库即可。安装了 Pillow 时构建器把配图转成 Web
 `version / title / slides` 是主要字段。`slides` 至少一页，顺序即页序。年份默认当前年；套件不含品牌，页脚默认只有年份与右侧标签。可选字段：`year`、`company`（公司名，留空则不显示）、项目内 `logo` 路径（未给则不显示 Logo）、`theme`（仅 `paper/blue/ink/muted/line/panel` 六位十六进制颜色）、`custom_css`（项目内 CSS 路径）。只有用户提供品牌资料时才填写 `company` 与 `logo`；`theme` 与 `custom_css` 仅在用户要求换风格时使用。
 
 根字段 `style` 选择整稿视觉规范，值为 `python3 <shared>/scripts/style_packs.py --list` 返回的可用风格 ID。当前提供 `"scene-white"`（素白蓝调）、`"saas-3d"`（海蓝玻璃）和 `"real-miniature"`（写实微缩）；未来符合 [风格包契约](adding-styles.md) 的同级目录自动加入。需要安装共享套件与所选风格包。未知值、缺资源、重名 ID、draft 状态和逐页设置 style 会报错，不静默回退或混搭。选择命名风格无需 `--allow-restyle`，也不会关闭品牌检查。`--check-plan`、构建结果、配图清单及 HTML 均记录当前风格。旧稿省略 style 仍兼容素白蓝调；新稿须先按用户选择显式写入 style 和 presentation_mode，不能以示例值或兼容默认代替选择。
+
+### 页头样式
+
+根字段 `header` 设定整稿内容页的页头，单页写 `header` 可覆盖；封面和尾页使用固定页头，不能设置。六种样式只改变页头的排布，颜色、章节标签和页码的质感跟随所选风格；样式对比见 `assets/header-styles.png`。
+
+| `header` | 外观 | 适合 |
+|---|---|---|
+| `standard` | 章节标签、大标题、副标题，右上大页码 | 常规内容页；默认值 |
+| `compact` | 章节标签与标题同一行，页码缩小 | 阅读型高密度页、表格、架构；正文区多约 70px |
+| `rail` | 大页码在左，竖线分隔标题区 | 分章节推进、议程、分步讲解 |
+| `band` | 页头铺通栏浅底，页码缩小 | 章节开头、重点结论、需要节奏变化的页 |
+| `aside` | 标题在左、副标题在右，细竖线分隔 | 标题短、副标题较长，或横向信息多的页 |
+| `ghost` | 右上大号浅色水印页码压在标题后 | 内容较少、留白多的页，表格页 |
+
+页头样式由 Agent 按内容选择，不询问用户；用户主动指定时照办并写根字段。按上表给需要的页写 `header`，常规页留默认；同一章节内保持一致，整稿不超过三种。
 
 `custom_css` 只用于内容区布局，不接受 `@import`、`url()`、HTML 或 `!important`；选择器里出现 `header/footer/h1/.subtitle/.chapter/.page-number/.layout-cover/.layout-closing/.cover-*/.ending-*/.brand/.slide/body` 会被拒绝（用户明确要求在所选主题之外自定义这些区域时加 `--allow-restyle`）。按稳定 `id` 微调，例如 `#p03 .hero-scene{width:1180px}`；按页需要调整，不把临时样式写回 Skill。
 
@@ -129,11 +145,29 @@ class Builder(Base):
 
 `role` 可选 `cover/closing/explanation/capabilities/comparison/process/controls/architecture/entities/formula/table/domains/briefing`。`treatment` 可选 `open/panels/mixed/labels/none`。可省略这两个键使用布局默认值，但每页必须有 `rationale` 和 `requirements` 数组；无明确视觉要求时用空数组。依据原始大纲填要求，不能从已生成 HTML 倒推一份恰好通过的契约。
 
-可自动核对的 `feature`：`icons/panels/tags/states/architecture_labels/steps/relations/visual_blocks/tables/layers`。每项 `min` 默认 1，可附 `texts` 数组，检查指定短词确实出现在对应组件里；`source` 保留原句或用户确认要求。深浅分组、场景与对象对应、基线等用 `manual + text + source`，并逐页看图核对。计划检查独立于渲染器，运行时继续检查真实可见的元素，缺图标、透明底板或遗漏状态均不能以功能通过代替。
+可自动核对的 `feature`：`icons/panels/tags/states/architecture_labels/steps/relations/visual_blocks/tables/layers`。每项 `min` 默认 1，可附 `texts` 数组，检查指定短词确实出现在对应组件里；`source` 保留原句或用户确认要求。深浅分组、场景与对象对应、基线等用 `manual + text + source`，并逐页看图核对。`--check-plan` 按计划核对数量与短词；`manual` 项会列入审查报告的 `manualReview`，须看截图确认。
 
 `journey` 自动启用上图下文面积检查；自定义相同结构时写 `visual.image_position: "above"`，并把文字行标记为 `data-captions`。阈值只定义在 `design_contract.py` 的 `IMAGE_BALANCE`（当前：图框高 ≥460px、占 main 高度 ≥60%、配图贴满图框的宽或高 ≥95%、下方文字行高 ≤220px），`--check-plan` 报告与审查器读取同一组数字，其他文档不另抄。图框宽高比随文字区变化；填满高度只说明图片元素足够大，不说明场景主体和整页占幅合理。阶段栏窄时审查器提供提示，仍须看整页确认场景、文字与留白的关系，不用裁掉主体换取铺满。
 
 ## 版式与容量
+
+先定每页的结论和主体关系，再选版式；同样三项内容，步骤、三对象比较和三条独立要点用不同版式，不按条目数统一套卡片。
+
+| 内容关系 | 版式 |
+|---|---|
+| 一个场景加少量说明 | `scene` |
+| 两侧对照、要点加配图 | `split` |
+| 三段控制或三个并列能力 | `triad` |
+| 阶段、路径、多对象横向比较 | `journey` |
+| 有先后的步骤与控制点 | `flow` |
+| 分层结构，需在模型上直接标注 | `architecture` |
+| 实体、字段与关系 | `relations` |
+| 确有加和／乘积关系的因子 | `formula` |
+| 指标、口径、边界 | `table` |
+| 多领域清单 | `domains` |
+| 阅读型多模块组合（流程、矩阵、分层、图表） | `reading` |
+
+图表只在有真实数量数据、单位和来源时使用；没有数据就保留定性说明。
 
 ### cover：价值与层级场景
 
@@ -195,7 +229,7 @@ class Builder(Base):
 
 ### table：指标与边界
 
-`columns` 为 2–5 个表头字符串；`rows` 演讲型为 1–7 行、阅读型为 1–10 行字符串数组，每行数量等于表头数。某行确需图标时可用 `{"cells":["指标","口径","来源"],"icon":"ChartNoAxesCombined"}`，键名以图标库为准。表格左侧、相关图片右侧；表头浅蓝、行间横线，默认不在每格塞图标。表格内容过密需重排列宽或简化正文，保留口径与来源。`--check-plan` 按列宽、字号与折行估算表格高度，明显超出内容区即报错、接近上限给出警告；阅读型表格与配图各占一半宽，5 列时每格一行只容 6 字左右，列多则控制行数与字数。
+`columns` 为 2–5 个表头字符串；`rows` 演讲型为 1–7 行、阅读型为 1–10 行字符串数组，每行数量等于表头数。某行确需图标时可用 `{"cells":["指标","口径","来源"],"icon":"ChartNoAxesCombined"}`，键名以图标库为准。表格左侧、相关图片右侧；表头浅蓝、行间横线，默认不在每格塞图标。表格内容过密需重排列宽或简化正文，保留口径与来源。表格是否放得下由审查器的 `text-overflow` 检查；阅读型表格与配图各占一半宽，5 列时每格一行只容 6 字左右，列多则控制行数与字数。
 
 ### relations：实体、字段与关系
 

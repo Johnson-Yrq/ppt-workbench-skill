@@ -2,121 +2,80 @@
 name: white-blue-slides
 description: 在用户选择素白蓝调风格或续做该风格项目时，根据PPT大纲制作可编辑、可离线单文件HTML演示稿，采用暖白纸底、明亮主蓝与白色哑光模型配图。与其他风格共用制作、排版与检查套件；未选择风格的通用请求先经 ppt-workbench 确认。明确要求PPTX时不能以HTML替代。
 metadata:
-  version: "3.4.0"
+  version: "3.5.0"
 ---
 
 # 场景化 HTML 演示稿
 
 把大纲变成一份**文字可编辑、图文对位、可独立离线打开的 HTML 演示稿**。不需要用户提供模板或版式参数；套件不含品牌，Logo 与公司名仅在用户提供时写入 deck，用户指定的品牌与内容优先。
 
-本入口对应素白蓝调风格（`style: "scene-white"`，旧稿省略该字段亦相同）。直接指定本 Skill 视为选择该风格。尚未选择风格的通用请求，先按同级 [PPT 制作工作台](../ppt-workbench/SKILL.md) 确认；只有本目录时也可运行 `scripts/style_packs.py --list` 展示实际可用风格。用户明确指定其他风格时读取清单中的相应入口；续做项目保留已有选择，不因用途自动迁移。以下设计仅适用于素白蓝调风格，共享脚本不要求其他风格继承这些视觉规范。
+本入口对应素白蓝调风格（`style: "scene-white"`，旧稿省略该字段亦相同）。直接指定本 Skill 视为选择该风格。尚未选择风格的通用请求，先按同级 [PPT 制作工作台](../ppt-workbench/SKILL.md) 确认；只有本目录时也可运行 `scripts/style_packs.py --list` 展示实际可用风格。续做项目保留已有选择。以下视觉规范只属于素白蓝调，共享脚本不要求其他风格继承。
 
 ## 动工前确认用途
 
-按 [用途确认与信息密度](references/presentation-modes.md) 确认演讲型或阅读型；用户未明确时，在拆页、排版和生图前询问并等待。若风格也未定，合并询问。确认后显式记录根字段 `style: "scene-white"` 与 `presentation_mode: speech / reading`；已确认或已授权自行选择的维度不重复询问。类型与视觉风格独立。
+按 [用途确认与信息密度](references/presentation-modes.md) 确认演讲型或阅读型；用户未明确时，在拆页、排版和生图前询问并等待；风格也未定时按 [PPT 制作工作台](../ppt-workbench/SKILL.md) 合并询问。确认后记录根字段 `style: "scene-white"` 与 `presentation_mode: speech / reading`；已确认或已授权自行选择的维度不重复询问。
 
 ## 运行路径
 
-- **当前环境有可直接调用的内置生图工具**（例如 Codex 的 image_gen）：逐页生成场景图，保存到项目内，再完成 HTML。按当前工具文档调用，不固定工具命名、模型或 API；不索要 API Key，不静默改走付费 CLI。
-- **没有内置生图工具但用户愿意配置生图 API**（Claude Code 等）：按 [通过生图 API 自动生成配图](references/image-api.md) 引导。先问一次是否使用自己的 API；同意后把 `generate_images.py --setup` 命令交给用户在自己的终端执行（密钥不回显、不经过对话），再 `--check` 验证、`--dry-run` 预演、`--pages` 试生成一页，合格后生成其余缺图并逐张查看。
-- **没有内置生图工具且不用 API**：先交付逐页、可直接复制的完整生图提示词和文件名清单，请用户生成并回传图片，再继续排版。精确说明缺哪些图，先完成不依赖图片的内容与版式规划。
-- 用户已给图时先检查并复用，不为满足流程而重生成。以实际能力为依据，不声称调用了不可用的工具。
+- **有可直接调用的内置生图工具**（例如 Codex 的 image_gen）：逐页生成场景图，保存到项目内，再完成 HTML。按当前工具文档调用；不索要 API Key，不静默改走付费 CLI。
+- **没有内置生图工具但用户愿意配置生图 API**：按 [通过生图 API 自动生成配图](references/image-api.md) 引导。先问一次是否使用自己的 API；同意后把 `generate_images.py --setup` 交给用户在自己的终端执行（密钥不经过对话），再 `--check`、`--dry-run`、`--pages` 试一页，合格后生成其余缺图并逐张查看。
+- **没有内置生图工具且不用 API**：交付逐页可复制的完整提示词和文件名清单，请用户回传图片；同时完成不依赖图片的内容与版式规划。
+- 用户已给图时先检查并复用。以实际能力为依据，不声称调用了不可用的工具。
 
 最终交付物是 **一个 `.html` 文件**。提示词、图片清单、`deck.json`、截图和 QA 报告都是过程文件；不把缺图草稿交付为成品。
 
 ## 默认设计
 
-第一次制作时阅读 [设计与版式规则](references/design-system.md)，并查看 `assets/reference-design/` 下的参考图：`approved-overview.jpg`（整稿节奏）、`approved-panels.jpg`（信息块）、`approved-open-icons.jpg`（无框图标说明）、`approved-controls.jpg`（混合控制块）、`approved-architecture.jpg`（复杂分层架构直标）、`example-upper-image.jpg`（上图下文：四站横向完整展开、下方短信息块）。它们只作质量与风格参照，不复制其中的业务内容或整页截图。
+第一次制作时阅读 [设计与版式规则](references/design-system.md)（颜色、字号、固定不变的封面／尾页／页脚与六种页头），并查看 `assets/reference-design/` 下的参考图；它们只作质量与风格参照，不复制其中的业务内容。
 
-- 1920 × 1080；暖白 `#F7F6F2`、主蓝 `#3B7BC8`、正文 `#2B3140`。套件不含任何品牌资源：页脚默认只有年份与右侧标签；用户提供 Logo 或公司名时，在 deck 里填 `logo` 与 `company`。
-- 配图是**白色哑光立体业务场景**：人物在做事，关系看得见，单图只表达一个主要关系。标题、标签与说明用 HTML，不烘焙进图片。
-- 图要大、完整、与文字有联系。按实际可见的场景本体调整缩放与偏移，不能只把含大量空白的图片设成 `width:100%` 就结束。
-- **上图下文优先给图片留面积**：场景横向展开，实际主体约占图框宽度八成；文字过多先精简或改成左右排布，不挤小图片、不裁掉主体。具体像素阈值由 `--check-plan` 报告的 `image_balance` 给出，审查器按同一组数字核对。
-- **有关联语义的分组标题默认配图标**，使用内置蓝色线性 SVG（120 个 Lucide 图标，键名列在 deck-format）。封面、尾页、架构直标、表格和已有序号的步骤可不加；普通标题不加时须在 `icon_omit_reason` 说明具体原因。不能整稿省略，也不按数量配额硬加。
-- **保留矩形，但不要全是矩形**。仅在阶段、能力分组、字段或指标因子需要归组时加底板；普通说明用蓝色标题、横向细分隔线和留白。禁止左侧彩色竖条装饰。
-- 圆角通常 **8px**，不胶囊化。架构图的层名、模块名、来源、治理与流向文字全部直接标注，不套矩形、不加底板；文字与模型逐一对齐。
-- 复杂架构参照 `approved-architecture.jpg`：一张完整分层场景图承载结构，HTML 标注贴近模块、层板前缘及实际连接位置，层级、模块、来源与治理标签均可编辑。不把架构简化为左图右侧三段说明，也不用背景框遮盖错误模型或图片文字。
-- 每页需要有关联的配图，包括封面与尾页；阅读型按主体版面的 1/2 或 1/4 分区安排配图，其余分区用可编辑图表、流程、矩阵与说明承载完整信息。默认补一页有配图的简洁致谢尾页；大纲已含尾页或用户限制页数时不重复添加。
-
-**固定不变的部分**：封面（左侧标题与价值、右侧大图、右侧层级标注；左栏每层一行、副标题与承诺句各说一件事，字数上限由 `--check-plan` 校验）、尾页（蓝色大标题、大场景）、页头（浅底章节标签、46px 主标题、25px 灰色副标题、右上 110px 页码）、页脚、暖白底与主蓝。这些是品牌，不是版式选项。审查器按主题变量逐页核对（`brandOK`），`custom_css` 触碰它们会被构建器拒绝。
-
-## 大纲里的"版式规范"怎么处理
-
-大纲常自带"深蓝科技风封面""每页四个区域""八种版式"之类的段落。**只从中提取结构要求**（几格、几列、哪些元素、哪页用表格），转成 `requirements`；**配色、封面式样、页头层级、字号采用已选择的风格**。大纲若有"标题＋核心信息"两级，标题进 `title`，核心信息进 `subtitle` 或页底 `bottom`，不把副标题放大加粗当大字。用户明确改选已安装风格时切换对应入口与 style，无需 `--allow-restyle`；只有明确要求超出所选主题自定义封面、页头页脚时才用该参数，并说明变更。
+- 配图是**白色哑光立体业务场景**：人物在做事，关系看得见，单图只表达一个主要关系；标题、标签与说明用 HTML，不烘焙进图片。每页都有关联配图，包括封面与尾页。
+- 图要大、完整、与文字有联系。按实际可见的场景本体调整缩放与偏移；上图下文时文字过多先精简或改左右排布，不挤小图片、不裁掉主体。
+- 有关联语义的分组标题默认配图标；不加时在 `icon_omit_reason` 写具体原因。
+- 只在阶段、能力分组、字段或指标因子需要归组时加底板；普通说明用蓝色标题、横向细线和留白。架构文字直接标注在模型上，不套框、不加底板。
+- 封面、尾页、页脚、纸色与主蓝是品牌，不是版式选项；页头按内容从六种 [`header`](references/deck-format.md#页头样式) 样式中选择，不询问用户。`custom_css` 触碰这些部分会被构建器拒绝。大纲里的“版式规范”只提取结构要求（见 design-system）。
 
 ## 大纲到成稿
 
-1. **理解大纲并规划每页。** 保留主线、必要信息和明确页数，一般每页一个结论。演讲型可将讲解细节放讲稿；阅读型把独立理解所需的机制、比较、来源与边界保留在页面上，通过流程、矩阵、分层和职责对应增加可视化信息。不固定套用某个页数，不把参考图里的业务内容当成通用事实。关键事实保留来源或待核验状态，不编造政策、业绩、联系人或产品截图。
-2. **选择版式和设计元素。** 根据关系选择场景、左右说明、三段控制、横向比较/阶段、架构、关系链、公式、表格或收束。独立说明用图标标题与横线；并列能力、比较项、实施阶段用浅底信息块；实体用标签，状态用状态标签。整稿有节奏，不按奇偶页或卡片比例机械轮换。
-3. **建立 `deck.json` 并先检设计。** 阅读 [数据结构与构建方法](references/deck-format.md)。每页 `visual` 写明角色、分组处理、理由；把大纲明确的"每格一个图标""四个状态""深浅两组阶段"等逐条转成 `requirements`，不可漏读视觉段落。原始大纲与事实说明保留在 `notes`。运行 `--check-plan`：它同时核对设计决策和每页结构（项数、字段类型、坐标范围），不需要图片；缺项先补齐再生图，脚本不代替大纲理解。
-4. **准备场景图。** 阅读 [配图与人工供图流程](references/image-workflow.md)，为需要配图的页面写**本页独有**的 `image.brief`：对象清单带数量、人物动作、表达关系的物理机制、层级与细节、构图。目标是剖开的建筑比例模型那种密度（参考图里的四层楼、盖布的五个站台、共用底座的通道），不是空平台上站三个人。`prepare_images.py` 会拒绝模板句和跨页复制的简报。有内置生图则直接生成；否则导出完整提示词，由用户配置的生图 API 自动生成或由用户人工供图。收到图片后逐张查看，核对映射、层级、留白与乱码。
-5. **构建并迭代。** 优先用现有 12 种版式及阅读型复合版式；用随附构建器生成单文件 HTML（默认把配图转成 WebP 内嵌，需要 Pillow）。按实际渲染调整图文尺寸、间距、标注和密度：`custom_css` 只调内容区，一稿最多新增一两种 `--builder` 版式，且只能拼装 `heading / point / icon / image / bottom` 共享组件，不能覆盖内置版式或组件、不写 `!important`、不以过小字号堆叠图表。演讲型场景可占主要面积；阅读型按主体版面分区选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图；主体版面不含页头页脚及全宽摘要。先确定配图分区，再用图表、图标、矩阵和文字组织其余内容。有可靠数量数据时可使用 ECharts；不得缩小字号、重复插图或补造指标，放不下则拆页。审查器以 `reading-composition-mismatch` 检查分区比例与位置，并检查配图相对图区是否过小。常规排版自行修复，不把内部验收转交用户。
-6. **逐页验证后交付。** 阅读 [验收标准](references/quality-check.md)。分别确认功能、设计契约与逐页视觉：计划的图标/底板/标签在 DOM 中真实可见，场景或信息图承担足够内容、背景融合、标注准确；阅读型还要检查无口头补充时是否能理解。总览截图与"全部通过"一句话不能代替逐页对照。修复后才交付独立 HTML。
+1. **规划每页。** 保留主线、必要信息和明确页数，一般每页一个结论。演讲型细节可放讲稿；阅读型把独立理解所需的机制、比较、来源与边界留在页面上。关键事实保留来源或待核验状态，不编造政策、业绩、联系人或产品截图。
+2. **建立 `deck.json` 并先检设计。** 按 [数据结构与构建方法](references/deck-format.md) 选版式、写每页 `visual`，把大纲明确的视觉要求逐条转成 `requirements`，原始大纲与事实说明放 `notes`。运行 `--check-plan`，缺项先补齐再生图。
+3. **准备场景图。** 按 [配图与人工供图流程](references/image-workflow.md) 为每页写**本页独有**的 `image.brief`：对象与数量、人物动作、关系机制、层级与构图。收到图片后逐张核对映射、层级、留白与乱码。
+4. **构建并迭代。** 按实际渲染调整图文尺寸、间距、标注和密度；`custom_css` 只调内容区，确需新关系时按 deck-format 用 `--builder` 新增一两种版式。阅读型按[四类图文分区](references/presentation-modes.md#阅读型的四类图文分区)排版，放不下则拆页。数量数据用 [ECharts 图表](references/charts.md)。
+5. **逐页验证后交付。** 按 [验收标准](references/quality-check.md) 跑审查器并逐页看截图；阅读型还要检查无口头补充时是否能理解。总览截图与“全部通过”不能代替逐页对照。
 
-数量比较、趋势或构成适合图表时，使用 [ECharts 图表契约](references/charts.md)，保留数据来源与相邻解释。图表、数据和播放器一起内嵌，支持离线编辑与保存。
+## 命令
 
-## 随附工具
-
-可用风格由 `python3 <skill>/scripts/style_packs.py --list` 自动列出。未来扩展按 [新增独立风格包](references/adding-styles.md) 接入，不复制本目录脚本。
-
-`<skill>` 为本 Skill 文件夹，`<project>` 为本次工作目录。由当前环境解析路径，不复制开发本 Skill 时的绝对路径。
+`<skill>` 为本 Skill 文件夹，`<project>` 为本次工作目录，由当前环境解析路径。
 
 ```sh
-# 检查设计决策与每页结构，不需要图片已存在
+# 检查设计决策与每页结构，不需要图片
 python3 <skill>/scripts/build_deck.py <project>/deck.json --check-plan --out <project>/design-plan.json
 
-# 只导出提示词和供图清单，不调用模型或网络
+# 导出提示词和供图清单，不调用模型或网络
 python3 <skill>/scripts/prepare_images.py <project>/deck.json --out <project>/image-handoff
 
-# 无内置生图工具时，用户在自己的终端配置生图 API（密钥不回显；已有 OPENAI_API_KEY / GEMINI_API_KEY 时加 --no-key）
-python3 <skill>/scripts/generate_images.py --setup --provider openai --url https://api.openai.com/v1 --model gpt-image-1
-# 验证配置（免费）→ 预演（不需密钥）→ 先生成一页 → 生成其余缺图；结果写回 image-manifest.json
-python3 <skill>/scripts/generate_images.py --check
+# 用户自己的生图 API：--setup 由用户在终端执行，之后 --check → --dry-run → --pages 2 → 生成其余缺图
 python3 <skill>/scripts/generate_images.py <project>/deck.json --dry-run
-python3 <skill>/scripts/generate_images.py <project>/deck.json --pages 2
-python3 <skill>/scripts/generate_images.py <project>/deck.json
 
-# 收到图片后先把背景贴平到纸色（消除图框四边的淡矩形；原图备份到 images/original/）
+# 收到图片后把背景贴平到纸色（原图备份到 images/original/）
 python3 <skill>/scripts/match_paper.py <project>/images/*.png
 
-# 图片齐全后构建唯一交付文件（默认 WebP 内嵌；--embed-format keep 保留原格式；--builder 加载项目版式）
+# 构建唯一交付文件（默认 WebP 内嵌）
 python3 <skill>/scripts/build_deck.py <project>/deck.json --out <project>/演示稿.html
 
-# 有 Node.js、Playwright 和 Chrome/Chromium 时渲染检查
+# 渲染检查（需要 Node、Playwright 和 Chrome/Chromium）
 node <skill>/scripts/audit_deck.cjs <project>/演示稿.html --out <project>/qa --browser chrome
-# 逐页看完并填好复核记录后，最后一次审查加 --clean 删除截图与模板，只保留报告与记录
-node <skill>/scripts/audit_deck.cjs <project>/演示稿.html --out <project>/qa --browser chrome --visual-review <project>/qa/visual-review.json --clean
 
-# 用户需要 PDF 时，导出 16:9 宽屏、单页适配的 PDF（另需 pdf-lib）
-# 若在浏览器中编辑过，请把“另存 HTML”得到的文件作为输入
-node <skill>/scripts/export_pdf.cjs <project>/演示稿.html --out <project>/演示稿.pdf --browser chrome
-
-# 用户需要可编辑 PowerPoint 时，导出通用字体的 PPTX（文字、面板、图片、原生图表、讲稿；与播放器“导出 PPTX”按钮相同）
-node <skill>/scripts/export_pptx.cjs <project>/演示稿.html --out <project>/演示稿.pptx --browser chrome
-
-# 只有 PDF 且需要浏览器全屏演示时，生成单页显示的离线副本（需要 Poppler）
-python3 <skill>/scripts/pdf_to_slides.py <project>/演示稿.pdf --out <project>/全屏演示版.html
-
-# 修改本 Skill 的脚本或资源后自测（不需要浏览器）
+# 修改本 Skill 后自测；改了播放器／导出器／主题再跑播放器回归测试
 python3 <skill>/scripts/selftest.py
+node <skill>/scripts/test_player.cjs <project>/演示稿.html --browser chrome
 ```
 
-构建器与 API 生图脚本只依赖 Python 标准库，Pillow 仅用于可选的图片压缩和生成结果按比例补边，底色校准另需 numpy；内嵌 CSS、JS、Logo、图标和图片，不联网。审查器需要本地 Playwright，PDF 导出（导出时一并核对页数与尺寸）另需 pdf-lib，联系表可选 Sharp；用环境已有的 Python/Node，不假定安装路径。不能运行审查器时用可用浏览器逐页检查并说明范围，不伪称自动验证通过。
-
-画布保持 1920 × 1080。全屏按实际可用区域完整等比适配；编辑模式为工具栏留出空间。PDF 使用 PowerPoint 宽屏纸张 960 × 540 pt（13⅓ × 7.5 英寸），所有页保持与单页观看相同的纵向布局。播放器“导出 PDF / 打印”打开浏览器打印窗口；需要稳定纸张尺寸与单页适配偏好时用 `export_pdf.cjs`。阅读器可能忽略 PDF 观看偏好，此时选择“适合页面”；非 16:9 屏幕保留边带。旧 HTML 内嵌旧播放器，不会随 Skill 更新自动变化；从源项目重建，浏览器编辑过的旧稿须先保留另存副本，避免覆盖修改。
-
-**Chrome PDF 全屏出现下一页白条时**，先区分 PDF 页面留白与阅读器露出相邻页。在 macOS 上，检查“系统设置 → 外观 → 显示滚动条”是否为“始终”；已复现案例中，经用户同意改为“滚动时”，退出演示并重新加载 PDF 后再进入演示，白条消失。该项影响系统内其他应用，不静默更改用户偏好。验证必须使用同一份 PDF，并检查翻页后的底部；不能用 HTML 演示通过来声称 PDF 已修复。不要以改变纸张尺寸、裁切内容或补黑边掩盖阅读器问题。
-
-播放器“导出 PPTX”与 `export_pptx.cjs` 生成同一种可编辑 PowerPoint 文件：按实际渲染测量每个元素的位置，文字保留为文本框（字号、粗细、颜色、字距、行距不变），信息块、标签与横线转为形状，场景图与图标转为图片，ECharts 转为原生图表并内嵌数据表，讲稿写入备注。全稿统一使用一种通用字体（默认微软雅黑，`--font` 可改），因此英文与数字略宽，单行文字不折行、多行文字留有余量；毛玻璃、阴影等效果按 PowerPoint 能表达的程度近似。导出器随每份 HTML 内嵌、不联网；旧稿没有该按钮时用命令行导出。交付 PPTX 前在 PowerPoint 中逐页查看，不以 HTML 通过代替。
-
-用户接受 HTML 演示副本且只有 PDF 时，可用 `pdf_to_slides.py` 生成单文件副本。它依赖 Poppler 的 `pdfinfo` / `pdftocairo`，将每页转换为内嵌 SVG 图像，一次仅显示当前页，支持全屏、方向键、页码跳转和触控翻页。文字保留矢量轮廓但不可编辑或选择，不替代可编辑源稿或用户明确要求的 PDF；逐页查看转换结果，并检查实际浏览器全屏的四边和翻页。
-
-`--draft` 只供内部预排并明确显示缺图；正式交付禁止该模式。新增或删除页面后必须检查总页数、总览、保存和打印。
+用户要 PDF 或 PPTX 时按 [导出](references/export.md) 执行，PPTX 须在 PowerPoint 中逐页核对。构建器与生图脚本只依赖 Python 标准库（Pillow 可选，用于压缩；底色校准需 numpy）；不能运行审查器时用可用浏览器逐页检查并说明范围。`--draft` 只供内部预排缺图，正式交付禁止。旧 HTML 内嵌旧播放器，从源项目重建；浏览器编辑过的旧稿先保留另存副本。新增风格按 [新增独立风格包](references/adding-styles.md) 接入。
 
 ## 续做与局部修改
 
-- 继续修改本项目的 `deck.json`、图片与 CSS，避免重做已确认部分。
-- 旧项目使用新版构建前，按原大纲补齐每页 visual 与必要组件；自定义标题改用共享 heading。不能为通过新检查随意补卡片、填写空泛豁免或删除大纲要求。
-- "恢复原始样式"仅作用于指定范围。无框区域恢复标题、横向细线与间距；已选信息块与明确保留项不随之消失。
-- 人工供图中途停止时保留清单与缺图状态；收齐后继续，不要求重新描述已有大纲。
-- 输出为单文件 HTML 时，不主动追加 PPTX、PDF、视频或部署任务；制作过程中不预先验证 PDF，用户要 PDF 时导出并核对。用户明确要 PPTX 时用导出器生成并在 PowerPoint 中核对，不以 HTML 替代。
+- 继续修改本项目的 `deck.json`、图片与 CSS，不重做已确认部分。
+- 旧项目用新版构建前，按原大纲补齐每页 visual；不为通过检查随意补卡片、填空泛豁免或删除大纲要求。
+- “恢复原始样式”仅作用于指定范围；已选信息块与明确保留项不随之消失。
+- 人工供图中途停止时保留清单与缺图状态，收齐后继续。
+- 不主动追加 PPTX、PDF、视频或部署任务；用户明确要 PPTX 时用导出器生成，不以 HTML 替代。

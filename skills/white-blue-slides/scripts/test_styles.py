@@ -198,7 +198,7 @@ class StyleRegressionTests(unittest.TestCase):
         self.assertIn('data-visual-type="process"', html)
         self.assertNotIn('class="missing-image"', html)
         data, root = load_deck(write_deck(self.root, deck))
-        self.assertEqual(check_plan(data, root)['pages'][0]['illustration_region_ratio'], .5)
+        self.assertEqual(check_plan(data, root)['pages'][0]['composition'], 'half_tb')
         deck['presentation_mode'] = 'speech'
         with self.assertRaisesRegex(ValueError, 'reading 版式需要'):
             self.render(deck)

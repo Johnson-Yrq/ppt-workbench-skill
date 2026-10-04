@@ -4,7 +4,7 @@
    owned by the shared engine. This file supplies the complete visual treatment. */
 
 /* ---- palette & typography ---- */
-:root{--paper:#F7F6F2;--blue:#234356;--ink:#1D3446;--muted:#59686E;--line:#C9D6D2;--panel:#E8EFEB;--radius:6px;--saas-navy:var(--ink);--diagram-accent:var(--saas-teal);--saas-teal:#477F80;--saas-gold:#BC9B59;--saas-glass:rgba(255,255,253,.76);--saas-border:#D3DEDA;--saas-shadow:0 8px 24px rgba(29,52,70,.045),inset 0 1px 0 rgba(255,255,255,.92)}
+:root{--folio-small:40px;--folio-rail:72px;--chapter-band:none;--paper:#F7F6F2;--blue:#234356;--ink:#1D3446;--muted:#59686E;--line:#C9D6D2;--panel:#E8EFEB;--radius:6px;--saas-navy:var(--ink);--diagram-accent:var(--saas-teal);--saas-teal:#477F80;--saas-gold:#BC9B59;--saas-glass:rgba(255,255,253,.76);--saas-border:#D3DEDA;--saas-shadow:0 8px 24px rgba(29,52,70,.045),inset 0 1px 0 rgba(255,255,255,.92)}
 html,body{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink)}
 body{background:#E5E7E4}
 h1{color:var(--saas-navy);font-weight:750;letter-spacing:-.8px}

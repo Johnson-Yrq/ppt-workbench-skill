@@ -12,8 +12,8 @@ metadata:
 ## 选择与共享边界
 
 - 直接调用本 Skill 即选择写实微缩；`deck.json` 根字段设为 `"style": "real-miniature"`。通用请求由 [PPT 制作工作台](../ppt-workbench/SKILL.md) 确认缺少的选择，不能仅凭“软件”“办公”等主题擅自选风格。续做保留当前项目已选方向。
-- **真实演示稿动工前确认演讲型或阅读型**，按 [用途与信息密度](../white-blue-slides/references/presentation-modes.md) 执行。已在任务／项目中确认或已授权自行选择时直接采用；根字段 `presentation_mode` 记录 `speech / reading`。工具开发和两种模式的验证示例不重复触发用途问卷。
-- 本包与 `white-blue-slides` 同级安装。`<style>` 为本包，`<shared>` 为同级 `white-blue-slides`，`<project>` 为当前制作目录。共用脚本、13 种版式、播放器、图标、默认公司／Logo 资源；用户品牌优先。本包只维护自己的主题、提示词、参考与规范，不复制脚本，也不加载其他风格的 SKILL 或视觉规则。
+- **真实演示稿动工前确认演讲型或阅读型**，按 [用途与信息密度](../white-blue-slides/references/presentation-modes.md) 执行。已在任务／项目中确认或已授权自行选择时直接采用；根字段 `presentation_mode` 记录 `speech / reading`；页头样式不询问，按内容为每页选择 [`header`](../white-blue-slides/references/deck-format.md#页头样式)。工具开发和两种模式的验证示例不重复触发用途问卷。
+- 本包与 `white-blue-slides` 同级安装。`<style>` 为本包，`<shared>` 为同级 `white-blue-slides`，`<project>` 为当前制作目录。共用脚本、13 种版式、播放器与图标；套件不含品牌，Logo 与公司名仅在用户提供时写入 deck。本包只维护自己的主题、提示词、参考与规范，不复制脚本，也不加载其他风格的 SKILL 或视觉规则。
 - 首次制作阅读 [设计系统](references/design-system.md)，查看 `assets/reference-design/approved-workflow.png`。这是已确认的无文字风格参考，`review-scene.png` 是同方向的协作近景样例。参考中的四区、人数、植物、箭头、顶部图形并非每页必备元素；品牌和场景内容不作为产品事实。
 
 用途明确后，从 [演讲型示例](assets/deck.example.json) 或 [阅读型示例](assets/deck.reading.example.json) 建立项目。示例文案与数字仅用于展示排版，按实际大纲替换，不视作用户的选择或产品承诺。
@@ -24,7 +24,7 @@ metadata:
 2. **选共享版式并建立计划。** 按 [数据结构与构建方法](../white-blue-slides/references/deck-format.md) 使用 `cover / scene / split / triad / journey / architecture / flow / domains / formula / table / relations / closing / reading`。写明每页 `visual` 的角色、分组与理由，明确要求写入 `requirements`，先运行 `--check-plan` 并修复错误。标题默认配语义图标，不适用时写具体 `icon_omit_reason`。
 3. **按页准备配图。** 阅读 [配图流程](references/image-workflow.md)。逐图简报描述对象、动作、结构、材质细节与构图；保持 35–45° 镜头和 PBR 材质，人物在场时有细致五官、自然手势与衣物褶皱。数量和关系以本页内容为准，可用无人设备场景，不把每页套成四个办公分区。默认 `ui_text: "none"`，标题、说明、数字均由 HTML 承载。
 4. **组织可编辑内容。** 先给阅读型配图划出主体版面的 1/2 或 1/4；主体不含页头页脚及全宽摘要。支持左右、上下、对角双图和四分之一四种构图；多图分别解释不同阶段或视角。其余分区组合流程、矩阵、图标、解释和 [ECharts](../white-blue-slides/references/charts.md)。数量图表标明单位与来源，示例标明示例，不补造产品效果。控制区长文字、阶段字段和架构分层标注使用共享构建器的结构化字段，先匹配列宽与配图比例，再调整细节。普通条目保持无框、相同缩进；重点标题和图标可放大约 10%，不突然增加一张卡片。
-5. **构建与检查。** 使用共享构建器，自动加载本包主题。按 [质量检查](references/quality-check.md) 自动检查并逐页查看，修复溢出、弱对比、图文错位、裁切及离线功能问题。必要时拆页，不用面板掩盖错位。最终交付独立 `.html`，JSON、截图和提示词是过程文件；明确要求 PPTX 或其他导出仍须完成相应格式，不能用 HTML 替代。
+5. **构建与检查。** 使用共享构建器，自动加载本包主题。按 [质量检查](references/quality-check.md) 自动检查并逐页查看，修复溢出、弱对比、图文错位、裁切及离线功能问题。必要时拆页，不用面板掩盖错位。最终交付独立 `.html`，JSON、截图和提示词是过程文件；用户要 PDF 或 PPTX 时按共享 [导出](../white-blue-slides/references/export.md) 执行，不能用 HTML 替代。
 
 ## 命令
 

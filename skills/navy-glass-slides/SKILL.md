@@ -11,11 +11,11 @@ metadata:
 
 ## 风格与共享套件
 
-**动工前先确认演讲型或阅读型。** 阅读 [用途确认与信息密度](../white-blue-slides/references/presentation-modes.md)。用户未明确用途时，在拆页、排版和生图前问清并等待反馈；已选择、已在当前项目记录或已授权自行选择的模式直接采用。根字段 `presentation_mode` 记录 `speech / reading`，与 `style` 分开选择。
+**动工前先确认演讲型或阅读型。** 阅读 [用途确认与信息密度](../white-blue-slides/references/presentation-modes.md)。用户未明确用途时，在拆页、排版和生图前问清并等待反馈；已选择、已在当前项目记录或已授权自行选择的模式直接采用。根字段 `presentation_mode` 记录 `speech / reading`，与 `style` 分开选择；页头样式不询问，按内容为每页选择 [`header`](../white-blue-slides/references/deck-format.md#页头样式)。
 
 - 风格选择顺序：用户明确选择 > 当前项目已记录的 `style` > 询问缺少的选择。直接调用本 Skill 即选择海蓝玻璃风格；软件主题本身不代表已选择。通用请求先按 [PPT 制作工作台](../ppt-workbench/SKILL.md) 一次确认缺少的风格与类型；明确选择其他风格时通过 `<shared>/scripts/style_packs.py --list` 读取对应入口。续做旧稿保留其风格；要换风格时遵循用户指定的范围。
 - 本 Skill 的 `deck.json` 根字段写 `"style": "saas-3d"`。共享构建器中，未写 `style` 的旧项目仍采用原风格。此命名风格已包含独立主题，不需要 `--allow-restyle`。
-- `navy-glass-slides` 与 `white-blue-slides` 两个目录须同级安装。`<style>` 指本目录；`<shared>` 指同级 `white-blue-slides`；`<project>` 指当前制作目录。共享脚本、版式、播放器和默认公司／Logo 资源，不复制一套脚本。用户指定的品牌优先。
+- `navy-glass-slides` 与 `white-blue-slides` 两个目录须同级安装。`<style>` 指本目录；`<shared>` 指同级 `white-blue-slides`；`<project>` 指当前制作目录。共享脚本、版式和播放器，不复制一套脚本。套件不含品牌，Logo 与公司名仅在用户提供时写入 deck。
 - 使用本 Skill 时读取本目录的设计、配图与验收规范；不加载另一套 Skill 的 `SKILL.md` 或素白蓝调视觉规范。共享的 [数据结构与构建方法](../white-blue-slides/references/deck-format.md) 只提供技术契约；视觉外观由本风格决定。
 
 首次制作时阅读 [设计系统](references/design-system.md)，查看 `assets/reference-design/approved-product-overview.png`（已确认示例）与 `assets/reference-design/target-style.png`（目标参考）。参考图限定材质、尺度、层级和渲染气质，其中品牌、金额、图表与对象数量不构成事实或模板要求。该设计方向已确认，正常制作与检查不需要重新选择风格。
@@ -25,11 +25,11 @@ metadata:
 ## 大纲到成稿
 
 1. **按已确认用途拆页。** 保留主线、必要事实、明确页数与交付格式；通常一页一个结论。演讲型可将讲解细节放 `notes`；阅读型把理解结论所需的流程、比较、来源、条件和边界放在页面上，`notes` 只作补充；不制造业绩、联系人或产品截图。大纲已含尾页或限制页数时不额外加页，否则可补有配图的简洁收束页。
-2. **选择共享版式。** 按关系选择 `cover / scene / split / triad / journey / architecture / flow / domains / formula / table / relations / closing / reading`。普通说明使用图标标题与留白；同层级条目保持相同缩进、正文大小与间距，需要轻量强调时按设计系统设置 `emphasis`，标题与图标可略微放大，不因强调单独增加卡片；真实分组可用浅底面板；字段或状态用标签。按内容形成节奏，不能把每页变成同一块深蓝仪表盘加三台电脑。
+2. **选择共享版式。** 按 [内容关系](../white-blue-slides/references/deck-format.md#版式与容量) 选版式。普通说明使用图标标题与留白；同层级条目保持相同缩进、正文大小与间距，需要轻量强调时按设计系统设置 `emphasis`，标题与图标可略微放大，不因强调单独增加卡片；真实分组可用浅底面板；字段或状态用标签。按内容形成节奏，不能把每页变成同一块深蓝仪表盘加三台电脑。
 3. **建立并检查计划。** 使用共享数据结构，写明每页 `visual` 的角色、分组处理与理由。大纲明确的项数、图标、状态、深浅分组、架构层级等逐条进入 `requirements`。运行 `--check-plan`，先修复结构或缺项，再生图。分组标题默认选语义相关的共享 SVG 图标；不适用时填具体的 `icon_omit_reason`，不为凑数添加。
 4. **按需要准备配图。** 阅读 [配图流程](references/image-workflow.md)，对需要配图的页面，按本页对象、用户操作或系统处理、业务关系、层次细节与构图写 `image.brief`。有可直接调用的内置生图工具就生成并查看；用户已给图先看后复用。没有内置工具时导出完整提示词与文件名清单，询问用户是否用自己的生图 API 按共享 [image-api](../white-blue-slides/references/image-api.md) 自动生成，否则人工供图；继续完成独立的文字和版式工作，准确列出尚缺图片。
-5. **构建与排版。** 调用共享构建器，自动加载本目录主题与配图基底。页面标题、正文、流程、矩阵、架构标注和真实指标始终可编辑。阅读型按主体版面分区选择 1/2 左右、1/2 上下、1/2 对角双图或 1/4 配图；主体版面不含页头页脚及全宽摘要。先确定配图分区，再用图表、图标、矩阵和文字组织其余内容。有可靠数量数据时可使用 ECharts；不得缩小字号、重复插图或补造指标，放不下则拆页。需要展示的场景主体完整，按实际可见本体调整 `zoom` 与偏移；架构文字直接对齐模块，不能用面板遮错。`custom_css` 只微调内容区，确需新关系时按共享契约新增一两种版式，不覆盖公共组件。
-6. **验证并交付。** 按 [质量检查](references/quality-check.md) 完成自动检查及逐页视觉检查，修复图文对应、层次、溢出、缺图和离线功能问题。最终必需交付是独立 `.html`；提示词、JSON、截图、QA 报告是过程文件。用户明确要求的其他导出仍须完成，不能拿 HTML 替代 PPTX。
+5. **构建与排版。** 调用共享构建器，自动加载本目录主题与配图基底。页面标题、正文、流程、矩阵、架构标注和真实指标始终可编辑。阅读型按共享[四类图文分区](../white-blue-slides/references/presentation-modes.md#阅读型的四类图文分区)排版，放不下则拆页。需要展示的场景主体完整，按实际可见本体调整 `zoom` 与偏移；架构文字直接对齐模块，不能用面板遮错。`custom_css` 只微调内容区，确需新关系时按共享契约新增一两种版式，不覆盖公共组件。
+6. **验证并交付。** 按 [质量检查](references/quality-check.md) 完成自动检查及逐页视觉检查，修复图文对应、层次、溢出、缺图和离线功能问题。最终必需交付是独立 `.html`；提示词、JSON、截图、QA 报告是过程文件。用户要 PDF 或 PPTX 时按共享 [导出](../white-blue-slides/references/export.md) 执行，不能拿 HTML 替代 PPTX。
 
 数量比较、趋势或构成适合图表时，使用 [ECharts 图表契约](../white-blue-slides/references/charts.md)，保留数据来源与相邻解释。图表、数据和播放器一起内嵌，支持离线编辑与保存。
 

@@ -5,7 +5,6 @@ supply a package path or executable loader. Adding a sibling style needs no code
 """
 import argparse
 import json
-import math
 import re
 from pathlib import Path
 
@@ -33,54 +32,26 @@ def _scan():
 
 
 def _load(path, source, allow_draft=False):
+    """Resolve a manifest's resource paths; only fields the builder and prompt export actually read are checked."""
     pack = dict(source)
     for key in ('name', 'description'):
         if not isinstance(pack.get(key), str) or not pack[key].strip():
             raise ValueError(f'风格清单 {key} 需要非空说明：{path}')
-    status = pack.get('status')
-    if status not in ('ready', 'draft'):
-        raise ValueError(f'风格 status 可选 ready / draft：{path}')
-    if status != 'ready' and not allow_draft:
+    if pack.get('status') != 'ready' and not allow_draft:
         raise ValueError(f'{pack["id"]} 仍为 draft；先完成风格样例确认和验证，再设为 ready')
     assets, root = path.parent.resolve(), path.parent.parent.resolve()
     for field in ('css', 'image_prompt', 'image_reference'):
         value = pack.get(field)
         if value is None and field != 'image_prompt':
             continue
-        if not isinstance(value, str) or not value.strip():
-            raise ValueError(f'风格清单 {field} 需要相对文件路径：{path}')
-        resource = (assets / value).resolve()
-        if Path(value).is_absolute() or not resource.is_relative_to(assets) or not resource.is_file():
+        resource = (assets / str(value)).resolve()
+        if not resource.is_relative_to(assets) or not resource.is_file():
             raise ValueError(f'风格资源缺失或路径无效：{field}={value}（{path}）')
         pack[field] = resource
-    for file in ('SKILL.md', 'references/design-system.md', 'references/image-workflow.md', 'references/quality-check.md'):
-        resource = (root / file).resolve()
-        if not resource.is_relative_to(root) or not resource.is_file():
-            raise ValueError(f'风格说明缺失或路径无效：{root / file}')
-    modes = pack.get('ui_text_modes')
-    if not isinstance(modes, list) or not modes or any(not isinstance(m, str) or not ID.fullmatch(m) for m in modes):
-        raise ValueError(f'ui_text_modes 需要非空策略名称数组：{path}')
-    default = pack.get('default_ui_text')
-    if not isinstance(default, str) or default not in modes:
-        raise ValueError(f'default_ui_text 必须列于 ui_text_modes：{path}')
-    prompts = pack.get('ui_text_prompts')
-    if not isinstance(prompts, dict) or any(not isinstance(prompts.get(m), str) for m in modes):
-        raise ValueError(f'每种 ui_text 策略需要对应提示词：{path}')
-    hints = pack.get('layout_hints', {})
-    if not isinstance(hints, dict) or any(not isinstance(v, str) for v in hints.values()):
-        raise ValueError(f'layout_hints 需要字符串映射：{path}')
-    audit = pack.get('audit')
-    if not isinstance(audit, dict):
-        raise ValueError(f'风格需要 audit 检查契约：{path}')
-    for key in ('max_radius', 'page_number_min'):
-        value = audit.get(key)
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < (1 if key == 'page_number_min' else 0):
-            raise ValueError(f'audit.{key} 需要有效的非负数（页码字号至少 1）：{path}')
-    for key in ('cover_labels_expected', 'chapter_panel'):
-        if key in audit or key == 'cover_labels_expected':
-            if not isinstance(audit.get(key), bool):
-                raise ValueError(f'audit.{key} 需要布尔值：{path}')
-    pack.update(layout_hints=hints, skill_file=root / 'SKILL.md', manifest=path.resolve())
+    modes, prompts = pack.get('ui_text_modes') or [], pack.get('ui_text_prompts') or {}
+    if pack.get('default_ui_text') not in modes or any(m not in prompts for m in modes):
+        raise ValueError(f'ui_text_modes、default_ui_text 与 ui_text_prompts 需要一一对应：{path}')
+    pack.update(layout_hints=pack.get('layout_hints', {}), skill_file=root / 'SKILL.md', manifest=path.resolve())
     return pack
 
 

@@ -20,11 +20,5 @@
     "architecture": "Display: one complete layered software architecture with the exact tiers, module counts and connections described below. Use thin terraces, precise modules and restrained glass conduits. Leave clear tier edges and adjacent space for editable labels. No architecture labels, callout plates or captions in the raster; any screen-internal labels follow the UI text policy."
   },
   "default_ui_text": "demo",
-  "audit": {
-    "max_radius": 8,
-    "page_number_min": 36,
-    "cover_labels_expected": false,
-    "chapter_panel": false,
-    "closing_title_token": "--ink"
-  }
+  "cover_labels_expected": false
 }

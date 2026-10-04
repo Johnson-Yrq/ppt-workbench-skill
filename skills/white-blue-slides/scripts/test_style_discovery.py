@@ -99,7 +99,6 @@ class StyleDiscoveryTests(unittest.TestCase):
                 self.assertIn('--third-style-token', '\n'.join(doc.styles))
                 self.assertNotIn('--other-style-token', '\n'.join(doc.styles))
                 self.assertGreater(doc.editable, 0)
-                self.assertEqual(json.loads(doc.body['data-style-contract']), source['audit'])
 
     def test_draft_is_inspectable_but_cannot_build(self):
         self.make_pack(status='draft')
@@ -122,7 +121,7 @@ class StyleDiscoveryTests(unittest.TestCase):
         self.make_pack()
         invalid, source = self.make_pack('broken-slides', id='broken')
         for update in ({'css': 'missing.css'}, {'image_prompt': '../../third-slides/assets/image-style.txt'},
-                       {'default_ui_text': 'unavailable'}, {'audit': {}}):
+                       {'default_ui_text': 'unavailable'}):
             with self.subTest(update=update):
                 self.save(invalid, dict(source, **update))
                 listing = discover_styles()
@@ -132,11 +131,8 @@ class StyleDiscoveryTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     resolve_style({'style': 'broken'})
 
-    def test_missing_instructions_and_unknown_id_fail(self):
-        root, _ = self.make_pack()
-        (root / 'references/design-system.md').unlink()
-        with self.assertRaisesRegex(ValueError, 'design-system'):
-            resolve_style({'style': 'third-style'})
+    def test_unknown_id_fails(self):
+        self.make_pack()
         with self.assertRaisesRegex(ValueError, 'unknown-style'):
             resolve_style({'style': 'unknown-style'})
 
