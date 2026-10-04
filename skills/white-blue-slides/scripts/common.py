@@ -43,6 +43,24 @@ def presentation_mode(deck):
 HEADER_STYLES = ('standard', 'compact', 'rail', 'band', 'aside', 'ghost')
 
 
+VARIANTS = {'cover': ('standard', 'mirror', 'full', 'panel'), 'closing': ('standard', 'mirror', 'full')}
+
+
+def slide_variant(slide):
+    """Arrangement of a cover or closing page; content pages have none."""
+    allowed = VARIANTS.get(slide['layout'])
+    if allowed is None:
+        if 'variant' in slide:
+            raise ValueError('variant 仅用于 cover / closing')
+        return 'standard'
+    value = slide.get('variant', 'standard')
+    if value not in allowed:
+        raise ValueError(f'{slide["layout"]} 的 variant 可选 ' + ' / '.join(allowed))
+    if value != 'standard' and slide.get('labels'):
+        raise ValueError('只有 standard 封面支持 labels；其他 variant 去掉 labels')
+    return value
+
+
 def header_style(deck, slide):
     """Root `header` sets the default for content pages; a slide's own `header` overrides it. Cover and closing keep their own frame."""
     if slide['layout'] in ('cover', 'closing'):
@@ -129,6 +147,7 @@ def load_deck(filename, layouts=LAYOUTS):
                 raise ValueError('reading 版式需要 presentation_mode: reading；制作前先确认阅读型用途')
             reading_composition(s)
         header_style(data, s)
+        slide_variant(s)
         for im in slide_images(s):
             if 'ratio' in im and (not isinstance(im['ratio'], str) or im['ratio'] not in IMAGE_RATIOS):
                 raise ValueError(f'第 {i} 页图片比例可选：' + ' / '.join(sorted(IMAGE_RATIOS)))

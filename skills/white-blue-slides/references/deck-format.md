@@ -56,6 +56,19 @@ Python 3.9+，标准库即可。安装了 Pillow 时构建器把配图转成 Web
 
 页头样式由 Agent 按内容选择，不询问用户；用户主动指定时照办并写根字段。按上表给需要的页写 `header`，常规页留默认；同一章节内保持一致，整稿不超过三种。
 
+### 封面与尾页排布
+
+封面和尾页用单页字段 `variant` 选择左右排布，默认 `standard`；只改变图文位置，字段、文案上限与配色不变。对比见 `assets/cover-variants.png`。
+
+| `variant` | 外观 | 适合 |
+|---|---|---|
+| `standard` | 左文右图 | 默认；需要右侧层级标注 `labels` 时只能用它 |
+| `mirror` | 左图右文 | 与上一份稿或封面形成呼应，配图主体偏左时 |
+| `full` | 配图贴上、右两边出血，左缘渐隐 | 配图是完整大场景、想要更强冲击力时 |
+| `panel` | 文案落在左侧浅色块上（仅封面） | 配图背景较杂、需要把文案区和图区分开时 |
+
+由 Agent 按配图构图选择，不询问用户；用户指定时照办。尾页可与封面同一排布或选 `standard`。`labels` 只用于 `standard` 封面，内容页不能写 `variant`。
+
 `custom_css` 只用于内容区布局，不接受 `@import`、`url()`、HTML 或 `!important`；选择器里出现 `header/footer/h1/.subtitle/.chapter/.page-number/.layout-cover/.layout-closing/.cover-*/.ending-*/.brand/.slide/body` 会被拒绝（用户明确要求在所选主题之外自定义这些区域时加 `--allow-restyle`）。按稳定 `id` 微调，例如 `#p03 .hero-scene{width:1180px}`；按页需要调整，不把临时样式写回 Skill。
 
 新关系无法由现有版式清晰表达时，在项目内写 `builder.py` 并用 `--builder builder.py` 传给构建器和 `--check-plan`：
@@ -187,7 +200,7 @@ class Builder(Base):
 
 大纲给的"核心信息""一句说明"若与副标题重复，只留信息量最大的一句，其余放 `notes` 或尾页寄语；不用换行把两句塞进一层。
 
-可选 `labels`：`[{"title":"集团总部","text":"全局监管","y":272}]`。最多 5 项；`y` 为整张 1920×1080 页面的坐标，需看本页图调整。标签是右侧无底板的蓝色标题与灰色小字，不能照抄参考图坐标给所有配图。
+可选 `variant`（见 [封面与尾页排布](#封面与尾页排布)）。可选 `labels`（仅 standard）：`[{"title":"集团总部","text":"全局监管","y":272}]`。最多 5 项；`y` 为整张 1920×1080 页面的坐标，需看本页图调整。标签是右侧无底板的蓝色标题与灰色小字，不能照抄参考图坐标给所有配图。
 
 ### scene：大场景与两侧说明
 
@@ -306,7 +319,7 @@ class Builder(Base):
 
 ### closing：有配图的收束
 
-`title` 例如“感谢聆听”，`chapter` 可为合作意向，`subtitle` 为一句愿景；可加两行 `message`。`product` 默认根 `title`。每项都是本次大纲的内容，不自动制造联系信息。
+`title` 例如“感谢聆听”，`chapter` 可为合作意向，`subtitle` 为一句愿景；可加两行 `message`；可选 `variant`：`standard / mirror / full`。`product` 默认根 `title`。每项都是本次大纲的内容，不自动制造联系信息。
 
 是否补尾页在规划时决定。构建器严格按 `slides` 构建，不擅自加页，避免违反明确页数。
 

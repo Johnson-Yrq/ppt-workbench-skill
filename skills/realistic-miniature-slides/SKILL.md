@@ -12,7 +12,7 @@ metadata:
 ## 选择与共享边界
 
 - 直接调用本 Skill 即选择写实微缩；`deck.json` 根字段设为 `"style": "real-miniature"`。通用请求由 [PPT 制作工作台](../ppt-workbench/SKILL.md) 确认缺少的选择，不能仅凭“软件”“办公”等主题擅自选风格。续做保留当前项目已选方向。
-- **真实演示稿动工前确认演讲型或阅读型**，按 [用途与信息密度](../white-blue-slides/references/presentation-modes.md) 执行。已在任务／项目中确认或已授权自行选择时直接采用；根字段 `presentation_mode` 记录 `speech / reading`；页头样式不询问，按内容为每页选择 [`header`](../white-blue-slides/references/deck-format.md#页头样式)。工具开发和两种模式的验证示例不重复触发用途问卷。
+- **真实演示稿动工前确认演讲型或阅读型**，按 [用途与信息密度](../white-blue-slides/references/presentation-modes.md) 执行。已在任务／项目中确认或已授权自行选择时直接采用；根字段 `presentation_mode` 记录 `speech / reading`；页头样式不询问，按内容为每页选择 [`header`](../white-blue-slides/references/deck-format.md#页头样式)，封面尾页按配图选择 [`variant`](../white-blue-slides/references/deck-format.md#封面与尾页排布)。工具开发和两种模式的验证示例不重复触发用途问卷。
 - 本包与 `white-blue-slides` 同级安装。`<style>` 为本包，`<shared>` 为同级 `white-blue-slides`，`<project>` 为当前制作目录。共用脚本、13 种版式、播放器与图标；套件不含品牌，Logo 与公司名仅在用户提供时写入 deck。本包只维护自己的主题、提示词、参考与规范，不复制脚本，也不加载其他风格的 SKILL 或视觉规则。
 - 首次制作阅读 [设计系统](references/design-system.md)，查看 `assets/reference-design/approved-workflow.png`。这是已确认的无文字风格参考，`review-scene.png` 是同方向的协作近景样例。参考中的四区、人数、植物、箭头、顶部图形并非每页必备元素；品牌和场景内容不作为产品事实。
 

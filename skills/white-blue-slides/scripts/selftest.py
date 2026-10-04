@@ -6,6 +6,7 @@ Run after editing scripts/ or assets/: python3 scripts/selftest.py
 import copy
 import io
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -121,8 +122,8 @@ def run():
         check('--embed-format keep preserves png', 'data:image/png' in kept and 'data:image/webp' not in kept)
 
         # 6a. Header styles: root default, per-slide override, cover/closing keep their own frame.
-        headed = Builder({**data, 'header': 'band'}, root).render().split('</section>')
-        check('root header applies to content pages only', 'head-band' in headed[1] and 'head-' not in headed[0].split('>')[0] and 'head-' not in headed[2].split('>')[0])
+        headed = re.findall(r'class="slide layout-[^"]*"', Builder({**data, 'header': 'band'}, root).render())
+        check('root header applies to content pages only', 'head-band' in headed[1] and 'head-' not in headed[0] and 'head-' not in headed[2], str(headed))
         case = copy.deepcopy(example); case['header'] = 'band'; case['slides'][1]['header'] = 'ghost'
         d2, r2 = load_deck(_write(work, 'header.json', case))
         check('slide header overrides the root', 'head-ghost' in Builder(d2, r2).render())
@@ -132,6 +133,22 @@ def run():
                 load_deck(_write(work, 'header-bad.json', case)); check(f'rejects {name}', False, 'no error')
             except ValueError as e:
                 check(f'rejects {name}', 'header' in str(e), str(e))
+
+        # 6a'. Cover/closing variants: a class on the section; labels stay on standard covers.
+        case = copy.deepcopy(example); case['slides'][0]['variant'] = 'panel'; case['slides'][0].pop('labels', None); case['slides'][-1]['variant'] = 'mirror'
+        d2, r2 = load_deck(_write(work, 'variant.json', case))
+        varied = re.findall(r'class="slide layout-[^"]*"', Builder(d2, r2).render())
+        check('variant becomes a slide class', 'variant-panel' in varied[0] and 'variant-mirror' in varied[2] and 'variant-' not in varied[1], str(varied))
+        bad = {'unknown variant': lambda c: c['slides'][0].__setitem__('variant', 'center'),
+               'panel closing': lambda c: c['slides'][-1].__setitem__('variant', 'panel'),
+               'variant on a content page': lambda c: c['slides'][1].__setitem__('variant', 'mirror'),
+               'labels on a non-standard cover': lambda c: c['slides'][0].update(variant='full', labels=[{'title': '总部', 'text': '监管', 'y': 300}])}
+        for name, mutate in bad.items():
+            case = copy.deepcopy(example); mutate(case)
+            try:
+                load_deck(_write(work, 'variant-bad.json', case)); check(f'rejects {name}', False, 'no error')
+            except ValueError as e:
+                check(f'rejects {name}', 'variant' in str(e), str(e))
 
         # 6b. PPTX export: the exporter ships inside every build, before the player.
         check('build embeds the PPTX exporter before the player', html.index('window.deckPptx=') < html.index('window.deckAPI='))

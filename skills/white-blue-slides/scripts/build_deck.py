@@ -8,7 +8,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
-from common import ASSETS, EMBED_FORMATS, LAYOUTS, header_style, convert_image, image_size, load_deck, local_path, number, read_raster, presentation_mode, slide_images, reading_composition
+from common import ASSETS, EMBED_FORMATS, LAYOUTS, header_style, slide_variant, convert_image, image_size, load_deck, local_path, number, read_raster, presentation_mode, slide_images, reading_composition
 from design_contract import analyze_deck, presentation_for, visual_for
 from style_packs import resolve_style, paper_color
 
@@ -487,6 +487,8 @@ class Builder:
         extra_cls = ' no-cover-labels' if layout == 'cover' and not s.get('labels') else ''
         if (head_style := header_style(self.deck, s)) != 'standard':
             extra_cls += f' head-{head_style}'
+        if (variant := slide_variant(s)) != 'standard':
+            extra_cls += f' variant-{variant}'
         style = ''
         if 'title_size' in s:
             style += f'--title-size:{number(s["title_size"], 46, 36, 110, "title_size")}px;'

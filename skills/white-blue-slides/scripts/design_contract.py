@@ -258,7 +258,7 @@ def analyze_deck(deck):
             errors.append('架构角色需要对应模型的 labels；不能只用普通段落代替直接标注')
         if slide.get('layout') == 'cover':
             warnings.extend(cover_rules(slide))
-            if style.get('cover_labels_expected', True) and not slide.get('labels'):
+            if style.get('cover_labels_expected', True) and slide.get('variant', 'standard') == 'standard' and not slide.get('labels'):
                 warnings.append('封面没有右侧层级标注 labels；配图含可指的层级、站点或对象时应逐项标注（参照默认封面）')
         page = {'slide_id': slide['id'], 'page': n, 'presentation_mode': mode, 'role': visual['role'], 'treatment': visual['treatment'],
                 'rationale': raw.get('rationale', ''), 'requirements': requirements, 'manual': manual,

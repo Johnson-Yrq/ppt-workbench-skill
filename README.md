@@ -225,7 +225,7 @@ The library, data, and SVG charts work offline without a CDN. Supported inputs a
 
 ### Header styles
 
-Content pages offer six header arrangements; the agent picks one per page from the content without asking, or uses the one you name. Colors follow the chosen style; covers and closings stay unchanged.
+Content pages offer six header arrangements; the agent picks one per page from the content without asking, or uses the one you name. Colors follow the chosen style; covers and closings have their own arrangements below.
 
 ![Six header styles](skills/white-blue-slides/assets/header-styles.png)
 
@@ -239,6 +239,19 @@ Content pages offer six header arrangements; the agent picks one per page from t
 | `ghost` | Pages with generous white space, tables |
 
 Set `"header": "band"` at the root of `deck.json` for the whole deck; a slide's own `header` overrides it.
+
+### Cover and closing arrangements
+
+Covers have four left/right arrangements and closings three. The agent picks one from the illustration's composition; set `variant` on the slide to choose yourself.
+
+![Cover and closing arrangements](skills/white-blue-slides/assets/cover-variants.png)
+
+| `variant` | Look |
+|---|---|
+| `standard` | Copy left, image right (default; the only one with side labels) |
+| `mirror` | Image left, copy right |
+| `full` | Image bleeds to the top and right edges, fading in on the left |
+| `panel` | Copy on a light block on the left; covers only |
 
 ## Workflow and illustrations
 

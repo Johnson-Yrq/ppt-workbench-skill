@@ -11,7 +11,7 @@ metadata:
 
 ## 风格与共享套件
 
-**动工前先确认演讲型或阅读型。** 阅读 [用途确认与信息密度](../white-blue-slides/references/presentation-modes.md)。用户未明确用途时，在拆页、排版和生图前问清并等待反馈；已选择、已在当前项目记录或已授权自行选择的模式直接采用。根字段 `presentation_mode` 记录 `speech / reading`，与 `style` 分开选择；页头样式不询问，按内容为每页选择 [`header`](../white-blue-slides/references/deck-format.md#页头样式)。
+**动工前先确认演讲型或阅读型。** 阅读 [用途确认与信息密度](../white-blue-slides/references/presentation-modes.md)。用户未明确用途时，在拆页、排版和生图前问清并等待反馈；已选择、已在当前项目记录或已授权自行选择的模式直接采用。根字段 `presentation_mode` 记录 `speech / reading`，与 `style` 分开选择；页头样式不询问，按内容为每页选择 [`header`](../white-blue-slides/references/deck-format.md#页头样式)，封面尾页按配图选择 [`variant`](../white-blue-slides/references/deck-format.md#封面与尾页排布)。
 
 - 风格选择顺序：用户明确选择 > 当前项目已记录的 `style` > 询问缺少的选择。直接调用本 Skill 即选择海蓝玻璃风格；软件主题本身不代表已选择。通用请求先按 [PPT 制作工作台](../ppt-workbench/SKILL.md) 一次确认缺少的风格与类型；明确选择其他风格时通过 `<shared>/scripts/style_packs.py --list` 读取对应入口。续做旧稿保留其风格；要换风格时遵循用户指定的范围。
 - 本 Skill 的 `deck.json` 根字段写 `"style": "saas-3d"`。共享构建器中，未写 `style` 的旧项目仍采用原风格。此命名风格已包含独立主题，不需要 `--allow-restyle`。

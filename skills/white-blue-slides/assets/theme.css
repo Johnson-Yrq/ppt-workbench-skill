@@ -167,6 +167,25 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .ending-product{font-size:25px;color:var(--blue);margin-top:125px;letter-spacing:.5px}
 .layout-closing .hero-scene{position:absolute;right:40px;top:255px;width:1100px;height:660px}
 
+/* ---- cover & closing variants (slide `variant`) ----
+   mirror: image left, copy right · full: image bleeds to the top/right edges
+   panel (cover only): copy on a light block. Only standard covers carry labels. */
+.slide.variant-mirror header{flex-direction:row-reverse}
+.slide.layout-cover.variant-mirror .head-copy,.slide.layout-cover.variant-mirror .cover-copy{width:720px}
+.slide.layout-cover.variant-mirror .cover-copy{left:auto;right:80px}
+.slide.layout-cover.variant-mirror .cover-date{left:1120px}
+.slide.layout-cover.variant-mirror .hero-scene{right:auto;left:40px;top:170px;width:1040px;height:790px}
+.slide.layout-closing.variant-mirror .head-copy,.slide.layout-closing.variant-mirror .ending-copy{width:780px;max-width:780px}
+.slide.layout-closing.variant-mirror .ending-copy{left:auto;right:80px}
+.slide.layout-closing.variant-mirror .hero-scene{right:auto;left:40px;width:1000px}
+.slide.variant-full .hero-scene img{width:100%;height:100%;object-fit:cover}
+.slide.layout-cover.variant-full .hero-scene,.slide.layout-closing.variant-full .hero-scene{left:760px;right:0;top:0;bottom:104px;width:auto;height:auto}
+.slide.variant-full .hero-scene img{mask-image:linear-gradient(to right,transparent,#000 18%);mask-composite:add}
+.slide.layout-cover.variant-panel main:before{content:'';position:absolute;left:0;top:0;bottom:0;width:960px;background:var(--panel)}
+.slide.variant-panel .chapter{background:var(--chapter-band,var(--paper))}
+.slide.variant-panel .cover-benefits span:nth-child(-n+3){background:var(--paper)}
+.slide.layout-cover.variant-panel .hero-scene{right:40px;top:120px;width:900px;height:840px}
+
 /* ---- architecture: scaled artboard with direct labels ---- */
 .architecture-viewport{position:relative;flex:1;min-height:0;overflow:hidden}
 .artboard{position:absolute;transform-origin:top left}
