@@ -23,7 +23,7 @@ metadata:
 
 真实新稿沿用同级 [PPT 制作工作台](../ppt-workbench/SKILL.md) 已确认的风格和用途，只询问缺少的核心选择。直接指定本 Skill 表达风格选择；续做保留当前项目选择。根对象记录 `style: "beige-ring-business"` 和 `presentation_mode: "speech" / "reading"`，用途规则见 [演示稿类型](../white-blue-slides/references/presentation-modes.md)。
 
-逐页按 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件；按 [数据结构](../white-blue-slides/references/deck-format.md) 和 [共享布局](../white-blue-slides/references/shared-layouts.md) 写真实字段，明确要求写入 `visual.requirements`。本次共享层新增 `hub_spoke / step_row`，共享构图总数为 20、可执行 profile 为 48；原 100 条来源和编号保持不变。布局不限定风格或用途，也不要求每份稿复刻样例的十页顺序。
+逐页按 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件；按 [数据结构](../white-blue-slides/references/deck-format.md) 和 [共享布局](../white-blue-slides/references/shared-layouts.md) 写真实字段，明确要求写入 `visual.requirements`。本次共享层新增 `hub_spoke / step_row`，共享构图总数为 20、可执行 profile 为 48。布局不限定风格或用途，也不要求每份稿复刻样例的十页顺序。
 
 演讲型突出核心判断，阅读型补齐上下文、机制、来源与边界，内容过多时拆页；不因 reading 用途自动使用 `layout: reading`。关系图、箭头、表格和圆环由可编辑结构与 CSS 承载，不烘焙成信息图片。图表遵循 [图表契约](../white-blue-slides/references/charts.md)，真实稿只使用有来源的数据。KPI `progress` 的百分比和条长由当前值与目标值计算；不要在其他文本中再写一份会失同步的数值。
 

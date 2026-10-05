@@ -302,6 +302,7 @@ class Builder:
         return f'<div class="split-layout image-{side}">' + self.image(s) + '<div class="split-points points">' + ''.join(self.point(v) for v in values) + '</div></div>' + self.bottom(s)
 
     def triad(self, s):
+        # Legacy alias kept for older decks: exactly three items, image on the right.
         items(s, 'items', 3, 3)
         return self.split(dict(s, image_side=s.get('image_side', 'right')))
 

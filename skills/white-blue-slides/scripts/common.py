@@ -8,6 +8,7 @@ from composition_layouts import SHARED_LAYOUTS, validate_composition, compositio
 
 SKILL = Path(__file__).resolve().parent.parent
 ASSETS = SKILL / 'assets'
+# `triad` is kept only so older decks still build; it renders as a three-item split.
 LAYOUTS = {'cover', 'scene', 'split', 'triad', 'journey', 'architecture', 'flow',
            'domains', 'formula', 'table', 'relations', 'closing', 'reading'}
 # Preserve the original set as a compatibility alias; the complete shared

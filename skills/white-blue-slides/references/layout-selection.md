@@ -2,15 +2,11 @@
 
 此流程属于共享制作套件。沿用已确认的风格与演讲／阅读用途，常规逐页选版自行完成，不增加批准节点，也不替代已有的设计方向、发布或批次批准。用途决定内容密度与讲稿分工，不决定某个布局是否可用，也不强制图文等分、图片比例或统一字阶。
 
-## 来源库与可执行策略
+## 可执行策略
 
-[layout-library.json](layout-library.json) 完整保留从 Canva 布局面板提取的 **100 条来源、19 个类别**。来源结构来自缩略图概括，不是精确坐标，示例人物、业务文案、数字和照片均不是用户事实。
+[layout-library.json](layout-library.json) 登记 **48 个可执行 profile**：17 个基础布局策略、[原 16 种共享构图](shared-layouts.md#新增十六种构图)、8 个 `editorial` 变体、`type_poster / editorial_columns` 对应的 [5 个选版策略](shared-layouts.md#文字海报与编辑分栏选版策略)，以及 `hub_spoke / step_row` 对应的 [2 个选版策略](shared-layouts.md#中心关系与横向步骤)。每个 profile 都有真实渲染路径，仍须满足其关系、数量、字段、素材与数据条件。未支持的散点、漏斗、树图、复杂看板等不能换成另一种图后宣称已实现。
 
-当前有 **49 个可执行 profile**：原有 18 个内容选版策略、[原 16 种共享构图](shared-layouts.md#新增十六种构图)、8 个 `editorial` 变体，以及新增 `type_poster / editorial_columns` 对应的 [5 个选版策略](shared-layouts.md#文字海报与编辑分栏选版策略)，以及 `hub_spoke / step_row` 对应的 [2 个选版策略](shared-layouts.md#中心关系与横向步骤)。原 100 条来源仍有 81 条近似适配、19 条为 `reference_only`；本次独立模板放在 `additional_sources`，不覆盖原始记录、不改编号或虚增原库数量。来源编号不是 `layout`，100 条来源也不等于 100 个已经实现的模板。
-
-- `adapted` 表示存在真实渲染路径，仍须满足该候选的关系、数量、字段、素材与数据条件；不是原图的像素复刻。
-- `reference_only` 表示该来源尚未登记完整的可执行适配路径，不能直接选为成品布局。未支持的散点、漏斗、树图、复杂看板等不能换成另一种图后宣称已实现；新增共享能力也不自动重标旧来源。
-- 原设备样机来源仍按一张已提供的完整设备与屏幕素材适配，旁侧文字可编辑。本次 `editorial_columns` 新增嵌套图片的 `frame: "monitor"`，由 CSS 绘制简化显示器框，属于独立新能力；不擅改旧来源映射，也不生成真实产品界面。
+- 设备样机按一张已提供的完整设备与屏幕素材适配，旁侧文字可编辑；`editorial_columns` 的嵌套图片可用 `frame: "monitor"` 由 CSS 绘制简化显示器框，不生成真实产品界面。
 - 所有 profile 均可用于 `speech` 或 `reading`。`styles: ["*"]` 表示共享结构兼容动态发现的有效 `ready` 风格，外观仍由该风格的页头、字体、字阶、颜色和配图规范决定。
 - `reading.half_lr / half_tb / half_diagonal / quarter` 是主动选择的四种旧复合构图，保留兼容，不是阅读用途的默认几何规则。
 
@@ -52,7 +48,7 @@
 | 字段 | 含义 |
 |---|---|
 | `relation` | 模型判断的内容关系；脚本不按关键词代替语义分析 |
-| `item_count` | 候选实际计数的主体数：步骤、条目、指标、标签、段落、图片或图表类别；具体见 profile 的 `count_field`。旧表格按数据行数，关系链按最长链节点数 |
+| `item_count` | 候选实际计数的主体数：步骤、条目、指标、标签、段落、图片或图表类别；旧表格按数据行数，关系链按最长链节点数 |
 | `dimension_count` | comparison 必填；多维矩阵还需一列对象名称 |
 | `column_count` | table 的列数，包含行名称列；成稿可从 columns 读取 |
 | `periods` | timeline 的真实时间数组，与事件对应；成稿写入 items[] 或 steps[] 的 period |
@@ -63,16 +59,15 @@
 | `block_types` | 使用旧 reading 复合结构时的模块列表；mixed 必填。它不适用于所有阅读用途的页面 |
 | `exclude_profiles` | 本轮因实际问题排除的 profile.id；内容改变后可重新评估 |
 
-单主题结构使用 `count_field: "single"`；其他结构按 `items / images / paragraphs / groups / steps / metrics / tags / columns / chart.categories` 的实际长度计数。`shared.editorial_people` 使用 `columns.people`，计所有 people 栏的实际成员总数；`shared.editorial_gallery` 使用 `columns.photos`，计所有 image 栏的单图与 gallery 栏图片总数，不计 people 栏头像。旧计数器 `columns.gallery` 保留兼容，仅计 gallery 栏图片。普通 `shared.editorial_columns` 按 2–6 个栏目计，people 按 1–24 个成员计，gallery 按 2–48 张图片计，图表对比使用 `shared.editorial_charts`，按 `columns.charts` 计 2–6 个真实图表栏，每栏必须有完整图表数据、单位与来源。这些计数不能混用。`shared.hub_spoke` 按 4–8 个 items 分支计，不把 center 加进主体数；`shared.step_row` 按 2–6 个 steps 计。不要为引用一个来源编号而改写来源原有项数，或虚增页面内容。
+单主题结构计 1；其他结构按 `items / images / paragraphs / groups / steps / metrics / tags / columns / chart.categories` 的实际长度计数。`shared.editorial_people` 计所有 people 栏的实际成员总数；`shared.editorial_gallery` 计所有 image 栏的单图与 gallery 栏图片总数，不计 people 栏头像。普通 `shared.editorial_columns` 按 2–6 个栏目计，people 按 1–24 个成员计，gallery 按 2–48 张图片计，图表对比使用 `shared.editorial_charts`，计 2–6 个真实图表栏，每栏必须有完整图表数据、单位与来源。这些计数不能混用。`shared.hub_spoke` 按 4–8 个 items 分支计，不把 center 加进主体数；`shared.step_row` 按 2–6 个 steps 计。不为凑候选虚增页面内容。
 
-`type_poster` 的 statement、placement 与文字字段，以及 `editorial_columns` 的 show_title、单列 gallery 的 row_weights，均扩展现有共享结构；使用原 profile 并按 [字段合同](shared-layouts.md#文字海报与编辑分栏) 填值，不新增 profile，也不改变原 100 条来源记录。
+`type_poster` 的 statement、placement 与文字字段，以及 `editorial_columns` 的 show_title、单列 gallery 的 row_weights，均扩展现有共享结构；使用原 profile 并按 [字段合同](shared-layouts.md#文字海报与编辑分栏) 填值，不新增 profile。
 
 规划图表放在页的 `chart` 对象，结构与 [图表契约](charts.md) 相同；旧复合布局的多图表用完整 `blocks`。每个图表都要有实际数据，不能只标记“有数据”。
 
 ```sh
-# 按需读取能力与来源，不必把整个来源库装入上下文
+# 按需列出可执行 profile
 python3 <shared>/scripts/select_layout.py --list
-python3 <shared>/scripts/select_layout.py --catalog --relation comparison
 
 # 输出候选、理由、容量估算和排除原因，不改写输入
 python3 <shared>/scripts/select_layout.py <project>/layout-plan.json --out <project>/layout-report.json
@@ -105,4 +100,4 @@ python3 <shared>/scripts/select_layout.py <project>/deck.json --feedback <projec
 
 ## 维护布局库
 
-新增通用结构先实现共享渲染器、字段与数量契约，并完成与代码改动相称的开发验证，再登记 `ready`；不能用 `custom_css` 绕过主题保护。新风格使用自己的页头与视觉配置，正常接入共享结构无需增加风格白名单。扩展来源映射时，保留原始 id、名称、结构、容量与 limitations；只为真实可表达的关系和数量新增路径，仍不支持的结构继续保留为参考。
+新增通用结构先实现共享渲染器、字段与数量契约，并完成与代码改动相称的开发验证，再登记 profile；不能用 `custom_css` 绕过主题保护。新风格使用自己的页头与视觉配置，正常接入共享结构无需增加风格白名单。

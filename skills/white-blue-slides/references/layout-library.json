@@ -1,17 +1,9 @@
 {
   "version": 1,
-  "source": {
-    "name": "Canva 布局面板人工提取",
-    "captured": "2026-10-04",
-    "count": 100,
-    "design_url": "https://www.canva.com/design/DAHXBsVzyig/9Bh1i4Wycy0XBwSKXtqLNQ/edit",
-    "limitations": "结构来自界面缩略图概括，非精确坐标；未收录示例占位文案，避免混入用户事实。"
-  },
   "profiles": [
     {
       "id": "cover.fixed",
       "layout": "cover",
-      "status": "ready",
       "relations": [
         "cover"
       ],
@@ -32,17 +24,14 @@
         "reading": 160
       },
       "settings": {},
-      "adaptation": "保持所选主题的固定封面；来源只作内容层级参考。",
+      "adaptation": "保持所选主题的固定封面。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "closing.fixed",
       "layout": "closing",
-      "status": "ready",
       "relations": [
         "closing"
       ],
@@ -66,19 +55,17 @@
       "adaptation": "保持所选主题的固定尾页。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "split.points",
       "layout": "split",
-      "status": "ready",
       "relations": [
         "explanation",
         "parallel",
         "quote",
-        "contact"
+        "contact",
+        "controls"
       ],
       "item_count": [
         1,
@@ -104,14 +91,11 @@
       "adaptation": "items 承载完整要点；左右图文分区，不自动删除长文。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "scene.annotations",
       "layout": "scene",
-      "status": "ready",
       "relations": [
         "explanation",
         "parallel"
@@ -136,45 +120,11 @@
       "adaptation": "left/right 各 1–2 项，围绕同一场景对应标注。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
-    },
-    {
-      "id": "triad.controls",
-      "layout": "triad",
-      "status": "ready",
-      "relations": [
-        "controls"
-      ],
-      "item_count": [
-        3,
-        3
-      ],
-      "modes": [
-        "speech",
-        "reading"
-      ],
-      "image_count": [
-        1,
-        1
-      ],
-      "text_budget": {
-        "speech": 210,
-        "reading": 336
-      },
-      "settings": {},
-      "adaptation": "三个真实控制分组；不因条目数为三就选择。",
-      "styles": [
-        "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "journey.sequence",
       "layout": "journey",
-      "status": "ready",
       "relations": [
         "sequence"
       ],
@@ -200,14 +150,11 @@
       "adaptation": "items 按顺序排列，connected=true；长说明优先左右分区或拆页。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "journey.timeline",
       "layout": "journey",
-      "status": "ready",
       "relations": [
         "timeline"
       ],
@@ -231,14 +178,11 @@
       "adaptation": "items 必须有真实 period，按时间排列；不补造日期。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "journey.compare",
       "layout": "journey",
-      "status": "ready",
       "relations": [
         "comparison"
       ],
@@ -264,14 +208,11 @@
       "adaptation": "只用于单维度短比较；多维度转矩阵。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "flow.controls",
       "layout": "flow",
-      "status": "ready",
       "relations": [
         "sequence",
         "controls"
@@ -300,14 +241,11 @@
       "adaptation": "steps 加 2–3 个控制 groups（阅读型至多 4 个）；无控制内容不用此模板。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "domains.list",
       "layout": "domains",
-      "status": "ready",
       "relations": [
         "parallel",
         "agenda"
@@ -332,14 +270,11 @@
       "adaptation": "items 为独立条目，分布在场景两侧；密集列表仍需实测。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "formula.factors",
       "layout": "formula",
-      "status": "ready",
       "relations": [
         "formula"
       ],
@@ -363,14 +298,11 @@
       "adaptation": "formula.terms 为确有加和或乘积关系的因子，不能给一般列表强加公式。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "table.matrix",
       "layout": "table",
-      "status": "ready",
       "relations": [
         "comparison",
         "table"
@@ -399,14 +331,11 @@
       "adaptation": "比较对象按行、比较维度按列，加对象名称列；表格字数以实际列宽复核。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "relations.chain",
       "layout": "relations",
-      "status": "ready",
       "relations": [
         "network",
         "causality"
@@ -431,14 +360,11 @@
       "adaptation": "chains 表示 1–5 条关系，每条 2–5 个节点；因果关系需 directional=true。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "architecture.labels",
       "layout": "architecture",
-      "status": "ready",
       "relations": [
         "hierarchy"
       ],
@@ -462,14 +388,11 @@
       "adaptation": "完整模型配直接标注；按真实层级布置 board/labels，坐标由排版确定。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "reading.half_lr",
       "layout": "reading",
-      "status": "ready",
       "relations": [
         "sequence",
         "comparison",
@@ -503,14 +426,11 @@
       "adaptation": "保留既有 half_lr 复合构图，仅在主动选择该布局时使用；演讲与阅读用途均可选，不能因用途自动套用。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "reading.half_tb",
       "layout": "reading",
-      "status": "ready",
       "relations": [
         "sequence",
         "comparison",
@@ -544,14 +464,11 @@
       "adaptation": "保留既有 half_tb 复合构图，仅在主动选择该布局时使用；演讲与阅读用途均可选，不能因用途自动套用。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "reading.half_diagonal",
       "layout": "reading",
-      "status": "ready",
       "relations": [
         "sequence",
         "comparison",
@@ -585,14 +502,11 @@
       "adaptation": "保留既有 half_diagonal 复合构图，仅在主动选择该布局时使用；演讲与阅读用途均可选，不能因用途自动套用。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "reading.quarter",
       "layout": "reading",
-      "status": "ready",
       "relations": [
         "sequence",
         "comparison",
@@ -626,15 +540,11 @@
       "adaptation": "保留既有 quarter 复合构图，仅在主动选择该布局时使用；演讲与阅读用途均可选，不能因用途自动套用。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "文字预算仅用于内容密度估算，不限制布局用途、几何或风格字阶；不是精确字数上限，也不触发自动成稿检查。",
-      "renderer_family": "native"
+      ]
     },
     {
       "id": "shared.photo_pair",
       "layout": "photo_pair",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "explanation",
         "gallery"
@@ -643,7 +553,6 @@
         2,
         2
       ],
-      "count_field": "images",
       "modes": [
         "speech",
         "reading"
@@ -660,14 +569,11 @@
       "adaptation": "两张独立图片围绕一组可编辑说明；图注保持可编辑，不复刻原图的像素坐标。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.offset_pair",
       "layout": "offset_pair",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "explanation"
       ],
@@ -675,7 +581,6 @@
         2,
         3
       ],
-      "count_field": "paragraphs",
       "modes": [
         "speech",
         "reading"
@@ -692,14 +597,11 @@
       "adaptation": "两张错位图片与两至三段正文；主体项数按正文段落计，保留图像之间的分工。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.statement_tags",
       "layout": "statement_tags",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "parallel"
       ],
@@ -707,7 +609,6 @@
         2,
         6
       ],
-      "count_field": "tags",
       "modes": [
         "speech",
         "reading"
@@ -724,14 +625,11 @@
       "adaptation": "一项主张与二至六个并列标签，可完全无图；标签不是步骤或真实数值图表。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.checklist_photo",
       "layout": "checklist_photo",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "controls",
         "parallel"
@@ -740,7 +638,6 @@
         2,
         3
       ],
-      "count_field": "groups",
       "modes": [
         "speech",
         "reading"
@@ -757,14 +654,11 @@
       "adaptation": "图片旁呈现二至三个真实清单分组，每组二至六个可访问的勾选状态。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.snake_timeline",
       "layout": "snake_timeline",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "sequence",
         "timeline"
@@ -773,7 +667,6 @@
         4,
         8
       ],
-      "count_field": "steps",
       "modes": [
         "speech",
         "reading"
@@ -790,14 +683,11 @@
       "adaptation": "四至八个步骤折返排布；时间线关系仍需各步骤的真实period，不编造时间。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.metric_cards",
       "layout": "metric_cards",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "statistics",
         "comparison"
@@ -806,7 +696,6 @@
         2,
         4
       ],
-      "count_field": "metrics",
       "modes": [
         "speech",
         "reading"
@@ -823,14 +712,11 @@
       "adaptation": "二至四项真实指标卡，保留来源、单位或文字口径；不将无数据要点伪装为指标。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.photo_strip",
       "layout": "photo_strip",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "gallery",
         "explanation"
@@ -839,7 +725,6 @@
         2,
         5
       ],
-      "count_field": "images",
       "modes": [
         "speech",
         "reading"
@@ -856,14 +741,11 @@
       "adaptation": "二至五张图片排成条带；可适配相同数量的图文或拼贴内容，原网格与裁切并非像素复刻。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.problem_columns",
       "layout": "problem_columns",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "parallel",
         "explanation"
@@ -872,7 +754,6 @@
         2,
         3
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -889,14 +770,11 @@
       "adaptation": "二至三组标题与说明独立分栏；不把步骤、团队或多维比较误当普通问题。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.service_cards",
       "layout": "service_cards",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "parallel",
         "explanation"
@@ -905,7 +783,6 @@
         3,
         3
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -922,14 +799,11 @@
       "adaptation": "三组标题与说明形成不同尺寸信息块，每项图片可选；强调项由内容决定。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.metric_circles",
       "layout": "metric_circles",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "statistics",
         "comparison"
@@ -938,7 +812,6 @@
         2,
         2
       ],
-      "count_field": "metrics",
       "modes": [
         "speech",
         "reading"
@@ -955,14 +828,11 @@
       "adaptation": "两项真实指标以大小圆承载，圆面积不编码数值比例，保留来源与准确数字。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.chart_focus",
       "layout": "chart_focus",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "data"
       ],
@@ -970,7 +840,6 @@
         2,
         8
       ],
-      "count_field": "chart.categories",
       "modes": [
         "speech",
         "reading"
@@ -987,14 +856,11 @@
       "adaptation": "独立bar/line/donut/pie图表与可编辑结论；需真实类别、序列、单位和来源，不支持未实现图形。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.photo_banner",
       "layout": "photo_banner",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "cover",
         "explanation",
@@ -1005,7 +871,6 @@
         1,
         1
       ],
-      "count_field": "single",
       "modes": [
         "speech",
         "reading"
@@ -1022,14 +887,11 @@
       "adaptation": "一张横幅图片与大标题、短说明；摄影和文字分别保留，不固定使用某个风格。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.photo_divider",
       "layout": "photo_divider",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "explanation",
         "quote"
@@ -1038,7 +900,6 @@
         1,
         1
       ],
-      "count_field": "single",
       "modes": [
         "speech",
         "reading"
@@ -1055,14 +916,11 @@
       "adaptation": "满幅图片承载章节短句或引言；对比与遮罩由当前风格处理。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.side_index",
       "layout": "side_index",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "agenda"
       ],
@@ -1070,7 +928,6 @@
         2,
         12
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -1087,14 +944,11 @@
       "adaptation": "二至十二项侧向目录，页码或标签可编辑，可完全无图。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.editorial_story",
       "layout": "editorial_story",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "explanation",
         "parallel",
@@ -1106,7 +960,6 @@
         1,
         3
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -1123,14 +976,11 @@
       "adaptation": "一至三组标题与正文配一张竖图；引用及身份写入真实文字，不补造证言。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.step_sidebar",
       "layout": "step_sidebar",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "sequence",
         "timeline"
@@ -1139,7 +989,6 @@
         2,
         4
       ],
-      "count_field": "steps",
       "modes": [
         "speech",
         "reading"
@@ -1156,14 +1005,11 @@
       "adaptation": "侧栏说明配二至四步；时间线使用真实period，普通步骤不附会时间。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.cover",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "cover"
       ],
@@ -1171,7 +1017,6 @@
         1,
         1
       ],
-      "count_field": "single",
       "modes": [
         "speech",
         "reading"
@@ -1190,14 +1035,11 @@
       "adaptation": "半幅图片与独立标题层级的封面；使用当前风格视觉。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.intro",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "explanation",
         "quote"
@@ -1206,7 +1048,6 @@
         1,
         1
       ],
-      "count_field": "single",
       "modes": [
         "speech",
         "reading"
@@ -1225,14 +1066,11 @@
       "adaptation": "一组说明与下方横幅图片，保留结论与图文联系。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.contents",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "agenda"
       ],
@@ -1240,7 +1078,6 @@
         2,
         8
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -1259,14 +1096,11 @@
       "adaptation": "大图旁的二至八项可编辑目录；每项保留真实标题和label。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.about",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "explanation",
         "parallel"
@@ -1275,7 +1109,6 @@
         2,
         2
       ],
-      "count_field": "columns",
       "modes": [
         "speech",
         "reading"
@@ -1294,14 +1127,11 @@
       "adaptation": "引导句、两段正文与竖幅图片；两段内容完整保留。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.services",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "parallel",
         "explanation"
@@ -1310,7 +1140,6 @@
         1,
         3
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -1329,14 +1158,11 @@
       "adaptation": "一至三组标题正文与一至三张独立图片；不声称照片与正文是一一对位的头像卡。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.process",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "sequence"
       ],
@@ -1344,7 +1170,6 @@
         2,
         5
       ],
-      "count_field": "items",
       "modes": [
         "speech",
         "reading"
@@ -1363,14 +1188,11 @@
       "adaptation": "横幅图片下方呈现二至五步，保持实际先后顺序。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.portfolio",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "gallery"
       ],
@@ -1378,7 +1200,6 @@
         2,
         6
       ],
-      "count_field": "images",
       "modes": [
         "speech",
         "reading"
@@ -1394,17 +1215,14 @@
       "settings": {
         "editorial_variant": "portfolio"
       },
-      "adaptation": "二至六张图片及可编辑图注组成条带；拼贴来源仅作相同图片数量与信息关系的近似适配，不复刻网格或散排坐标。",
+      "adaptation": "二至六张图片及可编辑图注组成条带；按图片数量与信息关系近似适配拼贴，不复刻网格或散排坐标。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "editorial.closing",
       "layout": "editorial",
-      "status": "ready",
-      "renderer_family": "editorial",
       "relations": [
         "closing",
         "quote"
@@ -1413,7 +1231,6 @@
         1,
         1
       ],
-      "count_field": "single",
       "modes": [
         "speech",
         "reading"
@@ -1432,13 +1249,11 @@
       "adaptation": "竖幅图片与收束短句；不复用其他主题的页头或视觉。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "按实际渲染字段估算文字密度；主体数量与图片数量须符合共享字段契约。用途不限定几何、字号或布局资格。"
+      ]
     },
     {
       "id": "shared.type_poster",
       "layout": "type_poster",
-      "status": "ready",
       "relations": [
         "cover",
         "closing",
@@ -1465,15 +1280,11 @@
       "adaptation": "可编辑巨字、章节数字或短声明；placement控制居中、左下或右下，statement可带正文与要点；颜色和字阶由风格决定。",
       "styles": [
         "*"
-      ],
-      "count_field": "single",
-      "renderer_family": "shared",
-      "capacity_note": "字数仅供密度估算，不限制用途、几何或风格。"
+      ]
     },
     {
       "id": "shared.editorial_columns",
       "layout": "editorial_columns",
-      "status": "ready",
       "relations": [
         "explanation",
         "parallel",
@@ -1499,15 +1310,11 @@
       "adaptation": "2–6个独立编辑栏，按实际正文、图标分组、照片、人物或图表选择栏类型与对齐方式。",
       "styles": [
         "*"
-      ],
-      "count_field": "columns",
-      "renderer_family": "shared",
-      "capacity_note": "字数仅供密度估算，不限制用途、几何或风格。"
+      ]
     },
     {
       "id": "shared.editorial_people",
       "layout": "editorial_columns",
-      "status": "ready",
       "relations": [
         "team"
       ],
@@ -1531,15 +1338,11 @@
       "adaptation": "主体项数为所有people栏中的实际成员数；成员必须有独立姓名、角色与图片。",
       "styles": [
         "*"
-      ],
-      "count_field": "columns.people",
-      "renderer_family": "shared",
-      "capacity_note": "字数仅供密度估算，不限制用途、几何或风格。"
+      ]
     },
     {
       "id": "shared.editorial_gallery",
       "layout": "editorial_columns",
-      "status": "ready",
       "relations": [
         "gallery"
       ],
@@ -1563,15 +1366,11 @@
       "adaptation": "主体项数为所有image栏和gallery栏中的实际照片总数；可与正文栏组合，照片保持独立，不把people栏的团队头像混作作品数量。",
       "styles": [
         "*"
-      ],
-      "count_field": "columns.photos",
-      "renderer_family": "shared",
-      "capacity_note": "字数仅供密度估算，不限制用途、几何或风格。"
+      ]
     },
     {
       "id": "shared.hub_spoke",
       "layout": "hub_spoke",
-      "status": "ready",
       "relations": [
         "network",
         "parallel",
@@ -1597,15 +1396,11 @@
       "adaptation": "中心概念与4–8个关联节点，按实际节点数选择；节点内容和关系保持可编辑。",
       "styles": [
         "*"
-      ],
-      "count_field": "items",
-      "renderer_family": "shared",
-      "capacity_note": "字数仅供密度估算，不限制用途、几何或风格。"
+      ]
     },
     {
       "id": "shared.step_row",
       "layout": "step_row",
-      "status": "ready",
       "relations": [
         "sequence",
         "timeline"
@@ -1630,16 +1425,11 @@
       "adaptation": "单行2–6个阶段，可带逐一对应的时间标签；不把阶段数或圆形外观绑定某个风格。",
       "styles": [
         "*"
-      ],
-      "count_field": "steps",
-      "renderer_family": "shared",
-      "capacity_note": "字数仅供密度估算，不限制用途、几何或风格。"
+      ]
     },
     {
       "id": "shared.editorial_charts",
       "layout": "editorial_columns",
-      "status": "ready",
-      "renderer_family": "shared",
       "relations": [
         "data"
       ],
@@ -1647,7 +1437,6 @@
         2,
         6
       ],
-      "count_field": "columns.charts",
       "modes": [
         "speech",
         "reading"
@@ -1664,1938 +1453,7 @@
       "adaptation": "2–6个独立图表栏，各图有真实数据、单位、来源；主体数按图表栏计，可搭配正文或图片栏。",
       "styles": [
         "*"
-      ],
-      "capacity_note": "图表数量与数据都按实际字段校验；用于并列比较不同统计口径，不暗示不同单位可以相加。"
-    }
-  ],
-  "references": [
-    {
-      "id": "L001",
-      "name": "左侧居中标题＋右侧内嵌竖图",
-      "original_name": "Green Blue and White Minimalist Nature Presentation",
-      "category": "封面",
-      "relation": "cover",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左侧约六成承载居中文字，右侧约四成为留边竖图；署名落在左下。",
-      "observed_capacity": "1 个主题",
-      "limitations": [],
-      "profiles": [
-        "cover.fixed",
-        "editorial.cover"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L002",
-      "name": "左文右图贴边分栏",
-      "original_name": "Blue and Green Minimalist Nature Presentation",
-      "category": "封面",
-      "relation": "cover",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左侧约六成为左对齐标题组，右侧约四成为通高图片。",
-      "observed_capacity": "1 个主题",
-      "limitations": [],
-      "profiles": [
-        "cover.fixed",
-        "editorial.cover"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L003",
-      "name": "品牌栏＋左对齐标题＋双署名",
-      "original_name": "Black and White Minimalist Business Presentation",
-      "category": "封面",
-      "relation": "cover",
-      "item_count": 1,
-      "observed_media_regions": 0,
-      "structure": "顶边左右放品牌和说明，标题位于左侧中上部，底部横排两组署名。",
-      "observed_capacity": "2 位演讲者",
-      "limitations": [],
-      "profiles": [
-        "cover.fixed"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L004",
-      "name": "全幅背景＋中央标题",
-      "original_name": "Blue Green and White Illustrated Nature Presentation",
-      "category": "封面",
-      "relation": "cover",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "图片铺满画面，标题和副标题居中叠加，主体文字落在画面中部。",
-      "observed_capacity": "1 个主题",
-      "limitations": [],
-      "profiles": [
-        "cover.fixed"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L005",
-      "name": "纯文字居中封面",
-      "original_name": "Black and White Minimalist Title Presentation",
-      "category": "封面",
-      "relation": "cover",
-      "item_count": 1,
-      "observed_media_regions": 0,
-      "structure": "前置小标题、主标题和副标题组成居中竖向层级，四周大留白。",
-      "observed_capacity": "1 个主题",
-      "limitations": [],
-      "profiles": [
-        "cover.fixed"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L006",
-      "name": "顶部标题＋底部头像署名",
-      "original_name": "White Minimalist Business Presentation",
-      "category": "封面",
-      "relation": "cover",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "标题组靠左上，主体留白，左下使用小圆头像和姓名职位。",
-      "observed_capacity": "1 位演讲者",
-      "limitations": [],
-      "profiles": [
-        "cover.fixed"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L007",
-      "name": "左侧五项目录＋右半幅图片",
-      "original_name": "Blue Green and White Minimalist Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 5,
-      "observed_media_regions": 1,
-      "structure": "左右约各半；左侧标题和五项项目符号列表，右侧通高图片。",
-      "observed_capacity": "5 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index",
-        "editorial.contents"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L008",
-      "name": "三项横排数字目录",
-      "original_name": "Black and White Simple Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "标题上方居中；下方三等分，无卡片背景，每项数字在上、名称在下。",
-      "observed_capacity": "3 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index",
-        "editorial.contents"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L009",
-      "name": "三张深色竖卡目录",
-      "original_name": "Black and White Minimalist Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "居中标题下方三等宽竖卡；编号在卡片左上，主题在卡片底部。",
-      "observed_capacity": "3 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index",
-        "editorial.contents"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L010",
-      "name": "四张深色竖卡目录",
-      "original_name": "Black and White Minimalist Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "居中标题下方四等宽竖卡；两位数编号置顶，名称置底。",
-      "observed_capacity": "4 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index",
-        "editorial.contents"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L011",
-      "name": "四条横向目录条",
-      "original_name": "Black White and Grey Minimalist Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "标题左上；下方四条深色横条纵向堆叠，编号和主题同一行。",
-      "observed_capacity": "4 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index",
-        "editorial.contents"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L012",
-      "name": "左标题＋右侧七行页码索引",
-      "original_name": "Black and White Minimalist Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 7,
-      "observed_media_regions": 0,
-      "structure": "大标题在左上，右侧七行主题与页码两端对齐，留白充足。",
-      "observed_capacity": "7 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index",
-        "editorial.contents"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L013",
-      "name": "左标题＋右侧十条编号目录",
-      "original_name": "10 Point Agenda Page",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 10,
-      "observed_media_regions": 0,
-      "structure": "标题占左侧，右侧十条细深色横条；每条左侧配圆形数字。",
-      "observed_capacity": "10 项",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L014",
-      "name": "底部双栏十项页码目录",
-      "original_name": "Black and White Minimalist Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 10,
-      "observed_media_regions": 0,
-      "structure": "标题在左上，上半留白；下半两栏各五行主题和页码，配细分隔线。",
-      "observed_capacity": "10 项，2×5",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L015",
-      "name": "十张目录卡片网格",
-      "original_name": "Black White and Gray Simple Agenda Presentation",
-      "category": "目录",
-      "relation": "agenda",
-      "item_count": 10,
-      "observed_media_regions": 0,
-      "structure": "标题左上，主体为五列两行深色卡片，编号左上、名称左下。",
-      "observed_capacity": "10 项，5×2",
-      "limitations": [],
-      "profiles": [
-        "domains.list",
-        "shared.side_index"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L016",
-      "name": "左窄文＋右侧大图",
-      "original_name": "Green and Blue Minimalist Landscape Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左侧约三分之一放标题和段落，右侧约三分之二为通高图。",
-      "observed_capacity": "1 段",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L017",
-      "name": "左窄文＋右侧双竖图",
-      "original_name": "Green and Blue Minimalist Landscape Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 2,
-      "structure": "左侧标题和正文，右侧并排两张等高竖图，图间保留窄缝。",
-      "observed_capacity": "1 段、2 图",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "原结构含多幅独立图文；当前普通说明渲染器只支持一张配图，不能通过丢图适配。"
-    },
-    {
-      "id": "L018",
-      "name": "顶部标题与正文＋底部横图",
-      "original_name": "Blue and Green Minimalist Topic Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "上部横分标题和短正文，下方约三分之二为通栏横图。",
-      "observed_capacity": "1 段",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "shared.photo_banner",
-        "editorial.intro"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L019",
-      "name": "上文下双图",
-      "original_name": "Green Blue and White Minimalist Landscape Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 2,
-      "structure": "前置标题和主标题在左上，正文在右上，底部两张横图等分。",
-      "observed_capacity": "1 段、2 图",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "原结构含多幅独立图文；当前普通说明渲染器只支持一张配图，不能通过丢图适配。"
-    },
-    {
-      "id": "L020",
-      "name": "两行图文对照",
-      "original_name": "Green Blue and White Simple Landscape Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 2,
-      "observed_media_regions": 2,
-      "structure": "上下两个等高模块，每行左侧小标题和正文，右侧横向图片。",
-      "observed_capacity": "2 组",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "shared.photo_pair",
-        "shared.offset_pair"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L021",
-      "name": "双编号文字栏＋右侧竖图",
-      "original_name": "Blue and Green Minimalist Landscape Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 2,
-      "observed_media_regions": 1,
-      "structure": "左侧两栏各自放01/02、子标题和段落，右侧约三分之一放通高图。",
-      "observed_capacity": "2 组",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "shared.editorial_story",
-        "editorial.about"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L022",
-      "name": "居中标题＋三图画廊",
-      "original_name": "Blue Green and White Minimalist Nature Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 3,
-      "structure": "顶部标题与副标题居中，下半部三张等宽竖向图片。",
-      "observed_capacity": "3 图",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "原结构含多幅独立图文；当前普通说明渲染器只支持一张配图，不能通过丢图适配。"
-    },
-    {
-      "id": "L023",
-      "name": "三列图片与说明",
-      "original_name": "Blue Green and White Minimalist Topic Presentation",
-      "category": "图文",
-      "relation": "explanation",
-      "item_count": 3,
-      "observed_media_regions": 3,
-      "structure": "顶部居中标题组；下方三等分，每列图片、要点标题、正文依次向下。",
-      "observed_capacity": "3 组",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "shared.photo_strip",
-        "editorial.services"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L024",
-      "name": "居中大字观点",
-      "original_name": "Black and White Minimalist Statement Presentation",
-      "category": "引言",
-      "relation": "quote",
-      "item_count": 1,
-      "observed_media_regions": 0,
-      "structure": "主体大字观点居中，简述在下方，来源或附加说明放左下角。",
-      "observed_capacity": "1 条观点",
-      "limitations": [],
-      "profiles": [
-        "split.points"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L025",
-      "name": "左深色引言卡＋右侧图片",
-      "original_name": "Black White and Blue Modern Quote Presentation",
-      "category": "引言",
-      "relation": "quote",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左右等分；左侧深色卡承载引号、观点和解释，右侧竖图。",
-      "observed_capacity": "1 条引言",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L026",
-      "name": "左侧图片＋右侧引言",
-      "original_name": "Blue Green and White Modern Landscape Presentation",
-      "category": "引言",
-      "relation": "quote",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左半竖图，右半从上到下放引号、观点、解释和来源页脚。",
-      "observed_capacity": "1 条引言",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story",
-        "editorial.closing"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L027",
-      "name": "全图背景＋角落引言",
-      "original_name": "Blue and Green Simple Quote Presentation",
-      "category": "引言",
-      "relation": "quote",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "背景铺满页面，引言在左上，署名或引用信息在右下。",
-      "observed_capacity": "1 条引言",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.photo_divider"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L028",
-      "name": "左侧窄图＋右侧章节标题",
-      "original_name": "Blue and Green Simple Landscape Presentation",
-      "category": "章节",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左侧约四成为通高图，右侧标题和简述靠中部排列。",
-      "observed_capacity": "1 个章节",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L029",
-      "name": "顶部章节名＋底部信息带",
-      "original_name": "Black and White Minimalist Section Presentation",
-      "category": "章节",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 0,
-      "structure": "上方大标题；下边横排章节编号、主旨和两段说明，中间大留白。",
-      "observed_capacity": "1 章、2 段说明",
-      "limitations": [],
-      "profiles": [
-        "split.points"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L030",
-      "name": "右图＋左侧错位章节信息",
-      "original_name": "Blue Green and White Minimalist Section Presentation",
-      "category": "章节",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "右侧大图通高，左侧白色文字区向图片方向延伸；编号靠上、标题和说明靠下。",
-      "observed_capacity": "1 个章节",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L031",
-      "name": "双侧图片带＋中央白色标题区",
-      "original_name": "Green and Blue Minimalist Landscape Presentation",
-      "category": "章节",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 2,
-      "structure": "两侧露出宽度不同的图片带，中央白色块承载标题、横线和简述。",
-      "observed_capacity": "1 个章节",
-      "limitations": [
-        "两侧按2个可见图片区域记录，可能来自同一背景。"
-      ],
-      "profiles": [
-        "split.points"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L032",
-      "name": "左右分置标题与正文",
-      "original_name": "Black and White Minimalist Main Idea Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 1,
-      "observed_media_regions": 0,
-      "structure": "标题在左侧中部，正文在右侧中部，靠大留白区分层级。",
-      "observed_capacity": "1 段",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L033",
-      "name": "左侧主题＋右侧两项编号说明",
-      "original_name": "Black White and Gray Modern Business Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "左侧主题与背景说明，右侧纵向两组编号、要点标题和正文。",
-      "observed_capacity": "2 个要点",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.problem_columns",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L034",
-      "name": "双栏编号内容页",
-      "original_name": "Black and White Minimalist Content Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "两等分文字栏，各栏从编号、标题、正文到独立来源页脚。",
-      "observed_capacity": "2 组",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.problem_columns",
-        "editorial.about"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L035",
-      "name": "左导语＋右侧三组列表",
-      "original_name": "Black and Gray Minimalist List Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "左侧引导短句和正文，右侧三个编号纵排，每个编号对应三条项目符号。",
-      "observed_capacity": "3 组，每组3项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.problem_columns",
-        "shared.service_cards",
-        "editorial.services"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L036",
-      "name": "四格深色要点卡",
-      "original_name": "Gray Minimalist Key Points Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "四张横向深色卡组成两列两行，每卡居中放简短要点；没有独立页标题。",
-      "observed_capacity": "4 项，2×2",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L037",
-      "name": "标题＋四项文字网格",
-      "original_name": "Black and White Minimalist Outline Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "顶部通栏标题，下部两列两行，每组要点标题和简短正文。",
-      "observed_capacity": "4 项，2×2",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L038",
-      "name": "标题＋三栏编号说明",
-      "original_name": "Black and White Minimalist Main Points Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部标题，下方三等分；每栏编号、要点标题、简短正文向下排列。",
-      "observed_capacity": "3 项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.problem_columns",
-        "shared.service_cards"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L039",
-      "name": "标题＋三张深色信息卡",
-      "original_name": "Black and White Minimalist Information Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部居中标题，下方三张等宽深色竖卡；每卡上部小标题、下部正文。",
-      "observed_capacity": "3 项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.service_cards"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L040",
-      "name": "标题＋三列子主题正文",
-      "original_name": "Black and White Minimalist Topic Structure Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部居中标题，下方三栏子标题与长段落，左下保留统一来源。",
-      "observed_capacity": "3 项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list",
-        "shared.problem_columns",
-        "editorial.services"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L041",
-      "name": "六张深色编号信息卡",
-      "original_name": "Black and White Minimalist Main Points Presentation",
-      "category": "正文要点",
-      "relation": "parallel",
-      "item_count": 6,
-      "observed_media_regions": 0,
-      "structure": "顶部左对齐标题，下方三列两行深色卡；要点在左上、编号右上、正文在下。",
-      "observed_capacity": "6 项，3×2",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "scene.annotations",
-        "domains.list"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L042",
-      "name": "三步横向箭头流程",
-      "original_name": "Black and White Minimalist Steps Presentation",
-      "category": "步骤",
-      "relation": "sequence",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部居中标题，三栏步骤横排；编号行用短箭头连接，说明置于下方。",
-      "observed_capacity": "3 步",
-      "limitations": [],
-      "profiles": [
-        "journey.sequence",
-        "flow.controls",
-        "reading.half_lr",
-        "reading.half_tb",
-        "shared.step_sidebar",
-        "editorial.process"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L043",
-      "name": "五步横向流程",
-      "original_name": "Black and White Minimalist Steps Presentation",
-      "category": "步骤",
-      "relation": "sequence",
-      "item_count": 5,
-      "observed_media_regions": 0,
-      "structure": "标题左上；五个编号横向分布并用箭头连接，下方各自放步骤名与正文。",
-      "observed_capacity": "5 步",
-      "limitations": [],
-      "profiles": [
-        "journey.sequence",
-        "flow.controls",
-        "reading.half_lr",
-        "reading.half_tb",
-        "shared.snake_timeline",
-        "editorial.process"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L044",
-      "name": "左侧流程概述＋右侧四步清单",
-      "original_name": "Black and White Modern Steps Presentation",
-      "category": "步骤",
-      "relation": "sequence",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧标题和概述占约四成，右侧四行步骤名与正文两栏对齐。",
-      "observed_capacity": "4 步",
-      "limitations": [],
-      "profiles": [
-        "journey.sequence",
-        "flow.controls",
-        "reading.half_lr",
-        "reading.half_tb",
-        "shared.step_sidebar",
-        "shared.snake_timeline",
-        "editorial.process"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L045",
-      "name": "四步阶梯式上升流程",
-      "original_name": "Black and White Minimalist Steps Presentation",
-      "category": "步骤",
-      "relation": "sequence",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "标题左上；四个步骤从左下逐级向右上排列，以弯箭头连接。",
-      "observed_capacity": "4 步",
-      "limitations": [],
-      "profiles": [
-        "journey.sequence",
-        "flow.controls",
-        "reading.half_lr",
-        "reading.half_tb",
-        "shared.snake_timeline",
-        "shared.step_sidebar",
-        "editorial.process"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L046",
-      "name": "三人横排团队页",
-      "original_name": "Green Blue and White Simple Team Introduction Presentation",
-      "category": "团队",
-      "relation": "team",
-      "item_count": 3,
-      "observed_media_regions": 3,
-      "structure": "标题居中，三张等宽照片横排，姓名和职位在每张照片下居中。",
-      "observed_capacity": "3 人",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L047",
-      "name": "左侧标题＋六人网格",
-      "original_name": "Green and Blue Minimalist Team Presentation",
-      "category": "团队",
-      "relation": "team",
-      "item_count": 6,
-      "observed_media_regions": 6,
-      "structure": "左侧窄栏放引导语与标题，右侧三列两行头像，每张下方放姓名职位。",
-      "observed_capacity": "6 人，3×2",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L048",
-      "name": "左侧团队简介＋双人竖图",
-      "original_name": "Blue and Green Minimalist Team Introduction Presentation",
-      "category": "团队",
-      "relation": "team",
-      "item_count": 2,
-      "observed_media_regions": 2,
-      "structure": "左侧标题与简介，右侧两张等高竖图，图下姓名和职位左对齐。",
-      "observed_capacity": "2 人",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L049",
-      "name": "左侧团队简介＋三人详述",
-      "original_name": "Blue and Green Minimalist Team Overview Presentation",
-      "category": "团队",
-      "relation": "team",
-      "item_count": 3,
-      "observed_media_regions": 3,
-      "structure": "左侧窄栏承载标题与简介；右侧三人并列，每人含照片、姓名、职位和职责段落。",
-      "observed_capacity": "3 人",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L050",
-      "name": "三列评价＋底部客户身份",
-      "original_name": "Black and White Modern Customer Testimonials Presentation",
-      "category": "客户评价",
-      "relation": "testimonials",
-      "item_count": 3,
-      "observed_media_regions": 3,
-      "structure": "引导短句和标题在顶部，三栏依次放星级、评价正文，头像姓名职位在底部。",
-      "observed_capacity": "3 条评价",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L051",
-      "name": "三列头像置顶评价",
-      "original_name": "White and Green Modern Customer Testimonials Presentation",
-      "category": "客户评价",
-      "relation": "testimonials",
-      "item_count": 3,
-      "observed_media_regions": 3,
-      "structure": "顶部居中标题；三列各自按圆头像、姓名职位、评价文字、底部星级排列。",
-      "observed_capacity": "3 条评价",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L052",
-      "name": "左大图＋右侧单条证言",
-      "original_name": "Blue Green and White Modern Testimonial Presentation",
-      "category": "客户评价",
-      "relation": "testimonials",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "左侧约四成通高图，右侧上部标题和副标题，下部姓名和引号内评价。",
-      "observed_capacity": "1 条评价",
-      "limitations": [],
-      "profiles": [
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L053",
-      "name": "四事件水平时间线",
-      "original_name": "Black and White Minimalist Timeline Presentation",
-      "category": "时间线",
-      "relation": "timeline",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "标题左上；中间细横线串联四个节点，事件名在线上方、描述在线下方。",
-      "observed_capacity": "4 个事件",
-      "limitations": [],
-      "profiles": [
-        "journey.timeline",
-        "shared.snake_timeline",
-        "shared.step_sidebar"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L054",
-      "name": "底部深色基线＋四年事件",
-      "original_name": "Black and White Modern Timeline Presentation",
-      "category": "时间线",
-      "relation": "timeline",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "标题与副标题在上方，底部深色时间带和图标节点，各节点向上连接年份和事件说明。",
-      "observed_capacity": "4 个年份",
-      "limitations": [],
-      "profiles": [
-        "journey.timeline",
-        "shared.snake_timeline",
-        "shared.step_sidebar"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L055",
-      "name": "左侧标题＋右侧四年纵列",
-      "original_name": "Gray and White Minimalist Timeline Presentation",
-      "category": "时间线",
-      "relation": "timeline",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧标题靠中部，右侧四行图标年份标签与事件描述对齐。",
-      "observed_capacity": "4 个年份",
-      "limitations": [],
-      "profiles": [
-        "journey.timeline",
-        "shared.step_sidebar"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L056",
-      "name": "左侧导语＋右侧三组图标说明",
-      "original_name": "Black and White Modern Icons Presentation",
-      "category": "图标",
-      "relation": "parallel",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "左侧引导语、标题与说明，右侧三组纵排图标、标签和段落。",
-      "observed_capacity": "3 组",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "domains.list",
-        "shared.service_cards",
-        "shared.problem_columns"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L057",
-      "name": "五个图标标签横排",
-      "original_name": "Black and White Minimalist Icons Presentation",
-      "category": "图标",
-      "relation": "parallel",
-      "item_count": 5,
-      "observed_media_regions": 0,
-      "structure": "标题左上，引导短句右上，下方五等分图标和短标签；第5个图形在缩略图中未清晰显示。",
-      "observed_capacity": "5 组标签",
-      "limitations": [
-        "可读到5组标签，第5个图标本体未清晰显示。"
-      ],
-      "profiles": [
-        "split.points",
-        "domains.list",
-        "shared.statement_tags"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L058",
-      "name": "左侧导语＋右侧两张图文列表",
-      "original_name": "Blue Green Minimalist Bulleted List Presentation",
-      "category": "列表",
-      "relation": "parallel",
-      "item_count": 2,
-      "observed_media_regions": 2,
-      "structure": "左侧标题和副标题，右侧两栏，每栏上图、下标签及三条项目符号。",
-      "observed_capacity": "2 组，每组3项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "domains.list",
-        "editorial.services"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L059",
-      "name": "左侧四项列表＋右侧大图",
-      "original_name": "Blue Green and White Minimalist Bulleted List Presentation",
-      "category": "列表",
-      "relation": "parallel",
-      "item_count": 4,
-      "observed_media_regions": 1,
-      "structure": "左半标题与四条列表，页脚放来源；右半为通高图片。",
-      "observed_capacity": "4 项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "domains.list"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L060",
-      "name": "三栏五项清单",
-      "original_name": "Black and White Minimalist Bulleted Lists Presentation",
-      "category": "列表",
-      "relation": "parallel",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "引导短句位于左上，下方三等分，每栏有列表标题和五条项目符号。",
-      "observed_capacity": "3 组，每组5项",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "domains.list",
-        "shared.checklist_photo"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L061",
-      "name": "中央单一大数字",
-      "original_name": "Black and White Minimalist Statistic Presentation",
-      "category": "统计数字",
-      "relation": "statistics",
-      "item_count": 1,
-      "observed_media_regions": 0,
-      "structure": "两端顶部小引导语，中部超大75%，其下标签和解释居中。",
-      "observed_capacity": "1 个指标",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L062",
-      "name": "左侧三条数字块＋右侧解释",
-      "original_name": "Black and White Modern Statistics Presentation",
-      "category": "统计数字",
-      "relation": "statistics",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部两侧引导语；主体三行，每行左侧深色数字块、右侧标签与解释。",
-      "observed_capacity": "3 个指标",
-      "limitations": [],
-      "profiles": [
-        "shared.metric_cards"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L063",
-      "name": "双栏指标与解释",
-      "original_name": "Black and White Modern Statistics Presentation",
-      "category": "统计数字",
-      "relation": "statistics",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "左右等分，两栏分别从引导语、大数字、标签到说明段落。",
-      "observed_capacity": "2 个指标",
-      "limitations": [],
-      "profiles": [
-        "shared.metric_cards",
-        "shared.metric_circles"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L064",
-      "name": "上方大横图＋底部说明带",
-      "original_name": "Green Blue and White Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "上部约七成为通栏图片，下部白色带中左侧标题、右侧短图注。",
-      "observed_capacity": "1 图",
-      "limitations": [],
-      "profiles": [
-        "shared.photo_banner"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L065",
-      "name": "左侧图注＋双竖图",
-      "original_name": "Blue and Green Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 2,
-      "observed_media_regions": 2,
-      "structure": "左侧窄栏放图注和来源，右侧两张等宽通高竖图。",
-      "observed_capacity": "2 图",
-      "limitations": [],
-      "profiles": [
-        "shared.photo_pair",
-        "shared.photo_strip",
-        "editorial.portfolio"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L066",
-      "name": "左侧图注＋右侧一大两小",
-      "original_name": "Green and Blue Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 3,
-      "observed_media_regions": 3,
-      "structure": "左侧约三分之一为居中图注；右侧上方一张宽图，下方两张小图。",
-      "observed_capacity": "3 图",
-      "limitations": [],
-      "profiles": [
-        "shared.photo_strip",
-        "editorial.portfolio"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L067",
-      "name": "四图等分网格",
-      "original_name": "Sky Blue and Green Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 4,
-      "observed_media_regions": 4,
-      "structure": "两列两行图片均分全页，仅以白色窄间距分隔，没有文字字段。",
-      "observed_capacity": "4 图，2×2",
-      "limitations": [],
-      "profiles": [
-        "shared.photo_strip",
-        "editorial.portfolio"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L068",
-      "name": "左侧标题说明＋右侧四图拼贴",
-      "original_name": "Green White and Blue Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 4,
-      "observed_media_regions": 4,
-      "structure": "左侧窄栏放标题、图注、来源；右侧上方两张较高图片，下方两张横图。",
-      "observed_capacity": "4 图",
-      "limitations": [],
-      "profiles": [
-        "shared.photo_strip",
-        "editorial.portfolio"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L069",
-      "name": "顶部说明＋六图网格",
-      "original_name": "Blue and Green Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 6,
-      "observed_media_regions": 6,
-      "structure": "页顶左标题右图注，主体三列两行等宽等高图片。",
-      "observed_capacity": "6 图，3×2",
-      "limitations": [],
-      "profiles": [
-        "editorial.portfolio"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L070",
-      "name": "中心标题＋七图围合",
-      "original_name": "Blue Green and White Minimalist Landscape Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 7,
-      "observed_media_regions": 7,
-      "structure": "标题居中，四周由竖图、横图和小图拼接成边缘围合，图片贴近页边。",
-      "observed_capacity": "7 图",
-      "limitations": [
-        "图片数按可见图片区计数，不代表 Canva 底层对象数。"
-      ],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L071",
-      "name": "中心标题＋六图错落散排",
-      "original_name": "Blue and Green Illustrated Nature Presentation",
-      "category": "照片拼贴",
-      "relation": "gallery",
-      "item_count": 6,
-      "observed_media_regions": 6,
-      "structure": "中央标题，周围六张不同尺寸图片错落分布，保留明显白色间隙。",
-      "observed_capacity": "6 图",
-      "limitations": [
-        "图片数按可见图片区计数，不代表 Canva 底层对象数。"
-      ],
-      "profiles": [
-        "editorial.portfolio"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L072",
-      "name": "顶部横图＋底部联系栏",
-      "original_name": "Green and Blue Minimalist Contact Page Presentation",
-      "category": "联系信息",
-      "relation": "contact",
-      "item_count": 3,
-      "observed_media_regions": 1,
-      "structure": "上半幅图片，下半左侧标题、右侧纵排邮箱、社交账号与电话。",
-      "observed_capacity": "3 种联系方式",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L073",
-      "name": "左侧联系信息＋右侧竖图",
-      "original_name": "Blue and Green Minimalist Contact Presentation",
-      "category": "联系信息",
-      "relation": "contact",
-      "item_count": 3,
-      "observed_media_regions": 1,
-      "structure": "左右约各半；左侧标题与联系方式纵排，右侧留边竖图。",
-      "observed_capacity": "3 种联系方式",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L074",
-      "name": "顶部标题＋中部横图＋底部三栏",
-      "original_name": "Blue and Green Minimalist Contact Presentation",
-      "category": "联系信息",
-      "relation": "contact",
-      "item_count": 3,
-      "observed_media_regions": 1,
-      "structure": "标题左上，中部通栏横图，底部三等分邮箱、社交账号与电话。",
-      "observed_capacity": "3 种联系方式",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L075",
-      "name": "左侧说明＋右侧分组数据图",
-      "original_name": "Black and White Modern Data Presentation",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左窄栏上方标题副标题、下方解释，右侧大图区含Group与Subgroup标签；图形填充未清晰显示。",
-      "observed_capacity": "4 个主组及子组",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L076",
-      "name": "左侧说明＋右侧四阶段漏斗",
-      "original_name": "Black and White Modern Funnel Chart Presentation",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧标题组与解释，右侧漏斗；阶段名在左，数值在右。",
-      "observed_capacity": "4 个阶段",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L077",
-      "name": "左侧说明＋右侧季度趋势图",
-      "original_name": "Black and White Minimalist Data Analysis Presentation",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 5,
-      "observed_media_regions": 0,
-      "structure": "左窄栏标题组和解释，右侧坐标图区，底部来源，图区含季节性文字注释；系列线未清晰显示。",
-      "observed_capacity": "2021–2025 季度轴",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "line"
       ]
-    },
-    {
-      "id": "L078",
-      "name": "左侧说明＋右侧年度多系列图",
-      "original_name": "Black White and Grey Modern Data Presentation",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧标题组和解释，右侧年度坐标图区，上方Q1–Q4图例，底部来源；图形未清晰显示。",
-      "observed_capacity": "4 年×4 季度系列",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "bar",
-        "line"
-      ]
-    },
-    {
-      "id": "L079",
-      "name": "左侧说明＋右侧三收入系列图",
-      "original_name": "Black and Grey Minimalist Revenue Chart Presentation",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 8,
-      "observed_media_regions": 0,
-      "structure": "左侧文字栏，右侧年度图区，图例为三种收入来源，底部标注来源；图形未清晰显示。",
-      "observed_capacity": "8 年×3 系列",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "bar",
-        "line"
-      ]
-    },
-    {
-      "id": "L080",
-      "name": "左侧说明＋右侧五对象横向比较",
-      "original_name": "Gray and Black Minimalist Data Chart Presentation",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 5,
-      "observed_media_regions": 0,
-      "structure": "左窄栏放标题组与解释；右侧五行对象名称和数值，底部水平数量轴；条形未清晰显示。",
-      "observed_capacity": "5 个对象",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "bar"
-      ]
-    },
-    {
-      "id": "L081",
-      "name": "顶部标题＋通栏柱状图区域",
-      "original_name": "Bar Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 5,
-      "observed_media_regions": 0,
-      "structure": "标题副标题位于顶部，图例在其下，主体为通栏年度坐标图区；原名为Bar Chart Page。",
-      "observed_capacity": "5 年×3 类别",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "bar"
-      ]
-    },
-    {
-      "id": "L082",
-      "name": "左大图＋右侧图表说明",
-      "original_name": "Bar Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧约七成为柱状图区域和来源，右侧窄栏标题副标题、底部解释。",
-      "observed_capacity": "4 季度×2 系列",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "bar"
-      ]
-    },
-    {
-      "id": "L083",
-      "name": "左侧说明＋右侧四类饼图区域",
-      "original_name": "Pie Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧标题组和解释，右侧饼图标签散布；原名为Pie Chart Page，扇形未清晰显示。",
-      "observed_capacity": "4 类别",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "donut"
-      ]
-    },
-    {
-      "id": "L084",
-      "name": "左侧说明＋右侧三类饼图区域",
-      "original_name": "Pie Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "左侧标题组和解释，右侧饼图标签；原名为Pie Chart Page，扇形未清晰显示。",
-      "observed_capacity": "3 类别",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。",
-        "模板占比示例合计99.9%，保留原值，不作为真实业务数据。"
-      ],
-      "profiles": [
-        "reading.half_lr",
-        "reading.half_tb",
-        "reading.quarter",
-        "shared.chart_focus"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。",
-      "chart_types": [
-        "donut"
-      ]
-    },
-    {
-      "id": "L085",
-      "name": "上方双栏说明＋下方散点图区",
-      "original_name": "Scatter Plot Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 5,
-      "observed_media_regions": 0,
-      "structure": "页顶左标题副标题、右解释，主体为通栏散点坐标网格与五组图例；点未清晰显示。",
-      "observed_capacity": "5 组数据",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L086",
-      "name": "左侧说明＋右侧矩形树图区域",
-      "original_name": "Treemap Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "左侧标题组与解释，右侧按人力、营销、生产、杂项分组；原名为Treemap Chart Page，色块未清晰显示。",
-      "observed_capacity": "4 主类及子项",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L087",
-      "name": "三栏图表仪表盘",
-      "original_name": "Dashboard Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部主题标题，主体三列以竖线分隔，各列短解释在上、图表在下；底部有来源。",
-      "observed_capacity": "3 张图",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L088",
-      "name": "双图＋三项指标组合看板",
-      "original_name": "Dashboard Chart Page",
-      "category": "数据图表",
-      "relation": "data",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "左侧一张较小图区，右上三项统计与图注，右下横向大图区。",
-      "observed_capacity": "2 张图＋3 个指标",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L089",
-      "name": "三对象四维比较矩阵",
-      "original_name": "Comparison Page",
-      "category": "比较",
-      "relation": "comparison",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "标题副标题居中，主体四行因素与三列对象交叉比较；深色表头和行标签突出结构。",
-      "observed_capacity": "3 对象×4 因素",
-      "limitations": [],
-      "profiles": [
-        "table.matrix",
-        "journey.compare",
-        "reading.half_lr",
-        "reading.half_tb"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L090",
-      "name": "双大数字 VS 对比",
-      "original_name": "Comparison Page",
-      "category": "比较",
-      "relation": "comparison",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "顶部居中标题副标题，下方63%与87%左右对应，中间VS；各数值下放标签说明。",
-      "observed_capacity": "2 个指标",
-      "limitations": [],
-      "profiles": [
-        "shared.metric_cards",
-        "shared.metric_circles"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L091",
-      "name": "前后状态三项对照",
-      "original_name": "Comparison Page",
-      "category": "比较",
-      "relation": "comparison",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "标题副标题在上，下方BEFORE和AFTER两栏；各栏三行编号01–03和对应描述。",
-      "observed_capacity": "2 状态×3 项",
-      "limitations": [],
-      "profiles": [
-        "table.matrix",
-        "journey.compare",
-        "reading.half_lr",
-        "reading.half_tb"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L092",
-      "name": "双指标错位比较",
-      "original_name": "Comparison Page",
-      "category": "比较",
-      "relation": "comparison",
-      "item_count": 2,
-      "observed_media_regions": 0,
-      "structure": "顶部标题；左下与右上错位放75%和25%，两侧说明围绕中部空白区域；图形未清晰显示。",
-      "observed_capacity": "2 个指标",
-      "limitations": [
-        "图表缩略图中的部分数据图形未清晰显示；记录的是可读标题、标签及布局区域，不据此复原未显示图形。"
-      ],
-      "profiles": [
-        "shared.metric_cards",
-        "shared.metric_circles"
-      ],
-      "status": "adapted",
-      "adaptation": "保留来源的信息关系与主体数量，按候选的真实字段、图片要求及当前风格重新组织；图文几何是近似适配，不是来源缩略图的像素复刻。"
-    },
-    {
-      "id": "L093",
-      "name": "三栏圆环百分比比较",
-      "original_name": "Comparison Page",
-      "category": "比较",
-      "relation": "comparison",
-      "item_count": 3,
-      "observed_media_regions": 0,
-      "structure": "顶部居中标题，三列分别放标签、圆环百分比和短解释；圆环轮廓部分可见。",
-      "observed_capacity": "3 个指标",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L094",
-      "name": "五列表格",
-      "original_name": "Table Page",
-      "category": "表格",
-      "relation": "table",
-      "item_count": null,
-      "observed_media_regions": 0,
-      "structure": "标题副标题靠左上，主体规则五列表格，底部放来源；数据单元格为空。",
-      "observed_capacity": "5 列",
-      "limitations": [],
-      "profiles": [
-        "table.matrix"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L095",
-      "name": "四列 SWOT 分析",
-      "original_name": "Table Page",
-      "category": "表格",
-      "relation": "table",
-      "item_count": 4,
-      "observed_media_regions": 0,
-      "structure": "顶部引导语，SWOT标题位于表格上方；四等宽列，每列包含维度名和三条提示问题。",
-      "observed_capacity": "4 维度",
-      "limitations": [],
-      "profiles": [
-        "table.matrix"
-      ],
-      "status": "adapted",
-      "adaptation": "保留内容关系并适配主题的图片区与固定页头；不是原布局的像素复刻。"
-    },
-    {
-      "id": "L096",
-      "name": "双栏时间任务状态表",
-      "original_name": "Table Page",
-      "category": "表格",
-      "relation": "table",
-      "item_count": 6,
-      "observed_media_regions": 0,
-      "structure": "上方标题、日期、状态图例，下方两张并排的Time/Task/Status表，时段从2 PM到7 PM。",
-      "observed_capacity": "2 表×6 时段",
-      "limitations": [],
-      "profiles": [],
-      "status": "reference_only",
-      "adaptation": "当前共享渲染器不完整支持此结构；仅供参考，不能自主选为可执行模板。"
-    },
-    {
-      "id": "L097",
-      "name": "左侧手持平板＋右侧两点说明",
-      "original_name": "Mockup Page",
-      "category": "设备样机",
-      "relation": "explanation",
-      "item_count": 2,
-      "observed_media_regions": 1,
-      "structure": "左半深色背景内展示手持平板，右半上下两组要点标题与段落。",
-      "observed_capacity": "1 样机、2 要点",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "设备外壳与屏幕作为一张已提供素材，旁侧说明保持可编辑；没有可编辑设备框或自动生成真实产品界面的渲染能力。"
-    },
-    {
-      "id": "L098",
-      "name": "左侧放大平板＋右侧三条要点",
-      "original_name": "Mockup Page",
-      "category": "设备样机",
-      "relation": "explanation",
-      "item_count": 3,
-      "observed_media_regions": 1,
-      "structure": "平板从左侧裁切进入画面，占约半幅；右侧三行数字和简短观点。",
-      "observed_capacity": "1 样机、3 要点",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "设备外壳与屏幕作为一张已提供素材，旁侧说明保持可编辑；没有可编辑设备框或自动生成真实产品界面的渲染能力。"
-    },
-    {
-      "id": "L099",
-      "name": "上方居中文字＋下方笔记本",
-      "original_name": "Mockup Page",
-      "category": "设备样机",
-      "relation": "explanation",
-      "item_count": 1,
-      "observed_media_regions": 1,
-      "structure": "顶部标题与正文居中，底部大尺寸笔记本屏幕居中并贴近页底。",
-      "observed_capacity": "1 样机、1 段",
-      "limitations": [],
-      "profiles": [
-        "split.points"
-      ],
-      "status": "adapted",
-      "adaptation": "设备外壳与屏幕作为一张已提供素材，旁侧说明保持可编辑；没有可编辑设备框或自动生成真实产品界面的渲染能力。"
-    },
-    {
-      "id": "L100",
-      "name": "左侧双编号说明＋右侧手机",
-      "original_name": "Mockup Page",
-      "category": "设备样机",
-      "relation": "explanation",
-      "item_count": 2,
-      "observed_media_regions": 1,
-      "structure": "左侧01/02编号与要点正文上下排布，右侧通高手机模型。",
-      "observed_capacity": "1 样机、2 要点",
-      "limitations": [],
-      "profiles": [
-        "split.points",
-        "shared.editorial_story"
-      ],
-      "status": "adapted",
-      "adaptation": "设备外壳与屏幕作为一张已提供素材，旁侧说明保持可编辑；没有可编辑设备框或自动生成真实产品界面的渲染能力。"
-    }
-  ],
-  "additional_sources": [
-    {
-      "name": "Presentación Arquitectura Minimalista Colorida",
-      "creator": "Belén Creativa",
-      "template_id": "EAFYtFCow0M",
-      "captured": "2026-10-05",
-      "reference": "../../primary-architecture-slides/assets/reference-design/source-notes.md",
-      "profiles": [
-        "shared.type_poster",
-        "shared.editorial_columns",
-        "shared.editorial_people",
-        "shared.editorial_gallery"
-      ],
-      "note": "该模板独立于原100条来源记录；没有重编号、覆盖或虚增原来源的adapted数量。"
-    },
-    {
-      "name": "Presentación Portafolio Estudio de Fotografía Simple Minimalista Blanco",
-      "creator": "Mica Crocce - Creare DG",
-      "captured": "2026-10-05",
-      "reference": "../../airy-portfolio-slides/assets/reference-design/source-notes.md",
-      "profiles": [
-        "shared.type_poster",
-        "shared.editorial_columns",
-        "shared.editorial_gallery"
-      ],
-      "note": "独立保存10页摄影作品集参考；复用并扩展现有共享结构，不增加或重编号原100条布局来源。"
-    },
-    {
-      "name": "Beige Modern Minimal Business Marketing Plan Presentation",
-      "creator": "Aelina Design",
-      "captured": "2026-10-05",
-      "reference": "../../beige-ring-business-slides/assets/reference-design/source-notes.md",
-      "profiles": [
-        "shared.hub_spoke",
-        "shared.step_row",
-        "shared.editorial_people",
-        "shared.metric_cards",
-        "shared.chart_focus"
-      ],
-      "note": "独立保存10页商务模板参考；原100条来源及其编号、适配状态不变。"
-    },
-    {
-      "name": "Black and White Simple Business Plan Presentation",
-      "captured": "2026-10-05",
-      "reference": "../../monochrome-marble-slides/references/source-notes.md",
-      "profiles": [
-        "shared.editorial_charts",
-        "shared.editorial_columns",
-        "shared.editorial_people",
-        "shared.side_index"
-      ],
-      "note": "用户已打开的15页Canva设计，作者与原字体未验证。独立来源不增加或重编号原100条记录。"
     }
   ]
 }

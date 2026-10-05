@@ -2,7 +2,7 @@
 
 布局定义内容怎样排列，风格定义页面怎样呈现。所有布局都可用于 `speech` 或 `reading`；用途只决定内容密度和讲稿分工，不再自动改变分区比例、图文位置或页头。按本页需要表达的关系选择，不要求一份稿集齐所有布局。
 
-逐页使用 [根据内容自主选版](layout-selection.md)：共享 [来源库](layout-library.json) 完整保留 **100 条布局来源、19 类**，并登记 **49 个可执行策略**：原有 18 项、原 16 种共享构图、8 个 `editorial` 变体、`type_poster / editorial_columns` 对应的 5 个 profile，以及 `hub_spoke / step_row` 对应的 2 个 profile。共享构图现在共 20 种。原 100 条中仍有 81 条近似适配、19 条仅作参考；本次独立模板记录在 `additional_sources`，不改编号或虚增原来源数量。100 条来源不是 100 个像素级模板。先判断关系、数量、素材和真实数据，再由 `select_layout.py` 筛选候选。
+逐页使用 [根据内容自主选版](layout-selection.md)：共享 [布局库](layout-library.json) 登记 **48 个可执行策略**：17 个基础布局策略、原 16 种共享构图、8 个 `editorial` 变体、`type_poster / editorial_columns` 对应的 5 个 profile，以及 `hub_spoke / step_row` 对应的 2 个 profile。共享构图现在共 20 种。先判断关系、数量、素材和真实数据，再由 `select_layout.py` 筛选候选。
 
 ## 布局与风格的分工
 
@@ -14,7 +14,7 @@
 
 ## 已有共享布局
 
-`cover / scene / split / triad / journey / architecture / flow / domains / formula / table / relations / closing / reading` 的字段仍见 [数据契约](deck-format.md)。
+`cover / scene / split / journey / architecture / flow / domains / formula / table / relations / closing / reading` 的字段仍见 [数据契约](deck-format.md)。
 
 `editorial` 的八个变体 `cover / intro / contents / about / services / process / portfolio / closing` 已是共享能力，不再按风格名单限制。它们的图文几何加载自共享 `editorial.css`，视觉随当前主题；字段见 [editorial 契约](deck-format.md#editorial编辑式图文页面)。
 
@@ -66,7 +66,7 @@
 | `eyebrow` | 可选非空字符串，作为独立可编辑眉题 |
 | `copy / bullets` | 仅 statement 可用；copy 为非空字符串，bullets 为 1–8 个非空字符串；均可省略，保留纯文字短句页 |
 
-纯文字封面使用大标题和留白；章节页可由当前风格提供单色表面与巨大数字；statement 用于短主张或带说明、要点的文字页。不要为仿照来源省略必需标题，或把数字烘焙为图片。新增变体与字段复用现有布局和 profile，不增加共享构图或选版策略数量。
+纯文字封面使用大标题和留白；章节页可由当前风格提供单色表面与巨大数字；statement 用于短主张或带说明、要点的文字页。不要为仿照参考稿省略必需标题，或把数字烘焙为图片。新增变体与字段复用现有布局和 profile，不增加共享构图或选版策略数量。
 
 ### editorial_columns：自由宽度编辑分栏
 
@@ -98,10 +98,10 @@
 | `shared.type_poster` | `type_poster` | 单主题，固定 1 |
 | `shared.editorial_columns` | `editorial_columns` | 全部栏目数，2–6 |
 | `shared.editorial_people` | `editorial_columns` | 所有 people 栏的成员总数，1–24；不是栏目数 |
-| `shared.editorial_gallery` | `editorial_columns` | 使用 `columns.photos`，计所有 image 栏与 gallery 栏的图片总数，2–48；不计 people 栏头像 |
-| `shared.editorial_charts` | `editorial_columns` | 使用 `columns.charts`，计真实 chart 栏数，2–6；每栏均须有完整图表数据，不以 categories 或全部栏目数代替 |
+| `shared.editorial_gallery` | `editorial_columns` | 计所有 image 栏与 gallery 栏的图片总数，2–48；不计 people 栏头像 |
+| `shared.editorial_charts` | `editorial_columns` | 计真实 chart 栏数，2–6；每栏均须有完整图表数据，不以 categories 或全部栏目数代替 |
 
-一个布局可按不同语义使用不同 profile。团队必须提供实际 people 成员，作品图集必须提供实际 image 或 gallery 栏图片，图表对比必须提供实际 chart 栏与来源，不能只用声明的项数或 chart_data_planned 绕过字段合同。联系信息沿用 shared.editorial_columns，以标题栏和无序 groups 栏组织。旧计数器 `columns.gallery` 保留兼容，仅计 gallery 栏图片。独立模板来源记录于 `additional_sources`；没有对应旧来源时 `source_ids` 留空，不虚构 `Lxxx` 编号。
+一个布局可按不同语义使用不同 profile。团队必须提供实际 people 成员，作品图集必须提供实际 image 或 gallery 栏图片，图表对比必须提供实际 chart 栏与来源，不能只用声明的项数或 chart_data_planned 绕过字段合同。联系信息沿用 shared.editorial_columns，以标题栏和无序 groups 栏组织。
 
 ## 中心关系与横向步骤
 

@@ -350,7 +350,7 @@ Automated checks cover text overflow and overlap, missing images, external depen
 <details>
 <summary><strong>Build options and shared layouts</strong></summary>
 
-The shared catalogue offers **49 executable profiles**, including **20 shared compositions**. Choose by content using the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); see the [shared composition contracts](skills/white-blue-slides/references/shared-layouts.md) for fields and capacities. The introductory table below retains the original named layouts.
+The shared catalogue offers **48 executable profiles**, including **20 shared compositions**. Choose by content using the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); see the [shared composition contracts](skills/white-blue-slides/references/shared-layouts.md) for fields and capacities. The introductory table below retains the original named layouts.
 
 | Tool or option | Purpose |
 |---|---|
@@ -366,7 +366,7 @@ Selecting a supplied style does not require `--allow-restyle`.
 |---|---|---|---|
 | `cover` | Cover | `architecture` | Layered architecture with direct labels |
 | `scene` | A main scene with notes on both sides | `flow` | Steps and control points |
-| `split` / `triad` | Two-sided explanations / three-part controls | `domains` | Multiple domain lists |
+| `split` | Two-sided explanations or three-part controls | `domains` | Multiple domain lists |
 | `journey` | Stages, comparisons, or paths | `formula` | Formulas and relationships between factors |
 | `table` | Tables and boundary comparisons | `relations` | Entities and connections |
 | `closing` | An illustrated closing slide | `reading` | The four composite reading layouts |

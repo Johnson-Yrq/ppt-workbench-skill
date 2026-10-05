@@ -31,19 +31,6 @@ TEXT_FIELDS = {'title', 'subtitle', 'summary', 'text', 'label', 'message', 'desc
                'copy', 'paragraphs', 'lead', 'kicker', 'eyebrow', 'tags', 'metrics',
                'aside', 'conclusion', 'source', 'stat', 'checks', 'caption',
                'chart', 'image', 'images', 'product', 'heading', 'name', 'role', 'number', 'bullets', 'center'}
-COUNT_FIELDS = {'single', 'items', 'images', 'paragraphs', 'groups', 'steps',
-                'metrics', 'tags', 'columns', 'chart.categories', 'columns.people', 'columns.gallery', 'columns.photos', 'columns.charts', 'nodes'}
-SHARED_COUNT_FIELDS = {
-    'photo_pair': 'images', 'offset_pair': 'paragraphs', 'statement_tags': 'tags',
-    'checklist_photo': 'groups', 'snake_timeline': 'steps', 'metric_cards': 'metrics',
-    'photo_strip': 'images', 'problem_columns': 'items', 'service_cards': 'items',
-    'metric_circles': 'metrics', 'chart_focus': 'chart.categories',
-    'photo_banner': 'single', 'photo_divider': 'single', 'side_index': 'items',
-    'editorial_story': 'items', 'step_sidebar': 'steps', 'type_poster': 'single',
-    'hub_spoke': 'items', 'step_row': 'steps'}
-EDITORIAL_COUNT_FIELDS = {'cover': 'single', 'intro': 'single', 'contents': 'items',
-                         'about': 'columns', 'services': 'items', 'process': 'items',
-                         'portfolio': 'images', 'closing': 'single'}
 
 
 def profile_settings_errors(profile):
@@ -91,8 +78,8 @@ def load_library():
     if not profiles or len(set(ids)) != len(ids):
         raise ValueError('布局 profile.id 必须唯一')
     for p in profiles:
-        if p.get('layout') not in NATIVE_LAYOUTS or p.get('status') not in {'ready', 'reference_only'}:
-            raise ValueError(f'布局未注册或状态无效：{p["id"]}')
+        if p.get('layout') not in NATIVE_LAYOUTS:
+            raise ValueError(f'布局未注册：{p["id"]}')
         if (not isinstance(p.get('relations'), list) or not p['relations']
                 or any(not isinstance(r, str) or r not in RELATIONS for r in p['relations'])
                 or not isinstance(p.get('modes'), list) or not p['modes']
@@ -107,36 +94,14 @@ def load_library():
         budget = p.get('text_budget')
         if (not isinstance(budget, dict) or any(not integer(budget.get(mode), 1) for mode in ('speech', 'reading'))):
             raise ValueError(f'布局 text_budget 需要 speech/reading 的正整数容量：{p["id"]}')
-        expected_family = 'shared' if p['layout'] in SHARED_LAYOUTS else 'editorial' if p['layout'] == 'editorial' else 'native'
-        if p.get('renderer_family', expected_family) != expected_family:
-            raise ValueError(f'布局 renderer_family 与 layout 不一致：{p["id"]}')
-        if 'count_field' in p and (not isinstance(p['count_field'], str) or p['count_field'] not in COUNT_FIELDS):
-            raise ValueError(f'布局 count_field 未实现：{p["id"]}')
         if profile_settings_errors(p):
             raise ValueError(f'布局 settings 无效：{p["id"]}：' + '；'.join(profile_settings_errors(p)))
-        expected_count = (SHARED_COUNT_FIELDS.get(p['layout']) if p['layout'] != 'editorial'
-                          else EDITORIAL_COUNT_FIELDS[p['settings']['editorial_variant']])
-        if expected_count and p.get('count_field') != expected_count:
-            raise ValueError(f'布局 count_field 应为 {expected_count}：{p["id"]}')
         if p['layout'] in SHARED_LAYOUTS:
             image_low, image_high = SHARED_LAYOUTS[p['layout']]['image_count']
             if not image_low <= p['image_count'][0] <= p['image_count'][1] <= image_high:
                 raise ValueError(f'布局 image_count 超出 renderer 契约：{p["id"]}')
         if not isinstance(p.get('adaptation'), str) or not p['adaptation'].strip():
             raise ValueError(f'布局 adaptation 需要真实的适配说明：{p["id"]}')
-    refs = data.get('references', [])
-    if (not isinstance(refs, list) or not isinstance(data.get('source'), dict)
-            or len(refs) != data['source'].get('count')
-            or any(not isinstance(r, dict) or not isinstance(r.get('id'), str) for r in refs)
-            or len({r['id'] for r in refs}) != len(refs)):
-        raise ValueError('布局来源数量或编号不一致')
-    for ref in refs:
-        if not isinstance(ref.get('profiles'), list) or any(pid not in ids for pid in ref['profiles']):
-            raise ValueError(f'来源引用了不存在的 profile：{ref["id"]}')
-        if (ref.get('status') not in {'adapted', 'reference_only'}
-                or (ref['status'] == 'reference_only' and ref['profiles'])
-                or (ref['status'] == 'adapted' and not ref['profiles'])):
-            raise ValueError(f'来源状态不一致：{ref["id"]}')
     return data
 
 
@@ -244,7 +209,6 @@ def eligibility(profile, slide, mode, style, excluded=()):
     relation, count = intent['relation'], intent['item_count']
     pid, layout = profile['id'], profile['layout']
     errors = []
-    if profile['status'] != 'ready': errors.append('渲染尚未实现')
     if pid in set(excluded) | set(intent.get('exclude_profiles', [])): errors.append('本轮反馈已排除此布局')
     if relation not in profile['relations']: errors.append('内容关系不匹配')
     # modes is descriptive catalog metadata. Presentation density may change a
@@ -324,13 +288,6 @@ def eligibility(profile, slide, mode, style, excluded=()):
     return errors
 
 
-def matching_sources(profile, intent, slide):
-    chart_types = {c.get('chart_type') for c in charts_for(slide)}
-    return [r['id'] for r in load_library()['references'] if r['status'] == 'adapted' and profile['id'] in r['profiles']
-            and r['relation'] == intent['relation'] and r['item_count'] in (None, intent['item_count'])
-            and (not r.get('chart_types') or bool(chart_types & set(r['chart_types'])))]
-
-
 def choose_slide(slide, mode, style, previous=None, excluded=()):
     errors = intent_errors(slide)
     result = {'slide_id': slide.get('id'), 'title': slide.get('title', ''), 'candidates': [], 'rejected': [], 'errors': errors}
@@ -343,7 +300,7 @@ def choose_slide(slide, mode, style, previous=None, excluded=()):
             result['rejected'].append({'profile': profile['id'], 'reasons': why})
             continue
         layout, pid = profile['layout'], profile['id']
-        priority = {'split': 40, 'scene': 25, 'triad': 45, 'journey': 40, 'flow': 55,
+        priority = {'split': 40, 'scene': 25, 'journey': 40, 'flow': 55,
                     'domains': 28, 'table': 45, 'architecture': 42, 'reading': 35,
                     'type_poster': 30}.get(layout, 38)
         if intent.get('spatial') and layout in {'scene', 'architecture'}: priority += 15
@@ -354,16 +311,15 @@ def choose_slide(slide, mode, style, previous=None, excluded=()):
         settings = dict(profile['settings'])
         reason = f'{intent["relation"]} 关系，{intent["item_count"]} 个主体项；文字约 {units:g} 单位，符合内容容量与配图条件。{profile["adaptation"]}'
         result['candidates'].append({'profile': pid, 'layout': layout, 'settings': settings, 'score': score,
-            'source_ids': matching_sources(profile, intent, slide), 'rationale': reason,
+            'rationale': reason,
             'warnings': ['接近容量边界，可增加分区或在页数允许时拆页'] if ratio > 1 else []})
     result['candidates'].sort(key=lambda c: (-c['score'], c['profile']))
     best = result['candidates'][0] if result['candidates'] else None
     result.update(status='selected' if best else 'needs_revision', text_units=units,
-                  selection={'version': 1, 'profile': best['profile'], 'source_ids': best['source_ids']} if best else None)
+                  selection={'profile': best['profile']} if best else None)
     if not best:
         result['next_actions'] = ['检查排除原因；保留关键事实，调整分区或在页数允许时拆页。',
-                                  '素材/数据缺失只暂停依赖步骤；不补造数据，不更改已确认风格或用途。',
-                                  '仅供参考的结构需先实现并验证渲染器；不能将来源编号直接作为 layout。']
+                                  '素材/数据缺失只暂停依赖步骤；不补造数据，不更改已确认风格或用途。']
     return result
 
 
@@ -404,23 +360,18 @@ def main():
     parser.add_argument('plan', nargs='?', help='布局规划 JSON 或带 layout_intent 的 deck.json')
     parser.add_argument('--out', help='推荐报告；不会改写输入')
     parser.add_argument('--feedback', help='audit_deck 的 report.json；排除有容量问题的当前 profile')
-    parser.add_argument('--list', action='store_true', help='列出可执行 profile 和来源统计')
-    parser.add_argument('--catalog', action='store_true', help='查看来源布局，不加载示例文案')
-    parser.add_argument('--relation', choices=sorted(RELATIONS), help='筛选 --catalog 的语义家族')
+    parser.add_argument('--list', action='store_true', help='列出可执行 profile')
     args = parser.parse_args()
     try:
         library = load_library()
         if args.list:
-            result = {'profiles': library['profiles'], 'references': len(library['references']),
-                      'adapted': sum(r['status'] == 'adapted' for r in library['references'])}
-        elif args.catalog:
-            result = [r for r in library['references'] if not args.relation or r['relation'] == args.relation]
+            result = {'profiles': library['profiles']}
         elif args.plan:
             deck = json.loads(Path(args.plan).read_text(encoding='utf-8'))
             feedback = json.loads(Path(args.feedback).read_text(encoding='utf-8')) if args.feedback else None
             result = select_deck(deck, feedback)
         else:
-            parser.error('提供规划文件，或使用 --list / --catalog')
+            parser.error('提供规划文件，或使用 --list')
         content = json.dumps(result, ensure_ascii=False, indent=2) + '\n'
         if args.out:
             out = Path(args.out).resolve()

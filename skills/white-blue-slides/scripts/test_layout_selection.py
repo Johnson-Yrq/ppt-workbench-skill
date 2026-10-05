@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 from build_deck import Builder, check_plan
 from common import NATIVE_LAYOUTS, load_deck, placeholder_png as solid_png, slide_images
-from composition_layouts import validate_composition
+from composition_layouts import SHARED_LAYOUTS, validate_composition
 from editorial_contract import validate_editorial_slide
 from select_layout import load_library, media_info, select_deck, text_units
 from test_compositions import fixtures
@@ -142,14 +142,6 @@ class LayoutSelection(unittest.TestCase):
         deck['slides'][0]['layout_intent']['media']['count'] = 1
         self.assertIn('reading.quarter', {c['profile'] for c in select_deck(deck)['pages'][0]['candidates']})
 
-    def test_source_catalog_is_complete_and_not_an_execution_whitelist(self):
-        lib = load_library()
-        self.assertEqual({r['id'] for r in lib['references']}, {f'L{i:03}' for i in range(1, 101)})
-        process = recommended(planning())
-        self.assertIn('L042', process['source_ids'])
-        self.assertNotIn('L046', process['source_ids'])
-        self.assertEqual(next(r for r in lib['references'] if r['id'] == 'L085')['status'], 'reference_only')
-
     def test_browser_feedback_reranks_only_affected_page(self):
         deck = planning('parallel')
         first = recommended(deck)
@@ -215,10 +207,11 @@ class LayoutSelection(unittest.TestCase):
 
     def test_registry_covers_native_layouts_without_theme_whitelists(self):
         profiles = load_library()['profiles']
-        self.assertEqual(len(profiles), 49)
-        self.assertEqual({p['layout'] for p in profiles}, NATIVE_LAYOUTS)
-        self.assertEqual(sum(p['renderer_family'] == 'shared' for p in profiles), 23)
-        self.assertEqual(sum(p['renderer_family'] == 'editorial' for p in profiles), 8)
+        self.assertEqual(len(profiles), 48)
+        # triad only survives as a build alias of split for older decks; the selector never offers it.
+        self.assertEqual({p['layout'] for p in profiles}, NATIVE_LAYOUTS - {'triad'})
+        self.assertEqual(sum(p['layout'] in SHARED_LAYOUTS for p in profiles), 23)
+        self.assertEqual(sum(p['layout'] == 'editorial' for p in profiles), 8)
         self.assertTrue(all(p['styles'] == ['*'] and set(p['modes']) == {'speech', 'reading'} for p in profiles))
 
     def test_zero_images_and_unavailable_media_keep_text_layouts_available(self):
@@ -287,12 +280,10 @@ class LayoutSelection(unittest.TestCase):
             ids = {c['profile'] for c in select_deck(deck)['pages'][0]['candidates']}
             self.assertIn('reading.half_lr', ids)
 
-    def test_library_rejects_unimplemented_settings_and_false_field_metadata(self):
+    def test_library_rejects_unimplemented_settings_and_image_counts(self):
         baseline = copy.deepcopy(load_library())
         for pid, changes in (
-            ('shared.metric_cards', {'count_field': 'items'}),
             ('shared.metric_cards', {'settings': {'composition': 'quarter'}}),
-            ('shared.metric_cards', {'renderer_family': 'editorial'}),
             ('shared.metric_cards', {'image_count': [0, 9]}),
             ('editorial.cover', {'settings': {'editorial_variant': 'made_up'}}),
         ):

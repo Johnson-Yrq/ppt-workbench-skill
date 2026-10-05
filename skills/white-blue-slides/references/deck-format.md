@@ -88,7 +88,7 @@ class Builder(Base):
 | 字段 | 说明 |
 |---|---|
 | `id` | 可选，默认 `p01` 等；唯一，只用英文、数字、短横线、下划线 |
-| `layout` | 基础布局 `cover / scene / split / triad / journey / architecture / flow / domains / formula / table / relations / closing / reading / editorial`，以及下文的 20 种共享构图；现有项目仍兼容 `--builder` 自定义布局 |
+| `layout` | 基础布局 `cover / scene / split / journey / architecture / flow / domains / formula / table / relations / closing / reading / editorial`，以及下文的 20 种共享构图；现有项目仍兼容 `--builder` 自定义布局 |
 | `title` | 必填，纯文字；用 `\n` 明确换行 |
 | `chapter / subtitle` | 可选，纯文字 |
 | `notes` | 原始大纲、本页口播、来源与事实状态；字符串，保留换行 |
@@ -168,7 +168,7 @@ class Builder(Base):
 |---|---|
 | 一个场景加少量说明 | `scene` |
 | 两侧对照、要点加配图 | `split` |
-| 三段控制或三个并列能力 | `triad` |
+| 三段控制或三个并列能力 | `split`（3 项） |
 | 阶段、路径、多对象横向比较 | `journey` |
 | 有先后的步骤与控制点 | `flow` |
 | 分层结构，需在模型上直接标注 | `architecture` |
@@ -231,11 +231,11 @@ class Builder(Base):
 
 `fields` 1–3 项；字段标签使用原始语义，准入条件、验收条件和完成条件不可混称。页底并行依赖可用 `bottom: {"type":"groups","items":[{"label":"数据线","text":"主数据映射、接口联调"},{"label":"规则线","text":"说明、回测、批准"}]}`，支持 1–4 组。避免把多条依赖拼成一整行粗体文字。
 
-### split / triad：左右说明与三段控制
+### split：左右说明与三段控制
 
-`split` 演讲型使用 `items` 1–3 项，阅读型支持 1–6 项，超过三项自动分成两列说明；`image_side` 可为 `left/right`，默认左图。`triad` 固定 3 项，默认右图；适合输入、判断、输出，角色为 controls、处理为 mixed 时逐项标明 presentation。根据实际分组边界与当前风格选择底板，强调方式遵循当前主题，不按项号强制第二项加框。共用图标标题与 point，不另写裸标题。
+`split` 演讲型使用 `items` 1–3 项，阅读型支持 1–6 项，超过三项自动分成两列说明；`image_side` 可为 `left/right`，默认左图。三段控制（输入、判断、输出）同样用 `split` 写 3 项，可设 `image_side: "right"` 并写 `visual.role: "controls"`；处理为 mixed 时逐项标明 presentation。旧稿中的 `triad` 仍可构建，等同 3 项、右图的 `split`。根据实际分组边界与当前风格选择底板，强调方式遵循当前主题，不按项号强制第二项加框。共用图标标题与 point，不另写裸标题。
 
-使用 `point` 的说明区（`scene / split / triad / domains`，以及 `formula / table / relations` 的说明项）可设布尔值 `emphasis`，默认 `false`。它不改变 `presentation` 或计为面板；当前海蓝玻璃主题对 `presentation: "open"` 的重点项将标题与图标放大约 10%，搭配标题字重、灰青色与短线，保持同级条目的左对齐、正文大小和间距。其他主题是否使用该标记由对应设计系统决定。
+使用 `point` 的说明区（`scene / split / domains`，以及 `formula / table / relations` 的说明项）可设布尔值 `emphasis`，默认 `false`。它不改变 `presentation` 或计为面板；当前海蓝玻璃主题对 `presentation: "open"` 的重点项将标题与图标放大约 10%，搭配标题字重、灰青色与短线，保持同级条目的左对齐、正文大小和间距。其他主题是否使用该标记由对应设计系统决定。
 
 ### formula：公式与平台解释
 
@@ -390,7 +390,7 @@ class Builder(Base):
 
 文字海报与编辑分栏的完整字段见 [文字海报与编辑分栏](shared-layouts.md#文字海报与编辑分栏)。`type_poster` 无图，支持 cover / chapter / statement；cover 与 statement 可通过 placement 选择左下、居中或右下，statement 可带 copy 与 bullets，章节变体保留可编辑 number 与必需 title。`editorial_columns` 为 2–6 栏，所有图片嵌套在栏目中，支持每栏 1–4 名独立 people 身份、gallery 图片、2–6 项无序 groups、chart 图表及 CSS 简化 monitor 框。groups 每项 title 必填、text/icon 可选；text 栏已有 heading 或实际承载显示的页标题时可省略 paragraphs。show_title 为 false 时仅隐藏展示态标题，单列 gallery 可用 row_weights 分配相对行高。
 
-分栏按说明、联系信息、团队、图集或图表对比关系使用不同选版 profile：栏目数、成员数、image / gallery 栏图片总数与实际 chart 栏数各自计数，图集不包含团队头像。`shared.editorial_charts` 需要 2–6 个真实图表栏，每栏 chart 遵循完整数据合同，可加 copy 解释，自动进入离线编辑、保存与原生图表导出。`side_index.items` 支持 2–12 项。`hub_spoke / step_row` 字段及计数见 [中心关系与横向步骤](shared-layouts.md#中心关系与横向步骤)，当前合计 20 种共享构图、49 个 profile。`metric_cards` 还可使用 [单一数据源进度条](shared-layouts.md#指标卡进度条)，`chart_focus` 支持实心 `pie`，均复用已有布局。
+分栏按说明、联系信息、团队、图集或图表对比关系使用不同选版 profile：栏目数、成员数、image / gallery 栏图片总数与实际 chart 栏数各自计数，图集不包含团队头像。`shared.editorial_charts` 需要 2–6 个真实图表栏，每栏 chart 遵循完整数据合同，可加 copy 解释，自动进入离线编辑、保存与原生图表导出。`side_index.items` 支持 2–12 项。`hub_spoke / step_row` 字段及计数见 [中心关系与横向步骤](shared-layouts.md#中心关系与横向步骤)，当前合计 20 种共享构图、48 个 profile。`metric_cards` 还可使用 [单一数据源进度条](shared-layouts.md#指标卡进度条)，`chart_focus` 支持实心 `pie`，均复用已有布局。
 
 ## 页底结论、标签与因子
 

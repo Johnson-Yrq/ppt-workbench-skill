@@ -23,7 +23,7 @@ metadata:
 
 真实新稿沿用同级 [PPT 制作工作台](../ppt-workbench/SKILL.md) 已确认的风格与用途，只询问缺少的核心信息。直接指定本 Skill 表达风格选择，续做保留已有选择。根对象记录 `style: "monochrome-marble"` 与 `presentation_mode: "speech" / "reading"`，用途规则见 [演示稿类型](../white-blue-slides/references/presentation-modes.md)。
 
-逐页按 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，再按 [数据结构](../white-blue-slides/references/deck-format.md) 和 [共享布局](../white-blue-slides/references/shared-layouts.md) 写字段，明确要求写入 `visual.requirements`。共享库维持 **20 种构图、49 个 profile** 和原 100 条来源记录；本方向复用既有布局，只扩展目录和编辑分栏的通用容量与组件，不把十五页参考当作十五种新布局。
+逐页按 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，再按 [数据结构](../white-blue-slides/references/deck-format.md) 和 [共享布局](../white-blue-slides/references/shared-layouts.md) 写字段，明确要求写入 `visual.requirements`。共享库维持 **20 种构图、48 个 profile**；本方向复用既有布局，只扩展目录和编辑分栏的通用容量与组件，不把十五页参考当作十五种新布局。
 
 `editorial_columns` 可组合文字、照片、人物、无序图标分组与完整图表；标题独栏只有在该栏承载可见页标题，或具有自己的 heading 时才能省略正文。`shared.editorial_charts` 按实际图表栏数计 2–6 项，每栏必须有真实数据、单位和来源。详细合同见 [图表契约](../white-blue-slides/references/charts.md)。演讲型突出主要判断，阅读型补齐上下文、机制、来源和边界；阅读用途不自动等同 `layout: reading`，内容过多时拆页。
 

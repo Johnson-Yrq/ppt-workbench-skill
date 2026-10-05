@@ -28,7 +28,7 @@ python3 <shared>/scripts/style_packs.py --list
 
 读取清单中所选风格的 `skill_file`，以它作为实际制作流程；加载其视觉与配图规范。共享的数据结构、版式、图表与播放器由该风格引用，不另起问卷或第二套制作流程；检查文档只在用户要求代查或维护工具时读取。
 
-逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，再用 `select_layout.py` 筛选真实可执行的候选。完整来源库含 100 条、19 类；49 个执行策略与仅供参考的来源分层维护，不把某一批新增构图当作全部布局。常规选版自主完成，不增加批准或成稿自检步骤。
+逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，再用 `select_layout.py` 筛选真实可执行的候选。共 48 个执行策略，不把某一批新增构图当作全部布局。常规选版自主完成，不增加批准或成稿自检步骤。
 
 两种类型的规则见 [用途与信息密度](../white-blue-slides/references/presentation-modes.md)：演讲型围绕结论和少量支撑展开；阅读型把机制、依据与边界留在页面，用图表、流程、矩阵、图标和文字增加信息。用途不限定固定配图比例、栏目数量、字号或布局，按内容从共享版式选择。配图承担明确作用，图表有可靠数据才采用 [离线 ECharts](../white-blue-slides/references/charts.md)。
 

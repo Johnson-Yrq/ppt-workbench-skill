@@ -179,11 +179,11 @@ def run():
             check('build rejects restyling custom_css', '不能改动' in str(e))
         html = Builder(data, root, embed_format='keep', allow_restyle=True).render()
         check('--allow-restyle marks body', 'data-restyle="true"' in html)
-        (work / 'bad_builder.py').write_text('from build_deck import Builder as Base\nclass Builder(Base):\n    def triad(self, s):\n        return ""\n', encoding='utf-8')
+        (work / 'bad_builder.py').write_text('from build_deck import Builder as Base\nclass Builder(Base):\n    def split(self, s):\n        return ""\n', encoding='utf-8')
         try:
             load_builder(work, 'bad_builder.py'); check('builder overriding built-in layout rejected', False)
         except ValueError as e:
-            check('builder overriding built-in layout rejected', 'triad' in str(e))
+            check('builder overriding built-in layout rejected', 'split' in str(e))
         (work / 'ok_builder.py').write_text('from build_deck import Builder as Base, items\nclass Builder(Base):\n    LAYOUTS = Base.LAYOUTS | {"timeline"}\n    def timeline(self, s):\n        return self.image(s) + "".join(self.point(v) for v in items(s, "items", 1, 6)) + self.bottom(s)\n', encoding='utf-8')
         check('builder adding a layout accepted', 'timeline' in load_builder(work, 'ok_builder.py').LAYOUTS)
 
