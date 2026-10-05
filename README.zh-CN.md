@@ -343,12 +343,12 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
   --out project/qa --browser chrome
 ```
 
-自动检查覆盖文字越界与重叠、缺图、外部依赖、图文分区和图表渲染；逐页视觉检查还需核对配图主体、图文对应和独立阅读时的完整性。修改播放器、导出器或主题后，用 `test_player.cjs` 对任一成稿跑播放器回归测试（翻页、编辑、另存、PPTX 导出、全屏适配）。
+自动检查覆盖文字越界与重叠、缺图、外部依赖、图文分区和图表渲染；逐页视觉检查还需核对配图主体、图文对应和独立阅读时的完整性。修改播放器、导出器或主题后，用 `test_player.cjs` 对任一成稿跑播放器回归测试（翻页、组合快捷键、编辑、另存、PPTX 导出、全屏适配，以及打印时未浏览页的图表）。
 
 <details>
 <summary><strong>构建选项与共享版式</strong></summary>
 
-共享选版库提供 **49 个可执行 profile**，包含 **20 种共享构图**。按 [内容自主选版](skills/white-blue-slides/references/layout-selection.md) 选择，字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)；下表保留基础命名布局，便于入门。
+共享选版库提供 **48 个可执行 profile**，包含 **20 种共享构图**。按 [内容自主选版](skills/white-blue-slides/references/layout-selection.md) 选择，字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)；下表保留基础命名布局，便于入门。旧稿无需迁移即可构建：`triad` 按图片在右的 3 项 `split` 渲染，残留的 `layout_selection`、`rationale` 字段会被忽略。
 
 | 可选工具或参数 | 用途 |
 |---|---|
@@ -364,7 +364,7 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
 |---|---|---|---|
 | `cover` | 封面 | `architecture` | 分层架构与直接标注 |
 | `scene` | 大场景与两侧说明 | `flow` | 步骤与控制点 |
-| `split` / `triad` | 左右说明／三段控制 | `domains` | 多领域清单 |
+| `split` | 左右说明或三段控制 | `domains` | 多领域清单 |
 | `journey` | 阶段、比较或路径 | `formula` | 公式与因素关系 |
 | `table` | 表格与边界对照 | `relations` | 实体与关联 |
 | `closing` | 有配图的收束尾页 | `reading` | 四类阅读型复合信息页 |
@@ -377,7 +377,7 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
 
 工具栏提供：**总览 · 全屏 · 讲稿 · 编辑文字 · 另存 HTML · 导出 PPTX · 导出 PDF / 打印**。默认画布为 1920 × 1080，并按窗口等比适配。文字编辑后需「另存 HTML」保留修改，浏览器内的修改不会自动回写 `deck.json`。
 
-全屏按屏幕可用区域完整等比显示 16:9 页面，编辑时为工具栏留出空间。PDF 使用 PowerPoint 宽屏尺寸：**960 × 540 pt（13⅓ × 7.5 英寸）**。点击“导出 PDF / 打印”后，在浏览器打印窗口选择另存为 PDF，避免用 A4 或 Letter 覆盖幻灯片纸张尺寸。
+全屏按屏幕可用区域完整等比显示 16:9 页面，编辑时为工具栏留出空间。PDF 使用 PowerPoint 宽屏尺寸：**960 × 540 pt（13⅓ × 7.5 英寸）**。点击“导出 PDF / 打印”后，在浏览器打印窗口选择另存为 PDF，避免用 A4 或 Letter 覆盖幻灯片纸张尺寸。打印前会先渲染所有图表，包括尚未翻到的页面；全屏状态下打印同样一页一张。
 
 需要稳定的 PDF 尺寸与单页适配观看偏好时，可使用随附脚本（除 Playwright 外另需 `pdf-lib`）：
 
@@ -413,6 +413,8 @@ python3 skills/white-blue-slides/scripts/pdf_to_slides.py project/演示稿.pdf 
 | `←` / `PageUp` | 上一页 | `F` | 全屏 |
 | `Home` / `End` | 首页／末页 | `N` | 讲稿面板 |
 | `Esc` | 退出总览、编辑或讲稿 | URL `#3` | 直接打开第 3 页 |
+
+与 Cmd、Ctrl 或 Alt 组合的按键交给浏览器处理，Cmd+F、Ctrl+P 等快捷键照常可用。
 
 ## 扩展与开发
 
@@ -478,7 +480,7 @@ python3 skills/white-blue-slides/scripts/style_packs.py --list --include-drafts
 | 已有 PDF 转离线演示版 | Python + Poppler（`pdfinfo`、`pdftocairo`） |
 | 可选总览拼图 | Sharp |
 
-ECharts 5.6.0 已随套件内置，无需额外安装或访问 CDN。生图能力由当前 Agent 环境提供，安装 Skill 不等于安装生图工具；没有内置工具时可由用户自行配置生图 API（见上文），或人工供图。无法运行自动审查时，使用可用浏览器逐页检查并说明验证范围。
+ECharts 5.6.0 以精简构建随套件内置（条形、折线、饼图与 SVG 渲染器，约 550 KB），无需额外安装或访问 CDN。需要新增图表类型时，在 [`echarts.entry.js`](skills/white-blue-slides/assets/vendor/echarts.entry.js) 中加入并按文件内的命令重新构建。生图能力由当前 Agent 环境提供，安装 Skill 不等于安装生图工具；没有内置工具时可由用户自行配置生图 API（见上文），或人工供图。无法运行自动审查时，使用可用浏览器逐页检查并说明验证范围。
 
 修改脚本或资源后运行自测：
 

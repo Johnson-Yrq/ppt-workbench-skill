@@ -345,12 +345,12 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/presentation.html \
   --out project/qa --browser chrome
 ```
 
-Automated checks cover text overflow and overlap, missing images, external dependencies, image/content regions and chart rendering. Visual review must also verify complete image subjects, accurate image/text relationships, and sufficient context for independent readers. After changing the player, exporters or a theme, run `test_player.cjs` on any built deck as a player regression test (navigation, editing, save, PPTX export, fullscreen fit).
+Automated checks cover text overflow and overlap, missing images, external dependencies, image/content regions and chart rendering. Visual review must also verify complete image subjects, accurate image/text relationships, and sufficient context for independent readers. After changing the player, exporters or a theme, run `test_player.cjs` on any built deck as a player regression test (navigation, modifier shortcuts, editing, save, PPTX export, fullscreen fit, and charts on unvisited pages at print time).
 
 <details>
 <summary><strong>Build options and shared layouts</strong></summary>
 
-The shared catalogue offers **48 executable profiles**, including **20 shared compositions**. Choose by content using the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); see the [shared composition contracts](skills/white-blue-slides/references/shared-layouts.md) for fields and capacities. The introductory table below retains the original named layouts.
+The shared catalogue offers **48 executable profiles**, including **20 shared compositions**. Choose by content using the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); see the [shared composition contracts](skills/white-blue-slides/references/shared-layouts.md) for fields and capacities. The introductory table below retains the original named layouts. Older decks keep building as they are: `triad` renders as a three-item `split` with the image on the right, and leftover `layout_selection` or `rationale` fields are ignored.
 
 | Tool or option | Purpose |
 |---|---|
@@ -379,7 +379,7 @@ Structured fields (see `references/deck-format.md`): `flow` control groups accep
 
 The player includes **Overview · Fullscreen · Speaker notes · Edit text · Save HTML · Export PPTX · Export PDF / Print**. Its default canvas is 1920 × 1080 and scales proportionally to the window. Use **Save HTML** after editing; browser changes do not write back to `deck.json`.
 
-Fullscreen fits the entire 16:9 slide to the available screen without stretching or cropping; editing reserves space for the toolbar. PDF pages use PowerPoint widescreen dimensions: **960 × 540 pt (13⅓ × 7.5 in)**. The toolbar opens the browser print dialog; select Save as PDF and avoid overriding the slide size with A4 or Letter.
+Fullscreen fits the entire 16:9 slide to the available screen without stretching or cropping; editing reserves space for the toolbar. PDF pages use PowerPoint widescreen dimensions: **960 × 540 pt (13⅓ × 7.5 in)**. The toolbar opens the browser print dialog; select Save as PDF and avoid overriding the slide size with A4 or Letter. Printing first renders every chart, including pages not yet visited, and also works while in fullscreen.
 
 For reproducible PDF dimensions and a single-page, fit-to-page opening preference, export with the included script (requires `pdf-lib` in addition to Playwright):
 
@@ -415,6 +415,8 @@ Existing HTML files embed their original player; rebuild from the source project
 | `←` / `PageUp` | Previous slide | `F` | Fullscreen |
 | `Home` / `End` | First / last slide | `N` | Speaker notes |
 | `Esc` | Close overview, editing, or notes | URL `#3` | Open slide 3 directly |
+
+Keys pressed with Cmd, Ctrl, or Alt are left to the browser, so shortcuts such as Cmd+F or Ctrl+P keep working.
 
 ## Extend the toolkit
 
@@ -480,7 +482,7 @@ See [adding an independent style package](skills/white-blue-slides/references/ad
 | Offline presentation from an existing PDF | Python + Poppler (`pdfinfo`, `pdftocairo`) |
 | Optional overview contact sheet | Sharp |
 
-ECharts 5.6.0 is bundled; no separate installation or CDN is needed. Image generation depends on the agent environment and is not installed with the skills; without a built-in tool, the user can configure their own image API (see above) or supply images manually. If automated inspection is unavailable, inspect each slide in an available browser and state the scope of validation.
+ECharts 5.6.0 is bundled as a trimmed build (bar, line and pie charts with the SVG renderer, about 550 KB); no separate installation or CDN is needed. To support another chart type, add it to [`echarts.entry.js`](skills/white-blue-slides/assets/vendor/echarts.entry.js) and rebuild with the command in that file. Image generation depends on the agent environment and is not installed with the skills; without a built-in tool, the user can configure their own image API (see above) or supply images manually. If automated inspection is unavailable, inspect each slide in an available browser and state the scope of validation.
 
 After changing scripts or assets, run:
 
