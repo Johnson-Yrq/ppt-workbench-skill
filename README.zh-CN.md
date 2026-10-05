@@ -13,6 +13,7 @@
   <a href="#快速开始">快速开始</a> ·
   <a href="#视觉风格">视觉风格</a> ·
   <a href="#演讲型与阅读型">演讲型与阅读型</a> ·
+  <a href="#版式库与自主选版">版式库</a> ·
   <a href="#命令行构建">命令行构建</a> ·
   <a href="#播放编辑与导出">播放与导出</a>
 </p>
@@ -251,11 +252,76 @@ Agent 只问缺少的选项，项目里已确认的风格和用途直接沿用�
 | `full` 出血大图 | 配图铺满右上角，左缘渐隐 |
 | `panel` 色块分栏 | 文案落在左侧浅色块上，仅封面 |
 
+## 版式库与自主选版
+
+不必逐页指定版式。Agent 理解大纲后，逐页判断内容关系，再从共享版式库里挑选合适的结构。版式库共有 **48 个可执行 profile**，由 12 种基础版式、20 种共享构图和 8 个 `editorial` 变体组成，九种风格都能使用，外观仍由所选风格决定。
+
+Agent 按以下顺序为每页选版：
+
+1. **内容关系**：先判断这一页是步骤、对比、层级、数据还是并列要点。判断靠理解语义，不按关键词匹配。
+2. **条目数量**：每种版式都有可容纳的主体数，例如 `snake_timeline` 需要 4–8 步，`metric_circles` 只放 2 个指标。
+3. **图片与数据**：按实际图片数量筛选；图表版式要求真实数量、单位和来源，不为凑版式补造数据。
+4. **文字容量**：估算本页文字量，超出容量的候选降分，并提示分区或拆页。
+5. **整稿节奏**：相邻页尽量不重复同一构图，只在得分相近时起作用。
+
+筛选和排序由 [`select_layout.py`](skills/white-blue-slides/scripts/select_layout.py) 离线完成，每个落选候选都附排除原因。构建后的审查若发现文字溢出，用 `--feedback` 排除当前版式再选一次。
+
+| 内容关系 | 候选版式 |
+|---|---|
+| 封面、章节开场 `cover` | `cover`、`photo_banner`、`type_poster`、`editorial` |
+| 解释一个观点 `explanation` | `split`、`scene`、`photo_pair`、`offset_pair`、`photo_divider`、`editorial_story`、`editorial_columns` |
+| 并列要点 `parallel` | `split`、`domains`、`statement_tags`、`problem_columns`、`service_cards`、`hub_spoke` |
+| 步骤流程 `sequence` | `journey`、`flow`、`snake_timeline`、`step_sidebar`、`step_row`、`reading` |
+| 时间线 `timeline` | `journey`、`snake_timeline`、`step_sidebar`、`step_row` |
+| 多维对比 `comparison` | `journey`、`table`、`metric_cards`、`metric_circles`、`reading` |
+| 层级与架构 `hierarchy` | `architecture`、`hub_spoke`、`reading` |
+| 关系网络与因果 `network` / `causality` | `relations`；关系网络也可用 `hub_spoke` |
+| 数据图表 `data` | `chart_focus`、`editorial_columns`、`reading` |
+| 关键指标 `statistics` | `metric_cards`、`metric_circles` |
+| 目录 `agenda` | `domains`、`side_index`、`editorial` |
+| 图集与团队 `gallery` / `team` | `photo_pair`、`photo_strip`、`photo_banner`、`editorial`、`editorial_columns` |
+
+此外还有引言、联系方式、控制点、公式、表格、评价、复合模块和尾页等关系，共 22 种。完整规则见 [内容自主选版](skills/white-blue-slides/references/layout-selection.md)。
+
+### 20 种共享构图
+
+<a href="docs/images/layouts/shared-compositions.jpg"><img src="docs/images/layouts/shared-compositions.jpg" alt="20 种共享构图的实际页面缩略图，按编号排列" width="100%"></a>
+
+以暖褐极简编辑式渲染，1920 × 1080；图片为原创生成意象，文字与数字均为示例。
+
+| # | 构图 | 适合 | # | 构图 | 适合 |
+|---|---|---|---|---|---|
+| 01 | `photo_pair`<br>双图夹文 | 两个视角夹着一段论证 | 11 | `chart_focus`<br>结论与独立图表 | 一个结论配一张图表 |
+| 02 | `offset_pair`<br>阶梯错位双图 | 从整体到细节的递进 | 12 | `photo_banner`<br>大标题与横幅图片 | 开场、引言、图片展示 |
+| 03 | `statement_tags`<br>大字与标签群 | 一句主张加 2–6 个标签 | 13 | `photo_divider`<br>满幅图片与章节短句 | 章节过渡 |
+| 04 | `checklist_photo`<br>半幅图片与分组清单 | 能力范围与使用边界 | 14 | `side_index`<br>侧向标题与目录 | 2–12 项目录 |
+| 05 | `snake_timeline`<br>双行折返时间线 | 4–8 步的长流程 | 15 | `editorial_story`<br>双段正文与竖幅图片 | 叙事、评价、联系方式 |
+| 06 | `metric_cards`<br>图片横幅与指标卡 | 2–4 个指标或对比维度 | 16 | `step_sidebar`<br>侧栏说明与竖排步骤 | 2–4 步方法 |
+| 07 | `photo_strip`<br>多图条带与底部标题 | 2–5 张并列图片 | 17 | `type_poster`<br>纯文字海报与章节号 | 无图的开场、主张与结尾 |
+| 08 | `problem_columns`<br>问题分栏与底部标题 | 2–3 个并列问题 | 18 | `editorial_columns`<br>自由宽度编辑分栏 | 图文、图组、人物、图表混排 |
+| 09 | `service_cards`<br>不等尺寸服务块 | 主次分明的三项服务 | 19 | `hub_spoke`<br>中心关系与分支 | 中心对象与 4–8 个相关因素 |
+| 10 | `metric_circles`<br>大小圆指标 | 两个指标的主次对比 | 20 | `step_row`<br>横向步骤与说明 | 2–6 步横向流程或阶段 |
+
+`editorial` 另有封面、引言、目录、关于、服务、流程、作品集和尾页 8 个变体。各构图的字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)。
+
+### 基础版式
+
+基础版式大多围绕一张主配图排布，`table` 可以无图。
+
+| 版式 | 用途 | 版式 | 用途 |
+|---|---|---|---|
+| `cover` | 封面 | `architecture` | 分层架构与直接标注 |
+| `scene` | 大场景与两侧说明 | `flow` | 步骤与控制点 |
+| `split` | 左右说明或三段控制 | `domains` | 多领域清单 |
+| `journey` | 阶段、比较或路径 | `formula` | 因素及其组合关系 |
+| `table` | 表格与边界对照 | `relations` | 实体与关联 |
+| `closing` | 带配图的尾页 | `reading` | [四种复合分区](#reading-复合版式) |
+
 ## 制作流程与配图
 
 **确认风格与用途 → 理解大纲 → 逐页选版 → 建立 `deck.json` → 准备配图 → 构建 → 交付 HTML**
 
-Agent 根据每页的内容关系、条目数量、图片和数据自主选版。成稿默认由你自己查看，并自行导出 PPTX 或 PDF；需要 Agent 代为检查或导出时，直接告诉它。
+Agent 根据每页的内容关系、条目数量、图片和数据自主选版（见 [版式库与自主选版](#版式库与自主选版)）。成稿默认由你自己查看，并自行导出 PPTX 或 PDF；需要 Agent 代为检查或导出时，直接告诉它。
 
 | 配图条件 | 处理方式 |
 |---|---|
@@ -356,9 +422,7 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
 </details>
 
 <details>
-<summary><strong>构建选项与共享版式</strong></summary>
-
-共享版式库有 **48 个可执行 profile**，其中包含 **20 种共享构图**，所有风格都能使用。Agent 按 [内容自主选版](skills/white-blue-slides/references/layout-selection.md) 选择，字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)。旧稿无需迁移即可构建：`triad` 按图片在右的 3 项 `split` 渲染，残留的 `layout_selection`、`rationale` 字段会被忽略。
+<summary><strong>构建选项</strong></summary>
 
 | 工具或参数 | 用途 |
 |---|---|
@@ -368,18 +432,7 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
 | `--builder` | 加载项目自定义版式（基于共享组件） |
 | `--allow-restyle` | 仅在用户要求时，允许超出所选主题修改封面、页头或页脚 |
 
-基础命名版式：
-
-| 版式 | 用途 | 版式 | 用途 |
-|---|---|---|---|
-| `cover` | 封面 | `architecture` | 分层架构与直接标注 |
-| `scene` | 大场景与两侧说明 | `flow` | 步骤与控制点 |
-| `split` | 左右说明或三段控制 | `domains` | 多领域清单 |
-| `journey` | 阶段、比较或路径 | `formula` | 因素及其组合关系 |
-| `table` | 表格与边界对照 | `relations` | 实体与关联 |
-| `closing` | 带配图的尾页 | `reading` | 四种复合分区 |
-
-流程行排布、架构引线、阶段时间标签、更多配图比例（`2:1 / 21:9 / 3:1`）以及 `image.background_mode: white-matte` 等细项，见 [`deck-format.md`](skills/white-blue-slides/references/deck-format.md)。
+旧稿无需迁移即可构建：`triad` 按图片在右的 3 项 `split` 渲染，残留的 `layout_selection`、`rationale` 字段会被忽略。流程行排布、架构引线、阶段时间标签、更多配图比例（`2:1 / 21:9 / 3:1`）以及 `image.background_mode: white-matte` 等细项，见 [`deck-format.md`](skills/white-blue-slides/references/deck-format.md)。
 
 </details>
 

@@ -2,7 +2,7 @@
   "version": 1,
   "style": "warm-minimal-editorial",
   "presentation_mode": "speech",
-  "title": "共享布局图册 · 16 种页面结构",
+  "title": "共享布局图册 · 20 种页面结构",
   "company": "LAYOUT LIBRARY",
   "year": 2026,
   "footer_label": "开发样例 · 原创生成意象",
@@ -470,6 +470,144 @@
         }
       ],
       "note": "这是方法示例；实施步骤须根据实际资料确定。"
+    },
+    {
+      "id": "type_poster",
+      "layout": "type_poster",
+      "variant": "statement",
+      "placement": "bottom-left",
+      "title": "以清晰判断，\n推动稳健增长",
+      "copy": "纯文字海报页适合章节开场与核心主张。\n不依赖图片，用字号与留白建立节奏。",
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。"
+    },
+    {
+      "id": "editorial_columns",
+      "layout": "editorial_columns",
+      "title": "让材料\n各占其位",
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "columns": [
+        {
+          "type": "text",
+          "heading": "自由宽度分栏",
+          "paragraphs": [
+            "每一栏可以是文字、图片、图组、人物或图表。",
+            "栏宽按内容分配，适合杂志式的混排页面。"
+          ]
+        },
+        {
+          "type": "image",
+          "weight": 1.3,
+          "image": {
+            "src": "layout-samples/courtyard.webp",
+            "alt": "共享布局开发示例：courtyard，原创生成意象",
+            "background_mode": "native",
+            "edge_fade": 0
+          }
+        },
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "src": "layout-samples/detail.webp",
+              "alt": "共享布局开发示例：detail，原创生成意象",
+              "background_mode": "native",
+              "edge_fade": 0
+            },
+            {
+              "src": "layout-samples/materials.webp",
+              "alt": "共享布局开发示例：materials，原创生成意象",
+              "background_mode": "native",
+              "edge_fade": 0
+            },
+            {
+              "src": "layout-samples/living.webp",
+              "alt": "共享布局开发示例：living，原创生成意象",
+              "background_mode": "native",
+              "edge_fade": 0
+            },
+            {
+              "src": "layout-samples/studio.webp",
+              "alt": "共享布局开发示例：studio，原创生成意象",
+              "background_mode": "native",
+              "edge_fade": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hub_spoke",
+      "layout": "hub_spoke",
+      "title": "围绕一个中心展开",
+      "subtitle": "中心对象与各个相关因素",
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "center": {
+        "title": "核心\n对象",
+        "text": "关系示例"
+      },
+      "items": [
+        {
+          "title": "使用情境",
+          "text": "在哪里发生"
+        },
+        {
+          "title": "参与角色",
+          "text": "谁来使用"
+        },
+        {
+          "title": "主要需求",
+          "text": "需要解决什么"
+        },
+        {
+          "title": "约束条件",
+          "text": "有哪些边界"
+        },
+        {
+          "title": "评价方式",
+          "text": "如何判断好坏"
+        },
+        {
+          "title": "关注渠道",
+          "text": "从哪里了解"
+        },
+        {
+          "title": "决策考量",
+          "text": "成本与风险"
+        },
+        {
+          "title": "后续安排",
+          "text": "下一步做什么"
+        }
+      ]
+    },
+    {
+      "id": "step_row",
+      "layout": "step_row",
+      "title": "四个阶段，循序推进",
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "steps": [
+        {
+          "title": "准备",
+          "period": "阶段一",
+          "text": "整理资料，确认范围与目标。"
+        },
+        {
+          "title": "验证",
+          "period": "阶段二",
+          "text": "用小范围试点检验关键假设。"
+        },
+        {
+          "title": "推广",
+          "period": "阶段三",
+          "text": "把有效做法扩展到更多场景。"
+        },
+        {
+          "title": "复盘",
+          "period": "阶段四",
+          "text": "记录结果，沉淀可复用的方法。"
+        }
+      ],
+      "note": "阶段划分为示例，实际安排须根据资料确定。"
     }
   ]
 }

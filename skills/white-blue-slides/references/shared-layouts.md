@@ -136,7 +136,7 @@
 
 ## 示例与调用
 
-[16 页共享布局示例](../assets/deck.layouts.example.json) 使用暖褐主题、五张既有原创图片及明确标注的示例数字。配图仅用于开发样例；实际项目应按主题准备相关素材。无需复制样稿的专用播放器或私有渲染器：
+[20 页共享布局示例](../assets/deck.layouts.example.json) 使用暖褐主题、五张既有原创图片及明确标注的示例数字。配图仅用于开发样例；实际项目应按主题准备相关素材。无需复制样稿的专用播放器或私有渲染器：
 
 ```sh
 python3 <shared>/scripts/build_deck.py <shared>/assets/deck.layouts.example.json --out <project>/共享布局图册.html

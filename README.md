@@ -13,6 +13,7 @@
   <a href="#quick-start">Quick start</a> ·
   <a href="#visual-styles">Visual styles</a> ·
   <a href="#presentation-modes">Presentation modes</a> ·
+  <a href="#layout-library-and-automatic-selection">Layouts</a> ·
   <a href="#build-from-the-command-line">Build</a> ·
   <a href="#present-edit-and-export">Present &amp; export</a>
 </p>
@@ -254,11 +255,76 @@ The `cover` layout has four left/right arrangements and `closing` has three. The
 | `full` | Image bleeds to the top and right edges, fading in on the left |
 | `panel` | Copy on a light block on the left; covers only |
 
+## Layout library and automatic selection
+
+You don't need to choose a layout for each page. After reading the outline, the agent works out what each page's content is doing and picks a fitting structure from the shared library. The library has **48 executable profiles** built from 12 basic layouts, 20 shared compositions, and 8 `editorial` variants. Every style can use them; the look still comes from the chosen style.
+
+For each page, the agent narrows the choice in this order:
+
+1. **Content relationship**: is the page a sequence, a comparison, a hierarchy, data, or parallel points? This is a judgment about meaning, not keyword matching.
+2. **Item count**: every layout holds a set range, e.g. `snake_timeline` needs 4–8 steps and `metric_circles` takes exactly 2 metrics.
+3. **Images and data**: candidates are filtered by the images actually available; chart layouts need real values, units, and sources, and no data is invented to fit a layout.
+4. **Text capacity**: the page's text is estimated, candidates over capacity rank lower, and the agent is told to add a section or split the page.
+5. **Deck rhythm**: neighbouring pages avoid repeating a composition, as a tie-break only.
+
+[`select_layout.py`](skills/white-blue-slides/scripts/select_layout.py) does the filtering and ranking offline and gives a reason for every rejected candidate. If the post-build check finds overflowing text, `--feedback` excludes the current layout and the page is chosen again.
+
+| Content relationship | Candidate layouts |
+|---|---|
+| Cover or section opener · `cover` | `cover`, `photo_banner`, `type_poster`, `editorial` |
+| Explaining one idea · `explanation` | `split`, `scene`, `photo_pair`, `offset_pair`, `photo_divider`, `editorial_story`, `editorial_columns` |
+| Parallel points · `parallel` | `split`, `domains`, `statement_tags`, `problem_columns`, `service_cards`, `hub_spoke` |
+| Steps and processes · `sequence` | `journey`, `flow`, `snake_timeline`, `step_sidebar`, `step_row`, `reading` |
+| Timelines · `timeline` | `journey`, `snake_timeline`, `step_sidebar`, `step_row` |
+| Multi-dimension comparison · `comparison` | `journey`, `table`, `metric_cards`, `metric_circles`, `reading` |
+| Hierarchy and architecture · `hierarchy` | `architecture`, `hub_spoke`, `reading` |
+| Networks and causes · `network` / `causality` | `relations`; networks can also use `hub_spoke` |
+| Charts · `data` | `chart_focus`, `editorial_columns`, `reading` |
+| Key figures · `statistics` | `metric_cards`, `metric_circles` |
+| Agenda · `agenda` | `domains`, `side_index`, `editorial` |
+| Galleries and teams · `gallery` / `team` | `photo_pair`, `photo_strip`, `photo_banner`, `editorial`, `editorial_columns` |
+
+Quotes, contact details, controls, formulas, tables, testimonials, mixed modules, and closings make 22 relationships in all. See the [layout selection guide](skills/white-blue-slides/references/layout-selection.md) for the full rules.
+
+### The 20 shared compositions
+
+<a href="docs/images/layouts/shared-compositions.jpg"><img src="docs/images/layouts/shared-compositions.jpg" alt="Thumbnails of the 20 shared compositions, numbered in order" width="100%"></a>
+
+Rendered in Warm Minimal Editorial at 1920 × 1080. Images are original generated scenes; text and numbers are samples.
+
+| # | Composition | Best for | # | Composition | Best for |
+|---|---|---|---|---|---|
+| 01 | `photo_pair` | Two views framing one argument | 11 | `chart_focus` | One takeaway beside one chart |
+| 02 | `offset_pair` | Overview to detail, staggered | 12 | `photo_banner` | Openers, quotes, and showcases |
+| 03 | `statement_tags` | One claim with 2–6 tags | 13 | `photo_divider` | Section breaks |
+| 04 | `checklist_photo` | Capabilities and limits as grouped checklists | 14 | `side_index` | Contents of 2–12 items |
+| 05 | `snake_timeline` | Long processes of 4–8 steps | 15 | `editorial_story` | Narrative, testimonials, contact |
+| 06 | `metric_cards` | 2–4 metrics or comparison dimensions | 16 | `step_sidebar` | Methods of 2–4 steps |
+| 07 | `photo_strip` | A strip of 2–5 images | 17 | `type_poster` | Image-free openers, claims, closings |
+| 08 | `problem_columns` | 2–3 parallel problems | 18 | `editorial_columns` | Mixed columns of text, images, people, charts |
+| 09 | `service_cards` | Three services with one lead | 19 | `hub_spoke` | A center with 4–8 related factors |
+| 10 | `metric_circles` | Two metrics, primary and secondary | 20 | `step_row` | 2–6 steps or phases in a row |
+
+`editorial` adds eight variants: cover, intro, contents, about, services, process, portfolio, and closing. Fields and capacities for each composition are in the [shared composition reference](skills/white-blue-slides/references/shared-layouts.md).
+
+### Basic layouts
+
+Most basic layouts are built around one main illustration; `table` can go without.
+
+| Layout | Purpose | Layout | Purpose |
+|---|---|---|---|
+| `cover` | Cover | `architecture` | Layered architecture with direct labels |
+| `scene` | A main scene with notes on both sides | `flow` | Steps and control points |
+| `split` | Two-sided explanations or three-part controls | `domains` | Multiple domain lists |
+| `journey` | Stages, comparisons, or paths | `formula` | Factors and how they combine |
+| `table` | Tables and boundary comparisons | `relations` | Entities and connections |
+| `closing` | An illustrated closing slide | `reading` | [The four composite compositions](#the-reading-composite-layout) |
+
 ## Workflow and illustrations
 
 **Choose style and mode → Read the outline → Choose a layout per page → Write `deck.json` → Prepare images → Build → Deliver the HTML**
 
-The agent chooses layouts on its own from each page's content relationships, item counts, images, and data. By default you review the finished deck and export PPTX or PDF yourself; ask the agent if you want it to inspect slides or export for you.
+The agent chooses layouts on its own from each page's content relationships, item counts, images, and data (see [Layout library and automatic selection](#layout-library-and-automatic-selection)). By default you review the finished deck and export PPTX or PDF yourself; ask the agent if you want it to inspect slides or export for you.
 
 | Images available | What happens |
 |---|---|
@@ -359,9 +425,7 @@ The audit reports text overflow and overlap, missing images, external dependenci
 </details>
 
 <details>
-<summary><strong>Build options and shared layouts</strong></summary>
-
-The shared library has **48 layout profiles**, including **20 shared compositions**, and every style can use them. The agent selects them as described in the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); fields and capacities are in the [shared composition reference](skills/white-blue-slides/references/shared-layouts.md). Older decks build unchanged: `triad` renders as a three-item `split` with the image on the right, and leftover `layout_selection` or `rationale` fields are ignored.
+<summary><strong>Build options</strong></summary>
 
 | Tool or option | Purpose |
 |---|---|
@@ -371,18 +435,7 @@ The shared library has **48 layout profiles**, including **20 shared composition
 | `--builder` | Load project-specific layouts built from shared components. |
 | `--allow-restyle` | Allow cover, header, or footer changes beyond the chosen theme, only when the user asks for them. |
 
-The basic named layouts:
-
-| Layout | Purpose | Layout | Purpose |
-|---|---|---|---|
-| `cover` | Cover | `architecture` | Layered architecture with direct labels |
-| `scene` | A main scene with notes on both sides | `flow` | Steps and control points |
-| `split` | Two-sided explanations or three-part controls | `domains` | Multiple domain lists |
-| `journey` | Stages, comparisons, or paths | `formula` | Factors and how they combine |
-| `table` | Tables and boundary comparisons | `relations` | Entities and connections |
-| `closing` | An illustrated closing slide | `reading` | The four composite compositions |
-
-Finer controls, such as flow row layouts, architecture leader lines, journey period tags, extra image ratios (`2:1 / 21:9 / 3:1`), and `image.background_mode: white-matte`, are documented in [`deck-format.md`](skills/white-blue-slides/references/deck-format.md).
+Older decks build unchanged: `triad` renders as a three-item `split` with the image on the right, and leftover `layout_selection` or `rationale` fields are ignored. Finer controls, such as flow row layouts, architecture leader lines, journey period tags, extra image ratios (`2:1 / 21:9 / 3:1`), and `image.background_mode: white-matte`, are documented in [`deck-format.md`](skills/white-blue-slides/references/deck-format.md).
 
 </details>
 
