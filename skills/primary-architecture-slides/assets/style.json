@@ -1,0 +1,35 @@
+{
+  "schema": "html-slide-style/v1",
+  "id": "primary-architecture",
+  "name": "原色建筑编辑式",
+  "description": "纯白与近黑、高对比衬线大字、宽阔留白和黑白建筑摄影；以黄、蓝、红、绿纯色章节页及窄高数字建立节奏，适合建筑、空间、设计与文化提案。",
+  "status": "ready",
+  "css": "theme.css",
+  "header_system": "style",
+  "header_template": "header.html",
+  "heading_icons": "optional",
+  "cover_copy_policy": "style",
+  "cover_labels_expected": false,
+  "image_background": "scene",
+  "image_prompt": "image-style.txt",
+  "surfaces": [
+    "light",
+    "dark",
+    "mustard",
+    "blue",
+    "red",
+    "lime"
+  ],
+  "image_free_layouts": [
+    "cover",
+    "closing"
+  ],
+  "layout_hints": {},
+  "ui_text_modes": [
+    "none"
+  ],
+  "default_ui_text": "none",
+  "ui_text_prompts": {
+    "none": "No text, letters, digits, captions, brands, logos or watermarks in generated photographs. Titles, chapter numbers, labels, quotations and factual data remain editable slide elements."
+  }
+}

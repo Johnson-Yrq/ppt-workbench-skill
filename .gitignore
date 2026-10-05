@@ -1,6 +1,18 @@
 # 构建产物与验证输出（体积大，不入库）
 output/
 
+# 本地预览、导出副本与验证记录；示例源码和输入素材保留入库
+examples/**/preview/
+examples/**/qa/
+examples/**/production/
+examples/*/*.html
+!examples/*/layouts.html
+examples/**/*.pptx
+examples/**/*.pdf
+examples/*/qa.json
+examples/*/development-checks.json
+examples/monochrome-marble/marble-variable.css
+
 # Python 缓存
 __pycache__/
 *.py[cod]

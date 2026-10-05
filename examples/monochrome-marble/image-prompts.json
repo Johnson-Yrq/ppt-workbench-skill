@@ -1,0 +1,51 @@
+{
+  "mode": "builtin",
+  "project": "砚序咨询（虚构）2026业务计划",
+  "images": [
+    {
+      "id": "marble",
+      "ratio": "3:2",
+      "prompt": "Use case: texture asset. Create an original high-resolution photoreal black, white and neutral gray marble slab surface viewed perfectly straight on. Broad irregular mineral veins and folded diagonal gray layers, white calcite regions and dense black islands, naturally weathered fine crystalline detail. Pure grayscale only, no warm color, no metallic gold. Edge-to-edge continuous stone surface, no perspective, no objects, no borders, no text, no symbols, no watermark. Landscape 3:2 image. This will be used as narrow stone strips and low-contrast backgrounds in an elegant business presentation; broad texture must remain legible when cropped."
+    },
+    {
+      "id": "company",
+      "ratio": "3:4",
+      "prompt": "Portrait 3:4 natural editorial business photograph for a fictional boutique strategy consultancy. An East Asian woman around 35 in a simple black blouse reviewing a plain unbranded laptop beside a large studio window. Medium seated portrait, professional yet relaxed, soft warm daylight, neutral office and small greenery, realistic skin and hands. The full head has generous top space; human subject centered for rectangular crop. Rich natural color, black clothing, white walls, subtle warm wood. No logos, no readable text, no watermark. Not a real named person. Photorealistic, no artificial 3D."
+    },
+    {
+      "id": "portrait-lin",
+      "ratio": "3:4",
+      "prompt": "Portrait 3:4 editorial photograph of a fictional East Asian male consulting partner around 42 wearing a charcoal jacket and open collar light shirt. Upper body standing in a bright modern office, composed friendly expression, eyes to camera, full head with comfortable margin, natural face and skin, hands out of frame. Natural muted color, soft window daylight, simple pale background, no logos, no text, no watermark. Distinct professional person, realistic photography."
+    },
+    {
+      "id": "portrait-zhou",
+      "ratio": "3:4",
+      "prompt": "Portrait 3:4 editorial photograph of a fictional East Asian female research director around 38, shoulder-length dark hair, thin dark eyeglasses, navy jacket over ivory shirt. Upper body relaxed standing in a light studio office, thoughtful gentle smile, eyes to camera, full head with ample breathing room, hands out of frame. Realistic natural skin. Natural muted color, soft daylight, pale clean background, no logo, text or watermark. Photoreal, independent person."
+    },
+    {
+      "id": "portrait-shen",
+      "ratio": "3:4",
+      "prompt": "Portrait 3:4 editorial photograph of a fictional East Asian male service designer around 32 with short textured hair, wearing a dark olive overshirt over a white crew-neck shirt. Upper body leaning casually against a light gray studio wall, warm confident expression, eyes to camera. Full head with space around, hands out of frame. Natural color and skin, soft daylight, authentic professional portrait. No logos, no text, no watermark. Photoreal."
+    },
+    {
+      "id": "industry",
+      "ratio": "16:9",
+      "prompt": "Landscape 16:9 candid editorial business photograph for a strategy consultancy. Four East Asian adult professionals in smart casual neutral clothes sit around a walnut meeting table by a large window, discussing printed blank cards and a closed notebook, natural conversational gestures and realistic hands. Viewed diagonally from slightly behind one participant, human-scale collaborative workshop, soft warm daylight and quiet modern interior. Natural muted color, not grayscale, no forced smiles, no futuristic screens. No visible readable text, logos, brand marks, watermarks."
+    },
+    {
+      "id": "service",
+      "ratio": "3:4",
+      "prompt": "Portrait 3:4 natural business editorial photograph. A fictional East Asian woman service designer around 30, simple slate-gray shirt, calmly using an unbranded laptop at a white desk near a studio window, half-body side three-quarter view, subtle plants and out-of-focus material samples in background. Realistic natural hands, unobstructed face, full head, soft daylight, tasteful natural color with warm neutral tones. No logos, no text, no watermark, no futuristic interface."
+    },
+    {
+      "id": "market-work",
+      "ratio": "16:9",
+      "prompt": "Landscape 16:9 natural editorial photograph of a strategy analyst at work in a quiet urban studio office. East Asian adult woman in dark minimal clothes seen in side profile seated at a desk, one unbranded monitor facing away from camera and a plain notebook, broad window with softly blurred city buildings. Balanced exposure so face remains visible, soft daylight, natural muted color, high-end documentary photography. No readable text, no logos, no watermark, no artificial UI."
+    },
+    {
+      "id": "market-meet",
+      "ratio": "16:9",
+      "prompt": "Landscape 16:9 candid natural editorial business photograph of a small client workshop in a comfortable bright studio lounge. Four East Asian adults in understated professional casual clothes in thoughtful discussion around a low table with blank paper cards, ceramic cups and notebooks. Cream sofa, light wood, green plants, large soft windows, authentic inclusive body language and realistic anatomy. Natural color, quiet approachable warmth, not stock-photo handshake or staged celebration. No logos, no readable text, no watermark."
+    }
+  ]
+}

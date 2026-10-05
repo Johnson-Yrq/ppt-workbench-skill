@@ -3,6 +3,7 @@
 
 /* ---- tokens & base ---- */
 :root{--paper:#F7F6F2;--blue:#3B7BC8;--ink:#2B3140;--muted:#5A6373;--line:#9DBDE3;--panel:#E7EEF6;--scale:.6;--radius:8px}
+:root{--editorial-title-weight:850;--editorial-heading-weight:700;--editorial-title-tracking:-.5px;--editorial-display-tracking:-.5px;--editorial-image-fit:contain;--composition-title-weight:850;--composition-heading-weight:700}
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink)}
 body{background:#E8E9EC;overflow:hidden}
@@ -15,13 +16,13 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-o
 .deck{position:relative;width:1920px;height:1080px;flex:none;transform:scale(var(--scale));transform-origin:center}
 .slide{display:none;flex-direction:column;width:1920px;height:1080px;position:absolute;inset:0;background:var(--paper);padding:48px 80px 104px;overflow:hidden}
 .slide.active{display:flex}
-.slide header{display:flex;justify-content:space-between;gap:34px;align-items:flex-start;position:relative;z-index:3;flex:none}
-.head-copy{max-width:1570px}
-.chapter{display:inline-block;color:var(--blue);font-size:22px;font-weight:700;line-height:29px;letter-spacing:2px;padding:2px 16px;background:var(--panel);border-radius:8px}
+.slide>header{position:relative;z-index:3;flex:none}
+.head-copy{min-width:0}
+.chapter{display:inline-block}
 h1{font-size:var(--title-size,46px);font-weight:850;line-height:1.25;letter-spacing:-.5px;margin:14px 0 0}
 h1 em{font-style:normal;color:var(--blue)}
 .subtitle{font-size:25px;line-height:1.5;margin:12px 0 0;color:var(--muted)}
-.page-number{font-size:110px;line-height:1;color:var(--blue);font-weight:900;font-variant-numeric:tabular-nums;flex:none}
+.page-number{font-variant-numeric:tabular-nums;flex:none}
 main{margin-top:32px;flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
 p{margin:0;line-height:1.65}
 h2,h3{margin:0}
@@ -32,30 +33,6 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .brand .brand-logo{height:34px;width:auto;display:block}
 .brand i{width:1px;height:24px;background:#B8D0EA}
 .footer-label{text-align:right}
-
-/* ---- header variants (deck/slide `header`; cover and closing keep their own frame) ----
-   compact: one line for dense pages · rail: folio on the left behind a divider
-   band: header on a full-width light band · aside: subtitle beside the title
-   ghost: oversized light folio behind the title.
-   Themes size the folio through --folio-small / --folio-rail; --chapter-band:none for themes whose chapter has no tag. */
-.head-compact header{align-items:center}
-.head-compact .head-copy{display:flex;flex-wrap:wrap;align-items:center;column-gap:22px}
-.head-compact h1{margin:0;font-size:var(--title-size,40px)}
-.head-compact .subtitle{flex-basis:100%;margin-top:6px;font-size:23px}
-.head-compact .page-number{font-size:var(--folio-small,56px)}
-.head-compact main{margin-top:24px}
-.head-rail header{justify-content:flex-start;align-items:center;gap:44px}
-.head-rail .page-number{order:-1;align-self:stretch;display:flex;align-items:center;font-size:var(--folio-rail,110px);padding:0 44px 0 0;border-bottom:0;border-right:2px solid var(--line)}
-.head-band header{margin:-48px -80px 0;padding:40px 80px 30px;background:var(--panel);align-items:center}
-.head-band .chapter{background:var(--chapter-band,var(--paper))}
-.head-band .page-number{font-size:var(--folio-small,56px)}
-.head-band main{margin-top:36px}
-.head-aside header{align-items:flex-end}
-.head-aside .head-copy{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;column-gap:40px}
-.head-aside .chapter{grid-column:1 / -1;justify-self:start}
-.head-aside .subtitle{margin:0 0 6px;padding-left:40px;border-left:2px solid var(--line)}
-.head-aside .page-number{font-size:var(--folio-small,56px)}
-.head-ghost .page-number{position:absolute;right:-12px;top:-44px;z-index:-1;font-size:250px;color:var(--panel);border-bottom:0;padding:0}
 
 /* ---- scene image & placeholders ---- */
 .scene-image{margin:0;position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;isolation:isolate}
@@ -156,6 +133,10 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .cover-labels h3{font-size:25px;color:var(--blue);line-height:1.4;white-space:nowrap}
 .cover-labels p{font-size:20px;color:var(--muted);line-height:1.4;margin-top:5px;white-space:nowrap}
 .cover-labels>div:before{content:'';position:absolute;right:calc(100% + 12px);top:15px;width:45px;height:1px;background:#A7BDD3}
+.cover-credits{position:absolute;left:96px;right:96px;bottom:116px;display:flex;gap:64px;z-index:2}
+.cover-credits>div{position:relative;flex:1;min-width:0;border-bottom:1px solid var(--line);padding-bottom:18px}
+.cover-credits h3{font-size:24px;font-weight:600;line-height:1.4;color:var(--ink)}
+.cover-credits p{font-size:24px;line-height:1.4;color:var(--muted);margin-top:9px}
 .layout-cover.no-cover-labels .hero-scene{right:55px;width:1010px}
 
 /* ---- closing ---- */
@@ -185,6 +166,8 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .slide.variant-panel .chapter{background:var(--chapter-band,var(--paper))}
 .slide.variant-panel .cover-benefits span:nth-child(-n+3){background:var(--paper)}
 .slide.layout-cover.variant-panel .hero-scene{right:40px;top:120px;width:900px;height:840px}
+/* image-free cover or closing (only where the style allows it): the copy takes the width the image would have used */
+.slide.no-image .head-copy,.slide.no-image .cover-copy,.slide.no-image .ending-copy{width:1400px;max-width:1400px}
 
 /* ---- architecture: scaled artboard with direct labels ---- */
 .architecture-viewport{position:relative;flex:1;min-height:0;overflow:hidden}
@@ -209,6 +192,7 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .split-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:64px;flex:1;min-height:0;align-items:stretch}
 .split-layout .hero-scene{height:100%}
 .split-points{justify-content:center;gap:32px}
+.split-points:has(.point:nth-child(4)){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:center;gap:30px}
 .split-layout.image-right{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
 .split-layout.image-right .hero-scene{grid-column:2;grid-row:1}
 .split-layout.image-right .split-points{grid-column:1;grid-row:1}
@@ -258,6 +242,12 @@ footer{position:absolute;left:80px;right:80px;bottom:30px;border-top:2px solid v
 .flow-bottom{display:grid;grid-template-columns:1080px 1fr;gap:50px;flex:1;min-height:0;margin-top:14px}
 .flow-bottom .hero-scene{height:100%}
 .control-groups{display:flex;flex-direction:column;justify-content:center;gap:18px;min-height:0}
+.control-groups[data-align-rows="true"]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:center;gap:14px 22px}
+.control-groups[data-align-rows="true"] .control-group{display:grid;grid-template-rows:subgrid;grid-row:span var(--control-tracks);container-type:normal}
+.control-groups[data-align-rows="true"] .control-group h3{margin:0}
+.control-groups[data-align-rows="true"] .control-group dl{display:contents}
+.control-groups[data-align-rows="true"] .control-group[data-rows-layout="auto"] dl>div{display:block}
+.control-groups[data-align-rows="true"] .control-group[data-rows-layout="auto"] dt{margin-bottom:5px}
 .control-group{padding:15px 0 0;border-top:2px solid var(--line)}
 .control-group.panel{background:#EAF0F7;border:0;border-radius:8px;padding:17px 22px}
 .control-group h3{font-size:29px;color:var(--blue);margin-bottom:12px}

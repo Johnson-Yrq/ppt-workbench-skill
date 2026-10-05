@@ -1,0 +1,91 @@
+/* Shared editorial geometry, available independently of the selected style.
+   Images use the existing scene-image embedding and transform contract.
+   Palette, image treatment and display typography come from style tokens;
+   presentation_mode never switches this layout's geometry. */
+.slide.layout-editorial.editorial-cover{--layout-title-size:118px}
+.slide.layout-editorial.editorial-intro{--layout-title-size:83px}
+.slide.layout-editorial.editorial-contents{--layout-title-size:79px}
+.slide.layout-editorial.editorial-about{--layout-title-size:79px}
+.slide.layout-editorial.editorial-services{--layout-title-size:80px}
+.slide.layout-editorial.editorial-process{--layout-title-size:70px}
+.slide.layout-editorial.editorial-portfolio{--layout-title-size:82px}
+.slide.layout-editorial.editorial-closing{--layout-title-size:111px}
+
+.slide.layout-editorial.editorial-layout {padding:0;font-family:var(--editorial-body-family,inherit);font-weight:400}
+.slide.layout-editorial.editorial-layout>header {position:absolute;left:48px;right:48px;top:28px;display:flex;justify-content:space-between;align-items:flex-start;gap:32px;color:var(--ink);font-size:17px;line-height:1.25;letter-spacing:2px;z-index:5}
+.slide.layout-editorial.editorial-layout>main {position:absolute;inset:0;margin:0;display:block}
+.slide.layout-editorial.editorial-layout>footer {position:absolute;bottom:25px;left:48px;right:48px;display:grid;grid-template-columns:max-content minmax(0,1fr) max-content;align-items:center;gap:24px;border:0;padding:0;color:var(--muted);font-size:15px;line-height:1.4;font-weight:400;letter-spacing:1.1px;z-index:5}
+.slide.layout-editorial>footer .brand {gap:12px;min-width:0;color:inherit}
+.slide.layout-editorial>footer .brand-logo {height:24px}
+.slide.layout-editorial>footer .brand i {height:18px;background:currentColor}
+.slide.layout-editorial>footer .footer-label {min-width:0;color:inherit;font-weight:400;text-align:right}
+.slide.layout-editorial>footer .editorial-folio {font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.slide.layout-editorial.editorial-layout h1 {position:absolute;margin:0;font-size:var(--title-size,var(--layout-title-size,74px));font-weight:var(--editorial-title-weight,750);line-height:1.2;letter-spacing:var(--editorial-title-tracking,-.8px);color:var(--ink)}
+.slide.layout-editorial.editorial-layout h2 {font-size:30px;font-weight:var(--editorial-heading-weight,650);line-height:1.4;letter-spacing:0}
+.slide.layout-editorial.editorial-layout p {font-size:var(--body-size,27px);line-height:1.65;color:inherit}
+.slide.layout-editorial .editorial-display {font-family:var(--editorial-display-family,inherit);font-weight:var(--editorial-title-weight,750)}
+.slide.layout-editorial .scene-image.editorial-photo {position:absolute;margin:0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;overflow:hidden;min-width:0;min-height:0;border:0;border-radius:0;background:none;box-shadow:none}
+.slide.layout-editorial .editorial-photo>img {display:block;flex:1;min-width:0;min-height:0;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:var(--editorial-image-fit,contain);object-position:center}
+.slide.layout-editorial .editorial-photo>figcaption {position:relative;z-index:1;flex:none;margin:0;padding:0 0 25px;background:var(--paper);color:var(--muted);font-size:21px;line-height:1.4;font-weight:400}
+
+/* Split cover: half image, half serif title and short positioning copy. */
+.slide.layout-editorial.editorial-cover>main>.editorial-photo {inset:0 0 0 50%}
+.slide.layout-editorial.editorial-cover h1 {left:90px;top:435px;width:830px;font-size:var(--title-size,var(--layout-title-size,118px));line-height:1.28;letter-spacing:var(--editorial-display-tracking,2px)}
+.slide.layout-editorial.editorial-cover .editorial-kicker {position:absolute;left:94px;top:335px;width:800px;font-size:21px;letter-spacing:5px}
+.slide.layout-editorial.editorial-cover .editorial-subtitle {position:absolute;left:94px;top:800px;width:800px;font-size:29px}
+
+/* Short introduction above one full-width image. */
+.slide.layout-editorial.editorial-intro h1 {left:72px;top:143px;width:1060px;font-size:var(--title-size,var(--layout-title-size,83px))}
+.slide.layout-editorial.editorial-intro .editorial-copy {position:absolute;left:1240px;top:148px;width:600px;font-size:var(--body-size,29px)}
+.slide.layout-editorial.editorial-intro>main>.editorial-photo {left:0;right:0;top:355px;bottom:0}
+.slide.layout-editorial.editorial-intro .editorial-photo>img {object-position:50% 55%}
+.slide.layout-editorial.editorial-intro>footer {color:var(--editorial-photo-ink,var(--ink));text-shadow:var(--editorial-photo-shadow,none)}
+
+/* Contents: broad image beside a narrow index and supporting note. */
+.slide.layout-editorial.editorial-contents h1 {top:160px;left:72px;right:72px;text-align:center;font-size:var(--title-size,var(--layout-title-size,79px))}
+.slide.layout-editorial.editorial-contents>main>.editorial-photo {left:0;top:380px;width:1450px;height:640px}
+.slide.layout-editorial.editorial-contents aside {position:absolute;left:1494px;right:48px;top:380px}
+.slide.layout-editorial .editorial-index-row {display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:25px;line-height:1.7}
+.slide.layout-editorial .editorial-index-row>span:first-child {min-width:0}
+.slide.layout-editorial .editorial-index-row>span:last-child {flex:none;font-variant-numeric:tabular-nums}
+.slide.layout-editorial.editorial-contents .editorial-copy {position:absolute;left:1494px;right:48px;top:827px;font-size:var(--body-size,24px);line-height:1.6}
+
+/* About: two paragraphs and a large statement beside a tall image. */
+.slide.layout-editorial.editorial-about h1 {left:72px;top:156px;width:1160px;font-size:var(--title-size,var(--layout-title-size,79px))}
+.slide.layout-editorial.editorial-about>main>.editorial-photo {left:1360px;right:48px;top:100px;bottom:70px}
+.slide.layout-editorial.editorial-about .editorial-lead {position:absolute;left:76px;right:668px;top:425px;font-size:47px;line-height:1.5}
+.slide.layout-editorial.editorial-about .editorial-columns {position:absolute;left:76px;right:668px;top:710px;display:grid;grid-template-columns:repeat(var(--item-count,2),minmax(0,1fr));gap:58px}
+.slide.layout-editorial.editorial-about .editorial-columns p {font-size:var(--body-size,28px);line-height:1.7;color:var(--muted)}
+
+/* Services: one to three editable groups above one to three independent images. */
+.slide.layout-editorial.editorial-services h1 {left:72px;top:160px;width:900px;font-size:var(--title-size,var(--layout-title-size,80px))}
+.slide.layout-editorial.editorial-services .editorial-services-list {position:absolute;left:1090px;right:65px;top:150px;display:grid;grid-template-rows:repeat(var(--item-count,3),auto);align-content:start;gap:45px}
+.slide.layout-editorial.editorial-services article {display:grid;grid-template-columns:230px minmax(0,1fr);gap:30px;min-width:0}
+.slide.layout-editorial.editorial-services article p {font-size:var(--body-size,25px);line-height:1.6;color:var(--muted)}
+.slide.layout-editorial .editorial-strip {position:absolute;left:48px;right:48px;top:745px;height:268px;display:grid;grid-template-columns:repeat(var(--image-count,3),minmax(0,1fr));gap:18px}
+.slide.layout-editorial .editorial-strip>.editorial-photo {position:relative;width:100%;height:100%}
+.slide.layout-editorial .editorial-strip figcaption {padding-bottom:14px}
+
+/* Process: panoramic scene over a deep-colour band with two to five steps. */
+.slide.layout-editorial.editorial-process>main>.editorial-photo {left:0;top:0;width:100%;height:520px}
+.slide.layout-editorial.editorial-process .editorial-photo>img {object-position:50% 47%}
+.slide.layout-editorial.editorial-process>header {color:var(--editorial-photo-ink,var(--ink));text-shadow:var(--editorial-photo-shadow,none)}
+.slide.layout-editorial.editorial-process h1 {left:72px;top:622px;width:620px;font-size:var(--title-size,var(--layout-title-size,70px))}
+.slide.layout-editorial.editorial-process .editorial-steps {position:absolute;left:775px;right:70px;top:630px;display:grid;grid-template-columns:repeat(var(--item-count,4),minmax(0,1fr));gap:42px}
+.slide.layout-editorial .editorial-step-index {display:block;font-size:16px;line-height:1.4;letter-spacing:2px;margin-bottom:48px;color:var(--muted);font-variant-numeric:tabular-nums}
+.slide.layout-editorial.editorial-process article {min-width:0}
+.slide.layout-editorial.editorial-process article h2 {font-family:var(--editorial-display-family,inherit);font-size:36px;margin-bottom:22px}
+.slide.layout-editorial.editorial-process article p {font-size:var(--body-size,25px);color:var(--muted)}
+
+/* Portfolio: image count drives columns; captions remain editable above each crop. */
+.slide.layout-editorial.editorial-portfolio h1 {left:812px;right:72px;top:152px;font-size:var(--title-size,var(--layout-title-size,82px))}
+.slide.layout-editorial.editorial-portfolio .editorial-copy {position:absolute;left:72px;top:161px;width:640px;font-size:var(--body-size,27px);color:var(--muted)}
+.slide.layout-editorial .editorial-gallery {position:absolute;left:48px;right:48px;top:391px;bottom:95px;display:grid;grid-template-columns:repeat(var(--image-count,5),minmax(0,1fr));gap:28px}
+.slide.layout-editorial .editorial-gallery>.editorial-photo {position:relative;width:100%;height:100%}
+.slide.layout-editorial .editorial-gallery figcaption {min-height:55px}
+
+/* Closing: a narrow full-height image and an asymmetric serif statement. */
+.slide.layout-editorial.editorial-closing>main>.editorial-photo {left:0;top:0;width:650px;height:100%}
+.slide.layout-editorial.editorial-closing h1 {left:815px;right:72px;top:250px;font-size:var(--title-size,var(--layout-title-size,111px));line-height:1.35;letter-spacing:var(--editorial-display-tracking,2px)}
+.slide.layout-editorial.editorial-closing .editorial-subtitle {position:absolute;left:827px;right:72px;top:636px;font-size:33px}
+.slide.layout-editorial.editorial-closing .editorial-copy {position:absolute;left:830px;right:72px;top:818px;font-size:var(--body-size,27px);color:var(--muted)}

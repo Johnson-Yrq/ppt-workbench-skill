@@ -1,0 +1,4 @@
+interface:
+  display_name: "米白环线商务 PPT"
+  short_description: "米白纸面、黑色无衬线、细线圆环与自然商务摄影的独立商务风格"
+  default_prompt: "使用 $beige-ring-business-slides 制作米白环线商务风格的 HTML 演示稿，沿用已批准的独立页头、细线圆环与自然商务摄影，按内容选择可编辑共享布局；仅确认尚缺的用途，默认导出与成稿检查由我自行完成，明确要求的导出请完成。"

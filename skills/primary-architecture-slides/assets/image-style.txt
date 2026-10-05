@@ -1,0 +1,11 @@
+Editorial architectural photography for a high-contrast serif presentation.
+
+Create a real, subject-specific photograph with precise structural lines, convincing materials, clear light and shadow, and a strong vertical or rectangular crop. Architectural subjects may include facades, stairways, structural intersections, interiors, city fragments, model-making, drawings without readable annotations, material studies, or people engaged in a specific design activity. Choose each subject and viewpoint from the page's actual content rather than repeating a generic building.
+
+Photographs will be displayed in grayscale by the slide theme. Preserve a full tonal range, deep clean blacks, bright whites and readable midtone texture. A source photograph may remain in natural color; it should retain its meaning when viewed in black and white. Keep essential visual evidence inside the requested crop. Use full-frame photography rather than isolated cutouts, and avoid faded image edges, decorative gradients, rounded frames, glossy interface mockups, floating objects, miniature dioramas, shadows outside the photograph, or ornamental card treatments.
+
+The slide, not the photograph, provides the white background or mustard, blue, red and lime chapter fields. Do not bake slide layouts, typography, large chapter numerals, captions, logos, brands, watermarks, diagrams or charts into photographs. All meaningful wording and data remain native editable page elements.
+
+For portraits, show plausible individual people with calm expressions and documentary lighting. Do not imply that generated subjects are real named team members or clients. For projects, generated images are conceptual illustrations and must not be presented as documentary evidence of a completed building.
+
+Maintain coherent contrast and natural textures across the deck. Exact photo count, crop, orientation and negative space follow the content brief; text-only covers and chapter dividers remain text-only.

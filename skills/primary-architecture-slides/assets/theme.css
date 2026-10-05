@@ -1,0 +1,164 @@
+/* 原色建筑编辑式 — visual theme only.
+   Shared layouts own columns, anchors, image counts and reading geometry.
+   The four colour fields were sampled from the supplied screenshots after
+   converting their embedded Display ICC profile to sRGB. Local font names
+   are fallbacks, not a claim about the original Canva template's typeface. */
+body[data-style="primary-architecture"] {
+  --paper:#FFFFFF; --ink:#050505; --blue:#050505; --muted:#333333;
+  --line:#B7B7B7; --panel:#F0F0F0; --radius:0px; --on-accent:#FFFFFF;
+  --diagram-accent:#050505; --diagram-strong:#626262; --diagram-panel:#F0F0F0;
+  --chart-tertiary:#9A9A9A; --chart-grid:#D0D0D0;
+  --pa-display:'Bodoni 72','Didot','Bodoni MT','Songti SC','Noto Serif CJK SC','Source Han Serif SC',serif;
+  --pa-body:'Arial Narrow','Helvetica Neue','PingFang SC','Microsoft YaHei',Arial,sans-serif;
+  --pa-ui:'Helvetica Neue','PingFang SC','Microsoft YaHei',Arial,sans-serif;
+  --editorial-body-family:var(--pa-body); --editorial-display-family:var(--pa-display);
+  --editorial-title-weight:700; --editorial-heading-weight:700;
+  --editorial-title-tracking:-.035em; --editorial-display-tracking:-.045em;
+  --editorial-image-fit:cover; --editorial-photo-ink:#FFFFFF; --editorial-photo-shadow:none;
+  --composition-image-fit:cover; --composition-title-weight:700;
+  --composition-heading-weight:700; --composition-tag-radius:0px;
+  --poster-font:var(--pa-display); --poster-number-weight:700;
+  --poster-title-size:320px; --poster-title-leading:1.05; --poster-title-tracking:-.055em;
+  --poster-number-size:900px; --poster-number-leading:.86; --poster-number-tracking:-.06em;
+  --poster-number-scale-x:.68; --poster-chapter-title-size:58px;
+  --column-heading-size:32px; --column-heading-leading:1.25;
+  --column-body-size:27px; --column-body-leading:1.68;
+  --monitor-radius:0px;
+  --pa-page-inline:80px; --pa-page-top:48px; --pa-page-bottom:104px; --pa-main-gap:32px;
+  background:#E7E7E7; font-family:var(--pa-ui);
+}
+
+/* Chapter colour is a page surface, independent of layout or presentation mode. */
+body[data-style="primary-architecture"] .slide[data-surface="dark"] {
+  --paper:#050505; --ink:#FFFFFF; --blue:#FFFFFF; --muted:#D4D4D4;
+  --line:#6A6A6A; --panel:#232323; --on-accent:#050505;
+  --diagram-accent:#FFFFFF; --diagram-strong:#BBBBBB; --diagram-panel:#232323;
+  --chart-tertiary:#7E7E7E; --chart-grid:#464646;
+}
+body[data-style="primary-architecture"] .slide[data-surface="mustard"] {
+  --paper:#CEBA2F; --ink:#050505; --blue:#050505; --muted:#282306;
+  --line:#7B6E16; --panel:#DDCA54; --on-accent:#CEBA2F;
+  --diagram-accent:#050505; --diagram-strong:#4D440C; --diagram-panel:#DDCA54;
+  --chart-tertiary:#847519; --chart-grid:#AF9C22;
+}
+body[data-style="primary-architecture"] .slide[data-surface="blue"] {
+  --paper:#2F8DD1; --ink:#050505; --blue:#050505; --muted:#09283E;
+  --line:#17567F; --panel:#67A9DD; --on-accent:#2F8DD1;
+  --diagram-accent:#050505; --diagram-strong:#133A56; --diagram-panel:#67A9DD;
+  --chart-tertiary:#205D89; --chart-grid:#2678B2;
+}
+body[data-style="primary-architecture"] .slide[data-surface="red"] {
+  --paper:#CE3130; --ink:#050505; --blue:#050505; --muted:#1A0505;
+  --line:#80201F; --panel:#DE6261; --on-accent:#CE3130;
+  --diagram-accent:#050505; --diagram-strong:#4C1212; --diagram-panel:#DE6261;
+  --chart-tertiary:#872222; --chart-grid:#AC2928;
+}
+body[data-style="primary-architecture"] .slide[data-surface="lime"] {
+  --paper:#9CCF34; --ink:#050505; --blue:#050505; --muted:#203006;
+  --line:#5A7C16; --panel:#B8DE6B; --on-accent:#9CCF34;
+  --diagram-accent:#050505; --diagram-strong:#30490C; --diagram-panel:#B8DE6B;
+  --chart-tertiary:#66841F; --chart-grid:#83AF27;
+}
+/* Leave the explicit default paper last for the shared paper-colour reader. */
+body[data-style="primary-architecture"] .slide:not([data-surface]),
+body[data-style="primary-architecture"] .slide[data-surface="light"] {
+  --paper:#FFFFFF; --ink:#050505; --blue:#050505; --muted:#333333;
+  --line:#B7B7B7; --panel:#F0F0F0; --on-accent:#FFFFFF;
+  --diagram-accent:#050505; --diagram-strong:#626262; --diagram-panel:#F0F0F0;
+  --chart-tertiary:#9A9A9A; --chart-grid:#D0D0D0;
+}
+
+/* Independent type system: high-contrast serif titles and narrow sans copy. */
+body[data-style="primary-architecture"] .slide {
+  background:var(--paper); color:var(--ink); font-family:var(--pa-body); font-weight:400;
+}
+body[data-style="primary-architecture"] .slide h1,
+body[data-style="primary-architecture"] .slide h2,
+body[data-style="primary-architecture"] .slide h3 {
+  font-family:var(--pa-display); font-weight:700; color:var(--ink); letter-spacing:-.025em;
+}
+body[data-style="primary-architecture"] .slide h1 em {font-style:normal;color:inherit}
+body[data-style="primary-architecture"] .slide p {font-family:var(--pa-body);font-weight:400}
+body[data-style="primary-architecture"] .slide strong,
+body[data-style="primary-architecture"] .slide b {font-weight:700}
+body[data-style="primary-architecture"] .slide .comp-poster-title,
+body[data-style="primary-architecture"] .slide .comp-poster-number {
+  font-family:var(--pa-display); font-weight:700; color:var(--ink); text-shadow:none;
+}
+body[data-style="primary-architecture"] .comp-poster-number {font-variant-numeric:lining-nums proportional-nums}
+body[data-style="primary-architecture"] .comp-column-title>.comp-title {font-size:var(--title-size,58px);line-height:1.2;letter-spacing:-.035em}
+body[data-style="primary-architecture"] .comp-column-heading {font-size:32px;line-height:1.25;letter-spacing:-.02em}
+body[data-style="primary-architecture"] .comp-column-text {color:var(--ink)}
+body[data-style="primary-architecture"] .comp-column-gallery,
+body[data-style="primary-architecture"] .comp-column-people,
+body[data-style="primary-architecture"] .comp-column-groups {color:var(--ink)}
+body[data-style="primary-architecture"] .comp-monitor-frame {border-color:var(--ink);border-radius:0;box-shadow:none;background:var(--ink)}
+
+/* Page-frame treatment for the reference's final visual column. The shared
+   grid still owns column order and widths; only the outer photo edge bleeds.
+   A column with a title or monitor retains its ordinary safe frame. */
+body[data-style="primary-architecture"] .slide.layout-editorial_columns {
+  padding:var(--pa-page-top) var(--pa-page-inline) var(--pa-page-bottom);
+}
+body[data-style="primary-architecture"] .layout-editorial_columns>main {margin-top:var(--pa-main-gap)}
+body[data-style="primary-architecture"] .comp-editorial_columns>.comp-column:last-child:is([data-column-type="image"],[data-column-type="gallery"]):not(:has(.comp-monitor-frame,.comp-column-title)) {
+  margin-top:calc(0px - var(--pa-page-top) - var(--pa-main-gap));
+  margin-right:calc(0px - var(--pa-page-inline));
+  margin-bottom:calc(0px - var(--pa-page-bottom));
+  align-self:stretch; overflow:hidden; --column-gallery-gap:0px;
+}
+
+/* Shared layouts with their title inside main need no duplicated page heading.
+   Ordinary content layouts retain a clear editable title and optional subtitle. */
+body[data-style="primary-architecture"] .slide>.pa-header {display:block;margin:0;font-family:var(--pa-body)}
+body[data-style="primary-architecture"] .slide>.pa-header:not(:has(h1,.subtitle)) {display:none}
+body[data-style="primary-architecture"] .pa-header h1 {font-size:var(--title-size,70px);line-height:1.15;margin:0;letter-spacing:-.035em}
+body[data-style="primary-architecture"] .pa-header .chapter {display:block;margin:0 0 18px;padding:0;border:0;border-radius:0;background:none;font-size:19px;line-height:1.4;color:var(--muted);letter-spacing:.04em;font-weight:400}
+body[data-style="primary-architecture"] .pa-header .subtitle {font-size:25px;line-height:1.55;color:var(--muted);margin-top:22px}
+body[data-style="primary-architecture"] .slide>footer {border:0;padding-top:0;font-size:16px;line-height:1.4;letter-spacing:.025em;color:var(--muted);font-family:var(--pa-ui)}
+body[data-style="primary-architecture"] .brand i {background:var(--line)}
+body[data-style="primary-architecture"] .layout-type_poster>footer,
+body[data-style="primary-architecture"] .layout-editorial_columns>footer {display:none}
+
+/* Photographs are always rectangular and black-and-white in the final page.
+   Original raster files are unchanged; grayscale is a display treatment. */
+body[data-style="primary-architecture"] .scene-image {border:0;border-radius:0;box-shadow:none;background:none}
+body[data-style="primary-architecture"] .scene-image img {filter:grayscale(1)!important;mask-image:none;-webkit-mask-image:none;mix-blend-mode:normal;border-radius:0;box-shadow:none}
+body[data-style="primary-architecture"] .scene-image figcaption,
+body[data-style="primary-architecture"] .reading-caption {font-family:var(--pa-body);font-weight:400;color:var(--muted)}
+
+/* Existing native components keep their geometry and lose decorative shells. */
+body[data-style="primary-architecture"] :is(.point.panel,.control-group.panel,.formula-term.panel,.journey-item.panel,.takeaway.panel,.reading-stage) {border:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+body[data-style="primary-architecture"] :is(.point h3,.journey-item h3,.flow-step h3,.control-group h3,.control-group dt,.domain-side h3,.architecture-label,.formula-result,.formula-term,.bottom-groups dt) {color:var(--ink);font-weight:700;text-shadow:none}
+body[data-style="primary-architecture"] :is(.point p,.journey-item p,.control-group dd,.arch-detail,.bottom-groups dd,.reading-facts dd,.reading-block-note,.chart-source) {color:var(--muted)}
+body[data-style="primary-architecture"] :is(.journey-item.panel h3,.journey-item.panel.strong h3) {background:transparent;border-radius:0;color:var(--ink)}
+body[data-style="primary-architecture"] :is(.tag-tray span,.factor-row span,.state-tag,.relation-node,.reading-modules span) {border:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);box-shadow:none}
+body[data-style="primary-architecture"] :is(.tag-tray>b,.factor-row>b,.factor-row i,.takeaway,.journey-item .deliverable,.relation-link,.arch-prefix,.arch-direction) {color:var(--ink)}
+body[data-style="primary-architecture"] .flow-number {background:var(--ink);color:var(--paper);border-radius:0;font-family:var(--pa-display);font-weight:700}
+body[data-style="primary-architecture"] .semantic-icon {stroke-width:1.5}
+body[data-style="primary-architecture"] .reading-block>h3 .semantic-icon {background:transparent;border-radius:0;color:var(--ink);box-shadow:none}
+body[data-style="primary-architecture"] .table-wrap {border-color:var(--line);border-radius:0;background:transparent;box-shadow:none}
+body[data-style="primary-architecture"] :is(.table-wrap th,.reading-matrix th) {border-color:var(--line);background:transparent;color:var(--ink);font-weight:700}
+body[data-style="primary-architecture"] :is(.table-wrap td,.reading-matrix td) {border-color:var(--line);color:var(--ink)}
+body[data-style="primary-architecture"] .chart-editor {border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);box-shadow:none}
+body[data-style="primary-architecture"] .chart-editor summary {color:var(--ink)}
+body[data-style="primary-architecture"] .cover-prefix {font-family:var(--pa-display);font-size:inherit;font-weight:700;color:inherit}
+body[data-style="primary-architecture"] :is(.cover-promise,.ending-message,.ending-product,.cover-labels h3) {color:var(--ink)}
+body[data-style="primary-architecture"] :is(.cover-description,.cover-date,.cover-labels p) {color:var(--muted)}
+body[data-style="primary-architecture"] .cover-benefits span,
+body[data-style="primary-architecture"] .cover-benefits span:nth-child(n+4),
+body[data-style="primary-architecture"] .cover-platforms span {border-radius:0;background:transparent;color:var(--ink);box-shadow:none}
+body[data-style="primary-architecture"] .slide.variant-panel .cover-copy {border:1px solid var(--line);border-radius:0;background:var(--paper);box-shadow:none}
+
+/* Local player furniture remains compact, neutral and visually separate. */
+body[data-style="primary-architecture"] .toolbar {background:#FFFFFF;border-color:#B7B7B7;border-radius:0;box-shadow:none;font-family:var(--pa-ui)}
+body[data-style="primary-architecture"] .toolbar button {color:#050505;border-radius:0}
+body[data-style="primary-architecture"] .toolbar button:hover,
+body[data-style="primary-architecture"] .toolbar button[aria-pressed="true"] {background:#050505;color:#FFFFFF}
+body[data-style="primary-architecture"] .toolbar input {background:#FFFFFF;color:#050505;border-color:#B7B7B7;border-radius:0}
+body[data-style="primary-architecture"] #notes-panel {background:#FFFFFF;color:#050505;border-color:#B7B7B7;border-radius:0;box-shadow:none;font-family:var(--pa-ui)}
+body[data-style="primary-architecture"] #close-notes {background:#E7E7E7;color:#050505;border-radius:0}
+body[data-style="primary-architecture"] #status {background:#050505;color:#FFFFFF;border-radius:0}
+body[data-style="primary-architecture"].editing [data-edit] {outline-color:var(--line)}
+body[data-style="primary-architecture"].editing [data-edit]:focus {outline-color:var(--ink)}
+body[data-style="primary-architecture"].overview-mode .slide:hover {outline-color:#050505}

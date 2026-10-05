@@ -1,0 +1,56 @@
+{
+  "mode": "built-in image_gen",
+  "project": "米白环线商务 · 虚构回环办公营销方案",
+  "prompts": [
+    {
+      "id": "workspace",
+      "ratio": "landscape 4:3",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. A thoughtful adult East Asian creative director sitting alone at a pale oak desk by a tall window in a calm contemporary shared office, reviewing unmarked material samples and talking on a phone, soft afternoon light filtered through trees, natural olive shirt, wide environmental view. Landscape 4:3 composition."
+    },
+    {
+      "id": "architecture",
+      "ratio": "square",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Architectural photograph looking upward between two contemporary sustainable office facades, one pale limestone and one subtly blue reflective glass, elegant curved corner and vertical lines, quiet clear morning, realistic building construction. Main geometry centered to remain visible when placed in a circular crop. Square composition."
+    },
+    {
+      "id": "portrait-lin",
+      "ratio": "square",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Single head-and-shoulders portrait of a fictional East Asian woman aged around 35 with shoulder-length dark hair, relaxed cream blouse, quietly confident slight smile, in a pale oak creative workplace. Looking just beside camera, full head centered with generous margin for circular crop, natural face and skin, square composition."
+    },
+    {
+      "id": "portrait-zhou",
+      "ratio": "square",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Single head-and-shoulders portrait of a fictional East Asian man aged around 40 wearing a charcoal overshirt and thin metal glasses, short dark hair, thoughtful kind expression, softly blurred warm concrete studio behind. Full head centered with margin for circular crop, natural skin, square composition."
+    },
+    {
+      "id": "portrait-xu",
+      "ratio": "square",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Single head-and-shoulders portrait of a fictional East Asian woman aged around 29 with a short dark bob haircut, muted olive casual jacket and white top, candid friendly smile, daylight against pale brick and a blurred green plant in a creative office. Full head centered with margin for circular crop. Square composition."
+    },
+    {
+      "id": "portrait-chen",
+      "ratio": "square",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Single head-and-shoulders portrait of a fictional East Asian man aged around 31 with gently wavy dark hair, natural linen shirt, relaxed attentive expression, seated in a softly lit neutral creative studio, oak shelves out of focus. Full head centered with margin for circular crop, natural skin. Square composition."
+    },
+    {
+      "id": "portrait-wu",
+      "ratio": "square",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Single head-and-shoulders portrait of a fictional East Asian woman aged around 38 with hair tied in a low bun, dark brown knit top, warm genuine smile, pale plaster wall and subtle daylight shadow behind her in a quiet workplace. Full head centered with margin for circular crop, natural skin. Square composition."
+    },
+    {
+      "id": "channel-space",
+      "ratio": "landscape 4:3",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Empty boutique workplace showroom with sustainable pale oak desks, a warm oak slatted ceiling and limestone wall, one sculptural cream chair, natural late morning light, carefully composed architectural detail emphasizing the connection between wood and concrete. Landscape 4:3 composition."
+    },
+    {
+      "id": "channel-content",
+      "ratio": "landscape 4:3",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Candid over-the-shoulder scene of two adult designers curating physical material samples on a desk beside a large window, one person holding a plain off-white sample sheet, ochre fabric and oak swatches arranged naturally, top-oblique documentary angle, hands anatomically natural, no visible writing. Landscape 4:3 composition."
+    },
+    {
+      "id": "channel-community",
+      "ratio": "landscape 4:3",
+      "prompt": "Use case: photorealistic-natural. Asset type: independent original photograph for a Chinese fictional workplace brand marketing presentation. Style: refined natural editorial business photography, warm beige stone, pale oak, off-white linen, charcoal details, muted realistic colors, soft directional daylight, subtle true-to-life texture, unposed documentary feeling. No text, lettering, numbers, logos, brands, captions, graphic frames, watermarks, collage or slide design. Three adult East Asian creative professionals having an informal discussion around a pale oak shared table in a warmly lit design workplace, a few material samples and unmarked notebooks, relaxed listening and gestures, no staged handshake, horizontal medium-wide environmental composition, faces and hands realistic. Landscape 4:3."
+    }
+  ]
+}

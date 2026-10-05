@@ -3,11 +3,16 @@ import io
 import json
 import struct
 from pathlib import Path
+from editorial_contract import editorial_images, validate_editorial_slide
+from composition_layouts import SHARED_LAYOUTS, validate_composition, composition_images
 
 SKILL = Path(__file__).resolve().parent.parent
 ASSETS = SKILL / 'assets'
 LAYOUTS = {'cover', 'scene', 'split', 'triad', 'journey', 'architecture', 'flow',
            'domains', 'formula', 'table', 'relations', 'closing', 'reading'}
+# Preserve the original set as a compatibility alias; the complete shared
+# library is available to every style, independent of presentation density.
+NATIVE_LAYOUTS = LAYOUTS | {'editorial'} | set(SHARED_LAYOUTS)
 EMBED_FORMATS = ('webp', 'jpeg', 'keep')
 PAPER_RGB = (0xF7, 0xF6, 0xF2)
 IMAGE_RATIOS = {'1:1', '4:3', '3:2', '16:9', '3:4', '2:1', '21:9', '3:1'}
@@ -43,17 +48,18 @@ def presentation_mode(deck):
 HEADER_STYLES = ('standard', 'compact', 'rail', 'band', 'aside', 'ghost')
 
 
-VARIANTS = {'cover': ('standard', 'mirror', 'full', 'panel'), 'closing': ('standard', 'mirror', 'full')}
+VARIANTS = {'cover': ('standard', 'mirror', 'full', 'panel'), 'closing': ('standard', 'mirror', 'full'),
+            'type_poster': ('cover', 'chapter', 'statement')}
 
 
 def slide_variant(slide):
-    """Arrangement of a cover or closing page; content pages have none."""
+    """Arrangement of a cover, closing or typographic poster page."""
     allowed = VARIANTS.get(slide['layout'])
     if allowed is None:
         if 'variant' in slide:
-            raise ValueError('variant 仅用于 cover / closing')
+            raise ValueError('variant 仅用于 cover / closing / type_poster')
         return 'standard'
-    value = slide.get('variant', 'standard')
+    value = slide.get('variant', 'cover' if slide['layout'] == 'type_poster' else 'standard')
     if value not in allowed:
         raise ValueError(f'{slide["layout"]} 的 variant 可选 ' + ' / '.join(allowed))
     if value != 'standard' and slide.get('labels'):
@@ -61,8 +67,17 @@ def slide_variant(slide):
     return value
 
 
-def header_style(deck, slide):
-    """Root `header` sets the default for content pages; a slide's own `header` overrides it. Cover and closing keep their own frame."""
+def header_style(deck, slide, pack=None):
+    """Six historical presets are opt-in; other styles own their header template."""
+    if pack is None:
+        from style_packs import resolve_style
+        pack = resolve_style(deck)
+    if pack.get('header_system', 'style') == 'style':
+        if 'header' in deck or 'header' in slide:
+            raise ValueError('当前风格使用自己的 header_template，不接受六款 header 字段')
+        return 'standard'
+    if 'header' in deck and deck['header'] not in HEADER_STYLES:
+        raise ValueError('header 可选 ' + ' / '.join(HEADER_STYLES))
     if slide['layout'] in ('cover', 'closing'):
         if 'header' in slide:
             raise ValueError(f'{slide["layout"]} 页使用固定页头，不能设置 header')
@@ -75,7 +90,11 @@ def header_style(deck, slide):
 
 def slide_images(slide):
     """Normalize single and multiple illustrations without accepting ignored fields."""
-    if 'images' in slide:
+    if slide.get('layout') in SHARED_LAYOUTS:
+        images = composition_images(slide)
+    elif slide.get('layout') == 'editorial':
+        images = editorial_images(slide)
+    elif 'images' in slide:
         if 'image' in slide:
             raise ValueError('image 与 images 只能选一个')
         if slide.get('layout') != 'reading':
@@ -83,10 +102,12 @@ def slide_images(slide):
         images = slide['images']
         if not isinstance(images, list) or not 1 <= len(images) <= 3:
             raise ValueError('images 需要 1–3 张配图；更多场景请拆页')
+    elif 'image' in slide:
+        images = [slide['image']]
     else:
-        images = [slide.get('image')]
+        return []  # whether this page may go without an image is the selected style's call (resolve_style)
     if any(not isinstance(im, dict) for im in images):
-        raise ValueError('每页需要 image 对象或 reading.images（含 src、alt）')
+        raise ValueError('image 须为对象，images 须为对象数组（含 src、alt）')
     sources = [im.get('src') for im in images]
     if any(isinstance(src, str) and sources.count(src) > 1 for src in sources):
         raise ValueError('同页多配图须对应不同内容，不能重复同一 src 凑面积')
@@ -114,7 +135,7 @@ def reading_composition(slide):
     return choice
 
 
-def load_deck(filename, layouts=LAYOUTS):
+def load_deck(filename, layouts=NATIVE_LAYOUTS):
     """Validate the deck shell. `layouts=None` defers the layout whitelist to a Builder (see --builder)."""
     path = Path(filename).resolve()
     data = json.loads(path.read_text(encoding='utf-8'))
@@ -142,22 +163,48 @@ def load_deck(filename, layouts=LAYOUTS):
             raise ValueError(f'第 {i} 页不能单独设置 presentation_mode；使用根字段记录用户选择')
         if 'composition' in s and s['layout'] != 'reading':
             raise ValueError('composition 仅用于 reading 版式')
+        if 'credits' in s and s['layout'] != 'cover':
+            raise ValueError('credits 仅用于 cover 封面署名')
+        if s['layout'] == 'editorial':
+            validate_editorial_slide(s)
+        elif s['layout'] in SHARED_LAYOUTS:
+            validate_composition(s)
+        elif 'editorial_variant' in s:
+            raise ValueError('editorial_variant 仅用于 editorial 版式')
         if s['layout'] == 'reading':
-            if mode != 'reading':
-                raise ValueError('reading 版式需要 presentation_mode: reading；制作前先确认阅读型用途')
             reading_composition(s)
-        header_style(data, s)
         slide_variant(s)
+        image_paths = set()
         for im in slide_images(s):
             if 'ratio' in im and (not isinstance(im['ratio'], str) or im['ratio'] not in IMAGE_RATIOS):
                 raise ValueError(f'第 {i} 页图片比例可选：' + ' / '.join(sorted(IMAGE_RATIOS)))
-            local_path(path.parent, im.get('src'))
+            image_path = local_path(path.parent, im.get('src'))
+            if image_path in image_paths:
+                raise ValueError(f'第 {i} 页多配图路径指向同一文件，不能重复同一 src 凑面积：{im["src"]}')
+            image_paths.add(image_path)
             if not isinstance(im.get('alt'), str) or not im['alt'].strip():
                 raise ValueError(f'第 {i} 页需要有含义的 image.alt')
-            if 'caption' in im and (s['layout'] != 'reading' or not isinstance(im['caption'], str) or not im['caption'].strip()):
-                raise ValueError('caption 仅用于 reading 配图，须为非空字符串')
+            if 'caption' in im and (s['layout'] not in ({'reading', 'editorial'} | set(SHARED_LAYOUTS)) or not isinstance(im['caption'], str) or not im['caption'].strip()):
+                raise ValueError('caption 仅用于 reading / editorial / 共享组合配图，须为非空字符串')
     from style_packs import resolve_style
-    resolve_style(data)
+    pack = resolve_style(data)
+    for s in slides:
+        header_style(data, s, pack)
+    selected = [(i, s) for i, s in enumerate(slides, 1)
+                if 'layout_intent' in s or 'layout_selection' in s]
+    if selected:
+        # Local import: the selector uses the layout registry in this module.
+        # Only supplied provenance is validated; old decks remain untouched.
+        from select_layout import selection_errors
+        selection_problems = []
+        for i, s in selected:
+            try:
+                errors = selection_errors(s, mode, pack['id'])
+            except (TypeError, AttributeError, KeyError) as exc:
+                errors = [f'选版字段结构无效：{exc}']
+            selection_problems.extend(f'第 {i} 页（{s["title"]}）：{error}' for error in errors)
+        if selection_problems:
+            raise ValueError('选版记录无效：\n' + '\n'.join(selection_problems))
     return data, path.parent
 
 

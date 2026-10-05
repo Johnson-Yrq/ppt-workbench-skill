@@ -1,0 +1,136 @@
+/* 留白衬线影集 — independent visual treatment over the shared layouts.
+   #FAFAFA is the reference paper converted from its embedded ICC profile to sRGB.
+   Local serif fallbacks approximate the reference; they do not identify its font. */
+body[data-style="airy-portfolio"] {
+  --paper:#FAFAFA; --ink:#111111; --blue:#111111; --muted:#444444;
+  --line:#8A8A8A; --panel:#F0F0F0; --radius:0px; --on-accent:#FAFAFA;
+  --diagram-accent:#111111; --diagram-strong:#626262; --diagram-panel:#F0F0F0;
+  --chart-tertiary:#A3A3A3; --chart-grid:#D6D6D6;
+  --airy-serif:Georgia,'Times New Roman','Songti SC','STSong','Noto Serif CJK SC',serif;
+  --airy-ui:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC',sans-serif;
+  --editorial-body-family:var(--airy-serif); --editorial-display-family:var(--airy-serif);
+  --editorial-title-weight:400; --editorial-heading-weight:400;
+  --editorial-title-tracking:0em; --editorial-display-tracking:0em;
+  --editorial-image-fit:cover; --editorial-photo-ink:#FAFAFA; --editorial-photo-shadow:none;
+  --composition-image-fit:cover; --composition-title-weight:400; --composition-heading-weight:400;
+  --composition-tag-radius:0px; --poster-font:var(--airy-serif);
+  --poster-title-size:220px; --poster-title-leading:1.22; --poster-title-tracking:.06em;
+  --poster-statement-size:30px; --poster-statement-title-size:56px;
+  --poster-statement-leading:1.6; --poster-statement-tracking:.025em; --poster-statement-weight:400;
+  --poster-content-gap:28px; --poster-copy-size:27px; --poster-copy-leading:1.6;
+  --poster-bullet-gap:5px; --poster-number-weight:400; --poster-number-tracking:0em;
+  --poster-number-leading:1; --poster-number-scale-x:1; --poster-number-size:560px;
+  --poster-cover-number-size:48px; --poster-chapter-title-size:56px;
+  --column-heading-size:34px; --column-heading-leading:1.35;
+  --column-body-size:27px; --column-body-leading:1.6;
+  --column-title-gap:27px; --column-paragraph-gap:24px; --column-gallery-gap:28px;
+  --columns-gap:28px; --monitor-radius:0px;
+  --airy-inline:172px; --airy-top:168px; --airy-bottom:170px;
+  background:#E9E9E9; font-family:var(--airy-serif);
+}
+body[data-style="airy-portfolio"] .slide[data-surface="dark"] {
+  --paper:#111111; --ink:#FAFAFA; --blue:#FAFAFA; --muted:#D6D6D6;
+  --line:#8A8A8A; --panel:#242424; --on-accent:#111111;
+  --diagram-accent:#FAFAFA; --diagram-strong:#B9B9B9; --diagram-panel:#242424;
+  --chart-tertiary:#7A7A7A; --chart-grid:#444444;
+}
+/* Keep the default paper last for the shared paper-colour reader. */
+body[data-style="airy-portfolio"] .slide:not([data-surface]),
+body[data-style="airy-portfolio"] .slide[data-surface="light"] {
+  --paper:#FAFAFA; --ink:#111111; --blue:#111111; --muted:#444444;
+  --line:#8A8A8A; --panel:#F0F0F0; --on-accent:#FAFAFA;
+  --diagram-accent:#111111; --diagram-strong:#626262; --diagram-panel:#F0F0F0;
+  --chart-tertiary:#A3A3A3; --chart-grid:#D6D6D6;
+}
+body[data-style="airy-portfolio"] .slide {
+  padding:var(--airy-top) var(--airy-inline) var(--airy-bottom);
+  background:var(--paper); color:var(--ink); font-family:var(--airy-serif); font-weight:400;
+  --composition-panel:var(--panel); --composition-emphasis:var(--ink); --composition-on-emphasis:var(--paper);
+}
+body[data-style="airy-portfolio"] .slide :is(h1,h2,h3,p,li,dt,dd,th,td,figcaption) {font-family:var(--airy-serif)}
+body[data-style="airy-portfolio"] .slide :is(h1,h2,h3) {font-weight:400;color:inherit;text-shadow:none;letter-spacing:0em}
+body[data-style="airy-portfolio"] .slide h1 em {font-style:normal;color:inherit}
+body[data-style="airy-portfolio"] .slide :is(strong,b) {font-weight:600}
+body[data-style="airy-portfolio"] .slide>main {margin-top:34px}
+body[data-style="airy-portfolio"] .slide>.airy-header {margin:0}
+body[data-style="airy-portfolio"] .slide>.airy-header:not(:has(h1,.subtitle,.chapter)) {display:none}
+body[data-style="airy-portfolio"] .slide>.airy-header:not(:has(h1,.subtitle,.chapter))+main {margin-top:0}
+body[data-style="airy-portfolio"] .airy-header h1 {font-size:var(--title-size,56px);line-height:1.3;letter-spacing:.01em;margin:0}
+body[data-style="airy-portfolio"] .airy-header .chapter {display:block;margin:0 0 18px;padding:0;border:0;border-radius:0;background:none;font-size:21px;font-weight:400;line-height:1.5;letter-spacing:.12em;color:var(--muted)}
+body[data-style="airy-portfolio"] .airy-header .subtitle {font-size:26px;line-height:1.6;margin-top:22px;color:var(--ink)}
+
+/* A title-led cover and quiet statements share content geometry, with their own type scale. */
+body[data-style="airy-portfolio"] .comp-type_poster.variant-cover {--poster-content-gap:30px}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-cover .comp-eyebrow {font-size:26px;line-height:1.5;letter-spacing:.28em;color:var(--ink)}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-cover .comp-poster-title {font-weight:500;letter-spacing:var(--poster-title-tracking);line-height:var(--poster-title-leading)}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-cover .comp-subtitle {font-size:26px;line-height:1.5;letter-spacing:.22em;margin-top:36px;color:var(--ink)}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-statement {--poster-statement-width:70%}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-statement.placement-bottom-right {--poster-statement-width:51%;--poster-statement-leading:1.35}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-statement :is(.comp-copy,.comp-subtitle) {color:var(--ink)}
+body[data-style="airy-portfolio"] .comp-type_poster.variant-statement .comp-poster-bullets {font-size:26px;line-height:1.6}
+body[data-style="airy-portfolio"] .layout-type_poster.variant-cover>footer {display:none}
+body[data-style="airy-portfolio"] .comp-editorial_columns:has(>.comp-column[data-column-type="text"]) {--columns-gap:72px}
+body[data-style="airy-portfolio"] .comp-column-title>.comp-title {font-size:var(--title-size,56px);line-height:1.3;letter-spacing:.01em;font-weight:400}
+body[data-style="airy-portfolio"] .comp-column-title>.comp-subtitle {font-size:24px;line-height:1.5;margin-top:16px;letter-spacing:.035em;color:var(--ink)}
+body[data-style="airy-portfolio"] .comp-column-text {color:var(--ink)}
+body[data-style="airy-portfolio"] .shared-composition {--comp-body-size:27px}
+body[data-style="airy-portfolio"] .shared-composition :is(.comp-copy,.comp-eyebrow,.comp-note,.comp-index) {color:var(--ink)}
+
+/* The existing editable folio and company remain the only footer content.
+   A fine rule sits at y=947; no page number or brand string is generated by CSS. */
+body[data-style="airy-portfolio"] .slide>footer {
+  left:var(--airy-inline); right:var(--airy-inline); top:947px; bottom:auto;
+  display:flex; align-items:center; justify-content:center; gap:28px;
+  border-top:1px solid var(--line); padding:35px 0 0; margin:0;
+  color:var(--ink); font-family:var(--airy-serif); font-size:21px; line-height:1.4; letter-spacing:.2em;
+}
+body[data-style="airy-portfolio"] .slide>footer .editorial-folio {order:0;border-right:1px solid var(--ink);padding-right:28px;white-space:nowrap;font-variant-numeric:lining-nums;letter-spacing:.04em}
+body[data-style="airy-portfolio"] .slide>footer .brand {order:1;gap:18px;color:inherit}
+body[data-style="airy-portfolio"] .slide>footer .brand>span:last-child,
+body[data-style="airy-portfolio"] .slide>footer .footer-label {display:none}
+body[data-style="airy-portfolio"] .slide>footer .brand-logo {height:26px}
+body[data-style="airy-portfolio"] .slide>footer .brand i {height:22px;background:var(--line)}
+
+/* Image colour belongs to the supplied photograph. No global monochrome filter. */
+body[data-style="airy-portfolio"] .scene-image {border:0;border-radius:0;box-shadow:none;background:none}
+body[data-style="airy-portfolio"] .scene-image img {filter:none;mask-image:none;-webkit-mask-image:none;mix-blend-mode:normal;border-radius:0;box-shadow:none}
+body[data-style="airy-portfolio"] :is(.scene-image figcaption,.reading-caption) {font-weight:400;color:var(--muted)}
+
+/* Native shared components use restrained monochrome tokens and open rectangular surfaces. */
+body[data-style="airy-portfolio"] :is(.point.panel,.control-group.panel,.formula-term.panel,.journey-item.panel,.takeaway.panel,.reading-stage,.comp-service,.comp-metric_cards .comp-metric) {border:0;border-radius:0;background:transparent;box-shadow:none}
+body[data-style="airy-portfolio"] :is(.point h3,.journey-item h3,.flow-step h3,.control-group h3,.control-group dt,.domain-side h3,.architecture-label,.formula-result,.formula-term,.bottom-groups dt) {color:var(--ink);font-weight:400;text-shadow:none}
+body[data-style="airy-portfolio"] :is(.point p,.journey-item p,.control-group dd,.arch-detail,.bottom-groups dd,.reading-facts dd,.reading-block-note,.chart-source) {color:var(--muted)}
+body[data-style="airy-portfolio"] :is(.journey-item.panel h3,.journey-item.panel.strong h3) {background:transparent;border-radius:0;color:var(--ink)}
+body[data-style="airy-portfolio"] :is(.tag-tray span,.factor-row span,.state-tag,.relation-node,.reading-modules span,.comp-tag) {border:0;border-radius:0;background:transparent;color:var(--ink);box-shadow:none}
+body[data-style="airy-portfolio"] :is(.tag-tray>b,.factor-row>b,.factor-row i,.takeaway,.journey-item .deliverable,.relation-link,.arch-prefix,.arch-direction) {color:var(--ink)}
+body[data-style="airy-portfolio"] .flow-number {background:transparent;color:var(--ink);border-radius:0;font-family:var(--airy-serif);font-weight:400}
+body[data-style="airy-portfolio"] .semantic-icon {stroke-width:1.3}
+body[data-style="airy-portfolio"] .reading-block>h3 .semantic-icon {background:transparent;border-radius:0;color:var(--ink);box-shadow:none}
+body[data-style="airy-portfolio"] .table-wrap {border-color:var(--line);border-radius:0;background:transparent;box-shadow:none}
+body[data-style="airy-portfolio"] :is(.table-wrap th,.reading-matrix th) {border-color:var(--line);background:transparent;color:var(--ink);font-weight:600}
+body[data-style="airy-portfolio"] :is(.table-wrap td,.reading-matrix td) {border-color:var(--line);color:var(--ink)}
+body[data-style="airy-portfolio"] .chart-editor {border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);box-shadow:none;font-family:var(--airy-ui)}
+body[data-style="airy-portfolio"] .chart-editor summary {color:var(--ink)}
+body[data-style="airy-portfolio"] .cover-prefix {font-family:var(--airy-serif);font-size:inherit;font-weight:400;color:inherit}
+body[data-style="airy-portfolio"] :is(.cover-promise,.ending-message,.ending-product,.cover-labels h3) {color:var(--ink)}
+body[data-style="airy-portfolio"] :is(.cover-description,.cover-date,.cover-labels p) {color:var(--muted)}
+body[data-style="airy-portfolio"] :is(.cover-benefits span,.cover-benefits span:nth-child(n+4),.cover-platforms span) {border:0;border-radius:0;background:transparent;color:var(--ink);box-shadow:none}
+body[data-style="airy-portfolio"] .slide.variant-panel .cover-copy {border:0;border-radius:0;background:transparent;box-shadow:none}
+body[data-style="airy-portfolio"] .layout-cover.no-image .cover-copy {left:var(--airy-inline);right:var(--airy-inline);width:auto;text-align:center}
+body[data-style="airy-portfolio"] .layout-cover.no-image h1 {font-size:min(220px,calc(1480px / var(--title-chars)));font-weight:500;line-height:1.22}
+body[data-style="airy-portfolio"] .layout-cover>footer {display:none}
+body[data-style="airy-portfolio"] .layout-closing h1 {font-size:var(--title-size,70px);line-height:1.3}
+
+/* Player furniture uses a local system sans, without changing slide typography. */
+body[data-style="airy-portfolio"] :is(button,input,select,textarea,.toolbar,#notes-panel,#status) {font-family:var(--airy-ui)}
+body[data-style="airy-portfolio"] .toolbar {background:#FAFAFA;border-color:#8A8A8A;border-radius:0;box-shadow:none}
+body[data-style="airy-portfolio"] .toolbar button {color:#111111;border-radius:0}
+body[data-style="airy-portfolio"] .toolbar button:hover,
+body[data-style="airy-portfolio"] .toolbar button[aria-pressed="true"] {background:#111111;color:#FAFAFA}
+body[data-style="airy-portfolio"] .toolbar input {background:#FAFAFA;color:#111111;border-color:#8A8A8A;border-radius:0}
+body[data-style="airy-portfolio"] #notes-panel {background:#FAFAFA;color:#111111;border-color:#8A8A8A;border-radius:0;box-shadow:none}
+body[data-style="airy-portfolio"] #close-notes {background:#E9E9E9;color:#111111;border-radius:0}
+body[data-style="airy-portfolio"] #status {background:#111111;color:#FAFAFA;border-radius:0}
+body[data-style="airy-portfolio"].editing [data-edit] {outline-color:var(--line)}
+body[data-style="airy-portfolio"].editing [data-edit]:focus {outline-color:var(--ink)}
+body[data-style="airy-portfolio"].overview-mode .slide:hover {outline-color:#111111}

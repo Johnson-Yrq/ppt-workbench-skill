@@ -1,0 +1,217 @@
+/* Warm minimal editorial: independent visual treatment and page-header design.
+   Geometry, reading compositions and the offline player remain shared.
+   Local font names are preferences only; there are no font or network imports. */
+body[data-style="warm-minimal-editorial"] {
+  --paper:#EFEEEA; --blue:#4A4235; --ink:#4A4235; --muted:#7B7265;
+  --line:#D1CCC2; --panel:#E6E2D9; --radius:0px;
+  --diagram-accent:#7C624A; --diagram-strong:#A79A85; --diagram-panel:#E6E2D9;
+  --chart-tertiary:#929C85; --chart-grid:#D9D5CD; --on-accent:#EFEEEA;
+  --warm-sans:'Open Sauce Sans','Open Sauce One','Helvetica Neue',Helvetica,Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+  --warm-serif:'Noto Serif Display',Georgia,'Songti SC','Noto Serif SC',serif;
+  --editorial-body-family:var(--warm-sans); --editorial-display-family:var(--warm-serif);
+  --editorial-title-weight:400; --editorial-heading-weight:400;
+  --editorial-title-tracking:-2px; --editorial-display-tracking:2px;
+  --editorial-image-fit:cover; --editorial-photo-ink:#FFFFFF;
+  --editorial-photo-shadow:0 1px 6px #4A4235;
+  --composition-image-fit:cover; --composition-title-weight:400; --composition-heading-weight:400;
+  background:#E2DED6; color:var(--ink); font-family:var(--warm-sans); font-weight:400;
+}
+/* Every page-level colour token is explicit so inherited var() values never
+   leave a dark slide with light-page diagram, chart or panel colours. */
+body[data-style="warm-minimal-editorial"] .slide[data-surface="dark"] {
+  --paper:#4A4235; --blue:#EFEEEA; --ink:#EFEEEA; --muted:#C7BEAF;
+  --line:#746C5F; --panel:#575043; --radius:0px;
+  --diagram-accent:#D8C6AF; --diagram-strong:#AFA18B; --diagram-panel:#575043;
+  --chart-tertiary:#B6BEA8; --chart-grid:#6D6558; --on-accent:#4A4235;
+}
+/* Keep the default paper declaration last for the shared paper_color reader. */
+body[data-style="warm-minimal-editorial"] .slide:not([data-surface="dark"]) {
+  --paper:#EFEEEA; --blue:#4A4235; --ink:#4A4235; --muted:#7B7265;
+  --line:#D1CCC2; --panel:#E6E2D9; --radius:0px;
+  --diagram-accent:#7C624A; --diagram-strong:#A79A85; --diagram-panel:#E6E2D9;
+  --chart-tertiary:#929C85; --chart-grid:#D9D5CD; --on-accent:#EFEEEA;
+}
+
+/* Frame and type: quiet small furniture, slender titles, open content. */
+body[data-style="warm-minimal-editorial"] .slide {background:var(--paper);color:var(--ink);font-family:var(--warm-sans)}
+body[data-style="warm-minimal-editorial"] .slide h1 {color:var(--ink);font-size:var(--title-size,var(--layout-title-size,54px));font-weight:300;line-height:1.2;letter-spacing:-.035em}
+body[data-style="warm-minimal-editorial"] .slide h1 em {color:inherit;font-style:normal}
+body[data-style="warm-minimal-editorial"] .shared-composition .comp-title {font-weight:var(--composition-title-weight,400)}
+body[data-style="warm-minimal-editorial"] .slide h2,
+body[data-style="warm-minimal-editorial"] .slide h3 {font-weight:400;letter-spacing:-.02em}
+body[data-style="warm-minimal-editorial"] .slide p {font-weight:400}
+body[data-style="warm-minimal-editorial"] .slide b,
+body[data-style="warm-minimal-editorial"] .slide strong {font-weight:500}
+body[data-style="warm-minimal-editorial"] .chapter {padding:0;background:none;border:0;border-radius:0;color:var(--muted);font-size:18px;font-weight:400;line-height:1.5;letter-spacing:.12em;text-transform:uppercase}
+body[data-style="warm-minimal-editorial"] .page-number {color:var(--ink);font-size:44px;font-weight:300;line-height:1;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+body[data-style="warm-minimal-editorial"] .subtitle {color:var(--muted);font-size:24px;line-height:1.6}
+body[data-style="warm-minimal-editorial"] .slide footer {border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:18px;line-height:1.5;letter-spacing:.075em;text-transform:uppercase}
+body[data-style="warm-minimal-editorial"] .brand i {background:var(--line)}
+body[data-style="warm-minimal-editorial"] .footer-label {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .semantic-icon {color:var(--blue);stroke-width:1.3}
+
+/* This style owns its page header. Metadata stays quiet at the top; ordinary
+   content pages add a title row, while image-led layouts carry titles in main. */
+body[data-style="warm-minimal-editorial"] .slide>.wm-header {display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;margin:0;font-family:var(--warm-sans);font-weight:400}
+body[data-style="warm-minimal-editorial"] .wm-header-meta {display:flex;justify-content:space-between;align-items:flex-start;gap:32px;font-size:17px;line-height:1.25;letter-spacing:2px}
+body[data-style="warm-minimal-editorial"] .wm-header-identity {display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;min-width:0}
+body[data-style="warm-minimal-editorial"] .wm-header .header-company {max-width:1250px}
+body[data-style="warm-minimal-editorial"] .wm-header .header-year {flex:none;text-align:right}
+body[data-style="warm-minimal-editorial"] .wm-header .chapter {padding:0;border:0;background:none;font-size:17px;font-weight:400;line-height:1.25;letter-spacing:1px;color:inherit}
+body[data-style="warm-minimal-editorial"] .wm-header-body {display:flex;justify-content:space-between;align-items:flex-start;gap:48px;margin-top:64px}
+body[data-style="warm-minimal-editorial"] .wm-header-body:not(:has(h1,.subtitle)) {display:none}
+body[data-style="warm-minimal-editorial"] .wm-header-body .head-copy {max-width:1600px}
+body[data-style="warm-minimal-editorial"] .wm-header-body .page-number {font-size:21px;font-weight:400;line-height:1.4;letter-spacing:1px;border:0;padding:0;color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .wm-header-body h1 {margin-top:0}
+body[data-style="warm-minimal-editorial"] .wm-header-body .subtitle {margin-top:22px}
+
+/* Real photographic rectangles: no image masks, rounded frames or effects.
+   Preserve contain geometry where architecture labels depend on image position. */
+body[data-style="warm-minimal-editorial"] .scene-image {border:0;border-radius:0;box-shadow:none;background:none}
+body[data-style="warm-minimal-editorial"] .scene-image img {mask-image:none;-webkit-mask-image:none;mix-blend-mode:normal;filter:none;border-radius:0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .split-layout .scene-image img,
+body[data-style="warm-minimal-editorial"] .journey .scene-image img,
+body[data-style="warm-minimal-editorial"] .reading-illustration img,
+body[data-style="warm-minimal-editorial"] .layout-cover .scene-image img,
+body[data-style="warm-minimal-editorial"] .layout-closing .scene-image img {width:100%;height:100%;object-fit:cover}
+
+/* Shared text groups remain flat, even when content requests panel presentation. */
+body[data-style="warm-minimal-editorial"] .point h3 {color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:12px;font-weight:400}
+body[data-style="warm-minimal-editorial"] .point p {color:var(--muted);line-height:1.7}
+body[data-style="warm-minimal-editorial"] .point.panel,
+body[data-style="warm-minimal-editorial"] .control-group.panel,
+body[data-style="warm-minimal-editorial"] .formula-term.panel {background:none;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:18px 0}
+body[data-style="warm-minimal-editorial"] .point.panel h3 {border:0;color:var(--ink)}
+body[data-style="warm-minimal-editorial"] .takeaway {color:var(--ink);border-top:1px solid var(--line);font-family:var(--warm-serif);font-size:30px;font-weight:400;line-height:1.55}
+body[data-style="warm-minimal-editorial"] .takeaway.panel {background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .bottom-groups dt {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .tag-tray>b,
+body[data-style="warm-minimal-editorial"] .factor-row>b {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .tag-tray span,
+body[data-style="warm-minimal-editorial"] .factor-row span {background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;color:var(--ink);padding:8px 0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .tag-tray>div {gap:20px}
+body[data-style="warm-minimal-editorial"] .factor-row i {color:var(--muted);font-weight:300}
+
+/* Journey, compare and steps share one understated rule-and-text system. */
+body[data-style="warm-minimal-editorial"] .journey-item {border-top:1px solid var(--line)}
+body[data-style="warm-minimal-editorial"] .journey-item h3 {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .journey-item.panel {background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:14px 0 0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .journey-item.panel h3,
+body[data-style="warm-minimal-editorial"] .journey-item.panel.strong h3 {background:none;color:var(--ink);border:0;border-radius:0;margin:0 0 12px;padding:0;font-weight:400}
+body[data-style="warm-minimal-editorial"] .journey-item .deliverable {color:var(--blue);font-weight:400}
+body[data-style="warm-minimal-editorial"] .journey-labels.connected .journey-item:not(:last-child):before {top:-1px;border-top-width:1px}
+body[data-style="warm-minimal-editorial"] .journey-labels.connected .journey-item:not(:last-child):after {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .state-tag {background:none;color:var(--muted);border:0;border-bottom:1px solid var(--line);border-radius:0;padding:4px 0;letter-spacing:.025em}
+
+/* Cover / closing: serif display, narrow copy, an unframed photograph.
+   Shared mirror/full/panel variants retain their original placement contract. */
+body[data-style="warm-minimal-editorial"] .layout-cover h1,
+body[data-style="warm-minimal-editorial"] .layout-closing h1 {font-family:var(--warm-serif);font-size:var(--title-size,96px);font-weight:400;line-height:1.14;letter-spacing:-.045em;color:var(--ink)}
+body[data-style="warm-minimal-editorial"] .cover-prefix {font-family:var(--warm-serif);font-size:inherit;font-weight:400;line-height:inherit;color:inherit}
+body[data-style="warm-minimal-editorial"] .cover-promise {font-family:var(--warm-sans);font-size:30px;font-weight:400;line-height:1.55;color:var(--ink)}
+body[data-style="warm-minimal-editorial"] .cover-description {font-size:25px;line-height:1.75;color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .layout-cover .subtitle,
+body[data-style="warm-minimal-editorial"] .layout-closing .subtitle {font-size:25px;color:var(--muted);font-weight:400;white-space:normal}
+body[data-style="warm-minimal-editorial"] .cover-benefits {grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+body[data-style="warm-minimal-editorial"] .cover-benefits span,
+body[data-style="warm-minimal-editorial"] .cover-benefits span:nth-child(n+4) {background:none;border:0;border-radius:0;color:var(--muted);font-size:22px;text-align:left;padding:0}
+body[data-style="warm-minimal-editorial"] .cover-platforms span {background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;font-size:22px;padding:10px 0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .cover-platforms i {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .cover-date {font-size:19px;letter-spacing:.1em;color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .cover-labels h3 {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .cover-labels p {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .cover-labels>div:before {background:var(--line)}
+body[data-style="warm-minimal-editorial"] .layout-cover.no-cover-labels:not(.variant-mirror):not(.variant-full) .hero-scene {right:80px;top:140px;width:840px;height:790px}
+body[data-style="warm-minimal-editorial"] .slide.variant-panel .cover-copy {background:none;border:0;border-radius:0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .layout-closing .chapter {font-size:18px;font-weight:400;letter-spacing:.12em;color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .ending-message {font-size:27px;line-height:1.75;color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .ending-product {color:var(--ink);font-size:21px;font-weight:400;letter-spacing:.05em}
+body[data-style="warm-minimal-editorial"] .slide.layout-cover.no-image .cover-copy {left:80px;right:80px;width:auto;max-width:1500px}
+body[data-style="warm-minimal-editorial"] .slide.layout-cover.no-image h1 {font-size:var(--title-size,min(150px,calc(1420px / var(--title-chars,10))));line-height:1.14}
+body[data-style="warm-minimal-editorial"] .slide.layout-cover.no-image .cover-promise,
+body[data-style="warm-minimal-editorial"] .slide.layout-cover.no-image .cover-description {max-width:820px}
+body[data-style="warm-minimal-editorial"] .slide.layout-cover.no-image .cover-benefits {max-width:900px}
+body[data-style="warm-minimal-editorial"] .slide.layout-closing.no-image .head-copy {width:1500px;max-width:1500px}
+body[data-style="warm-minimal-editorial"] .slide.layout-closing.no-image h1 {font-size:var(--title-size,min(150px,calc(1420px / var(--title-chars,10))));line-height:1.14}
+body[data-style="warm-minimal-editorial"] .slide.layout-closing.no-image .ending-copy {left:80px;right:80px;top:auto;bottom:160px;width:auto;max-width:1500px}
+body[data-style="warm-minimal-editorial"] .slide.layout-closing.no-image .ending-message {max-width:900px}
+body[data-style="warm-minimal-editorial"] .slide.layout-closing.no-image .ending-product {margin-top:50px}
+
+/* Architecture, split / triad, formula, table, relations, flow and domains. */
+body[data-style="warm-minimal-editorial"] .architecture-label {color:var(--ink);text-shadow:none;font-weight:400}
+body[data-style="warm-minimal-editorial"] .architecture-label[data-kind="layer"],
+body[data-style="warm-minimal-editorial"] .architecture-label[data-kind="governance"],
+body[data-style="warm-minimal-editorial"] .architecture-label[data-kind="flow"] {color:var(--ink);font-weight:500}
+body[data-style="warm-minimal-editorial"] .architecture-label[data-kind="source"],
+body[data-style="warm-minimal-editorial"] .arch-detail {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .arch-prefix {color:var(--ink);font-weight:300}
+body[data-style="warm-minimal-editorial"] .arch-direction {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .split-points .point h3 {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .formula-result,
+body[data-style="warm-minimal-editorial"] .formula-term {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .formula-equation>i {color:var(--muted);font-weight:300}
+body[data-style="warm-minimal-editorial"] .table-wrap {border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:none;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .table-wrap th {background:none;color:var(--ink);border-bottom:1px solid var(--line);font-weight:500}
+body[data-style="warm-minimal-editorial"] .table-wrap td {border-top:1px solid var(--line);color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .table-wrap td:first-child {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .relation-node {background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;color:var(--ink);font-weight:400;padding:14px 8px;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .relation-link {color:var(--muted);font-weight:300}
+body[data-style="warm-minimal-editorial"] .flow-number {background:none;color:var(--ink);border:0;border-radius:0;font-size:46px;font-weight:300;letter-spacing:-.055em}
+body[data-style="warm-minimal-editorial"] .flow-step h3 {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .control-group {border-top:1px solid var(--line)}
+body[data-style="warm-minimal-editorial"] .control-group h3,
+body[data-style="warm-minimal-editorial"] .control-group dt {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .control-group dl>div[data-row-kind="check"] dt {color:var(--ink)}
+body[data-style="warm-minimal-editorial"] .control-group dl>div[data-row-kind="exception"] dt {background:none;color:var(--ink);border-bottom:1px solid var(--line);border-radius:0;padding:0}
+body[data-style="warm-minimal-editorial"] .domain-side .point {border-top:1px solid var(--line)}
+body[data-style="warm-minimal-editorial"] .domain-side h3 {color:var(--ink);font-weight:400}
+
+/* Reading mode: preserve half_lr / half_tb / half_diagonal / quarter geometry. */
+body[data-style="warm-minimal-editorial"] .reading-summary {color:var(--ink);font-weight:400;line-height:1.65}
+body[data-style="warm-minimal-editorial"] .reading-caption {color:var(--muted);text-align:left;font-size:21px;letter-spacing:.025em}
+body[data-style="warm-minimal-editorial"] .reading-block {border-top-color:var(--line)}
+body[data-style="warm-minimal-editorial"] .reading-block>h3 {color:var(--ink);font-weight:400;letter-spacing:-.015em}
+body[data-style="warm-minimal-editorial"] .reading-block>h3 .semantic-icon {background:none;color:var(--blue);border-radius:0;padding:0;stroke-width:1.3;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .reading-stage {background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:13px 0 0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .reading-stage-title strong {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .reading-index {color:var(--muted);font-weight:300}
+body[data-style="warm-minimal-editorial"] .reading-stage:not(:last-child):after {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .reading-stage .reading-output {color:var(--blue)}
+body[data-style="warm-minimal-editorial"] .reading-matrix th {background:none;color:var(--ink);font-weight:500;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+body[data-style="warm-minimal-editorial"] .reading-matrix td {color:var(--muted);border-color:var(--line)}
+body[data-style="warm-minimal-editorial"] .reading-matrix td:first-child {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .reading-layer-name {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .reading-modules span {background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;padding:7px 0}
+body[data-style="warm-minimal-editorial"] .reading-modules {gap:18px}
+body[data-style="warm-minimal-editorial"] .reading-facts dt {color:var(--ink);font-weight:400}
+body[data-style="warm-minimal-editorial"] .reading-facts dd,
+body[data-style="warm-minimal-editorial"] .reading-block-note,
+body[data-style="warm-minimal-editorial"] .chart-source {color:var(--muted)}
+body[data-style="warm-minimal-editorial"] .chart-editor {color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .chart-editor summary {color:var(--ink)}
+
+/* Reading pages keep the shared four compositions in normal flex flow.
+   The extra space belongs to the page frame, never an absolute-positioned main. */
+body[data-style="warm-minimal-editorial"] .layout-reading {padding:28px 72px 104px}
+body[data-style="warm-minimal-editorial"] .layout-reading>header {gap:48px}
+body[data-style="warm-minimal-editorial"] .layout-reading>header .head-copy {max-width:1600px}
+body[data-style="warm-minimal-editorial"] .layout-reading>header h1 {font-size:var(--title-size,60px);line-height:1.2}
+body[data-style="warm-minimal-editorial"] .layout-reading>main {margin-top:40px}
+body[data-style="warm-minimal-editorial"] .layout-reading>footer {left:72px;right:72px;font-size:16px;font-weight:400}
+
+/* Player controls are local UI, kept flat and in the same palette. */
+body[data-style="warm-minimal-editorial"] .toolbar {background:#EFEEEA;border-color:#D1CCC2;border-radius:0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] .toolbar button {color:#4A4235;border-radius:0}
+body[data-style="warm-minimal-editorial"] .toolbar button:hover,
+body[data-style="warm-minimal-editorial"] .toolbar button[aria-pressed="true"] {background:#E6E2D9;color:#4A4235}
+body[data-style="warm-minimal-editorial"] .toolbar input {background:#EFEEEA;color:#4A4235;border-color:#D1CCC2;border-radius:0}
+body[data-style="warm-minimal-editorial"] .toolbar-divider {background:#D1CCC2}
+body[data-style="warm-minimal-editorial"] #notes-panel {background:#EFEEEA;color:#4A4235;border-color:#D1CCC2;border-radius:0;box-shadow:none}
+body[data-style="warm-minimal-editorial"] #notes-panel pre {color:#7B7265}
+body[data-style="warm-minimal-editorial"] #close-notes {background:#E6E2D9;color:#4A4235;border-radius:0}
+body[data-style="warm-minimal-editorial"] #status {background:#4A4235;color:#EFEEEA;border-radius:0}
+body[data-style="warm-minimal-editorial"].editing [data-edit] {outline-color:var(--muted)}
+body[data-style="warm-minimal-editorial"].editing [data-edit]:focus {outline-color:var(--blue)}
+body[data-style="warm-minimal-editorial"].overview-mode .slide:hover {outline-color:#A79A85}
+/* Returning from a scrolled overview must discard the viewport scroll offset. */
+body[data-style="warm-minimal-editorial"]:not(.overview-mode) .viewport{overflow:clip}

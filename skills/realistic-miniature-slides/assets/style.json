@@ -18,5 +18,8 @@
     "above": "Display above editable captions: arrange the page-specific work areas in a broad complete diorama, viewed at 35–45 degrees. Use physical handoffs or modest connecting paths only for real workflow relationships. Keep the order aligned with captions and preserve the full base, figures, objects and contact shadow.",
     "architecture": "Represent the exact architecture tiers, modules and connections from the brief as a structured physical miniature with mineral-composite terraces, graphite frames, tactile service modules and purposeful links. Keep tiers and module edges clear for aligned editable HTML labels. No extra office zones or people unless they explain a real role in this architecture. Maintain 35–45 degree view and no raster text."
   },
-  "cover_labels_expected": false
+  "cover_labels_expected": false,
+  "header_system": "preset-six",
+  "heading_icons": "required",
+  "cover_copy_policy": "legacy"
 }

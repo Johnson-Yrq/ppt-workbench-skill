@@ -1,0 +1,4 @@
+interface:
+  display_name: "暖褐极简编辑式 PPT"
+  short_description: "以暖米白、深褐、真实摄影与留白制作品牌、作品集及文化提案等可编辑演示稿"
+  default_prompt: "使用 $warm-minimal-editorial-slides 制作暖褐极简编辑式演示稿，沿用已批准的独立页头与视觉，按内容选择共享布局，确认尚缺的用途并主动生成相关摄影；由我自行导出和检查。"

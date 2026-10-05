@@ -1,0 +1,31 @@
+{
+  "schema": "html-slide-style/v1",
+  "id": "airy-portfolio",
+  "name": "留白衬线影集",
+  "description": "近白纸面、细衬线文字、宽松画册留白与自然彩色摄影，以安静的文字声明和大小错落的照片建立节奏，适合摄影、作品集、生活方式及文化叙事。",
+  "status": "ready",
+  "css": "theme.css",
+  "header_system": "style",
+  "header_template": "header.html",
+  "heading_icons": "optional",
+  "cover_copy_policy": "style",
+  "cover_labels_expected": false,
+  "image_background": "scene",
+  "image_prompt": "image-style.txt",
+  "surfaces": [
+    "light",
+    "dark"
+  ],
+  "image_free_layouts": [
+    "cover",
+    "closing"
+  ],
+  "layout_hints": {},
+  "ui_text_modes": [
+    "none"
+  ],
+  "default_ui_text": "none",
+  "ui_text_prompts": {
+    "none": "No text, lettering, captions, numbers, logos, brands or watermarks in generated photographs. All titles, labels and factual information remain editable slide elements."
+  }
+}

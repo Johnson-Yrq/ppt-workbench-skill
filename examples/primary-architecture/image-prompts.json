@@ -1,0 +1,60 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "id": "atrium",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. An upward view through a monumental concrete atrium, dramatic intersecting beams and triangular skylight, daylight falling across rough board-formed surfaces. No people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-99233d45-3e38-4a37-9198-22be2d0ceda4.png"
+    },
+    {
+      "id": "facade",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A close architectural view of a precise white civic gallery facade, deep rectangular window reveals, angled roof line, clear pale sky, strong diagonal shadow. No people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-3b197a51-9a0a-4a39-a479-6bd3a4aab20b.png"
+    },
+    {
+      "id": "stairs",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. An elegant spiral concrete staircase in a modern public library, viewed upward, curved balustrade and radial skylight, exquisite realistic concrete texture. No people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-8440869b-af6e-40b2-8c80-d8f2307f6388.png"
+    },
+    {
+      "id": "tower",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A slender modern office tower seen from ground level at a strong upward angle, repetitive glass and steel grid, overcast sky, coherent straight structural geometry. No signs or people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-2c815ab7-380e-4803-ace2-12819494d951.png"
+    },
+    {
+      "id": "arcade",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A long colonnade in a minimalist art museum, repeated rectangular concrete frames receding in perspective, hard afternoon sun, dark geometric shadows, polished stone floor. No people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-629f14d6-831a-4c81-a41f-56f71ba6eaeb.png"
+    },
+    {
+      "id": "courtyard",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A small contemporary courtyard house with a single tree, sharp white stucco volumes, deep window opening, gravel garden, tranquil natural light, no people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-feaf2d00-2d32-484e-9f97-dccc5bfc1a3d.png"
+    },
+    {
+      "id": "roof",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A dramatic close view underneath a contemporary folded metal canopy, triangular panels and ribbed joints, sky around the edge, abstract but physically plausible construction. No people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-85eb327a-36e7-4002-a8ee-60ce0fa4dcdc.png"
+    },
+    {
+      "id": "street",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A restrained street-level photograph of a renovated brick cultural centre, large glass opening inserted in historic masonry, calm empty public forecourt, no signs or people. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-387c8f58-0b63-4411-9c58-741c79210163.png"
+    },
+    {
+      "id": "portrait-lin",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A fictional East Asian woman architect age 38, short straight hair, black simple shirt, thoughtful neutral expression, natural half-length editorial portrait at an architecture studio, hands out of frame, plain light wall. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-3969235f-d28d-41d2-8f77-dcc42720e708.png"
+    },
+    {
+      "id": "portrait-zhou",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A fictional East Asian man architect age 43, short slightly wavy hair and round dark glasses, charcoal shirt, calm attentive expression, natural half-length editorial portrait in an architecture studio, hands out of frame, plain light wall. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-9e77383f-b589-47b5-ae51-57f0c137e726.png"
+    },
+    {
+      "id": "portrait-chen",
+      "prompt": "Use case: photorealistic-natural. Create ONE original black-and-white editorial photograph for an architectural studio presentation, portrait 2:3 aspect ratio. A fictional East Asian woman spatial designer age 30, long tied-back hair, white crisp shirt, poised relaxed expression, natural half-length editorial portrait at an architecture studio, hands out of frame, plain light wall. Museum-quality architectural magazine photography, rich neutral monochrome tones, high contrast with retained highlight detail, fine film grain, truthful camera optics and fine material texture. Full-bleed single photograph, no panels, collage, frame, device, graphics, letters, numbers, logos, watermark or writing.",
+      "source": "exec-c2c8477d-e037-4453-a90d-20066283d8df.png"
+    }
+  ]
+}

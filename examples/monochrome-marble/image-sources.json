@@ -1,0 +1,65 @@
+[
+  {
+    "id": "company",
+    "original": "exec-22b1bcaa-2a3d-4bfc-b770-1c455c798b87.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/company.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "marble",
+    "original": "exec-62393804-f5cb-4920-8bbb-301ea01af962.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/marble.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-lin",
+    "original": "exec-ab518bed-74b5-4647-9235-4fbab0d12c0f.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/portrait-lin.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-zhou",
+    "original": "exec-fab034c4-f330-400b-9af4-6e9803092aee.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/portrait-zhou.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-shen",
+    "original": "exec-9bb2e1e8-13e8-4b10-a8ce-47d2cc9c07c1.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/portrait-shen.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "industry",
+    "original": "exec-0242bead-4202-45de-b82b-f908c44a9164.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/industry.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "market-work",
+    "original": "exec-d85dac58-e264-4a13-875d-a0aea8cbf93b.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/market-work.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "service",
+    "original": "exec-4863c73e-1167-474e-9a4a-9ec5a7ae9627.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/service.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "market-meet",
+    "original": "exec-4b4b5d52-92a6-428b-aecc-0ea1aef1ed27.png",
+    "generator": "built-in image_gen",
+    "asset": "skills/monochrome-marble-slides/assets/images/market-meet.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  }
+]

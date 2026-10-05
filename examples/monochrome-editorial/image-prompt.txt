@@ -1,0 +1,5 @@
+Generated with the built-in image_gen tool; one new image, not an edit.
+Generated on 2026-10-04 for the Chinese monochrome editorial style specimen.
+Workspace asset: images/architecture.png
+
+Use case: photorealistic-natural. Asset type: a single editorial architecture photograph for a black-and-white minimalist corporate pitch deck, with restrained ice-blue photography as the only colored element. Subject: an abstract close-up of a contemporary office building corner, pale silver anodized aluminum slabs and precise glass facade meeting at a cantilevered edge, photographed from below against a clean pale blue sky. Composition: landscape 3:2, strong diagonal rising from lower left toward upper right, architectural detail fills about 65 percent, plenty of clean sky in upper left, excellent geometry and realistic scale. Lighting: clear soft morning daylight, cool and crisp, fine material detail, natural restrained contrast. Mood: calm, precise, professional editorial architecture photography. No people, no logos, no letters, no numbers, no signs, no watermark, no borders, no added graphic elements. Not a miniature or illustration. Generate one photograph only.

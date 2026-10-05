@@ -5,7 +5,7 @@
 <h1>PPT-workbench-skill</h1>
 
 <p><strong>把一份大纲，变成风格完整、可继续编辑的演示稿。</strong></p>
-<p>三种视觉风格 · 演讲与阅读双模式 · 单文件 HTML 离线交付</p>
+<p>九种视觉风格 · 演讲与阅读双模式 · 单文件 HTML 离线交付</p>
 
 <p><a href="README.md">English</a> · <strong>简体中文</strong></p>
 
@@ -16,7 +16,7 @@
   <a href="#构建与检查">构建与检查</a>
 </p>
 
-<p><code>Codex / Claude Code</code> &nbsp; <code>共享套件 v3.4.0</code> &nbsp; <a href="LICENSE">MIT 许可证</a></p>
+<p><code>Codex / Claude Code</code> &nbsp; <code>共享套件 v3.7.0</code> &nbsp; <a href="LICENSE">MIT 许可证</a></p>
 
 </div>
 
@@ -32,7 +32,7 @@
 
 ## 视觉风格
 
-三种风格的实际页面预览，点击图片可查看原图。示例业务内容与图表数字仅用于说明视觉与排版。
+下方保留三款模型风格的实际页面预览，完整九种风格见后续表格。点击图片可查看原图；示例业务内容与图表数字仅用于说明视觉与排版。
 
 | 素白蓝调 | 海蓝玻璃 | 写实微缩 |
 |:---:|:---:|:---:|
@@ -40,7 +40,7 @@
 | 暖白纸底 · 明亮主蓝 · 哑光模型 | 海军蓝 · 玻璃材质 · 香槟金 | 暖灰纸底 · 真实材质 · 生动人物 |
 | [`white-blue-slides`](skills/white-blue-slides/SKILL.md) | [`navy-glass-slides`](skills/navy-glass-slides/SKILL.md) | [`realistic-miniature-slides`](skills/realistic-miniature-slides/SKILL.md) |
 
-三种风格都支持演讲型与阅读型，可用于不同主题的大纲。配图中的对象、动作与关系由业务内容决定；风格负责视觉表达。同一份演示稿选择一种风格，整稿保持一致。
+九种风格都支持演讲型与阅读型，可用于不同主题的大纲。配图中的对象、动作与关系由业务内容决定；风格负责视觉表达。同一份演示稿选择一种风格，整稿保持一致。
 
 <details>
 <summary><strong>风格 ID、视觉细节与更多示例</strong></summary>
@@ -50,6 +50,12 @@
 | **素白蓝调** | `scene-white` | 暖白纸底、明亮主蓝、白色哑光模型场景与微缩人物 |
 | **海蓝玻璃** | `saas-3d` | 暖白纸底、海军蓝文字与重点面、灰青及少量香槟金、玻璃与精细微缩展陈 |
 | **写实微缩** | `real-miniature` | 暖灰纸底、石墨与灰蓝、鼠尾草绿及少量赭黄；35–45° 微缩场景、写实 PBR 材质、表情细致的人物，配图无字 |
+| **[黑白编辑式](skills/monochrome-editorial-slides/SKILL.md)** | `monochrome-editorial` | 黑白页面、大标题、宽阔留白与冷调编辑摄影 |
+| **[暖褐极简编辑式](skills/warm-minimal-editorial-slides/SKILL.md)** | `warm-minimal-editorial` | 暖米白、深褐、克制排版与自然暖调摄影 |
+| **[原色建筑编辑式](skills/primary-architecture-slides/SKILL.md)** | `primary-architecture` | 白底黑字、窄高大标题、错位文字栏、建筑摄影与四色章节页 |
+| **[留白衬线影集](skills/airy-portfolio-slides/SKILL.md)** | `airy-portfolio` | 近白纸色、黑色衬线字、宽阔留白与自然彩色作品摄影 |
+| **[米白环线商务](skills/beige-ring-business-slides/SKILL.md)** | `beige-ring-business` | 温暖米白、黑色无衬线、细线圆环与自然商务摄影 |
+| **[黑白大理石商务](skills/monochrome-marble-slides/SKILL.md)** | `monochrome-marble` | 黑白反转、大衬线标题、天然大理石纹与自然彩色商务摄影 |
 
 | 素白蓝调 · 分层架构 | 海蓝玻璃 · 演讲型封面 |
 |:---:|:---:|
@@ -83,7 +89,7 @@ npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a codex
 npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a claude-code
 ```
 
-- `--skill '*'`：安装仓库中的全部 Skill，目前包含 `ppt-workbench`、`white-blue-slides`、`navy-glass-slides` 和 `realistic-miniature-slides`，确保统一入口、共享套件和风格包一起安装。保留星号两侧的引号。
+- `--skill '*'`：安装工作台与全部九种风格，共十个包，确保统一入口、共享套件和风格包一起安装。保留星号两侧的引号。
 - `-g`：全局安装，跨项目使用；去掉该参数则安装到当前项目。
 - `-a`：选择目标 Agent。
 
@@ -107,17 +113,17 @@ cd JohnsonPPTskill
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skills/ppt-workbench skills/white-blue-slides skills/navy-glass-slides skills/realistic-miniature-slides ~/.codex/skills/
+cp -R skills/* ~/.codex/skills/
 ```
 
 **Claude Code：**
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -R skills/ppt-workbench skills/white-blue-slides skills/navy-glass-slides skills/realistic-miniature-slides ~/.claude/skills/
+cp -R skills/* ~/.claude/skills/
 ```
 
-四个目录须同级放置。`white-blue-slides` 同时包含共享制作套件，其他风格依赖它；`ppt-workbench` 负责统一选择。更新已有安装时，先备份相关技能目录，再同步新版本。仅使用素白蓝调时，也可单独安装 `white-blue-slides`。
+十个目录须同级放置。`white-blue-slides` 同时包含共享制作套件，其他风格依赖它；`ppt-workbench` 负责统一选择。更新已有安装时，先备份相关技能目录，再同步新版本。仅使用素白蓝调时，也可单独安装 `white-blue-slides`。
 
 </details>
 
@@ -340,7 +346,9 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
 自动检查覆盖文字越界与重叠、缺图、外部依赖、图文分区和图表渲染；逐页视觉检查还需核对配图主体、图文对应和独立阅读时的完整性。修改播放器、导出器或主题后，用 `test_player.cjs` 对任一成稿跑播放器回归测试（翻页、编辑、另存、PPTX 导出、全屏适配）。
 
 <details>
-<summary><strong>构建选项与 13 种共享版式</strong></summary>
+<summary><strong>构建选项与共享版式</strong></summary>
+
+共享选版库提供 **49 个可执行 profile**，包含 **20 种共享构图**。按 [内容自主选版](skills/white-blue-slides/references/layout-selection.md) 选择，字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)；下表保留基础命名布局，便于入门。
 
 | 可选工具或参数 | 用途 |
 |---|---|

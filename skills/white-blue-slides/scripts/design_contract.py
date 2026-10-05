@@ -4,6 +4,9 @@ Field shapes and item counts are left to the builder's dry-run render (build_dec
 """
 import json
 from common import ASSETS, presentation_mode, reading_composition
+from editorial_contract import EDITORIAL_ROLES, validate_editorial_slide
+from composition_layouts import SHARED_LAYOUTS, validate_composition
+from chart_contract import slide_charts
 
 ROLES = {'cover', 'closing', 'explanation', 'capabilities', 'comparison', 'process',
          'controls', 'architecture', 'entities', 'formula', 'table', 'domains', 'briefing'}
@@ -41,8 +44,15 @@ def strings(value):
 
 def visual_for(slide):
     visual = slide.get('visual') if isinstance(slide.get('visual'), dict) else {}
-    role = visual.get('role', DEFAULT_ROLES.get(slide.get('layout'), 'explanation'))
-    return dict(visual, role=role, treatment=visual.get('treatment', DEFAULT_TREATMENTS.get(role, 'open')))
+    editorial = slide.get('layout') == 'editorial'
+    default_role = (SHARED_LAYOUTS[slide['layout']]['role'] if slide.get('layout') in SHARED_LAYOUTS
+                    else EDITORIAL_ROLES.get(slide.get('editorial_variant'), 'explanation') if editorial
+                    else DEFAULT_ROLES.get(slide.get('layout'), 'explanation'))
+    if slide.get('layout') == 'type_poster' and slide.get('variant') == 'statement':
+        default_role = 'explanation'
+    role = visual.get('role', default_role)
+    treatment = ('panels' if slide.get('layout') in {'service_cards', 'metric_cards'} else 'none' if role in {'cover', 'closing'} else 'open') if editorial or slide.get('layout') in SHARED_LAYOUTS else DEFAULT_TREATMENTS.get(role, 'open')
+    return dict(visual, role=role, treatment=visual.get('treatment', treatment))
 
 
 def presentation_for(item, slide):
@@ -54,6 +64,8 @@ def presentation_for(item, slide):
 
 def heading_units(slide):
     """Only headings that benefit from a semantic marker, never every text node."""
+    if slide.get('layout') == 'editorial' or slide.get('layout') in SHARED_LAYOUTS:
+        return []  # Plain type and photography are the explicit contract, not omitted icon placeholders.
     role = visual_for(slide)['role']
     if role in {'cover', 'closing', 'architecture', 'table'}:
         return []
@@ -95,11 +107,9 @@ def cover_rules(slide):
 
 
 def reading_errors(slide):
-    """Semantic and capacity rules for reading pages; field shapes and item counts are checked by the dry-run render."""
+    """Capacity of the optional legacy `reading` layout, independent of use mode."""
     errors = []
     blocks = dicts(slide.get('blocks'))
-    if blocks and not any(isinstance(b.get('type'), str) and b['type'] in {'process', 'matrix', 'layers', 'chart'} for b in blocks):
-        errors.append('阅读页至少需要一种流程、矩阵、层级或图表关系，不能只把正文拆成多个框')
     rows, filled = 1, 0
     for b in blocks:
         span = b.get('span', 1) if b.get('span') in (1, 2) else 1
@@ -123,6 +133,39 @@ def planned_features(slide):
     def add(feature, text='', count=1):
         counts[feature] += count
         if isinstance(text, str) and text.strip(): texts[feature].append(text.strip())
+    if slide.get('layout') in SHARED_LAYOUTS:
+        layout = slide['layout']
+        for item in dicts(slide.get('steps')):
+            add('steps', item.get('title', ''))
+        for tag in strings(slide.get('tags')):
+            add('tags', tag)
+        if layout == 'service_cards':
+            for item in dicts(slide.get('items')):
+                add('panels', item.get('title', ''))
+        if layout == 'hub_spoke':
+            for item in dicts(slide.get('items')):
+                add('relations', item.get('title', ''))
+        if layout in {'metric_cards', 'metric_circles'}:
+            for item in dicts(slide.get('metrics')):
+                add('visual_blocks', item.get('label', ''))
+        if layout == 'checklist_photo':
+            for group in dicts(slide.get('groups')):
+                for item in dicts(group.get('checks')):
+                    add('states', item.get('label', ''))
+        for chart in slide_charts(slide):
+            add('charts', chart.get('title', ''))
+        if layout == 'editorial_columns':
+            for column in dicts(slide.get('columns')):
+                if column.get('type') == 'groups':
+                    for group in dicts(column.get('items')):
+                        if group.get('icon'):
+                            add('icons', group.get('title', ''))
+        return counts, texts
+    if slide.get('layout') == 'editorial':
+        if slide.get('editorial_variant') == 'process':
+            for item in dicts(slide.get('items')):
+                add('steps', item.get('title', ''))
+        return counts, texts
     units = heading_units(slide)
     if slide.get('layout') == 'table': add('tables', slide.get('title', ''))
     for item in units:
@@ -200,6 +243,24 @@ def analyze_deck(deck):
     for n, slide in enumerate(deck['slides'], 1):
         prefix = f'第 {n} 页（{slide["title"]}）'
         errors, warnings = [], []
+        # Old decks need no migration. Optional selection metadata is checked
+        # against the restored catalog only when the author supplies it.
+        if 'layout_intent' in slide or 'layout_selection' in slide:
+            from select_layout import selection_errors
+            try:
+                errors.extend(selection_errors(slide, mode, style['id']))
+            except (TypeError, AttributeError, KeyError) as exc:
+                errors.append(f'选版字段结构无效：{exc}')
+        if slide.get('layout') == 'editorial':
+            try:
+                validate_editorial_slide(slide, style)
+            except ValueError as exc:
+                errors.append(str(exc))
+        if slide.get('layout') in SHARED_LAYOUTS:
+            try:
+                validate_composition(slide)
+            except ValueError as exc:
+                errors.append(str(exc))
         if slide.get('layout') == 'reading':
             errors.extend(reading_errors(slide))
         raw = slide.get('visual')
@@ -223,7 +284,7 @@ def analyze_deck(deck):
                 if item['icon'] not in icons: errors.append(f'未知图标 {item["icon"]}：{title}')
             elif isinstance(item.get('icon_omit_reason'), str) and item['icon_omit_reason'].strip():
                 omissions.append({'title': title, 'reason': item['icon_omit_reason']})
-            else:
+            elif style.get('heading_icons') == 'required':
                 errors.append(f'「{title}」缺少语义图标；选择 icon，或用 icon_omit_reason 记录真实的不适用原因')
             if visual['treatment'] == 'mixed' and item.get('presentation') not in {'open', 'panel'}:
                 errors.append(f'「{title}」在 mixed 版式中需要显式选择 presentation: open/panel')
@@ -257,30 +318,36 @@ def analyze_deck(deck):
         if visual['role'] == 'architecture' and not counts['architecture_labels']:
             errors.append('架构角色需要对应模型的 labels；不能只用普通段落代替直接标注')
         if slide.get('layout') == 'cover':
-            warnings.extend(cover_rules(slide))
+            if style.get('cover_copy_policy') == 'legacy':
+                warnings.extend(cover_rules(slide))
             if style.get('cover_labels_expected', True) and slide.get('variant', 'standard') == 'standard' and not slide.get('labels'):
                 warnings.append('封面没有右侧层级标注 labels；配图含可指的层级、站点或对象时应逐项标注（参照默认封面）')
         page = {'slide_id': slide['id'], 'page': n, 'presentation_mode': mode, 'role': visual['role'], 'treatment': visual['treatment'],
                 'rationale': raw.get('rationale', ''), 'requirements': requirements, 'manual': manual,
                 'omissions': omissions, 'planned': counts, 'errors': errors, 'warnings': warnings}
-        if mode == 'reading':
-            if slide.get('layout') == 'reading':
-                try:
-                    composition = reading_composition(slide)
-                    page['composition'] = composition
-                    page['illustration_fill'] = dict(READING_IMAGE)
-                except ValueError:
-                    pass  # already reported by reading_errors
-            manual.append({'feature': 'manual', 'source': '阅读型主体版面分区', 'text': '按主体版面分区核对 1/2 或 1/4 配图位置；逐图确认主体完整、尺度清晰，与相邻图表和文字有对应。图表不计作插画区。'})
-        if slide.get('layout') == 'journey' or raw.get('image_position') == 'above':
+        for field in ('layout_intent', 'layout_selection'):
+            if isinstance(slide.get(field), dict):
+                page[field] = slide[field]
+        if slide.get('layout') == 'editorial':
+            page['editorial_variant'] = slide.get('editorial_variant')
+        if slide.get('layout') in SHARED_LAYOUTS:
+            page['shared_layout'] = slide['layout']
+        if slide.get('layout') == 'reading':
+            try:
+                composition = reading_composition(slide)
+                page['composition'] = composition
+                page['illustration_fill'] = dict(READING_IMAGE)
+            except ValueError:
+                pass  # already reported by reading_errors
+        if slide.get('layout') != 'editorial' and (slide.get('layout') == 'journey' or raw.get('image_position') == 'above'):
             page['image_balance'] = dict(IMAGE_BALANCE)
             manual.append({'feature': 'manual', 'source': '上图下文展示要求',
                            'text': '确认可见场景主体占横向图框约八成，主要对象完整；下方各列对齐对应场景。不能仅凭图片元素宽度通过。'})
         result['pages'].append(page)
         result['errors'].extend(prefix + '：' + e for e in errors)
         result['warnings'].extend(prefix + '：' + e for e in warnings)
-    rich = [p for p in result['pages'] if p['role'] not in {'cover', 'closing', 'table', 'architecture'}]
-    if len(rich) >= 3 and not any(p['planned']['icons'] for p in rich):
+    rich = [p for p in result['pages'] if p['role'] not in {'cover', 'closing', 'table', 'architecture'} and 'editorial_variant' not in p and 'shared_layout' not in p]
+    if style.get('heading_icons') == 'required' and len(rich) >= 3 and not any(p['planned']['icons'] for p in rich):
         result['warnings'].append('整稿内容页没有语义图标；复核是否确为用户要求，避免默认为纯文字模板')
     if len(rich) >= 3 and not any(sum(p['planned'].get(k, 0) for k in ['panels', 'tags', 'states', 'tables', 'charts', 'visual_blocks']) for p in rich):
         result['warnings'].append('整稿内容页只有无框文字；按阶段、能力、实体、状态逐项复核是否需要信息块或标签，不按比例硬加')

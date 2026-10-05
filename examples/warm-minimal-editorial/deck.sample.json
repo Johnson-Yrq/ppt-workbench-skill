@@ -1,0 +1,18 @@
+{
+  "schema": "warm-editorial-sample/v1",
+  "style": "warm-minimal-editorial",
+  "title": "暖褐极简编辑式 · 中文风格样稿",
+  "wordmark": "栖居 / QIJU STUDIO",
+  "date": "STYLE STUDY · 2026",
+  "slides": [
+    {"id":"cover","layout":"cover","surface":"dark","mode":"speech","label":"分栏封面","title":"让空间\n回到生活。","subtitle":"A quieter way of living.","kicker":"空间设计 · 品牌提案","image":"courtyard","note":"暖褐极简编辑式 / 中文风格样稿"},
+    {"id":"intro","layout":"intro","surface":"dark","mode":"speech","label":"上文下图","title":"简，而有温度。","copy":"从自然光、触感与日常动作出发，\n让空间保留秩序，也容纳生活的痕迹。","image":"living","note":"01 / DESIGN PHILOSOPHY"},
+    {"id":"contents","layout":"contents","surface":"light","mode":"speech","label":"大图与窄侧栏","title":"内容一览","image":"materials","items":[["关于空间","01"],["设计服务","02"],["工作方式","03"],["材质观察","04"],["灵感档案","05"]],"copy":"以克制的色彩与自然材质，\n组织一种舒展、安静、\n经得起日常使用的空间语言。","note":"LESS, WITH FEELING"},
+    {"id":"about","layout":"about","surface":"light","mode":"reading","label":"双栏文字与竖幅图","title":"01 关于空间","image":"detail","lead":"让物件各得其所，\n让生活自然展开。","columns":["空间的舒适，来自尺度、动线与光线之间的协调。先理解人在其中如何停留、工作与相聚，再选择恰当的形态。","材料无需复杂堆叠。木材的纹理、石材的肌理与织物的柔软，可以通过相近的色温形成丰富而安静的层次。"],"note":"SPACE / TEXTURE / EVERYDAY"},
+    {"id":"services","layout":"services","surface":"light","mode":"speech","label":"服务条目与多图横带","title":"02 设计服务","items":[["空间规划","从动线与使用习惯出发，整理空间关系。"],["材质搭配","让触感、色温与耐用性形成一致表达。"],["家具与灯光","在尺度与明暗之间，为日常留下余地。"]],"images":["living","materials","detail"],"note":"FROM SPACE TO DETAIL"},
+    {"id":"process","layout":"process","surface":"dark","mode":"speech","label":"全景图与深色流程带","title":"03 工作方式","image":"studio","items":[["倾听","理解习惯\n明确边界"],["构思","组织空间\n确定方向"],["推敲","触摸材料\n验证细节"],["落地","回到现场\n持续调整"]],"note":"A THOUGHTFUL PROCESS"},
+    {"id":"reading","layout":"reading","surface":"light","mode":"reading","label":"阅读型四分之一配图","title":"04 材质选择，始于使用。","subtitle":"将视觉、触感与长期维护放在同一张桌面上讨论。","image":"materials","items":[["光与色温","先在实际采光下观察色样，再判断它与相邻材料的关系。单独看起来相近的白色，组合后也可能呈现不同温度。"],["触感与尺度","手会触碰的地方，优先考虑表面温度、边缘处理和握持感。大面积材料还需要关注纹理的连续性与变化。"],["耐用与维护","高频使用区域需要明确清洁方式、修复条件和可接受的自然变化。选择应与使用场景相配，而非只依靠外观。"]],"note":"阅读型示例 · 约 1/4 配图 + 可编辑信息"},
+    {"id":"portfolio","layout":"portfolio","surface":"light","mode":"speech","label":"多图陈列","title":"05 灵感档案","copy":"从整体空间到局部触感，\n观察自然材质如何回应光。","images":["courtyard","living","materials","detail","studio"],"captions":["01 光的边界","02 安静的尺度","03 材质的层次","04 日常的触感","05 手中的选择"],"note":"原创生成意象 · 非真实项目案例"},
+    {"id":"closing","layout":"closing","surface":"dark","mode":"speech","label":"非对称收尾","title":"为日常\n留一点空白。","subtitle":"Make room for living.","copy":"从一束光、一种触感，\n开始下一次空间对话。","image":"detail","note":"栖居 / QIJU STUDIO"}
+  ]
+}

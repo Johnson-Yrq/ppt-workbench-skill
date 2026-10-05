@@ -1,0 +1,34 @@
+{
+  "schema": "html-slide-style/v1",
+  "id": "warm-minimal-editorial",
+  "name": "暖褐极简编辑式",
+  "description": "暖米白与深褐、轻字重衬线封面、细长无衬线标题和大留白；配真实暖调编辑摄影，以平面分栏与细线组织信息。",
+  "status": "ready",
+  "css": "theme.css",
+  "image_prompt": "image-style.txt",
+  "image_background": "scene",
+  "ui_text_modes": [
+    "none"
+  ],
+  "default_ui_text": "none",
+  "ui_text_prompts": {
+    "none": "No visible text, letters, numerals, logos, brands, watermarks or pseudo-writing in the photograph. Keep presentation titles, labels, captions, diagrams and factual data as editable slide elements outside the photograph."
+  },
+  "layout_hints": {
+    "above": "Make one genuine photographic scene suited to a broad rectangular crop, with coherent natural perspective and useful subject detail across the frame. Keep people and important objects complete within the intended crop. Do not render a slide, collage, diagram, model platform or a sequence of miniature stations. Editable captions will sit outside the photograph.",
+    "architecture": "Use real architecture, interiors, materials or a subject-relevant working environment as photographic context. Do not invent a literal software architecture, stacked model, modular diorama or diagram inside the photograph. Where editable labels are planned, leave calm visual areas with adequate contrast and no essential subject detail beneath them; all structural meaning remains in the editable overlay."
+  },
+  "cover_labels_expected": false,
+  "surfaces": [
+    "light",
+    "dark"
+  ],
+  "image_free_layouts": [
+    "cover",
+    "closing"
+  ],
+  "header_system": "style",
+  "heading_icons": "optional",
+  "cover_copy_policy": "style",
+  "header_template": "header.html"
+}

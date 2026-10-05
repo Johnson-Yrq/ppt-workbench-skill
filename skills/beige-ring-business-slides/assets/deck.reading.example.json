@@ -1,0 +1,690 @@
+{
+  "title": "米白环线商务 · 阅读型样例",
+  "style": "beige-ring-business",
+  "presentation_mode": "reading",
+  "company": "回环办公",
+  "year": "2026",
+  "footer_label": "虚构风格样稿",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "2026 年度\n营销计划",
+      "subtitle": "让灵活办公，成为团队的日常选择",
+      "description": "虚构品牌与数据示例",
+      "date": "",
+      "id": "p01",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "cover",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "cover.fixed",
+        "source_ids": []
+      },
+      "credits": [
+        {
+          "title": "方案出品",
+          "text": "回环办公 · 品牌团队"
+        },
+        {
+          "title": "汇报对象",
+          "text": "运营与渠道伙伴"
+        }
+      ]
+    },
+    {
+      "layout": "side_index",
+      "title": "计划目录",
+      "items": [
+        {
+          "label": "03",
+          "title": "营销目标"
+        },
+        {
+          "label": "04",
+          "title": "用户画像"
+        },
+        {
+          "label": "05",
+          "title": "执行节奏"
+        },
+        {
+          "label": "06",
+          "title": "预算分配"
+        },
+        {
+          "label": "07",
+          "title": "核心团队"
+        },
+        {
+          "label": "08",
+          "title": "传播渠道"
+        },
+        {
+          "label": "09",
+          "title": "营销组合"
+        },
+        {
+          "label": "10",
+          "title": "衡量成效"
+        }
+      ],
+      "id": "p02",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "agenda",
+        "item_count": 8,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.side_index",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "reading",
+      "composition": "half_diagonal",
+      "title": "让体验带动增长",
+      "summary": "从真实办公需求出发，连接空间体验与长期关系。",
+      "images": [
+        {
+          "src": "images/workspace.webp",
+          "alt": "主理人在自然采光的办公空间审阅材料，原创生成示例",
+          "ratio": "4:3",
+          "brief": {
+            "subject": "主理人在自然采光的办公空间审阅材料",
+            "action": "自然商务场景或独立人物肖像",
+            "structure": "单幅完整摄影，不含文字、标识或信息图",
+            "details": "米色石材、浅橡木、柔和日光与自然肤色",
+            "composition": "横幅主体与真实环境"
+          }
+        },
+        {
+          "src": "images/architecture.webp",
+          "alt": "石材与玻璃构成的现代办公建筑，原创生成示例",
+          "ratio": "1:1",
+          "brief": {
+            "subject": "石材与玻璃构成的现代办公建筑",
+            "action": "自然商务场景或独立人物肖像",
+            "structure": "单幅完整摄影，不含文字、标识或信息图",
+            "details": "米色石材、浅橡木、柔和日光与自然肤色",
+            "composition": "方形安全裁切"
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "type": "facts",
+          "title": "品牌主张",
+          "rows": [
+            {
+              "label": "目标人群",
+              "text": "重视协作的成长型小团队"
+            },
+            {
+              "label": "核心价值",
+              "text": "自在办公，灵活共创"
+            }
+          ]
+        },
+        {
+          "type": "facts",
+          "title": "三项行动目标",
+          "rows": [
+            {
+              "label": "看见品牌",
+              "text": "用真实场景建立清晰认知"
+            },
+            {
+              "label": "走进空间",
+              "text": "将线上兴趣转为线下体验"
+            },
+            {
+              "label": "持续连接",
+              "text": "让成员成为社区的一部分"
+            }
+          ]
+        }
+      ],
+      "id": "p03",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "mixed",
+        "item_count": 2,
+        "media": {
+          "count": 2,
+          "status": "provided"
+        },
+        "block_types": [
+          "facts",
+          "facts"
+        ]
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "reading.half_diagonal",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "hub_spoke",
+      "title": "我们服务谁",
+      "subtitle": "从工作方式理解需求，形成一致的品牌体验",
+      "center": {
+        "title": "成长型\n小团队",
+        "text": "用户画像示例"
+      },
+      "items": [
+        {
+          "title": "团队阶段",
+          "text": "初创与稳步成长"
+        },
+        {
+          "title": "工作习惯",
+          "text": "混合办公与协作"
+        },
+        {
+          "title": "价值偏好",
+          "text": "品质与灵活并重"
+        },
+        {
+          "title": "关注渠道",
+          "text": "内容与同行推荐"
+        },
+        {
+          "title": "空间需求",
+          "text": "专注与交流共存"
+        },
+        {
+          "title": "体验期待",
+          "text": "轻松进入工作状态"
+        },
+        {
+          "title": "决策考量",
+          "text": "成本清楚易调整"
+        },
+        {
+          "title": "关系诉求",
+          "text": "可信赖的社区"
+        }
+      ],
+      "id": "p04",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "network",
+        "item_count": 8,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.hub_spoke",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "step_row",
+      "title": "四个月，循序推进",
+      "steps": [
+        {
+          "title": "准备期",
+          "period": "一月",
+          "text": "完成用户访谈与素材准备，统一品牌表达。"
+        },
+        {
+          "title": "预热期",
+          "period": "二月",
+          "text": "发布空间故事，邀请种子用户预约参访。"
+        },
+        {
+          "title": "体验期",
+          "period": "三月",
+          "text": "开展开放日与主题共创，收集体验反馈。"
+        },
+        {
+          "title": "优化期",
+          "period": "四月",
+          "text": "复盘渠道表现，沉淀有效内容与社区机制。"
+        }
+      ],
+      "note": "时间为风格样稿的虚构计划，不代表真实项目排期。",
+      "id": "p05",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "process",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "timeline",
+        "item_count": 4,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        },
+        "periods": [
+          "一月",
+          "二月",
+          "三月",
+          "四月"
+        ]
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.step_row",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "chart_focus",
+      "title": "把预算投入\n有效体验",
+      "copy": "先让用户理解，再让体验发生。\n围绕内容、触达与社区投入。\n按月复盘，保留调整空间。",
+      "stat": {
+        "value": "60 万元",
+        "label": "计划预算 · 假设示例"
+      },
+      "chart": {
+        "title": "预算分配示例",
+        "chart_type": "pie",
+        "categories": [
+          "内容制作",
+          "渠道推广",
+          "空间活动",
+          "社区运营",
+          "研究复盘"
+        ],
+        "series": [
+          {
+            "name": "预算",
+            "values": [
+              18,
+              15,
+              12,
+              9,
+              6
+            ]
+          }
+        ],
+        "unit": "万元",
+        "source": "来源：虚构营销计划假设；合计 60 万元，非真实经营数据。"
+      },
+      "conclusion": "内容与触达占 55%，其余用于体验、社区与复盘。",
+      "id": "p06",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "data",
+        "item_count": 5,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.chart_focus",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "一起，把计划落地",
+      "columns": [
+        {
+          "type": "people",
+          "items": [
+            {
+              "name": "林予安",
+              "role": "品牌统筹",
+              "image": {
+                "src": "images/portrait-lin.webp",
+                "alt": "林予安的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "林予安的虚构团队肖像",
+                  "action": "自然商务场景或独立人物肖像",
+                  "structure": "单幅完整摄影，不含文字、标识或信息图",
+                  "details": "米色石材、浅橡木、柔和日光与自然肤色",
+                  "composition": "方形安全裁切"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "people",
+          "items": [
+            {
+              "name": "周明远",
+              "role": "策略研究",
+              "image": {
+                "src": "images/portrait-zhou.webp",
+                "alt": "周明远的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "周明远的虚构团队肖像",
+                  "action": "自然商务场景或独立人物肖像",
+                  "structure": "单幅完整摄影，不含文字、标识或信息图",
+                  "details": "米色石材、浅橡木、柔和日光与自然肤色",
+                  "composition": "方形安全裁切"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "people",
+          "items": [
+            {
+              "name": "许一宁",
+              "role": "内容传播",
+              "image": {
+                "src": "images/portrait-xu.webp",
+                "alt": "许一宁的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "许一宁的虚构团队肖像",
+                  "action": "自然商务场景或独立人物肖像",
+                  "structure": "单幅完整摄影，不含文字、标识或信息图",
+                  "details": "米色石材、浅橡木、柔和日光与自然肤色",
+                  "composition": "方形安全裁切"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "people",
+          "items": [
+            {
+              "name": "陈以恒",
+              "role": "空间体验",
+              "image": {
+                "src": "images/portrait-chen.webp",
+                "alt": "陈以恒的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "陈以恒的虚构团队肖像",
+                  "action": "自然商务场景或独立人物肖像",
+                  "structure": "单幅完整摄影，不含文字、标识或信息图",
+                  "details": "米色石材、浅橡木、柔和日光与自然肤色",
+                  "composition": "方形安全裁切"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "people",
+          "items": [
+            {
+              "name": "吴知夏",
+              "role": "社区运营",
+              "image": {
+                "src": "images/portrait-wu.webp",
+                "alt": "吴知夏的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "吴知夏的虚构团队肖像",
+                  "action": "自然商务场景或独立人物肖像",
+                  "structure": "单幅完整摄影，不含文字、标识或信息图",
+                  "details": "米色石材、浅橡木、柔和日光与自然肤色",
+                  "composition": "方形安全裁切"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "id": "p07",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "team",
+        "item_count": 5,
+        "media": {
+          "count": 5,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_people",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "service_cards",
+      "title": "三条路径，连接用户",
+      "highlight": 0,
+      "items": [
+        {
+          "title": "空间体验",
+          "text": "以开放日和预约参访，让用户亲自感受空间的光线、动线与协作氛围。每次参访记录需求与疑问，为后续服务提供依据。",
+          "image": {
+            "src": "images/channel-space.webp",
+            "alt": "自然日光下的办公空间与木质工作桌，原创生成示例",
+            "ratio": "4:3",
+            "brief": {
+              "subject": "自然日光下的办公空间与木质工作桌",
+              "action": "自然商务场景或独立人物肖像",
+              "structure": "单幅完整摄影，不含文字、标识或信息图",
+              "details": "米色石材、浅橡木、柔和日光与自然肤色",
+              "composition": "横幅主体与真实环境"
+            }
+          }
+        },
+        {
+          "title": "内容传播",
+          "text": "记录工作日常与空间细节，把品牌价值变成可感知、可分享的故事。按使用情景组织内容，帮助读者理解具体价值。",
+          "image": {
+            "src": "images/channel-content.webp",
+            "alt": "团队共同查看材质样本的工作细节，原创生成示例",
+            "ratio": "4:3",
+            "brief": {
+              "subject": "团队共同查看材质样本的工作细节",
+              "action": "自然商务场景或独立人物肖像",
+              "structure": "单幅完整摄影，不含文字、标识或信息图",
+              "details": "米色石材、浅橡木、柔和日光与自然肤色",
+              "composition": "横幅主体与真实环境"
+            }
+          }
+        },
+        {
+          "title": "社区连接",
+          "text": "通过主题交流与小型共创，帮助成员认识彼此，并建立持续关系。以参与质量和成员反馈评价活动，保持适当节奏。",
+          "image": {
+            "src": "images/channel-community.webp",
+            "alt": "三位成员在材料工作桌旁自然交流，原创生成示例",
+            "ratio": "4:3",
+            "brief": {
+              "subject": "三位成员在材料工作桌旁自然交流",
+              "action": "自然商务场景或独立人物肖像",
+              "structure": "单幅完整摄影，不含文字、标识或信息图",
+              "details": "米色石材、浅橡木、柔和日光与自然肤色",
+              "composition": "横幅主体与真实环境"
+            }
+          }
+        }
+      ],
+      "id": "p08",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "capabilities",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "parallel",
+        "item_count": 3,
+        "media": {
+          "count": 3,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.service_cards",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "table",
+      "title": "营销组合",
+      "columns": [
+        "产品体验",
+        "价格策略",
+        "渠道触达",
+        "品牌传播"
+      ],
+      "rows": [
+        [
+          "灵活工位",
+          "清晰分级",
+          "品牌官网",
+          "空间故事"
+        ],
+        [
+          "协作空间",
+          "月度选择",
+          "内容平台",
+          "成员访谈"
+        ],
+        [
+          "开放活动",
+          "体验入口",
+          "合作社群",
+          "主题开放日"
+        ],
+        [
+          "社区服务",
+          "团队方案",
+          "用户推荐",
+          "共创与分享"
+        ]
+      ],
+      "id": "p09",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "comparison",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "table",
+        "item_count": 4,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        },
+        "column_count": 4
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "table.matrix",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "metric_cards",
+      "title": "用三个信号，衡量成效",
+      "metrics": [
+        {
+          "label": "有效触达",
+          "progress": {
+            "value": 7700,
+            "max": 10000
+          },
+          "text": "观察内容是否到达目标人群，识别持续增长的内容线索。"
+        },
+        {
+          "label": "预约体验",
+          "progress": {
+            "value": 54,
+            "max": 100
+          },
+          "text": "关注从兴趣到行动的转化，持续优化预约与参访体验。"
+        },
+        {
+          "label": "社区参与",
+          "progress": {
+            "value": 24,
+            "max": 100
+          },
+          "text": "持续追踪体验后的参与意愿，建立稳定而有温度的连接。"
+        }
+      ],
+      "source": "来源：虚构阶段性示例；百分比为当前值 ÷ 目标值。",
+      "id": "p10",
+      "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "comparison",
+        "treatment": "open",
+        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "statistics",
+        "item_count": 3,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.metric_cards",
+        "source_ids": []
+      }
+    }
+  ]
+}

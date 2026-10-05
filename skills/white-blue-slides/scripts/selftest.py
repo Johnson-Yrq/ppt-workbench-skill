@@ -137,7 +137,9 @@ def run():
         # 6a'. Cover/closing variants: a class on the section; labels stay on standard covers.
         case = copy.deepcopy(example); case['slides'][0]['variant'] = 'panel'; case['slides'][0].pop('labels', None); case['slides'][-1]['variant'] = 'mirror'
         d2, r2 = load_deck(_write(work, 'variant.json', case))
-        varied = re.findall(r'class="slide layout-[^"]*"', Builder(d2, r2).render())
+        varied_html = Builder(d2, r2).render()
+        varied = re.findall(r'class="slide layout-[^"]*"', varied_html)
+        check('cover and closing expose their longest title line to CSS', '--title-chars:' in varied_html.split('</section>')[0] and '--title-chars:' not in varied_html.split('</section>')[1])
         check('variant becomes a slide class', 'variant-panel' in varied[0] and 'variant-mirror' in varied[2] and 'variant-' not in varied[1], str(varied))
         bad = {'unknown variant': lambda c: c['slides'][0].__setitem__('variant', 'center'),
                'panel closing': lambda c: c['slides'][-1].__setitem__('variant', 'panel'),
@@ -263,6 +265,14 @@ def run():
     check('independent style regressions', run_style_tests() == 0)
     from test_refinements import run as run_refinement_tests
     check('reading layout refinements', run_refinement_tests() == 0)
+    from test_editorial import run as run_editorial_tests
+    check('native editorial layouts and photographic prompts', run_editorial_tests() == 0)
+    from test_headers import run as run_header_tests
+    check('style-owned headers and independent presentation modes', run_header_tests() == 0)
+    from test_compositions import run as run_composition_tests
+    check('shared sample compositions across styles and modes', run_composition_tests() == 0)
+    from test_layout_selection import run as run_layout_selection_tests
+    check('content-based layout selection and truthful provenance', run_layout_selection_tests() == 0)
     from test_generate_images import run as run_generator_tests
     check('image API generator (offline fake transport)', run_generator_tests() == 0)
     print(f'\n{"FAILED" if FAILURES else "OK"}: {len(FAILURES)} failure(s)')

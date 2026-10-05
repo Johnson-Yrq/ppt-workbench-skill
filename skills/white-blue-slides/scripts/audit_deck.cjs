@@ -47,7 +47,6 @@ async function run() {
       const checks = await page.evaluate(() => {
         const s = document.querySelector('.slide.active'), sr = s.getBoundingClientRect(), footer = s.querySelector('footer').getBoundingClientRect();
         const issues = [], warnings = [], rect = el => {const r = el.getBoundingClientRect(); return {x:r.x-sr.x,y:r.y-sr.y,w:r.width,h:r.height,right:r.right-sr.x,bottom:r.bottom-sr.y};};
-        const readingMode = document.body.dataset.presentationMode === 'reading';
         const label = el => el.textContent.trim().slice(0,70);
         const visible = el => {
           const r = el.getBoundingClientRect();
@@ -64,14 +63,13 @@ async function run() {
           return r;
         };
 
-        // Text: bounds, footer collision, overflow, overlap, minimum reading size.
+        // Text: bounds, footer collision, overflow and overlap. Font budgets belong to the selected style.
         const textEls = [...s.querySelectorAll('[data-edit],.page-number')].filter(el => el.textContent.trim() && el.getBoundingClientRect().width > 0);
         for (const el of textEls) {
           const r = rect(el);
           if (r.x < -1 || r.y < -1 || r.right > sr.width+1 || r.bottom > sr.height+1) issues.push({type:'out-of-bounds',text:label(el),rect:r});
           if (el.closest('main') && r.bottom > footer.top-sr.top-8) issues.push({type:'footer-collision',text:label(el),bottom:r.bottom});
           const cs=getComputedStyle(el), clippedY=['hidden','clip','auto','scroll'].includes(cs.overflowY);
-          if(readingMode&&el.closest('main')&&parseFloat(cs.fontSize)<21)issues.push({type:'reading-text-too-small',text:label(el),size:parseFloat(cs.fontSize),minimum:21});
           // Font ascenders can exceed a line box without clipping; only flag vertical overflow when the element clips.
           if (el.clientWidth && (el.scrollWidth > el.clientWidth+2 || (clippedY && el.scrollHeight > el.clientHeight+2))) issues.push({type:'text-overflow',text:label(el)});
         }
@@ -104,7 +102,7 @@ async function run() {
           }
         }
 
-        if (readingMode && s.classList.contains('layout-reading')) {
+        if (s.classList.contains('layout-reading')) {
           // Each illustration reaches its region's width or height (design_contract.READING_IMAGE).
           const minFill = contract.illustration_fill?.min_fill_ratio;
           for (const el of s.querySelectorAll('.reading-media-item')) {
@@ -133,14 +131,14 @@ async function run() {
           for(const t of host.querySelectorAll('svg text')){const lr=t.getBoundingClientRect();if(lr.width&&lr.height&&(lr.left<hr.left-3||lr.right>hr.right+3||lr.top<hr.top-3||lr.bottom>hr.bottom+3))issues.push({type:'chart-label-clipped',text:t.textContent});}
         }
 
-        // Advisory: speech pages with a small scene, wrapped control labels, narrow reading captions.
+        // Advisory follows the selected layout, independent of presentation purpose.
         let imageArea=null;const heroImg=s.querySelector('main .scene-image img');
-        if(heroImg&&!isCover&&!isClosing){const ir=heroImg.getBoundingClientRect(),mr=main.getBoundingClientRect();const w=Math.max(0,Math.min(ir.right,mr.right)-Math.max(ir.left,mr.left)),h=Math.max(0,Math.min(ir.bottom,mr.bottom)-Math.max(ir.top,mr.top));imageArea=Math.round((w*h)/(mr.width*mr.height)*1000)/1000;const floor=s.classList.contains('layout-table')?.08:.30;if(!readingMode&&imageArea<floor)warnings.push({type:'image-area-small',imageArea,floor,hint:'放大场景本体、收窄文字或换左右排布；不要用小图配大段文字'});}
+        if(heroImg&&!isCover&&!isClosing&&['scene','split','triad','journey','architecture','flow','domains','formula','table','relations'].some(name=>s.classList.contains('layout-'+name))){const ir=heroImg.getBoundingClientRect(),mr=main.getBoundingClientRect();const w=Math.max(0,Math.min(ir.right,mr.right)-Math.max(ir.left,mr.left)),h=Math.max(0,Math.min(ir.bottom,mr.bottom)-Math.max(ir.top,mr.top));imageArea=Math.round((w*h)/(mr.width*mr.height)*1000)/1000;const floor=s.classList.contains('layout-table')?.08:.30;if(imageArea<floor)warnings.push({type:'image-area-small',imageArea,floor,hint:'放大场景本体、收窄文字或换左右排布；不要用小图配大段文字'});}
         for(const row of s.querySelectorAll('.control-group dl>div')){
           const dt=row.querySelector('dt'),cs=dt&&getComputedStyle(dt);
           if(dt&&getComputedStyle(row).display==='grid'&&dt.getBoundingClientRect().height>parseFloat(cs.lineHeight)*(sr.width/1920)*1.6)warnings.push({type:'control-label-wrapped',text:dt.textContent,hint:'检查短标签断行；可用 rows_layout: stacked 或重新分配栏宽'});
         }
-        if(readingMode&&[...s.querySelectorAll('.journey-item')].some(el=>el.getBoundingClientRect().width/(sr.width/1920)<240))warnings.push({type:'journey-caption-narrow',hint:'阶段栏宽较窄；优先调整场景构图及图文占幅，再选择短字段或其他版式'});
+        if([...s.querySelectorAll('.journey-item')].some(el=>el.getBoundingClientRect().width/(sr.width/1920)<240))warnings.push({type:'journey-caption-narrow',hint:'阶段栏宽较窄；优先调整场景构图及图文占幅，再选择短字段或其他版式'});
 
         return {page:Number(document.querySelector('#page-input').value),id:s.id,title:s.querySelector('h1').textContent,issues,brokenImages,imageBalance,imageArea,warnings,manualReview:contract.manual||[]};
       });

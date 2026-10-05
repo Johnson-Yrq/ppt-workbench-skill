@@ -1,0 +1,4 @@
+interface:
+  display_name: "黑白编辑式 PPT"
+  short_description: "以黑白节奏、超大标题、细线胶囊与内容相关摄影制作中文商业演示稿"
+  default_prompt: "使用 $monochrome-editorial-slides 制作黑白编辑式 HTML 演示稿，沿用独立页头与大标题留白，按内容选择共享布局并主动生成相关摄影；导出与成稿检查由我自行完成。"

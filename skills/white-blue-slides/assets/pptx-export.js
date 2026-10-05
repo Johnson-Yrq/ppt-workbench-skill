@@ -7,7 +7,7 @@
  const EMU=6350,SLIDE_W=1920,SLIDE_H=1080,DEFAULT_FONT='Microsoft YaHei';
  const NS_A='http://schemas.openxmlformats.org/drawingml/2006/main',NS_P='http://schemas.openxmlformats.org/presentationml/2006/main',NS_R='http://schemas.openxmlformats.org/officeDocument/2006/relationships',NS_C='http://schemas.openxmlformats.org/drawingml/2006/chart';
  const REL='http://schemas.openxmlformats.org/officeDocument/2006/relationships/',XLINK='http://www.w3.org/1999/xlink',SVG='http://www.w3.org/2000/svg';
- const SKIP='script,style,template,noscript,.chart-editor,.chart-config,.toolbar,#notes-panel,#status,[hidden]';
+ const SKIP='script,style,template,noscript,.chart-editor,.chart-config,.comp-progress-editor,.toolbar,#notes-panel,#status,[hidden]';
  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
  const emu=v=>Math.round(v*EMU);
  const pt100=v=>Math.round(v*50); // px → hundredths of a point (1920 px = 960 pt)
@@ -110,7 +110,7 @@
   return measureCtx.measureText(text).width;
  }
 
- /* ---- native charts (bar / line / donut) with an embedded workbook ---- */
+ /* ---- native charts (bar / line / donut / pie) with an embedded workbook ---- */
  const colLetter=i=>String.fromCharCode(65+i);
  async function workbook(data){
   const cell=(ref,v)=>typeof v==='number'?`<c r="${ref}"><v>${v}</v></c>`:`<c r="${ref}" t="inlineStr"><is><t>${esc(v)}</t></is></c>`;
@@ -130,11 +130,11 @@
   ]);
  }
  function chartXml(data,o,frame){
-  const n=data.categories.length,single=data.series.length===1,horizontal=data.chart_type==='bar',donut=data.chart_type==='donut';
+  const n=data.categories.length,single=data.series.length===1,horizontal=data.chart_type==='bar',donut=data.chart_type==='donut',pie=data.chart_type==='pie',round=donut||pie;
   // Mirror the ECharts geometry (charts.js): grid insets for axes charts, centre 32 % / radius 83 % for the ring.
   const fx=v=>Math.max(0,Math.min(1,v)).toFixed(4);
   let inner;
-  if(donut){const d=.83*Math.min(frame.w,frame.h);inner={x:(.32*frame.w-d/2)/frame.w,y:(.5*frame.h-d/2)/frame.h,w:d/frame.w,h:d/frame.h}}
+  if(round){const d=.83*Math.min(frame.w,frame.h);inner={x:(.32*frame.w-d/2)/frame.w,y:(.5*frame.h-d/2)/frame.h,w:d/frame.w,h:d/frame.h}}
   else{const legend=!single,left=horizontal?100:55,right=horizontal?88:48,top=(horizontal?12:46)+(legend?38:0),bottom=(horizontal&&!single?58:32)+12;inner={x:left/frame.w,y:top/frame.h,w:(frame.w-left-right)/frame.w,h:(frame.h-top-bottom)/frame.h}}
   const layout=`<c:layout><c:manualLayout><c:layoutTarget val="inner"/><c:xMode val="edge"/><c:yMode val="edge"/><c:x val="${fx(inner.x)}"/><c:y val="${fx(inner.y)}"/><c:w val="${fx(inner.w)}"/><c:h val="${fx(inner.h)}"/></c:manualLayout></c:layout>`;
   const txPr=(sz,hex,extra='')=>`<c:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr sz="${sz}"${extra}><a:solidFill><a:srgbClr val="${hex}"/></a:solidFill><a:latin typeface="${esc(o.font)}"/><a:ea typeface="${esc(o.font)}"/></a:defRPr></a:pPr><a:endParaRPr lang="zh-CN"/></a:p></c:txPr>`;
@@ -147,7 +147,7 @@
    const hex=o.colors[i%o.colors.length],col=colLetter(i+1);
    const tx=`<c:tx><c:strRef><c:f>Sheet1!$${col}$1</c:f>${strCache([s.name])}</c:strRef></c:tx>`;
    const val=`<c:val><c:numRef><c:f>Sheet1!$${col}$2:$${col}$${n+1}</c:f>${numCache(s.values)}</c:numRef></c:val>`;
-   if(donut){
+   if(round){
     const pts=data.categories.map((_,j)=>`<c:dPt><c:idx val="${j}"/><c:bubble3D val="0"/><c:spPr><a:solidFill><a:srgbClr val="${o.colors[j%o.colors.length]}"/></a:solidFill><a:ln><a:noFill/></a:ln></c:spPr></c:dPt>`).join('');
     return `<c:ser><c:idx val="${i}"/><c:order val="${i}"/>${tx}${pts}${labels('FFFFFF',null,true)}${cat}${val}</c:ser>`;
    }
@@ -158,6 +158,7 @@
   }).join('');
   let plot;
   if(donut)plot=`<c:doughnutChart><c:varyColors val="1"/>${series}<c:firstSliceAng val="0"/><c:holeSize val="66"/></c:doughnutChart>`;
+  else if(pie)plot=`<c:pieChart><c:varyColors val="1"/>${series}<c:firstSliceAng val="0"/></c:pieChart>`;
   else{
    const axes='<c:axId val="10"/><c:axId val="20"/>';
    const kind=data.chart_type==='line'?`<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>${series}<c:marker val="1"/>${axes}</c:lineChart>`:`<c:barChart><c:barDir val="${horizontal?'bar':'col'}"/><c:grouping val="clustered"/><c:varyColors val="0"/>${series}<c:gapWidth val="${single?150:80}"/>${axes}</c:barChart>`;
@@ -167,7 +168,7 @@
    const valAx=`<c:valAx><c:axId val="20"/><c:scaling><c:orientation val="minMax"/><c:min val="0"/></c:scaling><c:delete val="0"/><c:axPos val="${horizontal?'b':'l'}"/><c:majorGridlines><c:spPr><a:ln w="${emu(1)}"><a:solidFill><a:srgbClr val="${o.grid}"/></a:solidFill><a:prstDash val="dash"/></a:ln></c:spPr></c:majorGridlines>${unitTitle}<c:numFmt formatCode="General" sourceLinked="1"/><c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/><c:spPr><a:ln><a:noFill/></a:ln></c:spPr>${axisText}<c:crossAx val="10"/><c:crosses val="${horizontal?'max':'autoZero'}"/><c:crossBetween val="between"/></c:valAx>`;
    plot=kind+catAx+valAx;
   }
-  const legend=donut||!single?`<c:legend><c:legendPos val="${donut?'r':'t'}"/><c:overlay val="0"/>${txPr(1050,o.muted)}</c:legend>`:'';
+  const legend=round||!single?`<c:legend><c:legendPos val="${round?'r':'t'}"/><c:overlay val="0"/>${txPr(1050,o.muted)}</c:legend>`:'';
   return `${XML_HEAD}<c:chartSpace xmlns:c="${NS_C}" xmlns:a="${NS_A}" xmlns:r="${NS_R}"><c:date1904 val="0"/><c:lang val="zh-CN"/><c:roundedCorners val="0"/><c:chart><c:autoTitleDeleted val="1"/><c:plotArea>${layout}${plot}<c:spPr><a:noFill/><a:ln><a:noFill/></a:ln></c:spPr></c:plotArea>${legend}<c:plotVisOnly val="1"/><c:dispBlanksAs val="gap"/></c:chart><c:spPr><a:noFill/><a:ln><a:noFill/></a:ln></c:spPr>${txPr(1050,o.muted)}<c:externalData r:id="rId1"><c:autoUpdate val="0"/></c:externalData></c:chartSpace>`;
  }
 
@@ -352,12 +353,13 @@
    if(shadow){shadow.blur*=z;shadow.dist*=z}
    const sides=['Top','Right','Bottom','Left'].map(s=>{const w=num(st['border'+s+'Width'])*z,c=color(st['border'+s+'Color']),style=st['border'+s+'Style'];return w>0&&style!=='none'&&style!=='hidden'&&c?{w,c,style}:null});
    const uniform=sides.every(s=>s&&s.w===sides[0].w&&s.c.hex===sides[0].c.hex&&s.c.a===sides[0].c.a&&s.style===sides[0].style);
-   const radius=[st.borderTopLeftRadius,st.borderTopRightRadius,st.borderBottomRightRadius,st.borderBottomLeftRadius].map(v=>num(v)*z);
+   const radius=[st.borderTopLeftRadius,st.borderTopRightRadius,st.borderBottomRightRadius,st.borderBottomLeftRadius].map(v=>v.endsWith('%')?num(v)/100*Math.min(r.w,r.h):num(v)*z);
    if(bg||grad||uniform||shadow){
     const ss=Math.min(r.w,r.h),adj=v=>Math.round(Math.min(50000,v/ss*100000));
     let geom='<a:prstGeom prst="rect"><a:avLst/></a:prstGeom>';
     if(radius.some(v=>v>0)){
-     if(radius.every(v=>v===radius[0]))geom=`<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val ${adj(radius[0])}"/></a:avLst></a:prstGeom>`;
+     if(Math.abs(r.w-r.h)<.1&&radius.every(v=>v>=ss/2))geom='<a:prstGeom prst="ellipse"><a:avLst/></a:prstGeom>';
+     else if(radius.every(v=>v===radius[0]))geom=`<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val ${adj(radius[0])}"/></a:avLst></a:prstGeom>`;
      else if(radius[0]===radius[1]&&!radius[2]&&!radius[3])geom=`<a:prstGeom prst="round2SameRect"><a:avLst><a:gd name="adj1" fmla="val ${adj(radius[0])}"/><a:gd name="adj2" fmla="val 0"/></a:avLst></a:prstGeom>`;
      else geom=`<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val ${adj(Math.max(...radius))}"/></a:avLst></a:prstGeom>`;
     }
@@ -498,8 +500,8 @@
    let data;try{data=JSON.parse(cfg.textContent)}catch{return}
    if(!data||!Array.isArray(data.categories)||!Array.isArray(data.series)||!data.series.length)return;
    const r=this.map(host.getBoundingClientRect());if(r.w<1||r.h<1)return;
-   const root=cs(document.documentElement),get=(k,f)=>root.getPropertyValue(k).trim()||f;
-   const palette={colors:[hexOf(get('--diagram-accent',''),'477F80'),hexOf(get('--diagram-strong',''),'1D3446'),hexOf(get('--chart-tertiary',get('--saas-gold','')),'BC9B59')],muted:hexOf(get('--muted',''),'5A6373'),grid:hexOf(get('--chart-grid',''),'DAE3E1'),font:this.pkg.font};
+   const root=cs(host),get=(k,f)=>root.getPropertyValue(k).trim()||f;
+   const palette={colors:[hexOf(get('--diagram-accent',''),'477F80'),hexOf(get('--diagram-strong',''),'1D3446'),hexOf(get('--chart-tertiary',get('--saas-gold','')),'BC9B59'),...['--chart-quaternary','--chart-quinary'].map(key=>get(key,'')).filter(Boolean).map(value=>hexOf(value,'BC9B59'))],muted:hexOf(get('--muted',''),'5A6373'),grid:hexOf(get('--chart-grid',''),'DAE3E1'),font:this.pkg.font};
    const rId=this.rel(REL+'chart',await this.pkg.addChart(data,palette,r));
    this.push(host,`<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="${++this.id}" name="${esc(data.title||'图表')}"/><p:cNvGraphicFramePr/><p:nvPr/></p:nvGraphicFramePr><p:xfrm><a:off x="${emu(r.x)}" y="${emu(r.y)}"/><a:ext cx="${emu(r.w)}" cy="${emu(r.h)}"/></p:xfrm><a:graphic><a:graphicData uri="${NS_C}"><c:chart xmlns:c="${NS_C}" xmlns:r="${NS_R}" r:id="${rId}"/></a:graphicData></a:graphic></p:graphicFrame>`);
    this.pkg.stats.charts++;
@@ -519,7 +521,7 @@
   const slides=[...document.querySelectorAll('.slide')];
   if(!slides.length)throw new Error('没有找到演示页面');
   if(document.querySelector('body.draft,.missing-image'))throw new Error('草稿或缺图的演示稿不能导出 PPTX，请先补齐配图');
-  if(document.querySelector('.chart-shell[data-invalid]'))throw new Error('请先修正图表数据');
+  if(document.querySelector('.chart-shell[data-invalid],.comp-progress[data-invalid]'))throw new Error('请先修正图表数据');
   await document.fonts.ready;
   const api=window.deckAPI,before=api?api.current:null,active=slides.map(s=>s.classList.contains('active'));
   const pkg=new Package(font);

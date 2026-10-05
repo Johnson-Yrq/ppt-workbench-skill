@@ -1,0 +1,31 @@
+{
+  "tool": "built-in imagegen",
+  "purpose": "warm-minimal-editorial style specimen",
+  "prompts": [
+    {
+      "name": "courtyard",
+      "prompt": "Original photorealistic architectural editorial photograph for a warm minimal interior design presentation. A close architectural composition looking upward through a narrow open courtyard: coarse warm sandstone and brown plaster walls, a sliver of cloudy pale desaturated sky, one strong diagonal natural shadow. Monumental simple geometry, no decorations, no people. Slight analog film grain, believable material pores, muted earthy taupe and deep olive shadows, subtle cinematic warmth not orange. Portrait 3:4 framing to crop into half of a 16:9 slide. Quiet premium architecture magazine photography. No text, typography, numbers, logos, watermarks, border, collage, page layout or computer render look.",
+      "src": "images/courtyard.webp"
+    },
+    {
+      "name": "living",
+      "prompt": "Original photorealistic editorial interior photograph, a peaceful lived-in Scandinavian and Italian inspired living room: oatmeal linen low sofa, sculptural warm oak lounge chair, pale travertine low table with just a ceramic bowl, textured limewash walls, sheer curtains and late afternoon side light. Human eye-level camera, wide 16:9 landscape, long horizontal composition, clear warm light shadow zones. Muted beige, tobacco wood, warm gray and cream, delicate analog grain, natural material imperfections, understated architecture magazine quality. No people, text, logo, graphic labels, border, collage, page layout or CGI perfection.",
+      "src": "images/living.webp"
+    },
+    {
+      "name": "materials",
+      "prompt": "Original warm minimal editorial still-life photograph of interior material studies on a tan tabletop: one upright dark stone slab, one smaller travertine sample, folded oatmeal linen and a small matte ceramic vessel with a dry branching twig. A deliberate asymmetrical sculptural grouping occupying the right-middle, clean breathing space to left, soft directional afternoon light, real tactile rough stone and fine fabric weave, muted sand and earthy deep brown palette, slight film grain. Landscape 3:2 image. Natural editorial photography, not a product render. No text, letters, logos, watermarks, border, collage or presentation design.",
+      "src": "images/materials.webp"
+    },
+    {
+      "name": "detail",
+      "prompt": "Original architectural editorial photograph of a warm oak chair with a woven natural seat beside a heavy ivory linen curtain, ceramic cup on a low travertine side table, afternoon sun casting a long soft rectangle on a limewashed wall. Quiet intimate close detail, portrait 3:4 composition, lens depth without heavy blur, beige charcoal tobacco palette, matte tactile materials, analog grain, natural small imperfections, believable furniture proportions. No person, no text, logo, watermark, border, collage or slide layout.",
+      "src": "images/detail.webp"
+    },
+    {
+      "name": "studio",
+      "prompt": "Original photorealistic editorial photograph in an interior designer's workshop. Close oblique overhead crop of anonymous hands thoughtfully arranging a wood swatch, pale stone tile and cream fabric on a large oak worktable, a few blank paper rectangles and one pencil nearby. No visible faces. Natural window light with soft shadow and subdued warm neutral color, tactile materials, premium restrained magazine art direction, slight film grain. Wide landscape 16:9 composition with uncluttered background and only a few objects. No readable writing, text, numbers, logos, watermark, border, collage or slide design.",
+      "src": "images/studio.webp"
+    }
+  ]
+}

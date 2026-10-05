@@ -6,6 +6,8 @@ import shutil
 from pathlib import Path
 from common import load_deck, local_path, read_raster, presentation_mode, slide_images, IMAGE_RATIOS
 from style_packs import resolve_style, ui_text_prompt, paper_color
+from editorial_contract import EDITORIAL_RATIOS
+from composition_layouts import SHARED_LAYOUTS
 
 RATIOS = IMAGE_RATIOS
 FIELDS = [('subject', 'Scene inventory 场景对象与数量'), ('action', 'Action 用户操作或系统处理'),
@@ -42,13 +44,27 @@ def build_prompt(style, ratio, slide, visual, brief, upper, pack=None, mode='spe
     pack = pack or resolve_style({})
     lines = [f'{label}: {" ".join(brief[key].split())}' for key, label in FIELDS if isinstance(brief.get(key), str) and brief[key].strip()]
     hint = ''
-    if upper:
+    if slide['layout'] == 'editorial':
+        variant = slide['editorial_variant']
+        hint = ('Compose one distinct image at the requested crop for the ' + variant
+                + ' shared editorial layout. Follow the selected visual style for the image medium, materials and lighting. '
+                + 'Do not render a complete slide, collage, diagram or text field. '
+                + 'All page headings and captions remain editable content outside the image.')
+    elif slide['layout'] in SHARED_LAYOUTS:
+        hint = ('Compose one distinct image for the ' + slide['layout']
+                + ' shared layout, using the selected style\'s medium, materials and lighting. '
+                + 'Preserve the requested aspect ratio and essential subject detail. '
+                + 'Do not render slide text, charts or a whole presentation page into the image.')
+        if slide['image'].get('frame') == 'monitor':
+            hint += (' The image will be placed inside an editable CSS monitor frame. '
+                     'Render only the requested screen content; do not draw a monitor bezel, device body, stand or surrounding mockup.')
+    elif upper:
         hint = pack['layout_hints'].get('above', '')
         hint += '\nUse the requested aspect ratio and distribute the actual subject across the composition, aligned with the caption columns. If a panoramic frame is requested, compose a shallow wide scene; do not stretch the objects or simulate width with empty side margins.'
     elif slide['layout'] == 'architecture' or visual.get('role') == 'architecture':
         hint = pack['layout_hints'].get('architecture', '')
-    if mode == 'reading' and slide['layout'] == 'reading':
-        hint += '\nThis illustration is a substantial visual explanation on a reading slide: illustrations occupy the selected half or quarter of the content-body regions, separate from the header and footer. Compose a large, complete, clearly legible subject with modest safety margins. Each image explains its own part of the content; avoid duplicate scenes or decorative filler. Detailed processes, matrices, labels and factual data remain separate editable content; do not bake those into the image.'
+    if slide['layout'] == 'reading':
+        hint += '\nThis image belongs to an explicitly selected composite layout. Compose a complete, clearly legible subject for its image region, with modest safety margins. Each image explains its own part of the content; avoid duplicate scenes. Detailed processes, matrices, labels and factual data remain separate editable content; do not bake those into the image.'
     policy = ui_text_prompt(pack, slide['image'].get('ui_text', pack['default_ui_text']))
     return f'{style}\n\nAspect ratio {ratio}.' + (f'\n{hint}' if hint else '') + (f'\n{policy}' if policy else '') + '\nThis page (describe the scene; never render these words as text):\n' + '\n'.join(lines)
 
@@ -61,7 +77,9 @@ def prepare(filename, out):
     reference_name = 'style-reference' + reference.suffix if reference else None
     mode = presentation_mode(deck)
     paper = paper_color(deck, pack)
-    manifest = {'version': 1, 'title': deck['title'], 'presentation_mode': mode, 'style': pack['id'], 'paper': paper, 'style_reference': reference_name, 'images': []}
+    image_background = pack.get('image_background', 'paper')
+    manifest = {'version': 1, 'title': deck['title'], 'presentation_mode': mode, 'style': pack['id'], 'paper': paper,
+                'image_background': image_background, 'style_reference': reference_name, 'images': []}
     text_note = ('屏幕内文字按每页 ui_text 策略生成，页面标题与业务说明在 HTML 中制作。' if pack['ui_text_modes'] != ['none']
                  else '配图不含文字，页面文字将在 HTML 中制作。')
     blocks = [f'# {deck["title"]} · 逐页配图提示词',
@@ -79,7 +97,9 @@ def prepare(filename, out):
             brief = im.get('brief', {})
             visual = slide.get('visual') if isinstance(slide.get('visual'), dict) else {}
             upper = slide['layout'] == 'journey' or visual.get('image_position') == 'above'
-            ratio = im.get('ratio', '16:9' if upper or slide['layout'] == 'reading' else '4:3')
+            default_ratio = (EDITORIAL_RATIOS[slide['editorial_variant']] if slide['layout'] == 'editorial'
+                             else '16:9' if upper or slide['layout'] == 'reading' else '4:3')
+            ratio = im.get('ratio', default_ratio)
             if ratio not in RATIOS:
                 raise ValueError(f'第 {i} 页图片比例不支持：{ratio}')
             if not exists:
@@ -87,10 +107,23 @@ def prepare(filename, out):
             prompt = None
             if isinstance(brief, dict) and isinstance(brief.get('subject'), str) and brief['subject'].strip():
                 prompt = build_prompt(style, ratio, dict(slide, image=im), visual, brief, upper, pack, mode)
-                rgb = tuple(int(paper[j:j+2], 16) for j in (1, 3, 5))
-                prompt += f'\nRequired background for BOTH new generation and image edits: {paper}, RGB {rgb}. Generate directly on this exact flat page colour across all exposed margins and gaps between objects. Preserve local contact shadows; do not add a contrasting rectangular studio backdrop or vignette. Do not substitute a white intermediate matte, another neutral grey, or a painted transparency checkerboard. This target overrides any different background in the reference or source image. Inspect the actual output against the page before accepting it.'
+                if image_background == 'paper':
+                    rgb = tuple(int(paper[j:j+2], 16) for j in (1, 3, 5))
+                    prompt += f'\nRequired background for BOTH new generation and image edits: {paper}, RGB {rgb}. Generate directly on this exact flat page colour across all exposed margins and gaps between objects. Preserve local contact shadows; do not add a contrasting rectangular studio backdrop or vignette. Do not substitute a white intermediate matte, another neutral grey, or a painted transparency checkerboard. This target overrides any different background in the reference or source image. Inspect the actual output against the page before accepting it.'
+                else:
+                    prompt += ('\nPhotographic background policy: preserve the real setting, natural background, material texture and available light. '
+                               'The photograph is a rectangular editorial image, independent of the slide paper colour. '
+                               'Do not replace its background with the page colour, a white intermediate matte or a decorative gradient, '
+                               'and do not apply paper-colour mapping to the photograph.')
             entry = {'page': i, 'image_index': image_index, 'slide_id': slide['id'], 'title': slide['title'], 'file': im['src'],
-                     'ratio': ratio, 'paper': paper, 'ui_text': im.get('ui_text', pack['default_ui_text']), 'alt': im['alt'], 'status': 'provided' if exists else 'missing', 'prompt': prompt}
+                     'ratio': ratio, 'paper': paper, 'image_background': image_background,
+                     'ui_text': im.get('ui_text', pack['default_ui_text']), 'alt': im['alt'], 'status': 'provided' if exists else 'missing', 'prompt': prompt}
+            if 'caption' in im:
+                entry['caption'] = im['caption']
+            if 'frame' in im:
+                entry['frame'] = im['frame']
+            if slide['layout'] == 'editorial':
+                entry['editorial_variant'] = slide['editorial_variant']
             manifest['images'].append(entry)
             blocks.append(f'## 第 {i:02d} 页 · 配图 {image_index} · {slide["title"]}\n\n文件名：`{im["src"]}`\n\n比例：{ratio}；状态：' + ('已提供' if exists else '待生成'))
             blocks.append('```text\n' + prompt + '\n```' if prompt else '使用已提供的配图。')

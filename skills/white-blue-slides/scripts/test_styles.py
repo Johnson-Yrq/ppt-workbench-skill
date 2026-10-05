@@ -173,7 +173,7 @@ class StyleRegressionTests(unittest.TestCase):
         slide = deck['slides'][0]
         missing = copy.deepcopy(deck)
         missing['slides'][0].pop('images')
-        with self.assertRaisesRegex(ValueError, '每页需要 image'):
+        with self.assertRaisesRegex(ValueError, '需要 image'):
             self.render(missing)
         complete_example = quiet_prepare(write_deck(self.root, self.reading), self.root / 'example-prompts')
         self.assertEqual(len(complete_example['images']), sum(len(slide_images(s)) for s in self.reading['slides']))
@@ -200,8 +200,11 @@ class StyleRegressionTests(unittest.TestCase):
         data, root = load_deck(write_deck(self.root, deck))
         self.assertEqual(check_plan(data, root)['pages'][0]['composition'], 'half_tb')
         deck['presentation_mode'] = 'speech'
-        with self.assertRaisesRegex(ValueError, 'reading 版式需要'):
-            self.render(deck)
+        speech = Document(self.render(deck))
+        self.assertEqual(speech.body['data-presentation-mode'], 'speech')
+        self.assertEqual(speech.images, doc.images)
+        self.assertEqual(speech.editable, doc.editable)
+        self.assertEqual(speech.pages, doc.pages)
 
     def test_visual_reading_content_is_not_reported_as_plain_text(self):
         from design_contract import analyze_deck
@@ -291,10 +294,9 @@ class StyleRegressionTests(unittest.TestCase):
             data, root = load_deck(write_deck(self.root, sample))
             self.assertFalse(check_plan(data, root)['ok'], layout)
 
-    def test_reading_rejects_unstructured_filler_and_invalid_visual_data(self):
+    def test_reading_rejects_invalid_content_and_keeps_facts_only_pages(self):
         cases = [
             lambda s: s.update(summary=''),
-            lambda s: s.update(blocks=[s['blocks'][1], copy.deepcopy(s['blocks'][1])]),
             lambda s: s['blocks'][0].update(type=['matrix']),
             lambda s: s['blocks'][0]['rows'].append(['列数不一致']),
             lambda s: s['blocks'][1]['rows'].append('无结构正文'),
@@ -309,6 +311,11 @@ class StyleRegressionTests(unittest.TestCase):
             result = self.cli('build_deck.py', write_deck(self.root, deck), '--check-plan')
             self.assertNotEqual(result.returncode, 0)
             self.assertNotIn('Traceback', result.stderr + result.stdout)
+        facts = copy.deepcopy(self.reading['slides'][5])
+        facts.update(composition='half_lr', blocks=[facts['blocks'][2], copy.deepcopy(facts['blocks'][2])])
+        deck = dict(copy.deepcopy(self.reading), slides=[facts])
+        result = self.cli('build_deck.py', write_deck(self.root, deck), '--check-plan')
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
 
     def test_all_shared_layouts_render_in_installed_styles(self):
         from style_packs import discover_styles
@@ -340,7 +347,8 @@ class StyleRegressionTests(unittest.TestCase):
             self.assertIn(color, css)
         for style, doc in documents.items():
             self.assertEqual(legacy.scripts, doc.scripts, style)
-            self.assertEqual(legacy.editable, doc.editable, style)
+            # Each style may provide its own metadata nodes in its header.
+            self.assertGreaterEqual(doc.editable, legacy.editable, style)
         if 'real-miniature' in documents:
             css = '\n'.join(documents['real-miniature'].styles)
             for color in ('#EEEDE8', '#26313A', '#55748A', '#798469', '#B88A43'):
@@ -555,9 +563,113 @@ class MiniatureStyleTests(unittest.TestCase):
             self.assertIn(expected, manifest['images'][0]['prompt'])
 
 
+class SurfaceAndImageFreeTests(unittest.TestCase):
+    """Dark pages and image-free covers are opt-in per style; installed styles keep requiring both defaults."""
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix='surface-test-')
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.deck = json.loads((ASSETS / 'deck.example.json').read_text(encoding='utf-8'))
+        for im in (s['image'] for s in self.deck['slides']):
+            (self.root / im['src']).parent.mkdir(parents=True, exist_ok=True)
+            (self.root / im['src']).write_bytes(placeholder_png())
+
+    def install(self, manifest):
+        """A throwaway skills root: the shared kit plus one test style declaring `manifest`."""
+        skills = self.root / 'skills'
+        shutil.copytree(SKILL, skills / 'white-blue-slides', ignore=shutil.ignore_patterns('__pycache__', 'reference-design'))
+        pack = skills / 'test-dark-slides' / 'assets'
+        pack.mkdir(parents=True)
+        (pack.parent / 'SKILL.md').write_text('# test', encoding='utf-8')
+        (pack / 'image-style.txt').write_text('Test illustration style.', encoding='utf-8')
+        (pack / 'style.json').write_text(json.dumps(dict({'schema': 'html-slide-style/v1', 'id': 'test-dark', 'name': '测试深色', 'description': '测试', 'status': 'ready', 'css': None,
+            'image_prompt': 'image-style.txt', 'ui_text_modes': ['none'], 'default_ui_text': 'none', 'ui_text_prompts': {'none': 'No text.'}}, **manifest)), encoding='utf-8')
+        self.deck['style'] = 'test-dark'
+        return skills / 'white-blue-slides' / 'scripts'
+
+    def build(self, scripts, *args):
+        path = write_deck(self.root, self.deck)
+        return subprocess.run([sys.executable, str(scripts / 'build_deck.py'), str(path), *args], cwd=self.root, capture_output=True, text=True, timeout=60)
+
+    def test_installed_default_style_keeps_light_pages_and_images(self):
+        for name, mutate in {'dark surface': lambda d: d['slides'][1].__setitem__('surface', 'dark'),
+                             'image-free cover': lambda d: d['slides'][0].pop('image')}.items():
+            with self.subTest(name):
+                deck = copy.deepcopy(self.deck); mutate(deck)
+                with self.assertRaises(ValueError) as caught:
+                    load_deck(write_deck(self.root, deck))
+                self.assertIn('surface' if 'surface' in name else 'image', str(caught.exception))
+
+    def test_style_opts_in_to_dark_pages_and_image_free_cover(self):
+        scripts = self.install({'surfaces': ['light', 'dark', 'sepia'], 'image_free_layouts': ['cover', 'closing']})
+        self.deck['slides'][0].pop('image')
+        self.deck['slides'][1]['surface'] = 'dark'
+        self.deck['slides'][2]['surface'] = 'sepia'
+        result = self.build(scripts, '--out', self.root / 'out.html', '--embed-format', 'keep')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        doc = Document((self.root / 'out.html').read_text(encoding='utf-8'))
+        cover, scene = list(doc.pages.values())[:2]
+        self.assertIn('no-image', cover['class'].split())
+        self.assertEqual(scene.get('data-surface'), 'dark')
+        self.assertEqual(list(doc.pages.values())[2].get('data-surface'), 'sepia')
+        self.assertNotIn('data-surface', cover)
+        self.assertEqual(len(doc.images), 2)
+        result = subprocess.run([sys.executable, str(scripts / 'prepare_images.py'), str(self.root / 'deck.json'), '--out', str(self.root / 'handoff')],
+                                cwd=self.root, capture_output=True, text=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(len(json.loads((self.root / 'handoff/image-manifest.json').read_text(encoding='utf-8'))['images']), 2)
+
+    def test_cover_credits_work_without_image_but_labels_still_require_it(self):
+        scripts = self.install({'image_free_layouts': ['cover']})
+        cover = self.deck['slides'][0]
+        cover.pop('image')
+        cover['credits'] = [{'title': '方案出品', 'text': '品牌团队'}, {'title': '汇报对象', 'text': '运营伙伴'}]
+        for mode in ('speech', 'reading'):
+            self.deck['presentation_mode'] = mode
+            result = self.build(scripts, '--out', self.root / 'credits.html', '--embed-format', 'keep')
+            self.assertEqual(result.returncode, 0, result.stderr)
+            html = (self.root / 'credits.html').read_text()
+            self.assertIn('<div class="cover-credits">', html)
+            self.assertIn('<h3 data-edit>方案出品</h3>', html)
+            self.assertIn('<p data-edit>运营伙伴</p>', html)
+        for credits in ([{'title': '出品', 'text': '团队', 'y': 850}], [{'title': '缺少内容'}],
+                        [{'title': '出品', 'text': '团队'}] * 5):
+            cover['credits'] = credits
+            result = self.build(scripts, '--check-plan')
+            self.assertNotEqual(result.returncode, 0)
+        cover.pop('credits')
+        cover['labels'] = [{'title': '配图标注', 'text': '需要配图', 'y': 250}]
+        result = self.build(scripts, '--check-plan')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('无图时', result.stderr)
+
+    def test_image_free_limits(self):
+        scripts = self.install({'image_free_layouts': ['cover']})
+        cases = {'content page without image': lambda d: d['slides'][1].pop('image'),
+                 'closing not declared': lambda d: d['slides'][2].pop('image'),
+                 'variant without image': lambda d: d['slides'][0].update(variant='mirror') or d['slides'][0].pop('image'),
+                 'undeclared dark surface': lambda d: d['slides'][1].__setitem__('surface', 'dark')}
+        original = copy.deepcopy(self.deck)
+        for name, mutate in cases.items():
+            with self.subTest(name):
+                self.deck = copy.deepcopy(original); mutate(self.deck)
+                result = self.build(scripts, '--check-plan')
+                self.assertNotEqual(result.returncode, 0)
+                self.assertNotIn('Traceback', result.stderr)
+
+    def test_invalid_manifest_values_are_reported(self):
+        for manifest in ({'surfaces': ['dark']}, {'surfaces': ['light', 'invalid surface']}, {'image_free_layouts': ['scene']}):
+            with self.subTest(manifest=manifest):
+                shutil.rmtree(self.root / 'skills', ignore_errors=True)
+                scripts = self.install(manifest)
+                result = self.build(scripts, '--check-plan')
+                self.assertNotEqual(result.returncode, 0)
+                self.assertNotIn('Traceback', result.stderr)
+
+
 def run():
     suite = unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-                               for case in (StyleRegressionTests, MiniatureStyleTests))
+                               for case in (StyleRegressionTests, MiniatureStyleTests, SurfaceAndImageFreeTests))
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     return 0 if result.wasSuccessful() else 1
 

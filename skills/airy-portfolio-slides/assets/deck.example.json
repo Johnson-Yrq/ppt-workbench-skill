@@ -1,0 +1,533 @@
+{
+  "title": "留白衬线影集 · 中文风格样稿",
+  "style": "airy-portfolio",
+  "presentation_mode": "speech",
+  "company": "拾光影像",
+  "year": "2026",
+  "footer_label": "虚构风格样例",
+  "slides": [
+    {
+      "title": "光阴有形",
+      "layout": "type_poster",
+      "variant": "cover",
+      "placement": "center",
+      "eyebrow": "— 拾光影像 —",
+      "subtitle": "在日常里，看见值得留下的瞬间",
+      "id": "p01",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "用可编辑文字和留白表达核心叙述。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "cover",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "每一张照片，都是一次认真观看。\n在光线与生活之间，留下时间的形状。",
+      "layout": "type_poster",
+      "variant": "statement",
+      "placement": "center",
+      "id": "p02",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "none",
+        "rationale": "用可编辑文字和留白表达核心叙述。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "关于拾光",
+      "layout": "editorial_columns",
+      "title_column": 1,
+      "columns": [
+        {
+          "type": "image",
+          "image": {
+            "src": "images/photographer.webp",
+            "alt": "摄影师整理作品，原创生成意象",
+            "brief": {
+              "subject": "black-and-white photographer editing prints",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 3:4"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "拾光影像是一间虚构的摄影工作室。本样稿以旅行、食物与相聚为线索，呈现清晰、安静而有温度的影像叙事。",
+            "我们相信，好的照片来自耐心观察。先理解正在发生的生活，再决定镜头靠近的距离。"
+          ],
+          "align": "end"
+        }
+      ],
+      "id": "p03",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "我们的观看方式",
+      "layout": "type_poster",
+      "variant": "statement",
+      "placement": "bottom-right",
+      "copy": "从具体的人、场景和光线出发。\n让画面保留真实的质感，也为想象留下空间。",
+      "bullets": [
+        "观察，而后靠近",
+        "等待自然发生的瞬间",
+        "让每一幅画面回应故事"
+      ],
+      "id": "p04",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "none",
+        "rationale": "用可编辑文字和留白表达核心叙述。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "沿途的光",
+      "subtitle": "项目 01 · 旅行影像",
+      "layout": "editorial_columns",
+      "title_column": 1,
+      "columns": [
+        {
+          "type": "gallery",
+          "grid_columns": 1,
+          "images": [
+            {
+              "src": "images/mountain-road.webp",
+              "alt": "雪山与旅途公路，原创生成意象",
+              "brief": {
+                "subject": "winding road below distant snow mountain",
+                "action": "A quiet photographic moment",
+                "structure": "One complete realistic photographic scene",
+                "details": "Natural light, authentic material texture, no typography or logos",
+                "composition": "wide 16:9"
+              }
+            },
+            {
+              "src": "images/coast-road.webp",
+              "alt": "沿海公路与海岸，原创生成意象",
+              "brief": {
+                "subject": "quiet curving coastal road and blue-green sea",
+                "action": "A quiet photographic moment",
+                "structure": "One complete realistic photographic scene",
+                "details": "Natural light, authentic material texture, no typography or logos",
+                "composition": "wide 16:9"
+              }
+            }
+          ],
+          "weight": 0.9
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "公路连接山与海，也连接一个人对未知的想象。我们把视线放在远处，让道路、山脊和海岸自然地引导观看。",
+            "这组虚构旅行影像保留天气与地貌的层次。蓝灰、草木和暖土色构成轻柔的对比，让照片成为一段可以慢慢阅读的旅程。"
+          ],
+          "weight": 1.1
+        }
+      ],
+      "id": "p05",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 2,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "城市的另一面",
+      "layout": "editorial_columns",
+      "show_title": false,
+      "columns": [
+        {
+          "type": "image",
+          "image": {
+            "src": "images/city-river.webp",
+            "alt": "暮色中的城市河湾，原创生成意象",
+            "brief": {
+              "subject": "river bend and layered rooftops at blue hour",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 4:5"
+            }
+          }
+        },
+        {
+          "type": "gallery",
+          "grid_columns": 1,
+          "images": [
+            {
+              "src": "images/city-rooftops.webp",
+              "alt": "黄昏屋顶与街灯，原创生成意象",
+              "brief": {
+                "subject": "old city rooftops after sunset",
+                "action": "A quiet photographic moment",
+                "structure": "One complete realistic photographic scene",
+                "details": "Natural light, authentic material texture, no typography or logos",
+                "composition": "wide 16:9"
+              }
+            },
+            {
+              "src": "images/city-night.webp",
+              "alt": "夜色中的玻璃建筑，原创生成意象",
+              "brief": {
+                "subject": "urban street between glass towers at night",
+                "action": "A quiet photographic moment",
+                "structure": "One complete realistic photographic scene",
+                "details": "Natural light, authentic material texture, no typography or logos",
+                "composition": "wide 16:9"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "p06",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "gallery",
+        "item_count": 3,
+        "media": {
+          "count": 3,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_gallery",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "寻常滋味",
+      "subtitle": "项目 02 · 食物摄影",
+      "layout": "editorial_columns",
+      "title_column": 1,
+      "columns": [
+        {
+          "type": "image",
+          "image": {
+            "src": "images/pastry.webp",
+            "alt": "松饼与缓缓落下的蜂蜜，原创生成意象",
+            "brief": {
+              "subject": "pancakes with berries and dripping honey",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 4:5"
+            }
+          },
+          "weight": 0.9
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "一滴蜂蜜落下，光线穿过它的边缘。比精心摆满的餐桌更打动人的，常常是这些短暂而具体的细节。",
+            "我们用自然侧光呈现食物的纹理，以器皿、亚麻和木材作为安静的陪衬。画面里的温度，来自食物本身，也来自一顿日常早餐的期待。"
+          ],
+          "weight": 1.1
+        }
+      ],
+      "id": "p07",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "餐桌上的细节",
+      "layout": "editorial_columns",
+      "show_title": false,
+      "columns": [
+        {
+          "type": "gallery",
+          "grid_columns": 1,
+          "images": [
+            {
+              "src": "images/citrus.webp",
+              "alt": "木桌上的果实，原创生成意象",
+              "brief": {
+                "subject": "rustic bowl of apricots and orange slices",
+                "action": "A quiet photographic moment",
+                "structure": "One complete realistic photographic scene",
+                "details": "Natural light, authentic material texture, no typography or logos",
+                "composition": "portrait 3:4"
+              }
+            },
+            {
+              "src": "images/honey.webp",
+              "alt": "蜂蜜质地特写，原创生成意象",
+              "brief": {
+                "subject": "golden honey falling from wooden dipper",
+                "action": "A quiet photographic moment",
+                "structure": "One complete realistic photographic scene",
+                "details": "Natural light, authentic material texture, no typography or logos",
+                "composition": "wide 16:9"
+              }
+            }
+          ],
+          "weight": 1,
+          "row_weights": [
+            2,
+            1
+          ]
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/breakfast.webp",
+            "alt": "自然光下的早餐静物，原创生成意象",
+            "brief": {
+              "subject": "overhead sourdough and butter breakfast still life",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "landscape 4:3"
+            }
+          },
+          "weight": 2
+        }
+      ],
+      "id": "p08",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "gallery",
+        "item_count": 3,
+        "media": {
+          "count": 3,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_gallery",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "相聚的理由",
+      "subtitle": "项目 03 · 生活纪实",
+      "layout": "editorial_columns",
+      "columns": [
+        {
+          "type": "text",
+          "paragraphs": [
+            "晚餐的主角，是坐在桌边的人。目光、手势和笑声，让平常的一夜变成值得保存的记忆。",
+            "这组虚构聚会影像用环境光记录人与人的距离。镜头不过分打断现场，留下轻松而自然的互动。"
+          ],
+          "align": "end"
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/supper.webp",
+            "alt": "花园里的朋友晚餐，原创生成意象",
+            "brief": {
+              "subject": "candid garden dinner with five adult friends",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 4:5"
+            }
+          }
+        }
+      ],
+      "id": "p09",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "title": "让此刻留下",
+      "layout": "editorial_columns",
+      "show_title": false,
+      "columns": [
+        {
+          "type": "image",
+          "image": {
+            "src": "images/guest.webp",
+            "alt": "晚餐中倾听的朋友，原创生成意象",
+            "brief": {
+              "subject": "candid dinner guest in candlelight",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 2:3"
+            }
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/table.webp",
+            "alt": "晚餐桌上的细节，原创生成意象",
+            "brief": {
+              "subject": "overhead garden dinner table with food and hands",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 2:3"
+            }
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/laughter.webp",
+            "alt": "晚餐中的笑语，原创生成意象",
+            "brief": {
+              "subject": "two adult friends laughing at garden supper",
+              "action": "A quiet photographic moment",
+              "structure": "One complete realistic photographic scene",
+              "details": "Natural light, authentic material texture, no typography or logos",
+              "composition": "portrait 2:3"
+            }
+          }
+        }
+      ],
+      "id": "p10",
+      "notes": "风格开发样稿。拾光影像、项目叙述与人物场景均为虚构示例；照片由内置 imagegen 原创生成，不代表真实客户、作品履历或记录。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以独立原创照片支撑本页故事，保留留白与可编辑文字。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "gallery",
+        "item_count": 3,
+        "media": {
+          "count": 3,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_gallery",
+        "source_ids": []
+      }
+    }
+  ]
+}

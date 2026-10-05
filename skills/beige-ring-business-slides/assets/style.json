@@ -1,0 +1,31 @@
+{
+  "schema": "html-slide-style/v1",
+  "id": "beige-ring-business",
+  "name": "米白环线商务",
+  "description": "温暖米白、黑色无衬线、细线圆环与自然彩色商务摄影；以留白、圆形肖像和灰阶图表呈现清楚克制的品牌营销与商业计划。",
+  "status": "ready",
+  "css": "theme.css",
+  "header_system": "style",
+  "header_template": "header.html",
+  "heading_icons": "optional",
+  "cover_copy_policy": "style",
+  "cover_labels_expected": false,
+  "image_background": "scene",
+  "image_prompt": "image-style.txt",
+  "surfaces": [
+    "light"
+  ],
+  "image_free_layouts": [
+    "cover",
+    "closing",
+    "table"
+  ],
+  "layout_hints": {},
+  "ui_text_modes": [
+    "none"
+  ],
+  "default_ui_text": "none",
+  "ui_text_prompts": {
+    "none": "No legible text, lettering, numbers, captions, logos, brands or watermarks in photographs. All titles, labels, personal names, business information and chart data remain editable slide content."
+  }
+}

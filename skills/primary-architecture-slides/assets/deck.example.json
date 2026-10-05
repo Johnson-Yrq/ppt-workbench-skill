@@ -1,0 +1,568 @@
+{
+  "title": "原色建筑编辑式 · 中文风格样稿",
+  "style": "primary-architecture",
+  "presentation_mode": "speech",
+  "company": "间尺工作室 · 虚构样例",
+  "year": "2026",
+  "slides": [
+    {
+      "id": "p01",
+      "title": "建筑之间",
+      "layout": "type_poster",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "variant": "cover",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "以超大可编辑标题和留白建立建筑主题，不添加装饰图标。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "cover",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p02",
+      "title": "空间理念",
+      "layout": "type_poster",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "variant": "chapter",
+      "number": "1",
+      "show_title": false,
+      "surface": "mustard",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "用无图纯色与巨型数字标记章节；章节名称在编辑态可修改。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p03",
+      "title": "1. 理念",
+      "layout": "editorial_columns",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "columns": [
+        {
+          "type": "text",
+          "paragraphs": [
+            "我们关注建筑与日常之间的关系。光线如何进入，身体如何移动，材料如何随着时间留下痕迹——这些细小的感受，是设计开始的地方。",
+            "间尺是一家虚构的建筑与空间工作室。本样稿借由一组建筑意象，展示一种清晰、克制而富有节奏的表达方式。"
+          ],
+          "align": "end"
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "建筑不止是一幅立面，也是一连串发生在其中的生活。设计先观察场地，再组织空间，让使用者能够自然地理解路径、尺度与边界。",
+            "我们从真实问题出发：一处入口是否容易找到，一段过渡是否让人愿意停留，一束自然光能否抵达最需要它的地方。",
+            "形式来自这些具体的判断。保留必要的结构，减少多余的装饰，让材料、比例与光影成为空间的语言。"
+          ]
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/atrium.webp",
+            "alt": "天光与混凝土中庭，原创生成意象",
+            "brief": {
+              "subject": "天光与混凝土中庭",
+              "action": "静态编辑摄影",
+              "structure": "一个完整且符合真实透视的主体",
+              "details": "自然光、细腻材质与深浅层次，不含文字",
+              "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+            }
+          }
+        }
+      ],
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "正文错位分为理念与解释两栏，竖幅建筑图提供空间尺度。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 3,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p04",
+      "title": "工作团队",
+      "layout": "type_poster",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "variant": "chapter",
+      "number": "2",
+      "show_title": false,
+      "surface": "blue",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "用独立蓝色数字页明确团队章节的开始。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p05",
+      "title": "2. 团队",
+      "layout": "editorial_columns",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "columns": [
+        {
+          "type": "text",
+          "paragraphs": [
+            "好的空间来自不同视角的共同工作。建筑设计、材料研究与空间叙事各有重点，也在一次次讨论中相互校正。",
+            "我们以模型、图纸和现场观察来交换判断，让抽象的概念逐步转化为可感知的空间。以下人物与角色均为虚构示例。"
+          ],
+          "align": "end"
+        },
+        {
+          "type": "people",
+          "items": [
+            {
+              "name": "林序",
+              "role": "建筑与空间",
+              "image": {
+                "src": "images/portrait-lin.webp",
+                "alt": "虚构建筑师林序的人像，原创生成意象",
+                "brief": {
+                  "subject": "虚构建筑师林序的人像",
+                  "action": "静态编辑摄影",
+                  "structure": "一个完整且符合真实透视的主体",
+                  "details": "自然光、细腻材质与深浅层次，不含文字",
+                  "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+                }
+              }
+            },
+            {
+              "name": "周砚",
+              "role": "结构与材料",
+              "image": {
+                "src": "images/portrait-zhou.webp",
+                "alt": "虚构建筑师周砚的人像，原创生成意象",
+                "brief": {
+                  "subject": "虚构建筑师周砚的人像",
+                  "action": "静态编辑摄影",
+                  "structure": "一个完整且符合真实透视的主体",
+                  "details": "自然光、细腻材质与深浅层次，不含文字",
+                  "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+                }
+              }
+            },
+            {
+              "name": "陈禾",
+              "role": "体验与叙事",
+              "image": {
+                "src": "images/portrait-chen.webp",
+                "alt": "虚构空间设计师陈禾的人像，原创生成意象",
+                "brief": {
+                  "subject": "虚构空间设计师陈禾的人像",
+                  "action": "静态编辑摄影",
+                  "structure": "一个完整且符合真实透视的主体",
+                  "details": "自然光、细腻材质与深浅层次，不含文字",
+                  "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/facade.webp",
+            "alt": "白色立面的深窗与阴影，原创生成意象",
+            "brief": {
+              "subject": "白色立面的深窗与阴影",
+              "action": "静态编辑摄影",
+              "structure": "一个完整且符合真实透视的主体",
+              "details": "自然光、细腻材质与深浅层次，不含文字",
+              "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+            }
+          }
+        }
+      ],
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "三位人物的姓名、角色和独立肖像逐一对应，侧图提供设计语境。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "team",
+        "item_count": 3,
+        "media": {
+          "count": 4,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_people",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p06",
+      "title": "设计准则",
+      "layout": "type_poster",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "variant": "chapter",
+      "number": "3",
+      "show_title": false,
+      "surface": "red",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "以红色数字页为设计准则章节建立停顿。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p07",
+      "title": "3. 准则",
+      "layout": "editorial_columns",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "columns": [
+        {
+          "type": "groups",
+          "weight": 2,
+          "align": "end",
+          "group_columns": 2,
+          "items": [
+            {
+              "title": "以人为尺度",
+              "text": "从日常行动理解空间，让路径、停留与交流都拥有清晰的位置。"
+            },
+            {
+              "title": "让光参与",
+              "text": "把自然光视为空间的一部分，观察一天之中明暗如何缓慢改变。"
+            },
+            {
+              "title": "尊重材料",
+              "text": "保留材料的纹理和真实连接，让细节经得起近看，也允许时间留下痕迹。"
+            },
+            {
+              "title": "持续对话",
+              "text": "通过图纸、模型与现场讨论不断校准，让每一个选择都有明确的理由。"
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/roof.webp",
+            "alt": "折板金属屋盖细部，原创生成意象",
+            "brief": {
+              "subject": "折板金属屋盖细部",
+              "action": "静态编辑摄影",
+              "structure": "一个完整且符合真实透视的主体",
+              "details": "自然光、细腻材质与深浅层次，不含文字",
+              "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+            }
+          }
+        }
+      ],
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "四项准则按两列组织，保留平行关系并用建筑细部支持材料主题。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p08",
+      "title": "日常的秩序",
+      "layout": "editorial_columns",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "columns": [
+        {
+          "type": "text",
+          "paragraphs": [
+            "我们希望空间可以被从容地使用。楼梯、门廊和庭院并非单纯的过渡区域，而是人在行走中理解建筑的线索。",
+            "当尺度、光线与材料彼此协调，设计无需不断解释自身，日常生活就能自然地发生。"
+          ],
+          "align": "end"
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "设计的推进始终伴随观察与修正。草图讨论关系，模型检验体量，材料样本帮助人们理解触感与光泽。",
+            "每次讨论都回到同一个问题：这个选择是否让空间更清楚，也更适合真实的生活？",
+            "项目影像记录空间在不同时间的状态：清晨的光线、午后的阴影、雨天的表面。通过这些具体的观察，我们继续理解建筑如何被使用，也发现下一次调整的方向。"
+          ]
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/stairs.webp",
+            "alt": "公共图书馆的旋转楼梯，原创生成意象",
+            "brief": {
+              "subject": "公共图书馆的旋转楼梯",
+              "action": "静态编辑摄影",
+              "structure": "一个完整且符合真实透视的主体",
+              "details": "自然光、细腻材质与深浅层次，不含文字",
+              "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+            },
+            "frame": "monitor"
+          }
+        }
+      ],
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "正文与影像分栏，显示器框作为独立结构承载照片。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 3,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p09",
+      "title": "空间作品",
+      "layout": "type_poster",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "variant": "chapter",
+      "number": "4",
+      "show_title": false,
+      "surface": "lime",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "以绿色数字页引出作品章节。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "id": "p10",
+      "title": "4. 作品",
+      "layout": "editorial_columns",
+      "notes": "风格开发样稿。间尺工作室、人物姓名、项目描述均为虚构示例，不代表真实履历或客户关系。配图由内置 imagegen 原创生成，仅用于展示视觉风格。",
+      "columns": [
+        {
+          "type": "text",
+          "paragraphs": [
+            "从城市立面到一处安静的庭院，不同尺度的建筑有不同的语气，却都需要回应具体的人和地方。",
+            "这里展示的是原创生成的建筑意象，并非已建成项目。它们用于说明照片之间如何形成节奏，以及一张图如何支持一段叙事。"
+          ],
+          "align": "end"
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "连续的结构提供秩序，光影带来变化；粗糙与光滑、开放与围合，在每一个场景里形成新的关系。",
+            "多图页面适合呈现项目组合、空间细部和研究过程。每张照片保留独立位置，可以按真实素材替换，也可以添加必要的名称与说明。",
+            "我们以观察开始，以清晰表达结束。让建筑的逻辑被理解，让空间中的日常被看见。"
+          ]
+        },
+        {
+          "type": "gallery",
+          "grid_columns": 2,
+          "images": [
+            {
+              "src": "images/atrium.webp",
+              "alt": "天光与混凝土中庭，原创生成意象",
+              "brief": {
+                "subject": "天光与混凝土中庭",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/tower.webp",
+              "alt": "仰视玻璃办公塔楼，原创生成意象",
+              "brief": {
+                "subject": "仰视玻璃办公塔楼",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/arcade.webp",
+              "alt": "美术馆的连续柱廊，原创生成意象",
+              "brief": {
+                "subject": "美术馆的连续柱廊",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/facade.webp",
+              "alt": "白色立面的深窗与阴影，原创生成意象",
+              "brief": {
+                "subject": "白色立面的深窗与阴影",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/courtyard.webp",
+              "alt": "带树的小型住宅庭院，原创生成意象",
+              "brief": {
+                "subject": "带树的小型住宅庭院",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/roof.webp",
+              "alt": "折板金属屋盖细部，原创生成意象",
+              "brief": {
+                "subject": "折板金属屋盖细部",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/street.webp",
+              "alt": "旧砖文化中心与街道，原创生成意象",
+              "brief": {
+                "subject": "旧砖文化中心与街道",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            },
+            {
+              "src": "images/stairs.webp",
+              "alt": "公共图书馆的旋转楼梯，原创生成意象",
+              "brief": {
+                "subject": "公共图书馆的旋转楼梯",
+                "action": "静态编辑摄影",
+                "structure": "一个完整且符合真实透视的主体",
+                "details": "自然光、细腻材质与深浅层次，不含文字",
+                "composition": "竖幅、黑白、主体保持完整；用于本页论点的建筑与人物照片"
+              }
+            }
+          ]
+        }
+      ],
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "八张独立建筑图形成作品组合，旁侧文字保留解释与来源边界。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "gallery",
+        "item_count": 8,
+        "media": {
+          "count": 8,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_gallery",
+        "source_ids": []
+      }
+    }
+  ],
+  "version": 1
+}

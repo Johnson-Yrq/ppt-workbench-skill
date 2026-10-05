@@ -1,0 +1,571 @@
+{
+  "version": 1,
+  "style": "warm-minimal-editorial",
+  "presentation_mode": "speech",
+  "title": "共享布局图册 · 16 种页面结构",
+  "company": "LAYOUT LIBRARY",
+  "year": 2026,
+  "footer_label": "开发样例 · 原创生成意象",
+  "slides": [
+    {
+      "id": "photo_pair",
+      "layout": "photo_pair",
+      "title": "在双图之间，展开论证。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "images": [
+        {
+          "src": "layout-samples/courtyard.webp",
+          "alt": "共享布局开发示例：courtyard，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0,
+          "caption": "整体空间"
+        },
+        {
+          "src": "layout-samples/detail.webp",
+          "alt": "共享布局开发示例：detail，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0,
+          "caption": "局部细节"
+        }
+      ],
+      "eyebrow": "从整体，到细节",
+      "copy": "两幅图片各自提供一个观察角度。\n中间的文字解释它们之间的关系，\n让视觉材料支持同一个判断。"
+    },
+    {
+      "id": "offset_pair",
+      "layout": "offset_pair",
+      "title": "用错位，建立阅读节奏。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "subtitle": "图片与说明各有位置",
+      "images": [
+        {
+          "src": "layout-samples/living.webp",
+          "alt": "共享布局开发示例：living，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0
+        },
+        {
+          "src": "layout-samples/materials.webp",
+          "alt": "共享布局开发示例：materials，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0
+        }
+      ],
+      "paragraphs": [
+        "先用一幅竖图建立整体印象。",
+        "第二幅细节图与标题形成错位，带出需要进一步观察的部分。",
+        "右侧文字保留依据，让读者理解这种组合的含义。"
+      ]
+    },
+    {
+      "id": "statement_tags",
+      "layout": "statement_tags",
+      "title": "让一句主张，\n拥有清楚的支撑。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "copy": "大标题负责表达核心判断。\n标签帮助读者辨认适用对象与主要边界。",
+      "tags": [
+        "对象明确",
+        "依据可查",
+        "边界清楚",
+        "表达克制"
+      ]
+    },
+    {
+      "id": "checklist_photo",
+      "layout": "checklist_photo",
+      "title": "把能力与边界\n一起说明。",
+      "visual": {
+        "role": "capabilities",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "image": {
+        "src": "layout-samples/living.webp",
+        "alt": "共享布局开发示例：living，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "groups": [
+        {
+          "title": "空间观察",
+          "text": "先辨认光线、动线与日常使用的关系。",
+          "checks": [
+            {
+              "label": "自然采光",
+              "checked": true
+            },
+            {
+              "label": "使用动线",
+              "checked": true
+            },
+            {
+              "label": "未核实尺寸",
+              "checked": false
+            }
+          ]
+        },
+        {
+          "title": "材料选择",
+          "text": "把触感、维护与实际使用条件放在一起比较。",
+          "checks": [
+            {
+              "label": "实样比较",
+              "checked": true
+            },
+            {
+              "label": "维护条件",
+              "checked": true
+            },
+            {
+              "label": "虚构性能",
+              "checked": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snake_timeline",
+      "layout": "snake_timeline",
+      "title": "沿着顺序，逐步推进。",
+      "visual": {
+        "role": "process",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "steps": [
+        {
+          "title": "理解问题",
+          "period": "阶段 01",
+          "text": "确认对象与使用情境"
+        },
+        {
+          "title": "收集依据",
+          "period": "阶段 02",
+          "text": "整理来源与实际边界"
+        },
+        {
+          "title": "形成方向",
+          "period": "阶段 03",
+          "text": "提出可比较的选项"
+        },
+        {
+          "title": "验证细节",
+          "period": "阶段 04",
+          "text": "用实样核对关键判断"
+        },
+        {
+          "title": "共同确认",
+          "period": "阶段 05",
+          "text": "保留分歧与选择依据"
+        },
+        {
+          "title": "回到现场",
+          "period": "阶段 06",
+          "text": "记录反馈并持续调整"
+        }
+      ],
+      "image": {
+        "src": "layout-samples/studio.webp",
+        "alt": "共享布局开发示例：studio，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "note": "示意流程；按编号 01 → 06 阅读，节点不是实际项目排期。"
+    },
+    {
+      "id": "metric_cards",
+      "layout": "metric_cards",
+      "title": "把评估维度，\n放在同一尺度上。",
+      "visual": {
+        "role": "comparison",
+        "treatment": "panels",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "image": {
+        "src": "layout-samples/courtyard.webp",
+        "alt": "共享布局开发示例：courtyard，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "metrics": [
+        {
+          "label": "使用",
+          "text": "观察日常路径\n与停留方式"
+        },
+        {
+          "label": "光线",
+          "text": "比较自然采光\n与照明层次"
+        },
+        {
+          "label": "触感",
+          "text": "接触材料实样\n并核对维护"
+        },
+        {
+          "label": "反馈",
+          "text": "保留现场意见\n与后续调整"
+        }
+      ],
+      "source": "结构示例：此页展示观察维度，不代表真实测量结果。"
+    },
+    {
+      "id": "photo_strip",
+      "layout": "photo_strip",
+      "title": "从整体空间，到日常触感。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "images": [
+        {
+          "src": "layout-samples/courtyard.webp",
+          "alt": "共享布局开发示例：courtyard，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0,
+          "caption": "空间"
+        },
+        {
+          "src": "layout-samples/materials.webp",
+          "alt": "共享布局开发示例：materials，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0,
+          "caption": "材质"
+        },
+        {
+          "src": "layout-samples/detail.webp",
+          "alt": "共享布局开发示例：detail，原创生成意象",
+          "background_mode": "native",
+          "edge_fade": 0,
+          "caption": "细节"
+        }
+      ],
+      "copy": "每张图片承担不同的信息，短标签保留在图片外部。"
+    },
+    {
+      "id": "problem_columns",
+      "layout": "problem_columns",
+      "title": "把问题讲清楚。",
+      "visual": {
+        "role": "comparison",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "items": [
+        {
+          "title": "对象不明确",
+          "text": "先确认页面在回答谁的问题，\n再决定需要什么内容。"
+        },
+        {
+          "title": "依据未对齐",
+          "text": "把判断与来源放在一起，\n避免结论失去上下文。"
+        },
+        {
+          "title": "边界被省略",
+          "text": "在页面保留适用条件，\n帮助读者正确使用结论。"
+        }
+      ]
+    },
+    {
+      "id": "service_cards",
+      "layout": "service_cards",
+      "title": "让能力各有位置。",
+      "visual": {
+        "role": "capabilities",
+        "treatment": "panels",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "items": [
+        {
+          "title": "观察现场",
+          "text": "理解空间与实际使用。",
+          "image": {
+            "src": "layout-samples/courtyard.webp",
+            "alt": "共享布局开发示例：courtyard，原创生成意象",
+            "background_mode": "native",
+            "edge_fade": 0
+          }
+        },
+        {
+          "title": "比较材料",
+          "text": "用实样讨论触感与边界。",
+          "image": {
+            "src": "layout-samples/materials.webp",
+            "alt": "共享布局开发示例：materials，原创生成意象",
+            "background_mode": "native",
+            "edge_fade": 0
+          }
+        },
+        {
+          "title": "打磨细节",
+          "text": "回到日常，记录使用反馈。",
+          "image": {
+            "src": "layout-samples/detail.webp",
+            "alt": "共享布局开发示例：detail，原创生成意象",
+            "background_mode": "native",
+            "edge_fade": 0
+          }
+        }
+      ],
+      "highlight": 0,
+      "aside": "不等尺寸表达视觉主次，不代表业务规模或优先级。"
+    },
+    {
+      "id": "metric_circles",
+      "layout": "metric_circles",
+      "title": "用主次组织数字。",
+      "visual": {
+        "role": "comparison",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "copy": "以两个圆形建立阅读顺序，\n在附近标明单位与数据来源。",
+      "metrics": [
+        {
+          "value": "72%",
+          "label": "示例指标 A",
+          "text": "仅用于版式演示"
+        },
+        {
+          "value": "28%",
+          "label": "示例指标 B"
+        }
+      ],
+      "image": {
+        "src": "layout-samples/studio.webp",
+        "alt": "共享布局开发示例：studio，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "source": "示例数据，非真实统计。"
+    },
+    {
+      "id": "chart_focus",
+      "layout": "chart_focus",
+      "title": "让图表回答一个问题。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "copy": "左侧给出判断与阅读提示，\n右侧保留可编辑的原生图表。",
+      "stat": {
+        "value": "6 次",
+        "label": "示例中最高的讨论次数"
+      },
+      "chart": {
+        "title": "讨论次数（示例）",
+        "chart_type": "bar",
+        "categories": [
+          "空间",
+          "材料",
+          "灯光"
+        ],
+        "series": [
+          {
+            "name": "次数",
+            "values": [
+              4,
+              6,
+              3
+            ]
+          }
+        ],
+        "unit": "次",
+        "source": "功能演示数据，非真实项目统计。"
+      },
+      "conclusion": "示例中材料讨论次数较多；实际结论须依据真实资料。"
+    },
+    {
+      "id": "photo_banner",
+      "layout": "photo_banner",
+      "title": "用一幅横图，打开主题。",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "eyebrow": "图文编辑式共享构图",
+      "copy": "大标题建立主题，\n右侧短句交代对象与范围。",
+      "image": {
+        "src": "layout-samples/living.webp",
+        "alt": "共享布局开发示例：living，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "tags": [
+        "空间",
+        "光线",
+        "日常"
+      ]
+    },
+    {
+      "id": "photo_divider",
+      "layout": "photo_divider",
+      "title": "让一个画面，\n承载一段转场。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "eyebrow": "下一章 / 设计与日常",
+      "image": {
+        "src": "layout-samples/courtyard.webp",
+        "alt": "共享布局开发示例：courtyard，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "copy": "短句落在安静区域，\n其余细节交给画面。"
+    },
+    {
+      "id": "side_index",
+      "layout": "side_index",
+      "title": "内容一览",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "image": {
+        "src": "layout-samples/materials.webp",
+        "alt": "共享布局开发示例：materials，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "eyebrow": "CONTENTS",
+      "items": [
+        {
+          "label": "01",
+          "title": "主题与对象"
+        },
+        {
+          "label": "02",
+          "title": "现场观察"
+        },
+        {
+          "label": "03",
+          "title": "材料与方法"
+        },
+        {
+          "label": "04",
+          "title": "细节与边界"
+        },
+        {
+          "label": "05",
+          "title": "讨论与确认"
+        },
+        {
+          "label": "06",
+          "title": "下一步行动"
+        }
+      ]
+    },
+    {
+      "id": "editorial_story",
+      "layout": "editorial_story",
+      "title": "在叙事中保留依据。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "eyebrow": "观察 / 理解 / 选择",
+      "image": {
+        "src": "layout-samples/detail.webp",
+        "alt": "共享布局开发示例：detail，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0,
+        "caption": "细节不替代说明，图片与正文相互补充。"
+      },
+      "items": [
+        {
+          "title": "先交代观察",
+          "text": "说明现象发生的情境，以及与页面主题直接相关的细节。"
+        },
+        {
+          "title": "再说明判断",
+          "text": "把观察与选择联系起来，保留来源、适用条件和需要继续核实的部分。"
+        }
+      ]
+    },
+    {
+      "id": "step_sidebar",
+      "layout": "step_sidebar",
+      "title": "从观察，\n走向行动。",
+      "visual": {
+        "role": "process",
+        "treatment": "open",
+        "rationale": "共享布局开发样例；保留结构、可编辑文字和独立风格，实际项目应替换内容与配图。",
+        "requirements": []
+      },
+      "notes": "布局开发样例，图片为既有原创生成意象，跨页复用只用于验证结构；数值均为示例，不是业务证据。",
+      "copy": "侧栏交代主题，\n右侧逐步展开方法。",
+      "image": {
+        "src": "layout-samples/materials.webp",
+        "alt": "共享布局开发示例：materials，原创生成意象",
+        "background_mode": "native",
+        "edge_fade": 0
+      },
+      "steps": [
+        {
+          "title": "辨认对象",
+          "period": "理解",
+          "text": "明确讨论的对象、范围与使用情境。"
+        },
+        {
+          "title": "比较依据",
+          "period": "判断",
+          "text": "把不同选项放在相同维度下观察。"
+        },
+        {
+          "title": "记录决定",
+          "period": "行动",
+          "text": "保留选择理由、实施边界与后续安排。"
+        }
+      ],
+      "note": "这是方法示例；实施步骤须根据实际资料确定。"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "原色建筑编辑式 PPT"
+  short_description: "白底黑字、窄高大字、黑白建筑摄影与四色章节页的独立编辑式风格"
+  default_prompt: "使用 $primary-architecture-slides 制作原色建筑编辑式 HTML 演示稿，沿用已批准的独立页头与视觉，按内容选择可编辑共享布局并主动准备相关黑白摄影；仅确认尚缺的用途，导出与成稿检查由我自行完成。"

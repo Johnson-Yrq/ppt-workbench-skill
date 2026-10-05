@@ -5,7 +5,7 @@
 <h1>PPT-workbench-skill</h1>
 
 <p><strong>Turn an outline into a polished, editable slide deck.</strong></p>
-<p>Three visual styles. Two ways to present. One HTML file that works offline.</p>
+<p>Nine visual styles. Two ways to present. One HTML file that works offline.</p>
 
 <p><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
@@ -16,7 +16,7 @@
   <a href="#build-and-check">Build &amp; check</a>
 </p>
 
-<p><code>Codex / Claude Code</code> &nbsp; <code>Toolkit v3.4.0</code> &nbsp; <a href="LICENSE">MIT License</a></p>
+<p><code>Codex / Claude Code</code> &nbsp; <code>Toolkit v3.7.0</code> &nbsp; <a href="LICENSE">MIT License</a></p>
 
 </div>
 
@@ -32,7 +32,7 @@ Start with [`ppt-workbench`](skills/ppt-workbench/SKILL.md), choose a visual sty
 
 ## Visual styles
 
-Actual slide examples from the three included styles. Click an image to view it at full size. Business content and chart values shown here are illustrative.
+Examples from the three model-based styles are shown below; all nine available styles are listed in the table that follows. Click an image to view it at full size. Business content and chart values shown here are illustrative.
 
 | White & Blue | Navy Glass | Realistic Miniature |
 |:---:|:---:|:---:|
@@ -40,7 +40,7 @@ Actual slide examples from the three included styles. Click an image to view it 
 | Warm white · Bright blue · Matte models | Navy · Glass · Champagne gold | Warm gray · Natural materials · Expressive figures |
 | [`white-blue-slides`](skills/white-blue-slides/SKILL.md) | [`navy-glass-slides`](skills/navy-glass-slides/SKILL.md) | [`realistic-miniature-slides`](skills/realistic-miniature-slides/SKILL.md) |
 
-All three styles support both presentation modes. Choose one style per deck; the subject, actions, and relationships in each illustration come from the content.
+All nine styles support both presentation modes. Choose one style per deck; the subject, actions, and relationships in each illustration come from the content.
 
 <details>
 <summary><strong>Style IDs, visual details, and more examples</strong></summary>
@@ -50,6 +50,12 @@ All three styles support both presentation modes. Choose one style per deck; the
 | **White & Blue** · 素白蓝调 | `scene-white` | Warm white paper, vivid blue accents, matte white model scenes, and miniature figures. |
 | **Navy Glass** · 海蓝玻璃 | `saas-3d` | Warm white paper, navy text and emphasis areas, muted teal, a little champagne gold, and detailed glass displays. |
 | **Realistic Miniature** · 写实微缩 | `real-miniature` | Warm gray, graphite, gray blue, sage, and a little ochre; 35–45° miniature scenes with realistic PBR materials and expressive figures. Text-free illustrations. |
+| **[Monochrome Editorial](skills/monochrome-editorial-slides/SKILL.md)** · 黑白编辑式 | `monochrome-editorial` | Black and white pages, large titles, generous space, and cool editorial photography. |
+| **[Warm Minimal Editorial](skills/warm-minimal-editorial-slides/SKILL.md)** · 暖褐极简编辑式 | `warm-minimal-editorial` | Warm cream, deep brown, restrained typography, and warm natural photography. |
+| **[Primary Architecture](skills/primary-architecture-slides/SKILL.md)** · 原色建筑编辑式 | `primary-architecture` | White and black, tall condensed titles, offset text columns, architectural photography, and four-color chapter pages. |
+| **[Airy Portfolio](skills/airy-portfolio-slides/SKILL.md)** · 留白衬线影集 | `airy-portfolio` | Near-white paper, black serif type, broad margins, and natural-color portfolio photography. |
+| **[Beige Ring Business](skills/beige-ring-business-slides/SKILL.md)** · 米白环线商务 | `beige-ring-business` | Warm beige, black sans-serif type, fine rings, and natural business photography. |
+| **[Monochrome Marble](skills/monochrome-marble-slides/SKILL.md)** · 黑白大理石商务 | `monochrome-marble` | White and near-black reversals, large serif titles, marble textures, and natural-color business photography. |
 
 | White & Blue · Layered architecture | Navy Glass · Presentation cover |
 |:---:|:---:|
@@ -83,7 +89,7 @@ npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a codex
 npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a claude-code
 ```
 
-`--skill '*'` installs the workbench and all three style packages together; keep the quotes around `*`. `-g` makes the skills available across projects; omit it for a project-local installation. `-a` selects the agent.
+`--skill '*'` installs the workbench and all nine style packages together, for ten packages in total; keep the quotes around `*`. `-g` makes the skills available across projects; omit it for a project-local installation. `-a` selects the agent.
 
 <details>
 <summary><strong>List available skills or install manually</strong></summary>
@@ -101,23 +107,23 @@ git clone https://github.com/Johnson-Yrq/JohnsonPPTskill.git
 cd JohnsonPPTskill
 ```
 
-Copy the four packages into the directory for your agent.
+Copy all ten packages into the directory for your agent.
 
 **Codex**
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skills/ppt-workbench skills/white-blue-slides skills/navy-glass-slides skills/realistic-miniature-slides ~/.codex/skills/
+cp -R skills/* ~/.codex/skills/
 ```
 
 **Claude Code**
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -R skills/ppt-workbench skills/white-blue-slides skills/navy-glass-slides skills/realistic-miniature-slides ~/.claude/skills/
+cp -R skills/* ~/.claude/skills/
 ```
 
-Keep the four directories side by side. `white-blue-slides` includes the shared toolkit used by the other styles; `ppt-workbench` provides the common entry point. Back up existing skill directories before updating. If you only need White & Blue, you can install `white-blue-slides` on its own.
+Keep all ten directories side by side. `white-blue-slides` includes the shared toolkit used by the other styles; `ppt-workbench` provides the common entry point. Back up existing skill directories before updating. If you only need White & Blue, you can install `white-blue-slides` on its own.
 
 </details>
 
@@ -342,7 +348,9 @@ node skills/white-blue-slides/scripts/audit_deck.cjs project/presentation.html \
 Automated checks cover text overflow and overlap, missing images, external dependencies, image/content regions and chart rendering. Visual review must also verify complete image subjects, accurate image/text relationships, and sufficient context for independent readers. After changing the player, exporters or a theme, run `test_player.cjs` on any built deck as a player regression test (navigation, editing, save, PPTX export, fullscreen fit).
 
 <details>
-<summary><strong>Build options and all 13 shared layouts</strong></summary>
+<summary><strong>Build options and shared layouts</strong></summary>
+
+The shared catalogue offers **49 executable profiles**, including **20 shared compositions**. Choose by content using the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); see the [shared composition contracts](skills/white-blue-slides/references/shared-layouts.md) for fields and capacities. The introductory table below retains the original named layouts.
 
 | Tool or option | Purpose |
 |---|---|

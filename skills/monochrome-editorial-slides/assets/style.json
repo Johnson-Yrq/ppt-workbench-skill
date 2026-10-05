@@ -1,0 +1,31 @@
+{
+  "schema": "html-slide-style/v1",
+  "id": "monochrome-editorial",
+  "name": "黑白编辑式",
+  "description": "黑白页面交替、超大无衬线标题、不对称留白、细线胶囊与圆形指标，冷调编辑摄影贯穿全稿；适合产品提案、品牌介绍与商业路演。",
+  "status": "ready",
+  "css": "theme.css",
+  "image_prompt": "image-style.txt",
+  "ui_text_modes": [
+    "none"
+  ],
+  "default_ui_text": "none",
+  "ui_text_prompts": {
+    "none": "No text, letters, digits, brands, logos or watermarks in generated photographs. All slide titles, labels and factual data are editable page elements."
+  },
+  "layout_hints": {},
+  "cover_labels_expected": false,
+  "surfaces": [
+    "light",
+    "dark"
+  ],
+  "image_free_layouts": [
+    "cover",
+    "closing"
+  ],
+  "header_system": "style",
+  "heading_icons": "optional",
+  "cover_copy_policy": "style",
+  "header_template": "header.html",
+  "image_background": "scene"
+}

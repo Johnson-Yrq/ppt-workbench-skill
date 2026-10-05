@@ -8,15 +8,18 @@ import importlib.util
 import json
 from pathlib import Path
 import re
-from common import ASSETS, EMBED_FORMATS, LAYOUTS, header_style, slide_variant, convert_image, image_size, load_deck, local_path, number, read_raster, presentation_mode, slide_images, reading_composition
+from common import ASSETS, EMBED_FORMATS, NATIVE_LAYOUTS, header_style, slide_variant, convert_image, image_size, load_deck, local_path, number, read_raster, presentation_mode, slide_images, reading_composition
 from design_contract import analyze_deck, presentation_for, visual_for
+from editorial_contract import editorial_variant, validate_editorial_slide
+from composition_layouts import SHARED_LAYOUTS, render_composition
+from chart_contract import slide_charts
 from style_packs import resolve_style, paper_color
 
 
 # Header, footer, cover, closing and player chrome are the brand; custom_css may not touch them.
 PROTECTED_SELECTOR = re.compile(r'(?:^|[\s,>+~])(?:html|body|main|header|footer|h1|\.head-copy|\.chapter|\.subtitle|\.page-number|\.brand(?:-logo)?|\.footer-label|\.layout-cover|\.layout-closing|\.cover-[a-z-]+|\.ending-[a-z-]+|\.toolbar|\.slide|\.deck|\.viewport)(?![\w-])')
 # A project Builder may add layouts; it may not redefine shared components or built-in layouts.
-PROTECTED_METHODS = {'__init__', 'data_uri', 'icon', 'heading', 'image', 'chart', 'point', 'bottom', 'footer', 'logo_defs', 'slide', 'structural_errors', 'render'} | set(LAYOUTS)
+PROTECTED_METHODS = {'__init__', 'data_uri', 'icon', 'heading', 'image', 'chart', 'point', 'bottom', 'header', 'footer', 'logo_defs', 'slide', 'structural_errors', 'render'} | set(NATIVE_LAYOUTS)
 
 
 def custom_css_errors(css):
@@ -70,7 +73,7 @@ def color(value):
 
 
 class Builder:
-    LAYOUTS = frozenset(LAYOUTS)  # a project Builder subclass may extend this with its own layout methods
+    LAYOUTS = frozenset(NATIVE_LAYOUTS)  # a project Builder subclass may extend this with its own layout methods
 
     def __init__(self, deck, root, draft=False, dry_run=False, embed_format='webp', embed_quality=85, allow_restyle=False):
         self.deck, self.root, self.draft, self.dry_run, self.allow_restyle = deck, root, draft, dry_run, allow_restyle
@@ -123,7 +126,9 @@ class Builder:
         mapping(obj, '内容项')
         return '<h3 class="icon-heading">' + self.icon(obj.get('icon')) + editable('span', obj.get('title', ''), 'heading-label', True) + '</h3>'
 
-    def image(self, slide, cls='hero-scene', extra=''):
+    def image(self, slide, cls='hero-scene', extra='', caption=False):
+        if 'image' not in slide:
+            return ''  # an image-free cover or closing, allowed by the style
         im = slide['image']
         path = local_path(self.root, im['src'])
         zoom = number(im.get('zoom'), 1, .5, 2.5, 'image.zoom')
@@ -141,7 +146,42 @@ class Builder:
             body = '<div class="missing-image">待补配图：' + txt(im['src']) + '</div>'
         else:
             body = f'<img src="{self.data_uri(path)}" alt="{escape(im["alt"], quote=True)}" style="--image-zoom:{zoom};--image-x:{x}px;--image-y:{y}px;--image-fade:{fade * 100}%{paper_filter}" decoding="sync">'
+        if caption and 'caption' in im:
+            body = editable('figcaption', im['caption'], required=True) + body
         return f'<figure class="scene-image {cls}"{extra}>{body}</figure>'
+
+    def editorial(self, s):
+        """Shared editorial geometry with the selected style's visual treatment."""
+        variant = validate_editorial_slide(s, self.style_pack)
+        title = editable('h1', s['title'], 'editorial-display' if variant in {'cover', 'closing'} else '', True)
+        photo = lambda image: self.image(dict(s, image=image), 'editorial-photo', caption=True)
+        text = lambda field, cls: editable('p', s[field], cls, True) if field in s else ''
+        if variant == 'cover':
+            return photo(s['image']) + title + text('kicker', 'editorial-kicker') + text('subtitle', 'editorial-subtitle')
+        if variant == 'intro':
+            return title + text('copy', 'editorial-copy') + photo(s['image'])
+        if variant == 'contents':
+            rows = ''.join('<div class="editorial-index-row">' + editable('span', item['title'], required=True)
+                           + editable('span', item['label'], required=True) + '</div>' for item in s['items'])
+            return title + photo(s['image']) + '<aside>' + rows + '</aside>' + text('copy', 'editorial-copy')
+        if variant == 'about':
+            columns = ''.join(editable('p', column, required=True) for column in s['columns'])
+            return title + photo(s['image']) + text('lead', 'editorial-lead editorial-display') + '<div class="editorial-columns">' + columns + '</div>'
+        if variant == 'services':
+            rows = ''.join('<article>' + editable('h2', item['title'], required=True)
+                           + editable('p', item['text'], required=True) + '</article>' for item in s['items'])
+            return (title + f'<div class="editorial-services-list" style="--item-count:{len(s["items"])}">' + rows
+                    + f'</div><div class="editorial-strip" style="--image-count:{len(s["images"])}">'
+                    + ''.join(photo(image) for image in s['images']) + '</div>')
+        if variant == 'process':
+            rows = ''.join('<article data-step="true">' + editable('span', f'{index:02d}', 'editorial-step-index')
+                           + editable('h2', item['title'], required=True) + editable('p', item['text'], required=True)
+                           + '</article>' for index, item in enumerate(s['items'], 1))
+            return photo(s['image']) + title + f'<div class="editorial-steps" style="--item-count:{len(s["items"])}">' + rows + '</div>'
+        if variant == 'portfolio':
+            return (title + text('copy', 'editorial-copy') + f'<div class="editorial-gallery" style="--image-count:{len(s["images"])}">'
+                    + ''.join(photo(image) for image in s['images']) + '</div>')
+        return photo(s['image']) + title + text('subtitle', 'editorial-subtitle') + text('copy', 'editorial-copy')
 
     def point(self, obj, allow_panel=True):
         mapping(obj, '说明')
@@ -199,7 +239,15 @@ class Builder:
             if y is None:
                 raise ValueError('封面 labels 每项需要 y（整页坐标）')
             labels.append(f'<div style="top:{y}px">' + editable('h3', l.get('title', ''), required=True) + editable('p', l.get('text', '')) + '</div>')
-        return '<div class="cover-copy">' + content + '</div>' + date_line + self.image(s) + '<div class="cover-labels">' + ''.join(labels) + '</div>'
+        credits = []
+        for credit in items(s, 'credits', 0, 4):
+            mapping(credit, '封面署名')
+            if set(credit) - {'title', 'text'}:
+                raise ValueError('封面 credits 每项仅支持 title / text；位置由风格控制')
+            credits.append('<div>' + editable('h3', credit.get('title', ''), required=True)
+                           + editable('p', credit.get('text', ''), required=True) + '</div>')
+        credit_markup = '<div class="cover-credits">' + ''.join(credits) + '</div>' if credits else ''
+        return '<div class="cover-copy">' + content + '</div>' + date_line + self.image(s) + '<div class="cover-labels">' + ''.join(labels) + '</div>' + credit_markup
 
     def scene(self, s):
         left, right = items(s, 'left', 1, 2), items(s, 'right', 1, 2)
@@ -353,8 +401,6 @@ class Builder:
         align_rows = s.get('align_control_rows', False)
         if not isinstance(align_rows, bool):
             raise ValueError('align_control_rows 须为布尔值')
-        if align_rows and self.mode != 'reading':
-            raise ValueError('align_control_rows 用于阅读型并排控制分组')
         tracks = max(len(items(mapping(v, '控制分组'), 'rows', 1, 4 if self.mode == 'reading' else 3)) for v in groups) + 1
         content += '</div><div class="flow-bottom">' + self.image(s) + f'<div class="control-groups" data-align-rows="{str(align_rows).lower()}" style="--control-tracks:{tracks}">'
         for v in groups:
@@ -383,8 +429,6 @@ class Builder:
         return '<div class="ending-copy">' + content + '</div>' + self.image(s)
 
     def reading(self, s):
-        if self.mode != 'reading':
-            raise ValueError('reading 版式需要 presentation_mode: reading')
         blocks = items(s, 'blocks', 1, 4)
         images = slide_images(s)
         arrangement = reading_composition(s)
@@ -462,7 +506,26 @@ class Builder:
         table += '</tbody></table>'
         return '<div class="chart-shell"><div class="echart" data-component="chart" role="img" aria-label="' + escape(block['title'], quote=True) + '"></div><script type="application/json" class="chart-config">' + payload + '</script><details class="chart-editor"><summary>编辑图表数据</summary>' + table + '</details></div>' + editable('p', block['source'], 'chart-source', True)
 
-    def footer(self):
+    def header(self, s, n, main_title=False):
+        """The style chooses its header system; layouts only locate their title."""
+        chapter = editable('div', s['chapter'], 'chapter') if s.get('chapter') else ''
+        title = editable('h1', s['title'], required=True) if not main_title else ''
+        subtitle = editable('p', s['subtitle'], 'subtitle') if s.get('subtitle') and not main_title else ''
+        if self.style_pack['header_system'] == 'preset-six':
+            return '<header><div class="head-copy">' + chapter + title + subtitle + f'</div><div class="page-number">{n:02d}</div></header>'
+        company = str(self.deck.get('company', self.brand.get('company', '')) or self.deck['title'])
+        values = {'chapter': chapter, 'title': title, 'subtitle': subtitle,
+                  'page': editable('span', f'{n:02d}', 'page-number'),
+                  'company': editable('span', company, 'header-company'),
+                  'year': editable('span', str(self.deck.get('year', date.today().year)), 'header-year')}
+        template = self.style_pack['header_markup']
+        slots = set(re.findall(r'\{\{\s*([a-z_]+)\s*\}\}', template))
+        for field in ('chapter', 'title', 'subtitle'):
+            if values[field] and field not in slots:
+                raise ValueError(f'header_template 缺少 {{{{{field}}}}}，不能丢弃本页对应内容')
+        return re.sub(r'\{\{\s*([a-z_]+)\s*\}\}', lambda match: values[match[1]], template)
+
+    def footer(self, page=None):
         """Logo (only when the deck supplies one), company name (only when non-empty) and year on the left; the deck label on the right."""
         result = '<footer><div class="brand">'
         if self.logo:
@@ -472,7 +535,10 @@ class Builder:
         if company:
             result += editable('span', company)
         result += editable('span', str(self.deck.get('year', date.today().year))) + '</div>'
-        return result + editable('span', self.deck.get('footer_label', self.deck['title']), 'footer-label') + '</footer>'
+        result += editable('span', self.deck.get('footer_label', self.deck['title']), 'footer-label')
+        if page is not None:
+            result += editable('span', f'{page:02d} / {len(self.deck["slides"]):02d}', 'editorial-folio')
+        return result + '</footer>'
 
     def logo_defs(self):
         if not self.logo:
@@ -485,31 +551,46 @@ class Builder:
         self.current_slide = s
         layout = s['layout']
         extra_cls = ' no-cover-labels' if layout == 'cover' and not s.get('labels') else ''
-        if (head_style := header_style(self.deck, s)) != 'standard':
+        if layout == 'editorial':
+            extra_cls += ' editorial-layout editorial-' + editorial_variant(s)
+        if (head_style := header_style(self.deck, s, self.style_pack)) != 'standard':
             extra_cls += f' head-{head_style}'
         if (variant := slide_variant(s)) != 'standard':
             extra_cls += f' variant-{variant}'
+        if not slide_images(s):
+            extra_cls += ' no-image'
+        surface = f' data-surface="{escape(s["surface"], quote=True)}"' if s.get('surface', 'light') != 'light' else ''
         style = ''
         if 'title_size' in s:
             style += f'--title-size:{number(s["title_size"], 46, 36, 110, "title_size")}px;'
+        if layout in ('cover', 'closing'):
+            # longest title line in em (full-width characters count 1, others about half) so a style can size display type to fit
+            lines = [line for value in (s.get('title_prefix', ''), s['title']) for line in str(value).split('\n') if line]
+            style += f'--title-chars:{max(sum(1 if ord(c) > 0x2E7F else .55 for c in line) for line in lines):.2f};'
         if 'body_size' in s:
             style += f'--body-size:{number(s["body_size"], 24, 21, 30, "body_size")}px;'
         notes = s.get('notes', '')
         if not isinstance(notes, str):
             raise ValueError('notes 必须为字符串')
-        head = editable('div', s['chapter'], 'chapter') if s.get('chapter') else ''
-        subtitle = editable('p', s['subtitle'], 'subtitle') if s.get('subtitle') else ''
-        if layout == 'cover':
-            # the chapter tag stays in the header like every other page; title and subtitle move into the centred block
-            prefix = editable('span', s['title_prefix'], 'cover-prefix') if s.get('title_prefix') else ''
-            main = self.cover(s, '<h1>' + prefix + editable('em', s['title'], required=True) + '</h1>' + subtitle)
+        main_title = layout in SHARED_LAYOUTS or layout in {'editorial', 'cover'}
+        if layout == 'editorial':
+            main = self.editorial(s)
+        elif layout in SHARED_LAYOUTS:
+            main = render_composition(self, s)
         else:
-            head += editable('h1', s['title'], required=True) + subtitle
-            main = getattr(self, layout)(s)
-        # Only what the browser audit measures against: image thresholds and the manual checks to look at.
+            subtitle = editable('p', s['subtitle'], 'subtitle') if s.get('subtitle') else ''
+            if layout == 'cover':
+                # the chapter tag stays in the header like every other page; title and subtitle move into the centred block
+                prefix = editable('span', s['title_prefix'], 'cover-prefix') if s.get('title_prefix') else ''
+                main = self.cover(s, '<h1>' + prefix + editable('em', s['title'], required=True) + '</h1>' + subtitle)
+            else:
+                main = getattr(self, layout)(s)
+        header = self.header(s, n, main_title)
+        # Audit thresholds and non-rendered provenance; selection metadata never
+        # becomes slide copy or controls the style's geometry.
         page = self.design['pages'][n-1]
-        contract = escape(json.dumps({k: page[k] for k in ('image_balance', 'illustration_fill', 'manual') if page.get(k)}, ensure_ascii=False, separators=(',', ':')), quote=True)
-        return f'<section id="{s["id"]}" class="slide layout-{layout}{extra_cls}' + (' active' if n == 1 else '') + f'" style="{style}" data-design-contract="{contract}" data-speaker-notes="{escape(notes, quote=True)}" aria-label="第 {n} 页" aria-hidden="' + ('false' if n == 1 else 'true') + '"><header><div class="head-copy">' + head + f'</div><div class="page-number">{n:02d}</div></header><main>{main}</main>{self.footer()}</section>'
+        contract = escape(json.dumps({k: page[k] for k in ('image_balance', 'illustration_fill', 'manual', 'layout_intent', 'layout_selection') if page.get(k)}, ensure_ascii=False, separators=(',', ':')), quote=True)
+        return f'<section id="{s["id"]}" class="slide layout-{layout}{extra_cls}' + (' active' if n == 1 else '') + f'"{surface} style="{style}" data-design-contract="{contract}" data-speaker-notes="{escape(notes, quote=True)}" aria-label="第 {n} 页" aria-hidden="' + ('false' if n == 1 else 'true') + f'">{header}<main>{main}</main>{self.footer(n if layout == "editorial" or layout in SHARED_LAYOUTS else None)}</section>'
 
     def structural_errors(self):
         """Every page's layout/field problems, without images or output. Used by --check-plan."""
@@ -529,7 +610,14 @@ class Builder:
             except (ValueError, OSError) as e:
                 raise ValueError(f'第 {n} 页（{s["title"]}）：{e}') from e
         css = (ASSETS / 'theme.css').read_text(encoding='utf-8')
-        if self.mode == 'reading':
+        if self.style_pack['header_system'] == 'preset-six':
+            css += '\n' + (ASSETS / 'header-presets.css').read_text(encoding='utf-8')
+        if any(s['layout'] == 'editorial' for s in self.deck['slides']):
+            css += '\n' + (ASSETS / 'editorial.css').read_text(encoding='utf-8')
+        if any(s['layout'] in SHARED_LAYOUTS for s in self.deck['slides']):
+            css += '\n' + (ASSETS / 'compositions.css').read_text(encoding='utf-8')
+        has_charts = any(slide_charts(s) for s in self.deck['slides'])
+        if any(s['layout'] == 'reading' for s in self.deck['slides']) or has_charts:
             css += '\n' + (ASSETS / 'reading.css').read_text(encoding='utf-8')
         if self.style_pack.get('css'):
             css += '\n' + self.style_pack['css'].read_text(encoding='utf-8')
@@ -548,19 +636,22 @@ class Builder:
         values = {'TITLE': escape(self.deck['title']), 'CSS': css,
                   'LICENSE': '<!--\n' + (ASSETS / 'lucide-LICENSE.txt').read_text(encoding='utf-8').replace('--', '—') + '\n-->',
                   'BODY_ATTR': (' class="draft"' if self.draft else '') + (' data-restyle="true"' if self.allow_restyle else '')
-                  + ' data-presentation-mode="' + self.mode + '" data-style="' + self.style_pack['id'] + '"',
+                  + ' data-presentation-mode="' + self.mode + '" data-style="' + self.style_pack['id'] + '"'
+                  + ' data-header-system="' + self.style_pack['header_system'] + '"',
                   'LOGO_DEFS': self.logo_defs(), 'SLIDES': '\n'.join(slides),
                   'COUNT': str(len(slides)), 'JS': (ASSETS / 'pptx-export.js').read_text(encoding='utf-8') + '\n' + (ASSETS / 'player.js').read_text(encoding='utf-8')}
         if any(im.get('background_mode') == 'white-matte' for s in self.deck['slides'] for im in slide_images(s)):
             paper = paper_color(self.deck, self.style_pack).lstrip('#')
             r, g, b = [int(paper[i:i+2], 16) / 255 for i in (0, 2, 4)]
             values['LOGO_DEFS'] += f'<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden"><defs><filter id="deck-paper-tone" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="{r} 0 0 0 0 0 {g} 0 0 0 0 0 {b} 0 0 0 0 0 1 0"/></filter></defs></svg>'
-        if any(block.get('type') == 'chart' for slide in self.deck['slides'] for block in slide.get('blocks', []) if isinstance(block, dict)):
+        if has_charts:
             for notice in ('ECHARTS-LICENSE.txt', 'ECHARTS-NOTICE.txt'):
                 values['LICENSE'] += '<!--\n' + (ASSETS / 'vendor' / notice).read_text(encoding='utf-8').replace('--', '—') + '\n-->'
             vendor = (ASSETS / 'vendor/echarts.min.js').read_text(encoding='utf-8')
             vendor = re.sub(r'(?i)</script', r'<\\/script', vendor)
             values['JS'] = vendor + '\n;\n' + (ASSETS / 'charts.js').read_text(encoding='utf-8') + '\n' + values['JS']
+        if any('progress' in item for s in self.deck['slides'] for item in s.get('metrics', []) if isinstance(item, dict)):
+            values['JS'] = (ASSETS / 'compositions.js').read_text(encoding='utf-8') + '\n' + values['JS']
         return re.sub(r'\{\{([A-Z_]+)\}\}', lambda m: values[m.group(1)], template)
 
 

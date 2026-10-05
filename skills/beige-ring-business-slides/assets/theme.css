@@ -1,0 +1,345 @@
+/* 米白环线商务 — an independent visual system over shared slide geometry.
+   Reference paper sampled at (250,246,243) in its embedded Display profile;
+   conversion to sRGB yields #FBF6F3. Font fallbacks approximate the visual,
+   not a claim to identify or redistribute the reference's typeface. */
+body[data-style="beige-ring-business"] {
+  --paper:#FBF6F3; --ink:#111111; --blue:#111111; --muted:#6E6D67;
+  --line:#5B5B56; --panel:#F0ECE6; --radius:0px; --on-accent:#FBF6F3;
+  --diagram-accent:#3E3E3B; --diagram-strong:#71716D; --diagram-panel:#F0ECE6;
+  --chart-tertiary:#A9A9A2; --chart-quaternary:#C0C0BA; --chart-quinary:#DDDDD7; --chart-grid:#D7D5CF;
+  --progress-track:#D1D0C7; --progress-fill:#3E3E3B;
+  --beige-font:Arial,'Helvetica Neue','PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif;
+  --beige-inline:110px; --beige-top:138px; --beige-bottom:116px;
+  --beige-rule:1.5px; --beige-ring-soft:#CFCCC7; --beige-ring-mid:#B3B0AA;
+  --editorial-body-family:var(--beige-font); --editorial-display-family:var(--beige-font);
+  --editorial-title-weight:400; --editorial-heading-weight:600;
+  --editorial-title-tracking:-.02em; --editorial-display-tracking:-.02em;
+  --editorial-image-fit:cover; --editorial-photo-ink:#FBF6F3; --editorial-photo-shadow:none;
+  --composition-image-fit:cover; --composition-title-weight:400; --composition-heading-weight:600;
+  --composition-tag-radius:0px; --poster-font:var(--beige-font);
+  --poster-title-size:110px; --poster-title-leading:1.23; --poster-title-tracking:-.025em;
+  --poster-statement-size:44px; --poster-statement-title-size:72px;
+  --poster-statement-leading:1.45; --poster-statement-tracking:0em; --poster-statement-weight:400;
+  --poster-content-gap:28px; --poster-copy-size:30px; --poster-copy-leading:1.5;
+  --poster-bullet-gap:10px; --poster-number-weight:400; --poster-number-tracking:-.04em;
+  --poster-number-leading:1; --poster-number-scale-x:1; --poster-number-size:420px;
+  --poster-cover-number-size:42px; --poster-chapter-title-size:84px;
+  --column-heading-size:34px; --column-heading-leading:1.35;
+  --column-body-size:28px; --column-body-leading:1.6;
+  --column-title-gap:32px; --column-paragraph-gap:24px; --column-gallery-gap:26px;
+  --columns-gap:52px; --monitor-radius:0px;
+  font-family:var(--beige-font); background:#E4E0DC;
+}
+body[data-style="beige-ring-business"] .slide {
+  padding:var(--beige-top) var(--beige-inline) var(--beige-bottom);
+  background:var(--paper); color:var(--ink); font-family:var(--beige-font); font-weight:400;
+  --composition-panel:var(--panel); --composition-emphasis:var(--ink); --composition-on-emphasis:var(--paper);
+}
+body[data-style="beige-ring-business"] .slide :is(h1,h2,h3,p,li,dt,dd,th,td,figcaption) {font-family:var(--beige-font)}
+body[data-style="beige-ring-business"] .slide h1 {font-weight:400;letter-spacing:-.025em;text-shadow:none}
+body[data-style="beige-ring-business"] .slide :is(h2,h3) {font-weight:600;letter-spacing:0;text-shadow:none}
+body[data-style="beige-ring-business"] .slide h1 em {font-style:normal;color:inherit}
+body[data-style="beige-ring-business"] .slide :is(strong,b) {font-weight:600}
+body[data-style="beige-ring-business"] .slide>main {margin-top:56px}
+
+/* Title left, description right, and a fine rule with two quiet endpoints. */
+body[data-style="beige-ring-business"] .slide>.beige-header {margin:0;position:relative;flex:none}
+body[data-style="beige-ring-business"] .beige-header-meta {display:none}
+body[data-style="beige-ring-business"] .beige-header-body {display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:60px;min-height:172px;padding:0 0 46px;border-bottom:var(--beige-rule) solid var(--line);position:relative}
+body[data-style="beige-ring-business"] .beige-header-body::before,
+body[data-style="beige-ring-business"] .beige-header-body::after {content:'';width:6px;height:6px;border-radius:50%;background:var(--ink);position:absolute;bottom:-3.5px;pointer-events:none}
+body[data-style="beige-ring-business"] .beige-header-body::before {left:0}
+body[data-style="beige-ring-business"] .beige-header-body::after {right:0}
+body[data-style="beige-ring-business"] .beige-heading {min-width:0}
+body[data-style="beige-ring-business"] .beige-header h1 {font-size:var(--title-size,76px);line-height:1.16;margin:0;color:var(--ink);font-weight:400;letter-spacing:-.025em;text-wrap:balance}
+body[data-style="beige-ring-business"] .beige-header .chapter {display:block;margin:0 0 16px;padding:0;border:0;background:none;font-size:20px;line-height:1.4;letter-spacing:.04em;color:var(--muted);font-weight:400}
+body[data-style="beige-ring-business"] .beige-header .subtitle {margin:0;font-size:28px;line-height:1.5;white-space:normal;color:var(--ink)}
+body[data-style="beige-ring-business"] .beige-header-body:not(:has(.subtitle)) {grid-template-columns:1fr}
+body[data-style="beige-ring-business"] .beige-header-summary:empty {display:none}
+body[data-style="beige-ring-business"] .slide>.beige-header:not(:has(h1,.subtitle,.chapter)) {display:none}
+body[data-style="beige-ring-business"] .slide>.beige-header:not(:has(h1,.subtitle,.chapter))+main {margin-top:0}
+body[data-style="beige-ring-business"] .beige-header:not(:has(h1,.subtitle)) .beige-header-body {min-height:0;padding:0;border:0;display:block}
+body[data-style="beige-ring-business"] .beige-header:not(:has(h1,.subtitle)) .beige-header-body::before,
+body[data-style="beige-ring-business"] .beige-header:not(:has(h1,.subtitle)) .beige-header-body::after {content:none}
+body[data-style="beige-ring-business"] .beige-header:not(:has(h1,.subtitle)) .chapter {margin-bottom:0}
+body[data-style="beige-ring-business"] .slide>.beige-header:not(:has(h1,.subtitle)):has(.chapter)+main {margin-top:28px}
+
+/* Footer data stays editable; no fictitious logo or decorative icon is added. */
+body[data-style="beige-ring-business"] .slide>footer {
+  left:var(--beige-inline); right:var(--beige-inline); bottom:42px; display:flex;
+  justify-content:space-between; align-items:center; gap:30px; border:0; margin:0; padding:0;
+  font-size:18px; line-height:1.4; letter-spacing:.02em; color:var(--muted); font-family:var(--beige-font);
+}
+body[data-style="beige-ring-business"] .slide>footer .brand {gap:18px;color:inherit}
+body[data-style="beige-ring-business"] .slide>footer .brand i {height:20px;background:var(--line)}
+body[data-style="beige-ring-business"] .slide>footer .brand-logo {height:24px}
+body[data-style="beige-ring-business"] .slide>footer .footer-label {margin-left:auto;font-weight:400}
+body[data-style="beige-ring-business"] .slide>footer .editorial-folio {font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:.03em}
+
+/* Full-colour photographs, clean rectangular edges; circular crops are chosen by layout. */
+body[data-style="beige-ring-business"] .scene-image {background:none;border:0;border-radius:0;box-shadow:none}
+body[data-style="beige-ring-business"] .scene-image img {object-fit:cover;filter:none;mask-image:none;-webkit-mask-image:none;mix-blend-mode:normal;border-radius:0;box-shadow:none}
+body[data-style="beige-ring-business"] :is(.scene-image figcaption,.reading-caption,.comp-image figcaption) {font-weight:400;color:var(--muted)}
+
+/* Fine outlines replace inherited blue panels, pills, and illustrated icon treatments. */
+body[data-style="beige-ring-business"] :is(.point.panel,.control-group.panel,.formula-term.panel,.journey-item.panel,.takeaway.panel,.reading-stage) {background:transparent;border:1px solid var(--line);border-radius:0;box-shadow:none}
+body[data-style="beige-ring-business"] :is(.point h3,.journey-item h3,.flow-step h3,.control-group h3,.control-group dt,.domain-side h3,.architecture-label,.formula-result,.formula-term,.bottom-groups dt) {color:var(--ink);text-shadow:none;font-weight:600}
+body[data-style="beige-ring-business"] :is(.point p,.journey-item p,.control-group dd,.arch-detail,.bottom-groups dd,.reading-facts dd,.reading-block-note,.chart-source) {color:var(--muted)}
+body[data-style="beige-ring-business"] .point h3 {border-bottom-width:1px}
+body[data-style="beige-ring-business"] :is(.point.panel h3,.journey-item.panel h3,.journey-item.panel.strong h3) {background:transparent;border-radius:0;color:var(--ink);font-weight:600}
+body[data-style="beige-ring-business"] :is(.tag-tray span,.factor-row span,.state-tag,.relation-node,.reading-modules span,.comp-tag) {border:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);box-shadow:none}
+body[data-style="beige-ring-business"] :is(.tag-tray>b,.factor-row>b,.factor-row i,.takeaway,.journey-item .deliverable,.relation-link,.arch-prefix,.arch-direction,.reading-output) {color:var(--ink)}
+body[data-style="beige-ring-business"] :is(.takeaway,.journey-item,.control-group) {border-top-width:1px}
+body[data-style="beige-ring-business"] .domain-side .point {border-color:var(--line)}
+body[data-style="beige-ring-business"] .flow-number {background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:50%;font-weight:400}
+body[data-style="beige-ring-business"] .semantic-icon {stroke-width:1.4}
+body[data-style="beige-ring-business"] .reading-block>h3 .semantic-icon {background:transparent;border-radius:0;color:var(--ink);box-shadow:none}
+body[data-style="beige-ring-business"] .control-group dl>div[data-row-kind="exception"] dt {background:var(--panel);border-radius:0;color:var(--ink)}
+body[data-style="beige-ring-business"] .table-wrap {border-color:var(--line);border-radius:0;background:transparent;box-shadow:none}
+body[data-style="beige-ring-business"] :is(.table-wrap th,.reading-matrix th) {background:transparent;color:var(--ink);font-weight:600;border-color:var(--line)}
+body[data-style="beige-ring-business"] :is(.table-wrap td,.reading-matrix td) {color:var(--ink);border-color:var(--line)}
+body[data-style="beige-ring-business"] .table-wrap :is(td+td,th+th) {border-left:1px solid var(--chart-grid)}
+body[data-style="beige-ring-business"] .chart-editor {border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);box-shadow:none}
+body[data-style="beige-ring-business"] .chart-editor summary {color:var(--ink)}
+
+/* Existing shared compositions retain their semantic arrangement and receive the same type language. */
+body[data-style="beige-ring-business"] .shared-composition {--comp-body-size:28px;--layout-title-size:76px}
+body[data-style="beige-ring-business"] .shared-composition .comp-title {font-weight:400;line-height:1.18;letter-spacing:-.025em}
+body[data-style="beige-ring-business"] .shared-composition h2 {font-weight:600}
+body[data-style="beige-ring-business"] .shared-composition .comp-subtitle {font-size:28px;line-height:1.5;color:var(--ink)}
+body[data-style="beige-ring-business"] .shared-composition :is(.comp-eyebrow,.comp-index,.comp-period) {color:var(--muted);letter-spacing:.02em}
+body[data-style="beige-ring-business"] :is(.comp-service,.comp-metric_cards .comp-metric) {border:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+body[data-style="beige-ring-business"] .comp-service.is-highlighted {background:var(--ink);border-color:var(--ink);color:var(--paper)}
+body[data-style="beige-ring-business"] .comp-service.is-highlighted .comp-index {color:inherit}
+body[data-style="beige-ring-business"] .comp-metric_circles .comp-metric {background:transparent;border:var(--beige-rule) solid var(--line);color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-metric-value {font-weight:400;letter-spacing:-.025em}
+body[data-style="beige-ring-business"] .comp-problems h2 {border-width:1px;border-radius:0}
+body[data-style="beige-ring-business"] .comp-snake_timeline .comp-step {border-top-width:1px}
+body[data-style="beige-ring-business"] .comp-snake_timeline .comp-step::before {background:var(--ink);width:7px;height:7px;top:-4px}
+body[data-style="beige-ring-business"] .comp-checks li>span:first-child {color:var(--ink);font-weight:400}
+body[data-style="beige-ring-business"] .comp-column-title>.comp-title {font-size:var(--title-size,76px);line-height:1.18;font-weight:400}
+body[data-style="beige-ring-business"] .comp-column-title>.comp-subtitle {font-size:27px;line-height:1.5;margin-top:24px}
+body[data-style="beige-ring-business"] .comp-column-text {color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-column-person .comp-person-role {color:var(--muted)}
+body[data-style="beige-ring-business"] .comp-divider-copy .comp-title {color:inherit}
+
+/* Ring cover and closing: editable copy over CSS-only outline geometry. */
+body[data-style="beige-ring-business"] .layout-cover.no-image::before,
+body[data-style="beige-ring-business"] .layout-closing.no-image::before,
+body[data-style="beige-ring-business"] .layout-type_poster.variant-cover::before {
+  content:'';position:absolute;left:-166px;top:408px;width:290px;height:290px;
+  border:var(--beige-rule) solid var(--line);border-radius:50%;pointer-events:none;
+}
+body[data-style="beige-ring-business"] .layout-cover.no-image::after,
+body[data-style="beige-ring-business"] .layout-closing.no-image::after,
+body[data-style="beige-ring-business"] .layout-type_poster.variant-cover::after {
+  content:'';position:absolute;right:-124px;top:408px;width:894px;height:292px;pointer-events:none;
+  background:radial-gradient(circle at 146px 146px,transparent 143px,var(--beige-ring-soft) 144px,var(--beige-ring-soft) 145px,transparent 146px),radial-gradient(circle at 344px 146px,transparent 143px,var(--beige-ring-mid) 144px,var(--beige-ring-mid) 145px,transparent 146px),radial-gradient(circle at 542px 146px,transparent 143px,#93938E 144px,#93938E 145px,transparent 146px),radial-gradient(circle at 740px 146px,transparent 143px,var(--line) 144px,var(--line) 145px,transparent 146px);
+}
+body[data-style="beige-ring-business"] .slide:is(.layout-cover,.layout-type_poster.variant-cover)>.beige-header {display:block;position:absolute;left:0;right:0;top:0;margin:0;padding:55px 125px 42px;border-bottom:1px solid var(--line)}
+body[data-style="beige-ring-business"] :is(.layout-cover,.layout-type_poster.variant-cover) .beige-header-meta {display:flex;align-items:center;justify-content:space-between;gap:40px;color:var(--ink);font-size:21px;line-height:1.4}
+body[data-style="beige-ring-business"] :is(.layout-cover,.layout-type_poster.variant-cover) .beige-identity {display:flex;align-items:center;gap:28px}
+body[data-style="beige-ring-business"] :is(.layout-cover,.layout-type_poster.variant-cover) .header-year {border-left:1px solid var(--line);padding-left:28px}
+body[data-style="beige-ring-business"] :is(.layout-cover,.layout-type_poster.variant-cover) .page-number {margin:0}
+body[data-style="beige-ring-business"] :is(.layout-cover,.layout-type_poster.variant-cover) .beige-header-body {display:none}
+body[data-style="beige-ring-business"] .layout-cover .cover-copy {left:240px;width:850px;top:560px;transform:translateY(-50%);z-index:1}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-copy {width:850px;max-width:850px}
+body[data-style="beige-ring-business"] .layout-cover h1 {font-size:var(--title-size,min(110px,calc(850px / var(--title-chars))));font-weight:400;line-height:1.23;letter-spacing:-.025em}
+body[data-style="beige-ring-business"] .cover-prefix {font-family:inherit;color:inherit;font-size:.78em;line-height:1.35;font-weight:400;margin-bottom:12px}
+body[data-style="beige-ring-business"] .layout-cover .subtitle {font-size:31px;line-height:1.5;white-space:normal;color:var(--ink);margin-top:32px}
+body[data-style="beige-ring-business"] .cover-promise {font-size:31px;color:var(--ink);font-weight:400;line-height:1.5;margin-top:28px}
+body[data-style="beige-ring-business"] .cover-description {font-size:27px;line-height:1.6;color:var(--muted);margin-top:24px}
+body[data-style="beige-ring-business"] .cover-date {left:240px;top:auto;bottom:126px;color:var(--ink);font-size:23px;letter-spacing:0}
+body[data-style="beige-ring-business"] :is(.cover-benefits span,.cover-benefits span:nth-child(n+4),.cover-platforms span) {border:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);box-shadow:none}
+body[data-style="beige-ring-business"] .cover-platforms i {color:var(--ink)}
+body[data-style="beige-ring-business"] .cover-labels h3 {color:var(--ink);font-weight:600}
+body[data-style="beige-ring-business"] .cover-labels p {color:var(--muted)}
+body[data-style="beige-ring-business"] .cover-labels>div::before {background:var(--line)}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-credits {position:absolute;left:240px;right:240px;top:auto;bottom:116px;width:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:330px;z-index:2}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-credits:empty {display:none}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-credits>div {position:relative;top:auto!important;left:auto;width:auto;padding:0 0 20px;border-bottom:var(--beige-rule) solid var(--line)}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-credits h3 {font-size:24px;line-height:1.4;white-space:normal;font-weight:600;padding-right:40px}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-credits p {font-size:25px;line-height:1.4;white-space:normal;color:var(--ink);margin-top:9px}
+body[data-style="beige-ring-business"] .layout-cover.no-image .cover-credits>div::before {content:'';position:absolute;left:auto;right:6px;top:7px;width:17px;height:17px;background:transparent;border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:rotate(45deg)}
+body[data-style="beige-ring-business"] .layout-cover:not(.no-image) .cover-copy {left:110px;width:720px}
+body[data-style="beige-ring-business"] .layout-cover:not(.no-image) .hero-scene {left:auto;right:110px;top:250px;width:820px;height:680px}
+body[data-style="beige-ring-business"] .layout-cover.variant-panel main::before {background:var(--panel);width:930px}
+body[data-style="beige-ring-business"] .layout-cover.variant-panel .cover-copy {background:transparent;border:0;border-radius:0;box-shadow:none}
+body[data-style="beige-ring-business"] .layout-cover.variant-mirror:not(.no-image) .cover-copy {left:auto;right:110px}
+body[data-style="beige-ring-business"] .layout-cover.variant-mirror:not(.no-image) .hero-scene {left:110px;right:auto}
+body[data-style="beige-ring-business"] .layout-cover.variant-mirror .cover-date {left:auto;right:110px}
+body[data-style="beige-ring-business"] .layout-cover>footer {bottom:42px}
+body[data-style="beige-ring-business"] .layout-cover>footer .brand {visibility:hidden}
+body[data-style="beige-ring-business"] .comp-type_poster.variant-cover {justify-content:center;padding-left:130px;padding-right:700px;position:relative;z-index:1}
+body[data-style="beige-ring-business"] .comp-type_poster.variant-cover .comp-poster-heading {width:850px;max-width:none}
+body[data-style="beige-ring-business"] .comp-type_poster.variant-cover .comp-eyebrow {font-size:24px;margin-bottom:30px;color:var(--muted)}
+body[data-style="beige-ring-business"] .comp-type_poster.variant-cover .comp-subtitle {font-size:31px;margin-top:32px;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-type_poster.variant-statement .comp-poster-heading {width:78%}
+body[data-style="beige-ring-business"] .comp-type_poster.variant-chapter .comp-poster-number {font-size:var(--poster-number-size);color:var(--muted)}
+body[data-style="beige-ring-business"] .layout-closing .beige-header-body {display:block;border:0;min-height:0;padding:0;max-width:980px}
+body[data-style="beige-ring-business"] .layout-closing .beige-header-body::before,
+body[data-style="beige-ring-business"] .layout-closing .beige-header-body::after {content:none}
+body[data-style="beige-ring-business"] .layout-closing h1 {margin:180px 0 0;color:var(--ink);font-weight:400;font-size:var(--title-size,94px);line-height:1.2;letter-spacing:-.025em}
+body[data-style="beige-ring-business"] .layout-closing .subtitle {font-size:30px;line-height:1.6;margin-top:35px;white-space:normal}
+body[data-style="beige-ring-business"] .layout-closing .ending-copy {left:110px;top:635px;width:790px}
+body[data-style="beige-ring-business"] .layout-closing.no-image .ending-copy {width:890px;max-width:890px}
+body[data-style="beige-ring-business"] .ending-message {font-size:30px;line-height:1.6;color:var(--ink)}
+body[data-style="beige-ring-business"] .ending-product {font-size:24px;color:var(--muted);margin-top:70px}
+body[data-style="beige-ring-business"] .layout-closing:not(.no-image) .hero-scene {right:110px;top:250px;width:770px;height:700px}
+
+/* The agenda uses the existing index fields; numbered outlines establish its rhythm. */
+body[data-style="beige-ring-business"] .comp-side_index.no-image {display:flex;flex-direction:column;gap:78px}
+body[data-style="beige-ring-business"] .comp-side_index.no-image>.comp-index-heading {display:block;position:relative;min-height:172px;padding:0 0 46px;border-bottom:var(--beige-rule) solid var(--line)}
+body[data-style="beige-ring-business"] .comp-side_index.no-image>.comp-index-heading>.comp-title {writing-mode:horizontal-tb;font-size:var(--title-size,76px)}
+body[data-style="beige-ring-business"] .comp-side_index.no-image>.comp-index-heading>.comp-subtitle,
+body[data-style="beige-ring-business"] .comp-side_index.no-image>.comp-index-heading>.comp-eyebrow {position:absolute;right:0;top:0;width:42%;font-size:28px;line-height:1.5;text-align:left;margin:0}
+body[data-style="beige-ring-business"] .comp-side_index.no-image>.comp-index-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,1fr);grid-auto-flow:column;gap:34px 110px;flex:1;padding:34px 0 28px}
+body[data-style="beige-ring-business"] .comp-side_index.no-image>.comp-index-list>li {border:0;padding:0;gap:34px;font-size:34px;line-height:1.4;align-items:center}
+body[data-style="beige-ring-business"] .comp-side_index.no-image .comp-index-list .comp-index {width:72px;height:72px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid var(--beige-ring-mid);border-radius:50%;font-size:24px;color:var(--ink);letter-spacing:0}
+
+/* Shared relations and a sequential row: monochrome diagrams with real editable labels. */
+body[data-style="beige-ring-business"] .comp-hub_spoke {gap:80px}
+body[data-style="beige-ring-business"] .comp-step_row {gap:52px}
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading) {position:relative;min-height:172px;padding:0 0 46px;border-bottom:var(--beige-rule) solid var(--line);align-items:center;gap:60px}
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading)>.comp-title {flex:1;min-width:0;font-size:var(--title-size,76px)}
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading)>.comp-copy {width:48%;max-width:48%;font-size:28px;line-height:1.5;color:var(--ink)}
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading,.comp-side_index.no-image>.comp-index-heading)::before,
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading,.comp-side_index.no-image>.comp-index-heading)::after {content:'';position:absolute;bottom:-3.5px;width:6px;height:6px;border-radius:50%;background:var(--ink);pointer-events:none}
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading,.comp-side_index.no-image>.comp-index-heading)::before {left:0}
+body[data-style="beige-ring-business"] :is(.comp-hub-heading,.comp-sequence-heading,.comp-side_index.no-image>.comp-index-heading)::after {right:0}
+body[data-style="beige-ring-business"] .comp-hub-board {gap:58px 38px;padding:28px 0 40px}
+body[data-style="beige-ring-business"] .comp-hub-board::before {left:8%;right:8%;height:var(--beige-rule)}
+body[data-style="beige-ring-business"] .comp-hub-branch {width:var(--beige-rule);margin:76px 0 86px}
+body[data-style="beige-ring-business"] .comp-hub-center {border:var(--beige-rule) solid var(--line);padding:24px;gap:12px}
+body[data-style="beige-ring-business"] .comp-hub-center h2 {font-size:31px;line-height:1.3}
+body[data-style="beige-ring-business"] .comp-hub-center p {font-size:23px;line-height:1.45;color:var(--muted)}
+body[data-style="beige-ring-business"] .comp-hub-node {border:var(--beige-rule) solid var(--line);padding:28px 20px;text-align:center;min-height:100px;display:flex;flex-direction:column;justify-content:center}
+body[data-style="beige-ring-business"] .comp-hub-node h2 {font-size:25px;line-height:1.4;font-weight:400}
+body[data-style="beige-ring-business"] .comp-hub-node p {font-size:22px;line-height:1.45;margin-top:12px}
+body[data-style="beige-ring-business"] .comp-step_row>.comp-steps {gap:80px;align-items:center;padding:22px 0 0}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step {display:block;min-width:0;align-self:start}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step>.comp-index {display:none}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step>div {min-width:0}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step h2 {width:min(270px,100%);aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:var(--beige-rule) solid var(--line);border-radius:50%;font-size:31px;line-height:1.3;padding:28px;margin:0 0 42px;font-weight:600}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step p {font-size:28px;line-height:1.5;color:var(--ink);max-width:300px}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step .comp-period {font-size:23px;margin-bottom:14px;color:var(--muted)}
+body[data-style="beige-ring-business"] .comp-step_row .comp-step:not(:last-child)::after {content:'›';font-family:Arial,sans-serif;font-weight:400;font-size:66px;line-height:1;top:95px;left:calc(100% + 24px);color:var(--ink)}
+
+/* A diagonal reading layout places the narrative and scene in alternating quadrants. */
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal) {padding:0}
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal)>.beige-header {position:absolute;left:110px;right:calc(50% + 70px);top:135px;z-index:3}
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal) .beige-header-body {display:block;min-height:0;padding:0;border:0}
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal) .beige-header-body::before,
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal) .beige-header-body::after {content:none}
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal) .beige-header .subtitle {font-size:26px;margin-top:20px}
+body[data-style="beige-ring-business"] .layout-reading:has(.composition-half_diagonal)>main {position:absolute;inset:0 0 100px;margin:0}
+body[data-style="beige-ring-business"] .composition-half_diagonal {position:relative;display:block;height:100%}
+body[data-style="beige-ring-business"] .composition-half_diagonal>.reading-summary {position:absolute;left:110px;right:calc(50% + 70px);top:270px;font-size:28px;line-height:1.5;z-index:2}
+body[data-style="beige-ring-business"] .composition-half_diagonal>.reading-body {position:absolute;inset:0;grid-template-columns:1fr 1fr;grid-template-rows:540px minmax(0,1fr);gap:0;border-bottom:var(--beige-rule) solid var(--line)}
+body[data-style="beige-ring-business"] .composition-half_diagonal>.reading-body::before {content:'';position:absolute;left:0;right:0;top:540px;border-top:var(--beige-rule) solid var(--line);z-index:2;pointer-events:none}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:first-child {grid-area:1 / 2;border:0;padding:0;gap:0}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:first-child .reading-illustration {flex:1;width:100%;height:100%}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:first-child .reading-illustration img {width:100%;height:100%;max-width:none;max-height:none;object-fit:cover}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:nth-child(2) {grid-area:2 / 1;position:relative;align-items:flex-start;justify-content:center;padding:0 0 0 110px;gap:0;isolation:isolate;border:0}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:nth-child(2)::before {content:'';position:absolute;top:50%;left:-160px;transform:translateY(-50%);width:426px;height:426px;border:var(--beige-rule) solid var(--beige-ring-mid);border-radius:50%;z-index:-1}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:nth-child(2)::after {content:'';position:absolute;top:50%;left:402px;transform:translateY(-50%);width:426px;height:426px;border:var(--beige-rule) solid var(--line);border-radius:50%;z-index:-1}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:nth-child(2) .reading-illustration {width:426px;height:426px;flex:none;border-radius:50%;overflow:hidden}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-media-item:nth-child(2) .reading-illustration img {width:100%;height:100%;object-fit:cover;max-width:none;max-height:none}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-caption {font-size:18px;line-height:1.3;position:absolute;left:110px;bottom:5px;max-width:426px;padding:3px 7px;background:var(--paper);z-index:2}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-block:first-child {grid-area:1 / 1;border:0;padding:362px 70px 32px 110px;display:flex;justify-content:flex-start}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-block:nth-child(2) {grid-area:2 / 2;border:0;padding:0 110px 0 0;align-self:center;display:block;transform:translateY(14px)}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-block>h3 {font-size:29px;line-height:1.35;margin-bottom:20px;color:var(--ink)}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-block>h3+*,
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-block>*:last-child {margin-top:0;margin-bottom:0}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-facts {gap:12px}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-facts>div {grid-template-columns:112px minmax(0,1fr);gap:18px;border:0;padding:0}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-facts :is(dt,dd) {font-size:25px;line-height:1.5;color:var(--ink)}
+body[data-style="beige-ring-business"] .composition-half_diagonal .reading-block:first-child .reading-facts :is(dt,dd) {font-size:23px;line-height:1.4}
+
+/* A quiet budget split, with the existing chart data editor and grayscale palette. */
+body[data-style="beige-ring-business"] .comp-chart_focus {grid-template-columns:.9fr 1.1fr;gap:70px}
+body[data-style="beige-ring-business"] .comp-chart-copy {gap:38px;padding:0 52px 35px 0;border-right:var(--beige-rule) solid var(--line)}
+body[data-style="beige-ring-business"] .comp-chart-copy>.comp-title {font-size:var(--title-size,76px)}
+body[data-style="beige-ring-business"] .comp-chart-copy>.comp-copy {font-size:30px;line-height:1.5;max-width:660px;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-chart-copy>.comp-stat {margin:30px auto 0;padding:40px;width:330px;height:330px;flex:none;border:var(--beige-rule) solid var(--line);border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative}
+body[data-style="beige-ring-business"] .slide .comp-stat>strong {font-size:65px;line-height:1.15;font-weight:400;letter-spacing:-.03em;margin-bottom:20px}
+body[data-style="beige-ring-business"] .comp-stat>p {font-size:25px;line-height:1.45;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-chart {padding:60px 0 50px;gap:26px}
+body[data-style="beige-ring-business"] .comp-chart>h2 {font-size:29px;font-weight:400}
+body[data-style="beige-ring-business"] .comp-chart>.chart-shell {min-height:450px}
+body[data-style="beige-ring-business"] .comp-chart>.comp-conclusion {font-size:26px;line-height:1.5;padding-top:26px;border-width:1px}
+
+/* Five people are supported by the shared columns, each crop remains its own image. */
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) {position:relative;gap:50px;padding-top:310px}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title {position:absolute;top:0;left:0;right:0;min-height:172px;padding-bottom:46px;border-bottom:var(--beige-rule) solid var(--line)}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title>.comp-title {max-width:64%}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title>.comp-subtitle {position:absolute;right:0;top:0;width:36%;margin:0;font-size:27px}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-person {display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:58px;border-bottom:1px solid var(--beige-ring-mid);padding-bottom:30px;flex:0 1 auto}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-person>.comp-image {width:min(250px,100%);aspect-ratio:1;height:auto;flex:none;align-self:center;border-radius:50%;overflow:hidden}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-person>.comp-image img {height:100%;width:100%;object-fit:cover}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-person-name {font-size:31px;line-height:1.4;font-weight:600}
+body[data-style="beige-ring-business"] .comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-person-role {font-size:24px;line-height:1.5;margin-top:14px;color:var(--ink)}
+
+/* Channel cards retain their semantic fields but become equal photographic columns. */
+body[data-style="beige-ring-business"] .comp-service_cards {gap:66px;position:relative}
+body[data-style="beige-ring-business"] .comp-service_cards>.comp-title {font-size:var(--title-size,76px);min-height:172px;padding:0 50% 46px 0;border-bottom:var(--beige-rule) solid var(--line)}
+body[data-style="beige-ring-business"] .comp-service_cards>.comp-subtitle {position:absolute;right:0;top:0;width:43%;margin:0;font-size:28px;line-height:1.5;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-services {grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;align-items:start;flex:1}
+body[data-style="beige-ring-business"] .comp-services>.comp-service {height:100%;border:0;padding:0;gap:20px;background:transparent;color:var(--ink);overflow:visible}
+body[data-style="beige-ring-business"] .comp-service.is-highlighted {background:transparent;color:var(--ink);border:0}
+body[data-style="beige-ring-business"] .comp-service>.comp-index {display:none}
+body[data-style="beige-ring-business"] .comp-service>.comp-image {height:330px;min-height:0;flex:none}
+body[data-style="beige-ring-business"] .comp-service>h2 {font-size:32px;line-height:1.35;margin:14px 0 0;font-weight:600}
+body[data-style="beige-ring-business"] .comp-service>p {font-size:27px;line-height:1.5;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-service_cards>.comp-aside {font-size:21px}
+
+/* A full-width comparison table needs no decorative photograph. */
+body[data-style="beige-ring-business"] .layout-table.no-image .table-layout {grid-template-columns:minmax(0,1fr);align-items:start}
+body[data-style="beige-ring-business"] .layout-table.no-image .table-wrap {margin-top:14px}
+body[data-style="beige-ring-business"] .layout-table.no-image .table-wrap table {font-size:27px;line-height:1.5}
+body[data-style="beige-ring-business"] .layout-table.no-image .table-wrap :is(th,td) {padding:28px 25px}
+body[data-style="beige-ring-business"] .layout-table.no-image .table-wrap th {font-size:27px;font-weight:600}
+
+/* KPI percentages are rendered and edited by the shared data component, never decorative text. */
+body[data-style="beige-ring-business"] .comp-metric_cards.no-image {gap:80px;position:relative}
+body[data-style="beige-ring-business"] .comp-metric_cards.no-image>.comp-metric-banner {flex:0 0 172px;display:block;border-bottom:var(--beige-rule) solid var(--line);padding-bottom:46px}
+body[data-style="beige-ring-business"] .comp-metric_cards.no-image>.comp-metric-banner>.comp-title {font-size:var(--title-size,76px);max-width:68%}
+body[data-style="beige-ring-business"] .comp-metric_cards.no-image>.comp-metric-banner>.comp-copy {position:absolute;right:0;top:0;width:30%;font-size:27px;line-height:1.5;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-metric_cards.no-image>.comp-metrics {gap:100px;flex:1;align-items:center}
+body[data-style="beige-ring-business"] .comp-metric_cards.no-image .comp-metric {padding:0;border:0;background:transparent;min-height:0;position:relative}
+body[data-style="beige-ring-business"] .comp-metric_cards .comp-metric:has(.comp-progress) h2 {border-left:var(--beige-rule) solid var(--line);padding:136px 0 0 24px;margin:38px 0 0;font-size:32px;line-height:1.35}
+body[data-style="beige-ring-business"] .comp-metric_cards .comp-metric:has(.comp-progress)>p {font-size:27px;line-height:1.5;margin-top:26px;color:var(--ink)}
+body[data-style="beige-ring-business"] .comp-progress {gap:16px;margin:0}
+body[data-style="beige-ring-business"] .comp-progress-track {height:48px;flex:1}
+body[data-style="beige-ring-business"] .comp-progress .comp-progress-percent {font-size:56px;letter-spacing:-.03em;font-weight:400}
+body[data-style="beige-ring-business"] .comp-progress-editor {background:var(--paper);border-color:var(--line);box-shadow:none}
+body[data-style="beige-ring-business"] .comp-service_cards>.comp-title {position:relative}
+body[data-style="beige-ring-business"] :is(.comp-service_cards>.comp-title,.comp-metric_cards.no-image>.comp-metric-banner,.comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title)::before,
+body[data-style="beige-ring-business"] :is(.comp-service_cards>.comp-title,.comp-metric_cards.no-image>.comp-metric-banner,.comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title)::after {content:'';position:absolute;bottom:-3.5px;width:6px;height:6px;border-radius:50%;background:var(--ink);pointer-events:none}
+body[data-style="beige-ring-business"] :is(.comp-service_cards>.comp-title,.comp-metric_cards.no-image>.comp-metric-banner,.comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title)::before {left:0}
+body[data-style="beige-ring-business"] :is(.comp-service_cards>.comp-title,.comp-metric_cards.no-image>.comp-metric-banner,.comp-editorial_columns:has(>.comp-column[data-column-type="people"]):not(:has(>.comp-column:not([data-column-type="people"]))) .comp-column-title)::after {right:0}
+
+/* Editorial pages reuse the shared crop geometry and the local warm-paper type system. */
+body[data-style="beige-ring-business"] .slide.layout-editorial.editorial-layout {padding:0}
+body[data-style="beige-ring-business"] .slide.layout-editorial.editorial-layout>main {margin:0}
+body[data-style="beige-ring-business"] .slide.layout-editorial.editorial-layout>.beige-header {position:absolute;top:35px;left:72px;right:72px;margin:0}
+body[data-style="beige-ring-business"] .slide.layout-editorial.editorial-layout>footer {font-size:18px;bottom:30px;left:72px;right:72px}
+body[data-style="beige-ring-business"] .slide.layout-editorial.editorial-layout h1 {font-weight:400;letter-spacing:-.025em}
+body[data-style="beige-ring-business"] .slide.layout-editorial.editorial-layout h2 {font-weight:600}
+body[data-style="beige-ring-business"] .slide.layout-editorial .editorial-photo>figcaption {color:var(--muted)}
+
+/* Shared player behaviour is unchanged; its controls follow the local neutral palette. */
+body[data-style="beige-ring-business"] :is(button,input,select,textarea,.toolbar,#notes-panel,#status) {font-family:var(--beige-font)}
+body[data-style="beige-ring-business"] .toolbar {background:#FBF6F3;border-color:#B3B0AA;border-radius:0;box-shadow:none}
+body[data-style="beige-ring-business"] .toolbar button {color:#111111;border-radius:0}
+body[data-style="beige-ring-business"] .toolbar button:hover,
+body[data-style="beige-ring-business"] .toolbar button[aria-pressed="true"] {background:#111111;color:#FBF6F3}
+body[data-style="beige-ring-business"] .toolbar input {background:#FBF6F3;color:#111111;border-color:#B3B0AA;border-radius:0}
+body[data-style="beige-ring-business"] .toolbar-divider {background:#B3B0AA}
+body[data-style="beige-ring-business"] #notes-panel {background:#FBF6F3;color:#111111;border-color:#B3B0AA;border-radius:0;box-shadow:none}
+body[data-style="beige-ring-business"] #notes-panel pre {color:#44443F}
+body[data-style="beige-ring-business"] #close-notes {background:#F0ECE6;color:#111111;border-radius:0}
+body[data-style="beige-ring-business"] #status {background:#111111;color:#FBF6F3;border-radius:0}
+body[data-style="beige-ring-business"].editing [data-edit] {outline-color:var(--line)}
+body[data-style="beige-ring-business"].editing [data-edit]:focus {outline-color:var(--ink)}
+body[data-style="beige-ring-business"].overview-mode .slide:hover {outline-color:#111111}

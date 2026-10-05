@@ -1,0 +1,72 @@
+[
+  {
+    "id": "workspace",
+    "generator": "built-in image_gen",
+    "original": "exec-5d90f301-2d0b-4539-a4f6-cdd7deff2d7d.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/workspace.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "architecture",
+    "generator": "built-in image_gen",
+    "original": "exec-47c98873-6cd0-456b-901f-59bed61fca2d.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/architecture.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-lin",
+    "generator": "built-in image_gen",
+    "original": "exec-af1716b1-413a-4c8e-ae59-27901f99ab37.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/portrait-lin.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-zhou",
+    "generator": "built-in image_gen",
+    "original": "exec-dd95036b-6ed0-49eb-9ba1-31c75fef2b21.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/portrait-zhou.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-xu",
+    "generator": "built-in image_gen",
+    "original": "exec-376db1de-3303-47b8-81a9-6f273856fc87.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/portrait-xu.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-chen",
+    "generator": "built-in image_gen",
+    "original": "exec-62574346-6b93-416f-8a96-22f8289eaa65.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/portrait-chen.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "portrait-wu",
+    "generator": "built-in image_gen",
+    "original": "exec-56e1e0d4-ebe6-499e-8043-a9925255dcfd.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/portrait-wu.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "channel-space",
+    "generator": "built-in image_gen",
+    "original": "exec-42f206b4-dfb5-4a20-b4f3-b0ccdc64fda6.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/channel-space.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "channel-content",
+    "generator": "built-in image_gen",
+    "original": "exec-0d108ed5-b98a-401a-b976-b2f6071e3cf6.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/channel-content.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  },
+  {
+    "id": "channel-community",
+    "generator": "built-in image_gen",
+    "original": "exec-fe776029-80d1-4572-a1f4-9b1f17870b77.png",
+    "asset": "skills/beige-ring-business-slides/assets/images/channel-community.webp",
+    "rights_note": "Original generated fictional scene or person; no Canva photograph reused."
+  }
+]

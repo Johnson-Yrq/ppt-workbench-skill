@@ -1,0 +1,35 @@
+{
+  "schema": "html-slide-style/v1",
+  "id": "monochrome-marble",
+  "name": "黑白大理石商务",
+  "description": "纯白与近黑反转、高对比衬线大字、短横线页码及克制的大理石纹理；以自然彩色商务摄影和清晰图表呈现商业计划、公司介绍与融资叙事。",
+  "status": "ready",
+  "css": "theme.css",
+  "header_system": "style",
+  "header_template": "header.html",
+  "heading_icons": "optional",
+  "cover_copy_policy": "style",
+  "cover_labels_expected": false,
+  "image_background": "scene",
+  "image_prompt": "image-style.txt",
+  "surfaces": [
+    "light",
+    "dark",
+    "marble-light",
+    "marble-dark",
+    "inset-dark"
+  ],
+  "image_free_layouts": [
+    "cover",
+    "closing",
+    "table"
+  ],
+  "layout_hints": {},
+  "ui_text_modes": [
+    "none"
+  ],
+  "default_ui_text": "none",
+  "ui_text_prompts": {
+    "none": "No legible text, letters, numbers, captions, logos, brands or watermarks in photographs and texture images. Keep all titles, names, business information, page numbers, charts and data native editable slide content."
+  }
+}

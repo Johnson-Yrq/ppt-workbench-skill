@@ -1,0 +1,854 @@
+{
+  "title": "黑白大理石商务 · 中文风格样稿",
+  "style": "monochrome-marble",
+  "presentation_mode": "speech",
+  "company": "砚序咨询",
+  "year": "2026",
+  "footer_label": "虚构风格样稿",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "2026 年度\n业务计划",
+      "subtitle": "砚序咨询 · 让每一步增长，都有清晰依据",
+      "date": "",
+      "id": "p01",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "cover",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "cover.fixed",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "side_index",
+      "title": "计划目录",
+      "surface": "dark",
+      "items": [
+        {
+          "label": "01",
+          "title": "执行摘要"
+        },
+        {
+          "label": "02",
+          "title": "公司介绍"
+        },
+        {
+          "label": "03",
+          "title": "核心团队"
+        },
+        {
+          "label": "04",
+          "title": "行业观察"
+        },
+        {
+          "label": "05",
+          "title": "阶段目标"
+        },
+        {
+          "label": "06",
+          "title": "协作机制"
+        },
+        {
+          "label": "07",
+          "title": "发展愿景"
+        },
+        {
+          "label": "08",
+          "title": "产品服务"
+        },
+        {
+          "label": "09",
+          "title": "服务能力"
+        },
+        {
+          "label": "10",
+          "title": "市场策略"
+        },
+        {
+          "label": "11",
+          "title": "资金规划"
+        },
+        {
+          "label": "12",
+          "title": "财务目标"
+        }
+      ],
+      "id": "p02",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "agenda",
+        "item_count": 12,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.side_index",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "type_poster",
+      "variant": "statement",
+      "placement": "bottom-left",
+      "title": "以清晰判断，\n推动稳健增长",
+      "copy": "砚序咨询是一家虚构的策略与设计顾问机构。\n本计划展示我们如何理解需求、建立方向并推动落地。\n从一次有依据的判断开始，让行动形成持续积累。",
+      "id": "p03",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "关于\n砚序咨询",
+      "title_column": 1,
+      "columns": [
+        {
+          "type": "image",
+          "image": {
+            "src": "images/company.webp",
+            "alt": "顾问在明亮办公室使用笔记本电脑梳理计划，原创生成示例",
+            "ratio": "3:4",
+            "brief": {
+              "subject": "顾问在明亮办公室使用笔记本电脑梳理计划",
+              "action": "自然商务场景、独立人物或天然石材纹理",
+              "structure": "单幅摄影，不含文字、标识或信息图",
+              "details": "自然肤色、真实日光与克制的中性色环境",
+              "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "我们围绕品牌、产品与组织协作，为成长中的团队提供清晰的思考框架。",
+            "将研究带进决策，将策略带进行动。每个项目都从真实问题出发，以可执行的成果收束。"
+          ]
+        }
+      ],
+      "id": "p04",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "一起，\n把方向落实",
+      "surface": "marble-light",
+      "columns": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "people",
+          "items": [
+            {
+              "image": {
+                "src": "images/portrait-lin.webp",
+                "alt": "林予安的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "林予安的虚构团队肖像",
+                  "action": "自然商务场景、独立人物或天然石材纹理",
+                  "structure": "单幅摄影，不含文字、标识或信息图",
+                  "details": "自然肤色、真实日光与克制的中性色环境",
+                  "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+                }
+              },
+              "name": "林予安",
+              "role": "策略与研究"
+            },
+            {
+              "image": {
+                "src": "images/portrait-zhou.webp",
+                "alt": "周明远的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "周明远的虚构团队肖像",
+                  "action": "自然商务场景、独立人物或天然石材纹理",
+                  "structure": "单幅摄影，不含文字、标识或信息图",
+                  "details": "自然肤色、真实日光与克制的中性色环境",
+                  "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+                }
+              },
+              "name": "周明远",
+              "role": "品牌与设计"
+            },
+            {
+              "image": {
+                "src": "images/portrait-shen.webp",
+                "alt": "沈知夏的虚构团队肖像，原创生成示例",
+                "ratio": "1:1",
+                "brief": {
+                  "subject": "沈知夏的虚构团队肖像",
+                  "action": "自然商务场景、独立人物或天然石材纹理",
+                  "structure": "单幅摄影，不含文字、标识或信息图",
+                  "details": "自然肤色、真实日光与克制的中性色环境",
+                  "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+                }
+              },
+              "name": "沈知夏",
+              "role": "交付与协作"
+            }
+          ]
+        }
+      ],
+      "id": "p05",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "team",
+        "item_count": 3,
+        "media": {
+          "count": 3,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_people",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_story",
+      "title": "变化之中，\n看见机会",
+      "surface": "dark",
+      "image": {
+        "src": "images/industry.webp",
+        "alt": "明亮玻璃办公室中的多人业务讨论，原创生成示例",
+        "ratio": "16:9",
+        "brief": {
+          "subject": "明亮玻璃办公室中的多人业务讨论",
+          "action": "自然商务场景、独立人物或天然石材纹理",
+          "structure": "单幅摄影，不含文字、标识或信息图",
+          "details": "自然肤色、真实日光与克制的中性色环境",
+          "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+        }
+      },
+      "items": [
+        {
+          "title": "需求更加具体",
+          "text": "客户期待从抽象愿景走向明确任务，理解每项工作如何支持当前决策。"
+        },
+        {
+          "title": "协作更加紧密",
+          "text": "研究、策略与执行需要共享语境，减少信息断层，让团队沿同一方向前进。"
+        },
+        {
+          "title": "成果持续积累",
+          "text": "将项目中的经验整理为工具和方法，让一次合作留下可以继续使用的能力。"
+        }
+      ],
+      "id": "p06",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 3,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_story",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "循序推进，建立增长基础",
+      "title_size": 94,
+      "columns": [
+        {
+          "type": "chart",
+          "chart": {
+            "title": "建立有效连接",
+            "chart_type": "line",
+            "categories": [
+              "一月",
+              "二月",
+              "三月",
+              "四月",
+              "五月"
+            ],
+            "series": [
+              {
+                "name": "月度访谈",
+                "values": [
+                  8,
+                  12,
+                  16,
+                  22,
+                  28
+                ]
+              }
+            ],
+            "unit": "次",
+            "source": "来源：虚构业务计划假设，非真实经营数据。"
+          },
+          "copy": "通过持续访谈理解客户情境，让新的服务方向有事实依据。"
+        },
+        {
+          "type": "chart",
+          "chart": {
+            "title": "形成项目积累",
+            "chart_type": "line",
+            "categories": [
+              "一月",
+              "二月",
+              "三月",
+              "四月",
+              "五月"
+            ],
+            "series": [
+              {
+                "name": "阶段项目",
+                "values": [
+                  2,
+                  3,
+                  5,
+                  6,
+                  8
+                ]
+              }
+            ],
+            "unit": "个",
+            "source": "来源：虚构业务计划假设，非真实经营数据。"
+          },
+          "copy": "逐步扩展适合团队能力的项目类型，稳定交付节奏。"
+        },
+        {
+          "type": "chart",
+          "chart": {
+            "title": "沉淀可用方法",
+            "chart_type": "line",
+            "categories": [
+              "一月",
+              "二月",
+              "三月",
+              "四月",
+              "五月"
+            ],
+            "series": [
+              {
+                "name": "方法工具",
+                "values": [
+                  1,
+                  2,
+                  3,
+                  5,
+                  6
+                ]
+              }
+            ],
+            "unit": "套",
+            "source": "来源：虚构业务计划假设，非真实经营数据。"
+          },
+          "copy": "把过程经验整理为可复用工具，支持下一次协作。"
+        }
+      ],
+      "id": "p07",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "comparison",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "data",
+        "item_count": 3,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_charts",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "让协作\n形成合力",
+      "title_column": 1,
+      "columns": [
+        {
+          "type": "groups",
+          "items": [
+            {
+              "icon": "Search",
+              "title": "共同理解问题",
+              "text": "先确认背景、需求与限制，形成可以共享的问题定义。"
+            },
+            {
+              "icon": "Compass",
+              "title": "共同选择方向",
+              "text": "把判断依据讲清楚，让每个参与者理解取舍与优先级。"
+            },
+            {
+              "icon": "Handshake",
+              "title": "共同推进成果",
+              "text": "以清晰分工和阶段反馈，让策略逐步进入真实工作。"
+            }
+          ]
+        },
+        {
+          "type": "text"
+        }
+      ],
+      "id": "p08",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "parallel",
+        "item_count": 2,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "type_poster",
+      "variant": "statement",
+      "placement": "center",
+      "surface": "inset-dark",
+      "title": "让复杂变得清晰，\n让行动更有方向。",
+      "copy": "我们希望成为成长团队长期信赖的思考伙伴。\n以真诚的理解、独立的判断和持续的协作，\n帮助每一个值得推进的想法，稳步走向现实。",
+      "id": "p09",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 1,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.type_poster",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "从研究出发，\n走向可用成果",
+      "surface": "marble-light",
+      "title_size": 100,
+      "columns": [
+        {
+          "type": "text",
+          "paragraphs": [
+            "围绕关键业务问题，连接用户研究、品牌策略与服务设计。",
+            "每项服务都以明确的问题定义开始，以团队能够使用的方案、工具与行动路径结束。"
+          ]
+        },
+        {
+          "type": "image",
+          "image": {
+            "src": "images/service.webp",
+            "alt": "顾问在自然光下专注于研究工作，原创生成示例",
+            "ratio": "3:4",
+            "brief": {
+              "subject": "顾问在自然光下专注于研究工作",
+              "action": "自然商务场景、独立人物或天然石材纹理",
+              "structure": "单幅摄影，不含文字、标识或信息图",
+              "details": "自然肤色、真实日光与克制的中性色环境",
+              "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+            }
+          }
+        }
+      ],
+      "id": "p10",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "capabilities",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "explanation",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "五项能力，\n支撑完整服务",
+      "surface": "marble-dark",
+      "title_size": 102,
+      "columns": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "groups",
+          "items": [
+            {
+              "icon": "Search",
+              "title": "用户与市场研究"
+            },
+            {
+              "icon": "Compass",
+              "title": "品牌与业务策略"
+            },
+            {
+              "icon": "Layers",
+              "title": "产品与服务设计"
+            },
+            {
+              "icon": "Users",
+              "title": "团队共创与协作"
+            },
+            {
+              "icon": "TrendingUp",
+              "title": "复盘与持续优化"
+            }
+          ]
+        }
+      ],
+      "id": "p11",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "capabilities",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "parallel",
+        "item_count": 2,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "用真实交流，\n建立长期连接",
+      "title_column": 1,
+      "title_size": 100,
+      "columns": [
+        {
+          "type": "gallery",
+          "grid_columns": 1,
+          "images": [
+            {
+              "src": "images/market-work.webp",
+              "alt": "顾问在落地窗前的工作桌开展资料研究，原创生成示例",
+              "ratio": "16:9",
+              "brief": {
+                "subject": "顾问在落地窗前的工作桌开展资料研究",
+                "action": "自然商务场景、独立人物或天然石材纹理",
+                "structure": "单幅摄影，不含文字、标识或信息图",
+                "details": "自然肤色、真实日光与克制的中性色环境",
+                "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+              }
+            },
+            {
+              "src": "images/market-meet.webp",
+              "alt": "自然光下顾问与合作伙伴面对面交流，原创生成示例",
+              "ratio": "16:9",
+              "brief": {
+                "subject": "自然光下顾问与合作伙伴面对面交流",
+                "action": "自然商务场景、独立人物或天然石材纹理",
+                "structure": "单幅摄影，不含文字、标识或信息图",
+                "details": "自然肤色、真实日光与克制的中性色环境",
+                "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "paragraphs": [
+            "以有价值的内容、开放的交流和可信赖的交付，建立客户对我们的理解。",
+            "记录问题与方法，分享过程中的观察；通过小型共创活动认识伙伴，让联系在真实需求中持续。"
+          ]
+        }
+      ],
+      "id": "p12",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "explanation",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "gallery",
+        "item_count": 2,
+        "media": {
+          "count": 2,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_gallery",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "metric_cards",
+      "title": "为长期建设，保留充足空间",
+      "surface": "dark",
+      "image": {
+        "src": "images/marble.webp",
+        "alt": "原创黑白天然大理石纹理，原创生成示例",
+        "ratio": "3:4",
+        "brief": {
+          "subject": "原创黑白天然大理石纹理",
+          "action": "自然商务场景、独立人物或天然石材纹理",
+          "structure": "单幅摄影，不含文字、标识或信息图",
+          "details": "自然肤色、真实日光与克制的中性色环境",
+          "composition": "按实际图框安全裁切，保留人物与物件完整轮廓"
+        }
+      },
+      "metrics": [
+        {
+          "value": "300 万元",
+          "label": "资金规划示例",
+          "text": "支持团队建设、研究投入与服务发展。"
+        },
+        {
+          "value": "18 个月",
+          "label": "规划周期示例",
+          "text": "按阶段复盘投入与成果，保持调整空间。"
+        }
+      ],
+      "source": "来源：虚构计划假设，非融资承诺或真实财务数据。",
+      "id": "p13",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "statistics",
+        "item_count": 2,
+        "media": {
+          "count": 1,
+          "status": "provided"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.metric_cards",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "chart_focus",
+      "title": "以稳健节奏，\n积累经营成果",
+      "title_size": 94,
+      "copy": "按阶段观察收入与成本，\n以可持续的交付能力支持增长。\n所有数字仅用于展示图表样式。",
+      "chart": {
+        "title": "收入与成本假设",
+        "chart_type": "line",
+        "categories": [
+          "一季度",
+          "二季度",
+          "三季度",
+          "四季度"
+        ],
+        "series": [
+          {
+            "name": "收入",
+            "values": [
+              40,
+              65,
+              85,
+              110
+            ]
+          },
+          {
+            "name": "成本",
+            "values": [
+              45,
+              50,
+              58,
+              65
+            ]
+          }
+        ],
+        "unit": "万元",
+        "source": "来源：虚构年度计划假设，非真实财务数据。"
+      },
+      "id": "p14",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "data",
+        "item_count": 4,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.chart_focus",
+        "source_ids": []
+      }
+    },
+    {
+      "layout": "editorial_columns",
+      "title": "期待一起，\n开启新篇",
+      "surface": "dark",
+      "columns": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "groups",
+          "items": [
+            {
+              "title": "合作方向",
+              "text": "策略研究 · 品牌设计 · 团队共创"
+            },
+            {
+              "title": "示例邮箱",
+              "text": "hello@example.com"
+            },
+            {
+              "title": "本次资料",
+              "text": "砚序咨询 · 2026 年度业务计划"
+            }
+          ]
+        }
+      ],
+      "id": "p15",
+      "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
+      "visual": {
+        "role": "closing",
+        "treatment": "open",
+        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
+        "requirements": []
+      },
+      "layout_intent": {
+        "relation": "contact",
+        "item_count": 2,
+        "media": {
+          "count": 0,
+          "status": "unavailable"
+        }
+      },
+      "layout_selection": {
+        "version": 1,
+        "profile": "shared.editorial_columns",
+        "source_ids": []
+      }
+    }
+  ]
+}

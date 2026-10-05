@@ -1,0 +1,62 @@
+{
+  "mode": "built-in image_gen",
+  "use_case": "photorealistic-natural",
+  "images": [
+    {
+      "id": "photographer",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 3:4 composition. A documentary black-and-white photograph from behind a female East Asian photographer in her thirties arranging unlabelled landscape prints on a large wooden studio table. Natural window light, thoughtful working moment, tidy hands, authentic film-like tonal range, no readable text. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "mountain-road",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Wide landscape 16:9. A quiet winding alpine road leads toward a distant snow mountain, cloud drifting through the valley, tawny grasses and dark pine trees. Late autumn soft daylight, realistic geological scale, a calm travel editorial photograph. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "coast-road",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Wide landscape 16:9. A coastal road curves gently above a blue-green sea, pale grasses in foreground, distant headland and subtle clouds. Late afternoon directional light, muted natural colors, travel editorial photograph, no cars close to camera. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "city-river",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 4:5. An elevated view of a European-style riverside city at blue hour, layered old rooftops, a gentle river bend, a distant slender spire, warm lit windows contrasting with pale blue evening sky. A fictional composite city, no recognisable landmark necessary, editorial travel photography. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "city-rooftops",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Wide landscape 16:9. An intimate elevated composition over clay-tile rooftops of an old European-style city after sunset, one modest clock tower in distance and illuminated streets, fictional location. Subtle amber and slate blue, believable long exposure travel photography. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "city-night",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Wide landscape 16:9. Street-level view between modern glass buildings at night, soft reflections on wet pavement and a few distant pedestrians, blue gray glass and restrained warm lights, realistic urban editorial photography, no legible signage. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "pastry",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 4:5. Three rustic pancakes on a simple white ceramic plate, fresh blueberries and a little honey falling from a wooden honey dipper held out of frame. Rich near-black background, soft natural side lighting, believable appetizing texture, premium editorial food photography. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "citrus",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 3:4. A rustic ceramic bowl of fresh apricots and cut orange slices on a weathered wooden kitchen table, subtle green leaf detail, warm natural side light, tactile editorial food photography, no styling clutter. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "honey",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Wide landscape 16:9. Extreme close-up of golden honey dripping from a wooden dipper into a small ceramic dish, softly blurred warm kitchen background, elegant shallow depth of field, realistic viscosity and reflections, editorial food photography. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "breakfast",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Landscape 4:3. Top-down breakfast still life on pale linen: warm ceramic plate with toasted sourdough and a small piece of butter, cut pear, a small white cup, soft window light. Understated cream and golden palette, realistic food texture, editorial photography. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "supper",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 4:5. Candid documentary photograph of a small dinner gathering of five adult East Asian friends in a lush garden at dusk. Wooden table, shared seasonal food, candles and sparse warm string lights, natural conversation, relaxed elegant atmosphere, believable anatomy and interactions. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "guest",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 2:3. Candid close photograph of an adult East Asian woman in her early thirties listening to a friend across a garden dinner table, slight joyful smile, soft candlelight and subtle warm bokeh, natural skin texture and understated neutral clothes, editorial lifestyle photography. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "table",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 2:3. Straight overhead photograph of a garden supper table, ceramic plates, salads, bread, glasses of sparkling water, tiny candles and adult hands reaching for shared food. Warm candlelight, rich but natural color, authentic social documentary photography, no labels. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    },
+    {
+      "id": "laughter",
+      "prompt": "Use case: photorealistic-natural. Asset type: original image for a Chinese photography portfolio style specimen. Create ONE full-frame photograph only. Subject and composition: Portrait 2:3. Candid editorial photograph of two adult East Asian friends laughing softly at an outdoor supper, one in crisp light linen and one in dark charcoal clothes, warm candles at the edge of frame, dark leafy background and soft string lights. Natural skin and expressions, intimate genuine moment. Preserve the natural scene background. No typography, letters, numbers, logos, watermark, border, mockup, collage or layout. No illustration, no 3D render, no overprocessed HDR. Photographically realistic and art-directed with restrained contrast."
+    }
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "version": 1,
+  "title": "暖褐极简编辑式 · 阅读型正式示例",
+  "style": "warm-minimal-editorial",
+  "presentation_mode": "reading",
+  "company": "栖居 / QIJU STUDIO",
+  "year": 2026,
+  "footer_label": "风格示例 · 原创生成意象",
+  "slides": [
+    {
+      "id": "reading-cover",
+      "layout": "editorial",
+      "editorial_variant": "cover",
+      "title": "让细节\n支持每个决定。",
+      "surface": "dark",
+      "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
+      "visual": {
+        "role": "cover",
+        "treatment": "none",
+        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
+        "requirements": []
+      },
+      "subtitle": "A considered approach.",
+      "kicker": "阅读型 · 设计方法说明",
+      "image": {
+        "src": "images/courtyard.webp",
+        "alt": "斜阳下的建筑天井，原创生成意象",
+        "ratio": "3:4",
+        "ui_text": "none",
+        "brief": {
+          "subject": "An upward view through a narrow courtyard with two rough sandstone walls, a small opening of pale cloudy sky and a strong diagonal shadow.",
+          "action": "Sunlight crosses the textured walls while the courtyard remains quiet and empty.",
+          "structure": "The near walls frame a distant opening, creating a clear relationship between enclosure, height and natural light.",
+          "details": "Use real coarse stone pores, warm plaster, muted olive shadows and subtle film grain; avoid stylized models and invented signage.",
+          "composition": "Portrait framing for a full-height half-page crop; preserve the sky opening and the diagonal shadow."
+        }
+      }
+    },
+    {
+      "id": "reading-half_lr",
+      "layout": "reading",
+      "composition": "half_lr",
+      "title": "01 自然材质，需要放在一起观察。",
+      "summary": "图片建立整体质感，右侧分别说明材料特性和选择依据。",
+      "chapter": "READING / 01",
+      "surface": "light",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
+        "requirements": []
+      },
+      "blocks": [
+        {
+          "type": "matrix",
+          "title": "材料观察",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "columns": [
+            "材料",
+            "主要触感",
+            "应用位置"
+          ],
+          "rows": [
+            [
+              "木",
+              "温润",
+              "扶手与家具"
+            ],
+            [
+              "石",
+              "坚实",
+              "台面与地面"
+            ],
+            [
+              "织物",
+              "柔软",
+              "座面与窗帘"
+            ]
+          ]
+        },
+        {
+          "type": "facts",
+          "title": "选择依据",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "rows": [
+            {
+              "label": "采光",
+              "text": "在实际自然光下比较。"
+            },
+            {
+              "label": "触感",
+              "text": "关注经常接触的部位。"
+            },
+            {
+              "label": "维护",
+              "text": "明确清洁与修复方式。"
+            }
+          ]
+        }
+      ],
+      "notes": "布局和图表开发示例；所有事实性数字明确标注为示例，不用于业务结论。",
+      "image": {
+        "src": "images/detail.webp",
+        "alt": "木椅与窗帘的空间细节，原创生成意象",
+        "ratio": "3:4",
+        "ui_text": "none",
+        "brief": {
+          "subject": "A warm oak chair with a woven natural seat, an ivory linen curtain and a small cup resting on a travertine side table.",
+          "action": "Side light makes soft shadows across the chair and the nearby limewashed wall.",
+          "structure": "The curtain edge, chair frame and cylindrical side table create a close sequence of three contrasting materials.",
+          "details": "Preserve believable furniture proportions, real wood grain, woven fibers and a matte ceramic surface; no glossy model look.",
+          "composition": "Portrait interior detail with the chair and table kept readable inside a narrow vertical crop."
+        },
+        "caption": "自然光中的材质细节"
+      }
+    },
+    {
+      "id": "reading-half_tb",
+      "layout": "reading",
+      "composition": "half_tb",
+      "title": "02 从空间观察，到共同确认。",
+      "summary": "上半页并列呈现空间与工作过程，下半页用流程和图表保留讨论依据。",
+      "chapter": "READING / 02",
+      "surface": "light",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
+        "requirements": []
+      },
+      "blocks": [
+        {
+          "type": "process",
+          "title": "推进顺序",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "steps": [
+            {
+              "title": "理解",
+              "text": "明确日常习惯",
+              "output": "形成使用清单"
+            },
+            {
+              "title": "比较",
+              "text": "观察材料实样",
+              "output": "形成选材方向"
+            },
+            {
+              "title": "确认",
+              "text": "回到现场核对",
+              "output": "形成实施依据"
+            }
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "选材讨论次数",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "chart_type": "bar",
+          "categories": [
+            "空间",
+            "材料",
+            "灯光"
+          ],
+          "series": [
+            {
+              "name": "讨论次数",
+              "values": [
+                4,
+                6,
+                3
+              ]
+            }
+          ],
+          "unit": "次",
+          "source": "图表功能示例数据 · 非真实项目统计"
+        }
+      ],
+      "notes": "布局和图表开发示例；所有事实性数字明确标注为示例，不用于业务结论。",
+      "images": [
+        {
+          "src": "images/living.webp",
+          "alt": "自然光中的暖色客厅，原创生成意象",
+          "ratio": "16:9",
+          "ui_text": "none",
+          "brief": {
+            "subject": "A quiet living room with a linen sofa, a warm oak chair, a travertine table, a ceramic bowl and sheer curtains under afternoon light.",
+            "action": "Light enters from the side and reveals the tactile surfaces of the furniture.",
+            "structure": "The chair in the foreground, low table and sofa form three related depths inside one continuous room.",
+            "details": "Keep linen weave, stone pores and wood grain visible, with soft beige walls and natural material imperfections.",
+            "composition": "A wide eye-level landscape crop, with useful room detail across the frame and no empty artificial margins."
+          },
+          "caption": "整体空间"
+        },
+        {
+          "src": "images/studio.webp",
+          "alt": "设计师手中的材质选择，原创生成意象",
+          "ratio": "16:9",
+          "ui_text": "none",
+          "brief": {
+            "subject": "Anonymous hands arrange an oak swatch, pale stone tile and cream fabric on a large workshop table, with a pencil and blank papers.",
+            "action": "The hands compare the touch and edge alignment of three material samples.",
+            "structure": "The samples lie side by side in an ordered sequence while the hands connect them through one visible selection action.",
+            "details": "Use real skin anatomy, natural wood grain, uneven stone pores and fine fabric weave; no readable labels or technical drawing text.",
+            "composition": "Wide oblique overhead crop focused on hands and materials, preserving all fingers and the active selection area."
+          },
+          "caption": "材料讨论"
+        }
+      ]
+    },
+    {
+      "id": "reading-half_diagonal",
+      "layout": "reading",
+      "composition": "half_diagonal",
+      "title": "03 整体与细节，在同一页对话。",
+      "summary": "对角两幅摄影连接空间尺度与局部触感，文字分区补充方法和判断依据。",
+      "chapter": "READING / 03",
+      "surface": "dark",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
+        "requirements": []
+      },
+      "blocks": [
+        {
+          "type": "matrix",
+          "title": "材料观察",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "columns": [
+            "材料",
+            "主要触感",
+            "应用位置"
+          ],
+          "rows": [
+            [
+              "木",
+              "温润",
+              "扶手与家具"
+            ],
+            [
+              "石",
+              "坚实",
+              "台面与地面"
+            ],
+            [
+              "织物",
+              "柔软",
+              "座面与窗帘"
+            ]
+          ]
+        },
+        {
+          "type": "facts",
+          "title": "选择依据",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "rows": [
+            {
+              "label": "采光",
+              "text": "在实际自然光下比较。"
+            },
+            {
+              "label": "触感",
+              "text": "关注经常接触的部位。"
+            },
+            {
+              "label": "维护",
+              "text": "明确清洁与修复方式。"
+            }
+          ]
+        }
+      ],
+      "notes": "布局和图表开发示例；所有事实性数字明确标注为示例，不用于业务结论。",
+      "images": [
+        {
+          "src": "images/courtyard.webp",
+          "alt": "斜阳下的建筑天井，原创生成意象",
+          "ratio": "3:4",
+          "ui_text": "none",
+          "brief": {
+            "subject": "An upward view through a narrow courtyard with two rough sandstone walls, a small opening of pale cloudy sky and a strong diagonal shadow.",
+            "action": "Sunlight crosses the textured walls while the courtyard remains quiet and empty.",
+            "structure": "The near walls frame a distant opening, creating a clear relationship between enclosure, height and natural light.",
+            "details": "Use real coarse stone pores, warm plaster, muted olive shadows and subtle film grain; avoid stylized models and invented signage.",
+            "composition": "Portrait framing for a full-height half-page crop; preserve the sky opening and the diagonal shadow."
+          },
+          "caption": "光与空间的关系"
+        },
+        {
+          "src": "images/materials.webp",
+          "alt": "石材、亚麻与陶器的材质静物，原创生成意象",
+          "ratio": "3:2",
+          "ui_text": "none",
+          "brief": {
+            "subject": "Two stone samples, a dark upright slab, folded oatmeal linen and a small ceramic vessel with a dry branch on a tan table.",
+            "action": "Afternoon light grazes the objects and reveals differences in their tactile surfaces.",
+            "structure": "Objects of different heights form an asymmetric grouping on the right, with a quiet open tabletop to the left.",
+            "details": "Show rough stone edges, fine linen weave, matte pottery and restrained warm browns; all objects are full-scale and real.",
+            "composition": "Landscape still life, preserving the whole vase and upright slab; allow a portrait crop of the grouping if needed."
+          },
+          "caption": "材料之间的层次"
+        }
+      ]
+    },
+    {
+      "id": "reading-quarter",
+      "layout": "reading",
+      "composition": "quarter",
+      "title": "04 把使用、选择和落实串联起来。",
+      "summary": "一幅材料意象配合三组信息，使读者独立理解方法、比较维度和实施边界。",
+      "chapter": "READING / 04",
+      "surface": "light",
+      "visual": {
+        "role": "briefing",
+        "treatment": "open",
+        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
+        "requirements": []
+      },
+      "blocks": [
+        {
+          "type": "process",
+          "title": "推进顺序",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "steps": [
+            {
+              "title": "理解",
+              "text": "明确日常习惯",
+              "output": "形成使用清单"
+            },
+            {
+              "title": "比较",
+              "text": "观察材料实样",
+              "output": "形成选材方向"
+            },
+            {
+              "title": "确认",
+              "text": "回到现场核对",
+              "output": "形成实施依据"
+            }
+          ]
+        },
+        {
+          "type": "matrix",
+          "title": "材料观察",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "columns": [
+            "材料",
+            "主要触感",
+            "应用位置"
+          ],
+          "rows": [
+            [
+              "木",
+              "温润",
+              "扶手与家具"
+            ],
+            [
+              "石",
+              "坚实",
+              "台面与地面"
+            ],
+            [
+              "织物",
+              "柔软",
+              "座面与窗帘"
+            ]
+          ]
+        },
+        {
+          "type": "facts",
+          "title": "选择依据",
+          "icon_omit_reason": "以编辑式文字标题和细线表达层级，摄影承担视觉主体。",
+          "rows": [
+            {
+              "label": "采光",
+              "text": "在实际自然光下比较。"
+            },
+            {
+              "label": "触感",
+              "text": "关注经常接触的部位。"
+            },
+            {
+              "label": "维护",
+              "text": "明确清洁与修复方式。"
+            }
+          ]
+        }
+      ],
+      "notes": "布局和图表开发示例；所有事实性数字明确标注为示例，不用于业务结论。",
+      "image": {
+        "src": "images/materials.webp",
+        "alt": "石材、亚麻与陶器的材质静物，原创生成意象",
+        "ratio": "3:2",
+        "ui_text": "none",
+        "brief": {
+          "subject": "Two stone samples, a dark upright slab, folded oatmeal linen and a small ceramic vessel with a dry branch on a tan table.",
+          "action": "Afternoon light grazes the objects and reveals differences in their tactile surfaces.",
+          "structure": "Objects of different heights form an asymmetric grouping on the right, with a quiet open tabletop to the left.",
+          "details": "Show rough stone edges, fine linen weave, matte pottery and restrained warm browns; all objects are full-scale and real.",
+          "composition": "Landscape still life, preserving the whole vase and upright slab; allow a portrait crop of the grouping if needed."
+        },
+        "caption": "材料观察意象"
+      }
+    },
+    {
+      "id": "reading-closing",
+      "layout": "editorial",
+      "editorial_variant": "closing",
+      "title": "为日常\n留一点空白。",
+      "surface": "dark",
+      "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
+      "visual": {
+        "role": "closing",
+        "treatment": "none",
+        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
+        "requirements": []
+      },
+      "subtitle": "Make room for living.",
+      "copy": "从一束光、一种触感，\n开始下一次空间对话。",
+      "image": {
+        "src": "images/detail.webp",
+        "alt": "木椅与窗帘的空间细节，原创生成意象",
+        "ratio": "3:4",
+        "ui_text": "none",
+        "brief": {
+          "subject": "A warm oak chair with a woven natural seat, an ivory linen curtain and a small cup resting on a travertine side table.",
+          "action": "Side light makes soft shadows across the chair and the nearby limewashed wall.",
+          "structure": "The curtain edge, chair frame and cylindrical side table create a close sequence of three contrasting materials.",
+          "details": "Preserve believable furniture proportions, real wood grain, woven fibers and a matte ceramic surface; no glossy model look.",
+          "composition": "Portrait interior detail with the chair and table kept readable inside a narrow vertical crop."
+        }
+      }
+    }
+  ]
+}

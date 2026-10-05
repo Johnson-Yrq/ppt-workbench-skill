@@ -109,6 +109,21 @@ class StyleDiscoveryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'draft'):
             resolve_style({'style': 'third-style'})
 
+    def test_image_free_table_is_explicit_style_capability(self):
+        root, source = self.make_pack(image_free_layouts=['cover', 'closing', 'table'])
+        deck = {'title': '无图比较', 'style': 'third-style', 'presentation_mode': 'reading',
+                'slides': [{'id': 'table', 'layout': 'table', 'title': '共同维度',
+                            'columns': ['对象', '条件'], 'rows': [['甲', '示例一'], ['乙', '示例二']],
+                            'visual': {'rationale': '表格单独解释比较。', 'requirements': []}}]}
+        path = write_deck(self.root, deck)
+        data, work = load_deck(path)
+        doc = Document(Builder(data, work).render())
+        self.assertEqual(doc.images, [])
+        self.assertIn('no-image', doc.pages['table']['class'].split())
+        source['image_free_layouts'] = ['cover', 'closing']; self.save(root, source)
+        with self.assertRaisesRegex(ValueError, '需要 image'):
+            Builder(data, work)
+
     def test_duplicates_are_rejected_without_first_match_fallback(self):
         self.make_pack()
         self.make_pack('duplicate-slides')
@@ -135,6 +150,33 @@ class StyleDiscoveryTests(unittest.TestCase):
         self.make_pack()
         with self.assertRaisesRegex(ValueError, 'unknown-style'):
             resolve_style({'style': 'unknown-style'})
+
+    def test_custom_surfaces_are_manifest_owned_and_safe_to_render(self):
+        surfaces = ['light', 'dark', 'mustard', 'blue', 'red', 'lime']
+        self.make_pack(surfaces=surfaces)
+        slides = [{'id': surface, 'layout': 'type_poster', 'title': '章节标题', 'variant': 'chapter',
+                   'number': str(i + 1), 'surface': surface,
+                   'visual': {'rationale': '章节编号与主题色表达进度。', 'requirements': []}}
+                  for i, surface in enumerate(surfaces)]
+        deck = {'title': 'Custom surfaces', 'style': 'third-style', 'slides': slides}
+        data, root = load_deck(write_deck(self.root, deck))
+        doc = Document(Builder(data, root, embed_format='keep').render())
+        self.assertEqual([page.get('data-surface', 'light') for page in doc.pages.values()], surfaces)
+        for value in ('undeclared', 'blue" onclick="alert(1)', ['light'], None):
+            with self.subTest(value=value):
+                bad = copy.deepcopy(deck)
+                bad['slides'][0]['surface'] = value
+                with self.assertRaisesRegex(ValueError, 'surface'):
+                    load_deck(write_deck(self.root, bad))
+
+    def test_surface_names_must_be_unique_lowercase_slugs_and_include_light(self):
+        root, source = self.make_pack()
+        for surfaces in (['dark'], ['light', 'light'], ['light', 'Blue'], ['light', 'two words'],
+                         ['light', 'x' * 33], ['light', None], ['light', {}], 'light'):
+            with self.subTest(surfaces=surfaces):
+                self.save(root, dict(source, surfaces=surfaces))
+                with self.assertRaisesRegex(ValueError, 'surfaces'):
+                    resolve_style({'style': 'third-style'})
 
     def test_unrelated_manifest_is_not_a_slide_style(self):
         self.make_pack()
