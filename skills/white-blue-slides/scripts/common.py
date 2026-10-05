@@ -144,7 +144,7 @@ def load_deck(filename, layouts=NATIVE_LAYOUTS):
     if not isinstance(data.get('title'), str) or not data['title'].strip():
         raise ValueError('需要非空 title')
     slides = data.get('slides')
-    mode = presentation_mode(data)
+    presentation_mode(data)  # rejects an unknown mode early
     if not isinstance(slides, list) or not slides:
         raise ValueError('需要非空 slides 数组')
     ids = set()
@@ -190,21 +190,6 @@ def load_deck(filename, layouts=NATIVE_LAYOUTS):
     pack = resolve_style(data)
     for s in slides:
         header_style(data, s, pack)
-    selected = [(i, s) for i, s in enumerate(slides, 1)
-                if 'layout_intent' in s or 'layout_selection' in s]
-    if selected:
-        # Local import: the selector uses the layout registry in this module.
-        # Only supplied provenance is validated; old decks remain untouched.
-        from select_layout import selection_errors
-        selection_problems = []
-        for i, s in selected:
-            try:
-                errors = selection_errors(s, mode, pack['id'])
-            except (TypeError, AttributeError, KeyError) as exc:
-                errors = [f'选版字段结构无效：{exc}']
-            selection_problems.extend(f'第 {i} 页（{s["title"]}）：{error}' for error in errors)
-        if selection_problems:
-            raise ValueError('选版记录无效：\n' + '\n'.join(selection_problems))
     return data, path.parent
 
 

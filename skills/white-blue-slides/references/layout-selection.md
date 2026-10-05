@@ -82,12 +82,12 @@ python3 <shared>/scripts/select_layout.py <project>/layout-plan.json --out <proj
 
 ## 落到可渲染的 deck
 
-从合格候选中选择最符合内容与素材形状的一项。首选通常可直接采用；选择另一项时，在现有 `visual.rationale` 说明具体原因，不为多样性牺牲表达。
+从合格候选中选择最符合内容与素材形状的一项。首选通常可直接采用；不为多样性牺牲表达。
 
 1. 使用候选的 `layout` 和 `settings`，按 [数据契约](deck-format.md) 或 [共享构图字段](shared-layouts.md) 完整组织内容；不能只换 layout 名。`editorial` 候选须应用 `editorial_variant`。`single_block_span: 2` 写入唯一的 `blocks[0].span`，不是页级字段。
-2. 在本页保留 `layout_intent` 与候选的 `layout_selection: {version: 1, profile, source_ids}`。`source_ids` 可为空；有来源时必须匹配关系、项数和实际 profile，不能编造编号或引用未实现来源。`additional_sources` 的独立来源没有旧库的 `Lxxx` 编号，新 profile 没有匹配旧记录时保持空数组。
-3. 理由沿用 `visual.rationale`，保留大纲明确的 `requirements`。规划 `content` 不会渲染，转入真实字段后移除，原文与出处保留在大纲或 notes。
-4. 准备必需图片与数据，直接构建独立 HTML；修复构建器报告的结构错误和缺失资源。没有这些选版字段的旧稿仍兼容，局部编辑不要求全稿迁移。
+2. 选版记录留在 `layout-report.json`，不写进 deck；需要日后按反馈重选的页可保留 `layout_intent`（构建时不读取）。大纲明确的视觉要求写入 `visual.requirements`。
+3. 规划 `content` 不会渲染，转入真实字段后移除，原文与出处保留在大纲或 notes。
+4. 准备必需图片与数据，直接构建独立 HTML；修复构建器报告的结构错误和缺失资源。旧稿里的 `layout_selection` 等记录会被忽略，无需迁移。
 
 特殊组织要求：`journey.sequence` 使用 `connected: true`；`journey.compare` 使用 `connected: false`，仅作一维短比较；时间线保留每项真实 period；`flow.controls` 同时需要 steps 与真实控制 groups；`architecture.labels` 的主体数按 `kind=layer` 计；因果链须写 `directional: true`。允许零图的共享构图可完全无图；旧封面、尾页是否允许无图还由当前风格声明决定。
 
@@ -101,7 +101,7 @@ python3 <shared>/scripts/select_layout.py <project>/layout-plan.json --out <proj
 python3 <shared>/scripts/select_layout.py <project>/deck.json --feedback <project>/qa/report.json --out <project>/layout-retry.json
 ```
 
-反馈按页 id 匹配，只排除出现容量或布局问题的当前 profile；缺图或主题错误不能靠换版掩盖。脚本不自动删字、改数据或改写 deck。修复已报告问题后停止，不把内部工作转为新的用户批准节点，也不反复启动全稿检查。
+反馈按页 id 匹配，按页面实际的 `layout` 与设置认出当前 profile，只排除出现容量或布局问题的那一个；重选需要该页的 `layout_intent`。缺图或主题错误不能靠换版掩盖。脚本不自动删字、改数据或改写 deck。修复已报告问题后停止，不把内部工作转为新的用户批准节点，也不反复启动全稿检查。
 
 ## 维护布局库
 

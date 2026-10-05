@@ -65,9 +65,11 @@ def run():
         counts = analyze_deck(case)['pages'][0]['planned']
         check('string benefits are not counted as tags', counts['tags'] == 0, str(counts))
 
-        # 4. Design contract rejects the classic omissions.
+        # 4. Design contract: visual is optional, the classic omissions are rejected.
+        case = copy.deepcopy(example)
+        for slide in case['slides']: slide.pop('visual', None)
+        check('plan accepts pages without visual', analyze_deck(case)['ok'], json.dumps(analyze_deck(case)['errors'], ensure_ascii=False))
         for name, mutate in {
-            'missing visual': lambda s: s.pop('visual'),
             'heading without icon or reason': lambda s: s['left'][0].pop('icon'),
             'explicit panels not implemented': lambda s: s['visual'].update(requirements=[{'feature': 'panels', 'min': 3, 'source': '测试'}]),
             'unknown icon': lambda s: s['left'][0].__setitem__('icon', 'NoSuchIcon'),

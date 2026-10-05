@@ -30,12 +30,6 @@
           "details": "Three slender rear architectural volumes, four small glass interface cards, fine gold trim, a few small white planters, and two translucent muted-teal blocks; leave the front stair and glass perimeter complete.",
           "composition": "16:9 landscape, moderate near-isometric camera; central screen about half the image width, laptops one fifth of its width; preserve clear off-white margins, especially below the frontmost base corner."
         }
-      },
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "以大幅产品展陈引入，封面文字负责价值与范围，图中不再重复说明标签。",
-        "requirements": []
       }
     },
     {
@@ -45,12 +39,6 @@
       "chapter": "01 / 左右各半",
       "title": "看懂产品全局，再定位需要处理的工作",
       "summary": "左侧建立产品印象；右侧结合状态分布与处理说明，让读者知道当前工作在哪里、下一步看什么。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按已确认的主体版面比例分区，配图、图表与说明对应组织；数量数据均为示例。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "chart",
@@ -119,12 +107,6 @@
       "chapter": "01 / 左右各半",
       "title": "把协作过程转成清晰的动作与责任",
       "summary": "用三段协作场景理解处理路径，再通过步骤和责任矩阵核对交接，避免把所有信息堆进一张表。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按已确认的主体版面比例分区，配图、图表与说明对应组织；数量数据均为示例。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "process",
@@ -197,12 +179,6 @@
       "chapter": "02 / 上下各半",
       "title": "先看业务场景，再读流程与处理趋势",
       "summary": "上半区并列呈现场景与工作台；下半区分别说明处理顺序和数量变化，每组内容回答一个明确问题。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按已确认的主体版面比例分区，配图、图表与说明对应组织；数量数据均为示例。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "process",
@@ -298,12 +274,6 @@
       "chapter": "03 / 对角双图",
       "title": "用对角场景串联能力分工与工作构成",
       "summary": "左上读产品全景，右下看协作过程；其余两个分区补充能力对应与数量构成，形成连续的阅读路径。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按已确认的主体版面比例分区，配图、图表与说明对应组织；数量数据均为示例。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "matrix",
@@ -393,12 +363,6 @@
       "chapter": "04 / 四分之一配图",
       "title": "用四分之一配图，组织完整的方案核对页",
       "summary": "一个分区建立场景，其余三个分区分别提供数量比较、交付矩阵和使用边界，让信息密度来自可核对的内容。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按已确认的主体版面比例分区，配图、图表与说明对应组织；数量数据均为示例。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "chart",
@@ -512,12 +476,6 @@
           "details": "Fine glass perimeter, small navy interface panels, a single gold connector and one tiny planter; clear scale separation between the platform, operators and laptop.",
           "composition": "4:3, low balanced three-quarter view, complete miniature assembly and soft shadow inside generous margins for use beside the closing copy."
         }
-      },
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "以一次完整装配动作收束，保持场景主导及少量可编辑文字。",
-        "requirements": []
       }
     }
   ],

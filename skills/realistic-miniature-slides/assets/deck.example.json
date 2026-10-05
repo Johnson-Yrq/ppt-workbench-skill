@@ -19,12 +19,6 @@
         "持续复盘"
       ],
       "notes": "风格与排版示例；不代表某个产品已经具备这些能力。正式制作按真实资料替换。",
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "用完整微缩工作空间引入；标题和价值主张保留在可编辑页面中。",
-        "requirements": []
-      },
       "image": {
         "src": "images/01-overview.png",
         "alt": "计划、执行、跟踪和复盘组成的四区微缩团队空间",
@@ -68,10 +62,7 @@
         }
       ],
       "visual": {
-        "role": "capabilities",
-        "treatment": "open",
-        "rationale": "同层级条目保持无框对齐；交接动作的标题和图标略放大，配图展示真实协作。",
-        "requirements": []
+        "role": "capabilities"
       },
       "image": {
         "src": "images/02-handoff.png",
@@ -95,12 +86,6 @@
       "subtitle": "每次复盘，都落到具体行动",
       "message": "看清进展与问题\n共同约定下一步",
       "notes": "收束页示例，不添加未经确认的业绩或联系人。",
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "用团队交接场景收束，文字直接表达下一步。",
-        "requirements": []
-      },
       "image": {
         "src": "images/03-next-step.png",
         "alt": "团队在复盘讨论后确认下一步工作",

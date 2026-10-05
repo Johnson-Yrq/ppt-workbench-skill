@@ -11,7 +11,9 @@ from unittest.mock import patch
 
 from build_deck import Builder, check_plan
 from common import NATIVE_LAYOUTS, load_deck, placeholder_png as solid_png, slide_images
-from select_layout import load_library, media_info, observed_count, select_deck, selection_errors, text_units
+from composition_layouts import validate_composition
+from editorial_contract import validate_editorial_slide
+from select_layout import load_library, media_info, select_deck, text_units
 from test_compositions import fixtures
 from test_editorial import EditorialTests
 from test_styles import all_layouts_deck
@@ -33,58 +35,11 @@ def recommended(deck):
     return page['candidates'][0] if page['candidates'] else None
 
 
-def recorded(slide, relation=None):
-    slide = copy.deepcopy(slide)
-    pid = ('editorial.' + slide['editorial_variant'] if slide['layout'] == 'editorial'
-           else 'shared.' + slide['layout'])
-    profile = next(p for p in load_library()['profiles'] if p['id'] == pid)
-    relation = relation or profile['relations'][0]
-    intent = {'relation': relation, 'item_count': observed_count(slide, relation, profile)}
-    intent['media'] = {'count': media_info(slide, intent)[0], 'status': 'provided'}
-    if relation == 'comparison':
-        intent['dimension_count'] = 1
-    slide.update(layout_intent=intent, layout_selection={'version': 1, 'profile': pid, 'source_ids': []})
-    return slide
-
 
 class LayoutSelection(unittest.TestCase):
-    def test_chart_columns_require_real_data_and_count_charts(self):
-        chart = {'title': '样本', 'chart_type': 'line', 'categories': ['一', '二'],
-                 'series': [{'name': '示例', 'values': [2, 3]}], 'unit': '项', 'source': '虚构示例'}
-        slide = {'id': 'charts', 'layout': 'editorial_columns', 'title': '不同口径',
-                 'columns': [{'type': 'chart', 'chart': copy.deepcopy(chart)} for _ in range(3)],
-                 'layout_intent': {'relation': 'data', 'item_count': 3, 'media': {'count': 0, 'status': 'unavailable'}},
-                 'layout_selection': {'version': 1, 'profile': 'shared.editorial_charts', 'source_ids': []}}
-        for mode in ('speech', 'reading'):
-            self.assertEqual(selection_errors(slide, mode, 'warm-minimal-editorial'), [])
-        slide['layout_intent']['item_count'] = 2
-        self.assertTrue(any('实际' in e for e in selection_errors(slide, 'speech', 'scene-white')))
-        slide['layout_intent']['item_count'] = 3
-        slide['columns'][1]['chart'].pop('source')
-        self.assertTrue(selection_errors(slide, 'speech', 'scene-white'))
+    def test_chart_columns_need_real_charts_to_be_offered(self):
         planned = planning('data', count=3)
         self.assertNotIn('shared.editorial_charts', {x['profile'] for x in select_deck(planned)['pages'][0]['candidates']})
-
-    def test_twelve_item_agenda_and_structured_contact(self):
-        slide = {'layout': 'side_index', 'title': '目录', 'items': [{'title': str(i)} for i in range(12)]}
-        self.assertEqual(selection_errors(recorded(slide), 'speech', 'scene-white'), [])
-        slide['items'].append({'title': '十三'})
-        self.assertTrue(selection_errors(recorded(slide), 'speech', 'scene-white'))
-        contact = {'layout': 'editorial_columns', 'title': '联系', 'columns': [
-            {'type': 'text'}, {'type': 'groups', 'items': [{'title': '邮箱', 'text': 'hello@example.com'}, {'title': '合作', 'text': '需求访谈'}]}]}
-        self.assertEqual(selection_errors(recorded(contact, 'contact'), 'speech', 'scene-white'), [])
-
-    def test_hub_and_step_row_count_real_items_and_keep_timeline_dates(self):
-        for layout in ('hub_spoke', 'step_row'):
-            slide = recorded(next(s for s in fixtures() if s['layout'] == layout))
-            for mode in ('speech', 'reading'):
-                for style in STYLES:
-                    self.assertEqual(selection_errors(slide, mode, style), [])
-            slide['layout_intent']['item_count'] += 1
-            self.assertTrue(any('实际渲染主体' in e for e in selection_errors(slide, 'speech', 'scene-white')))
-        steps = recorded(next(s for s in fixtures() if s['layout'] == 'step_row'), 'timeline')
-        for item in steps['steps']: item.pop('period', None)
-        self.assertTrue(any('periods' in e for e in selection_errors(steps, 'speech', 'scene-white')))
 
     def test_five_person_team_requires_five_portraits(self):
         deck = planning('team', count=5)
@@ -95,69 +50,21 @@ class LayoutSelection(unittest.TestCase):
         ids = {x['profile'] for x in select_deck(deck)['pages'][0]['candidates']}
         self.assertNotIn('shared.editorial_people', ids)
 
-    def test_six_gallery_columns_allow_forty_eight_distinct_photos(self):
-        slide = {'id': 'gallery48', 'layout': 'editorial_columns', 'title': '作品索引',
-                 'columns': [{'type': 'gallery', 'images': [
-                     {'src': f'{c}-{i}.png', 'alt': f'作品{c}-{i}'} for i in range(8)]} for c in range(6)],
-                 'layout_intent': {'relation': 'gallery', 'item_count': 48, 'media': {'count': 48, 'status': 'provided'}},
-                 'layout_selection': {'version': 1, 'profile': 'shared.editorial_gallery', 'source_ids': []}}
-        self.assertEqual(selection_errors(slide, 'reading', 'warm-minimal-editorial'), [])
-
-    def test_image_free_table_requires_explicit_style_declaration(self):
-        slide = {'id': 'table', 'layout': 'table', 'title': '组合', 'columns': ['一', '二'], 'rows': [['甲', '乙']],
-                 'layout_intent': {'relation': 'table', 'item_count': 1, 'column_count': 2, 'media': {'count': 0, 'status': 'unavailable'}},
-                 'layout_selection': {'version': 1, 'profile': 'table.matrix', 'source_ids': []}}
-        self.assertTrue(any('需要图片' in e for e in selection_errors(slide, 'speech', 'scene-white')))
-        with patch('select_layout.resolve_style', return_value={'image_free_layouts': ['table']}):
-            self.assertEqual(selection_errors(slide, 'speech', 'table-capable-style'), [])
-
-    def test_gallery_counts_single_image_and_gallery_columns_without_team_portraits(self):
-        image = lambda name: {'src': name + '.png', 'alt': name}
-        for columns in ([{'type': 'image', 'image': image(x)} for x in ('one', 'two', 'three')],
-                        [{'type': 'image', 'image': image('one')},
-                         {'type': 'gallery', 'images': [image('two'), image('three')], 'grid_columns': 1}]):
-            slide = {'id': 'group', 'layout': 'editorial_columns', 'title': '三幅组照', 'columns': columns,
-                     'layout_intent': {'relation': 'gallery', 'item_count': 3, 'media': {'count': 3, 'status': 'provided'}},
-                     'layout_selection': {'version': 1, 'profile': 'shared.editorial_gallery', 'source_ids': []}}
-            self.assertEqual(selection_errors(slide, 'reading', 'warm-minimal-editorial'), [])
-            slide['layout_intent']['item_count'] = 2
-            self.assertTrue(any('实际渲染主体' in e for e in selection_errors(slide, 'reading', 'warm-minimal-editorial')))
-        profile = next(p for p in load_library()['profiles'] if p['id'] == 'shared.editorial_gallery')
-        self.assertEqual(observed_count({'layout': 'editorial_columns', 'columns': [
-            {'type': 'people', 'items': [{'name': '甲', 'role': '摄影', 'image': image('person')}]}]}, 'gallery', profile), 0)
-
     def test_statement_bullets_contribute_to_actual_text_capacity(self):
         self.assertEqual(text_units({'title': '理念', 'bullets': ['观察', '等待']}), 6)
 
-    def test_new_editorial_nested_media_and_real_person_counts(self):
+    def test_media_counts_nested_portraits_and_gallery_photos(self):
         image = lambda name: {'src': name + '.png', 'alt': name}
-        slide = {'id': 'team', 'layout': 'editorial_columns', 'title': '设计团队',
-                 'columns': [{'type': 'text', 'paragraphs': ['共同工作。']},
-                             {'type': 'people', 'items': [
-                                 {'name': '甲', 'role': '建筑', 'image': image('one')},
-                                 {'name': '乙', 'role': '材料', 'image': image('two')},
-                                 {'name': '丙', 'role': '空间', 'image': image('three')}]},
-                             {'type': 'image', 'image': image('building')}],
-                 'layout_intent': {'relation': 'team', 'item_count': 3,
-                                   'media': {'count': 4, 'status': 'provided'}},
-                 'layout_selection': {'version': 1, 'profile': 'shared.editorial_people', 'source_ids': []}}
-        self.assertEqual(media_info(slide, slide['layout_intent'])[0], 4)
-        self.assertEqual(selection_errors(slide, 'speech', 'warm-minimal-editorial'), [])
-        slide['layout_intent']['item_count'] = 2
-        self.assertTrue(any('实际渲染主体' in e for e in selection_errors(slide, 'speech', 'warm-minimal-editorial')))
-
-    def test_new_gallery_counts_photographs_and_poster_needs_no_image(self):
-        slide = {'id': 'gallery', 'layout': 'editorial_columns', 'title': '空间作品',
-                 'columns': [{'type': 'text', 'paragraphs': ['不同尺度的作品。']},
-                             {'type': 'gallery', 'images': [{'src': f'{i}.png', 'alt': f'作品{i}'} for i in range(8)]}],
-                 'layout_intent': {'relation': 'gallery', 'item_count': 8, 'media': {'count': 8, 'status': 'provided'}},
-                 'layout_selection': {'version': 1, 'profile': 'shared.editorial_gallery', 'source_ids': []}}
-        self.assertEqual(selection_errors(slide, 'reading', 'warm-minimal-editorial'), [])
-        self.assertEqual(media_info(slide, slide['layout_intent'])[0], 8)
-        poster = {'id': 'chapter', 'layout': 'type_poster', 'title': '设计理念', 'number': '1', 'variant': 'chapter', 'show_title': False,
-                  'layout_intent': {'relation': 'explanation', 'item_count': 1, 'media': {'count': 0, 'status': 'unavailable'}},
-                  'layout_selection': {'version': 1, 'profile': 'shared.type_poster', 'source_ids': []}}
-        self.assertEqual(selection_errors(poster, 'speech', 'scene-white'), [])
+        team = {'layout': 'editorial_columns', 'columns': [
+            {'type': 'people', 'items': [{'name': n, 'role': '设计', 'image': image(n)} for n in '甲乙丙']},
+            {'type': 'image', 'image': image('building')}]}
+        gallery = {'layout': 'editorial_columns', 'title': '空间作品', 'columns': [
+            {'type': 'text', 'paragraphs': ['不同尺度的作品。']},
+            {'type': 'gallery', 'images': [image(str(i)) for i in range(8)]}]}
+        self.assertEqual(media_info(team, {'relation': 'team'})[0], 4)
+        self.assertEqual(media_info(gallery, {'relation': 'gallery'})[0], 8)
+        service = next(s for s in fixtures() if s['layout'] == 'service_cards')
+        self.assertEqual(media_info(service, {'relation': 'parallel'})[0], 3)
 
     def test_three_items_do_not_imply_three_cards(self):
         process = recommended(planning())
@@ -245,8 +152,9 @@ class LayoutSelection(unittest.TestCase):
 
     def test_browser_feedback_reranks_only_affected_page(self):
         deck = planning('parallel')
-        first = select_deck(deck)['pages'][0]['selection']
-        deck['slides'][0]['layout_selection'] = first
+        first = recommended(deck)
+        # The current profile is read from the page's real layout; the deck keeps no selection record.
+        deck['slides'][0].update(layout=first['layout'], image={'src': 'scene.png', 'alt': '示意'}, **first['settings'])
         deck['slides'].append(dict(copy.deepcopy(deck['slides'][0]), id='p02'))
         feedback = {'pages': [{'id': 'p01', 'issues': [{'type': 'text-overflow'}], 'design': {'issues': []}}]}
         report = select_deck(deck, feedback)
@@ -255,20 +163,7 @@ class LayoutSelection(unittest.TestCase):
         feedback['pages'][0]['issues'] = [{'type': 'broken-image'}]
         self.assertEqual(select_deck(deck, feedback)['pages'][0]['selection']['profile'], first['profile'])
 
-    def test_metadata_rejects_stale_counts_layouts_and_wrong_sources(self):
-        slide = all_layouts_deck('scene-white')['slides'][4]  # journey
-        self.assertEqual(slide['layout'], 'journey')
-        slide['layout_intent'] = {'relation': 'sequence', 'item_count': 2}
-        slide['layout_selection'] = {'version': 1, 'profile': 'journey.sequence', 'source_ids': []}
-        self.assertEqual(selection_errors(slide, 'reading', 'scene-white'), [])
-        for mutate in (lambda s: s['layout_intent'].update(item_count=3),
-                       lambda s: s['layout_selection'].update(profile='split.points'),
-                       lambda s: s['layout_selection'].update(source_ids=['L046']),
-                       lambda s: s.update(connected=False)):
-            invalid = copy.deepcopy(slide); mutate(invalid)
-            self.assertTrue(selection_errors(invalid, 'reading', 'scene-white'))
-
-    def test_legacy_renderers_accept_truthful_records_in_all_styles(self):
+    def test_old_selection_records_still_build_and_stay_out_of_the_html(self):
         metadata = {
             'cover': ('cover.fixed', 'cover', 1), 'scene': ('scene.annotations', 'explanation', 2),
             'split': ('split.points', 'parallel', 2), 'triad': ('triad.controls', 'controls', 3),
@@ -289,10 +184,9 @@ class LayoutSelection(unittest.TestCase):
                     image.write_bytes(solid_png(324, 215))
                 report = check_plan(deck, root)
                 self.assertTrue(report['ok'], '\n'.join(report['errors']))
-                # A dry render exercises every actual renderer without requiring
-                # unrelated reading fixture images, and embeds the selection contract.
+                # Decks written before records were dropped still build; planning metadata never ships.
                 html = Builder(deck, root, draft=True, dry_run=True).render()
-                self.assertIn('layout_selection', html)
+                self.assertNotIn('layout_selection', html)
                 self.assertIn(f'data-style="{style}"', html)
 
     def test_selected_sequence_plan_becomes_a_formal_deck(self):
@@ -301,9 +195,7 @@ class LayoutSelection(unittest.TestCase):
         slide.update(layout=best['layout'], **best['settings'])
         slide['items'] = [{'title': title, 'text': text, 'icon': 'CircleCheck'} for title, text in zip(['接收', '核对', '完成'], texts)]
         slide['image'] = {'src': 'scene.png', 'alt': '流程验证图'}
-        slide['layout_selection'] = select_deck(plan)['pages'][0]['selection']
-        slide['visual'] = {'role': 'process', 'treatment': 'panels', 'rationale': best['rationale'], 'requirements': []}
-        deck = dict(plan, slides=[slide])
+        deck = dict(plan, slides=[slide])  # no visual block: role and treatment follow the layout
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp); (root / 'scene.png').write_bytes(solid_png(324, 215))
             self.assertTrue(check_plan(deck, root)['ok'])
@@ -349,47 +241,35 @@ class LayoutSelection(unittest.TestCase):
         cover['style'] = 'scene-white'
         self.assertEqual(recommended(cover)['profile'], 'shared.type_poster')
 
-    def test_nested_service_images_and_shared_metadata_are_truthful(self):
-        slide = recorded(next(s for s in fixtures() if s['layout'] == 'service_cards'))
-        self.assertEqual(media_info(slide, slide['layout_intent'])[0], 3)
-        self.assertEqual(selection_errors(slide, 'speech', 'monochrome-editorial'), [])
-        mutations = (
-            lambda s: s['layout_intent'].update(item_count=2),
-            lambda s: s['layout_intent']['media'].update(count=1),
-            lambda s: s.update(highlight=3),
-            lambda s: s.update(copy='这个字段不会被服务卡片渲染'),
-            lambda s: s['items'][0].update(ignored_field='不得悄悄忽略'),
-            lambda s: s['layout_selection'].update(version=True),
-            lambda s: s['layout_selection'].pop('source_ids'),
-        )
-        for mutate in mutations:
+    def test_service_card_fields_are_checked_by_the_renderer_contract(self):
+        slide = next(s for s in fixtures() if s['layout'] == 'service_cards')
+        validate_composition(slide)
+        for mutate in (lambda s: s.update(highlight=3), lambda s: s.update(copy='这个字段不会被服务卡片渲染'),
+                       lambda s: s['items'][0].update(ignored_field='不得悄悄忽略')):
             invalid = copy.deepcopy(slide); mutate(invalid)
-            self.assertTrue(selection_errors(invalid, 'speech', 'monochrome-editorial'))
+            with self.assertRaises(ValueError): validate_composition(invalid)
 
     def test_chart_focus_requires_real_chart_source_and_category_count(self):
-        slide = recorded(next(s for s in fixtures() if s['layout'] == 'chart_focus'))
+        slide = next(s for s in fixtures() if s['layout'] == 'chart_focus')
+        slide['layout_intent'] = {'relation': 'data', 'item_count': len(slide['chart']['categories']),
+                                  'media': {'count': 0, 'status': 'unavailable'}}
         deck = {'title': '图表选版', 'style': 'monochrome-editorial', 'presentation_mode': 'speech', 'slides': [slide]}
         self.assertEqual(recommended(deck)['profile'], 'shared.chart_focus')
-        self.assertEqual(selection_errors(slide, 'speech', 'monochrome-editorial'), [])
         for mutate in (lambda s: s.pop('chart'), lambda s: s['chart'].pop('source'),
-                       lambda s: s['chart']['series'][0].update(values=[12, None, 18]),
-                       lambda s: s['layout_intent'].update(item_count=2)):
+                       lambda s: s['chart']['series'][0].update(values=[12, None, 18])):
             invalid = copy.deepcopy(slide); mutate(invalid)
-            self.assertTrue(selection_errors(invalid, 'speech', 'monochrome-editorial'))
             self.assertFalse(select_deck(dict(deck, slides=[invalid]))['ok'])
 
-    def test_editorial_variants_counts_and_fields_are_checked(self):
-        slide = recorded(EditorialTests().slide('services'))
-        self.assertEqual(selection_errors(slide, 'reading', 'warm-minimal-editorial'), [])
-        for mutate in (lambda s: s.update(editorial_variant='portfolio'),
-                       lambda s: s['items'].pop(), lambda s: s.update(lead='服务页无此字段'),
-                       lambda s: s['layout_selection'].update(profile='editorial.process')):
+    def test_editorial_fields_are_checked_by_the_renderer_contract(self):
+        slide = EditorialTests().slide('services')
+        validate_editorial_slide(slide)
+        for mutate in (lambda s: s.update(editorial_variant='portfolio'), lambda s: s.update(lead='服务页无此字段')):
             invalid = copy.deepcopy(slide); mutate(invalid)
-            self.assertTrue(selection_errors(invalid, 'reading', 'warm-minimal-editorial'))
+            with self.assertRaises(ValueError): validate_editorial_slide(invalid)
 
     def test_all_new_profiles_render_in_all_styles_and_both_modes(self):
-        shared = [recorded(s) for s in fixtures()]
-        editorial = [recorded(EditorialTests().slide(p['settings']['editorial_variant']))
+        shared = fixtures()
+        editorial = [EditorialTests().slide(p['settings']['editorial_variant'])
                      for p in load_library()['profiles'] if p['layout'] == 'editorial']
         for style in STYLES:
             for mode in ('speech', 'reading'):
@@ -399,27 +279,7 @@ class LayoutSelection(unittest.TestCase):
                     report = check_plan(deck, HERE)
                     self.assertTrue(report['ok'], report['errors'])
                     html = Builder(deck, HERE, draft=True, dry_run=True).render()
-                    self.assertIn('layout_selection', html)
-
-    def test_recorded_shared_and_editorial_decks_load_and_block_invalid_records(self):
-        shared = next(s for s in fixtures() if s['layout'] == 'problem_columns')
-        shared.pop('image')
-        slides = [recorded(shared), recorded(EditorialTests().slide('intro'))]
-        deck = {'title': '原生契约验证', 'style': 'monochrome-editorial', 'presentation_mode': 'speech', 'slides': slides}
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            for slide in slides:
-                for image in slide_images(slide):
-                    path = root / image['src']; path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_bytes(solid_png(24, 16))
-            path = root / 'deck.json'; path.write_text(json.dumps(deck), encoding='utf-8')
-            loaded, _ = load_deck(path)
-            self.assertTrue(check_plan(loaded, root)['ok'])
-            self.assertIn('layout_selection', Builder(loaded, root, embed_format='keep').render())
-            loaded['slides'][0]['layout_intent']['item_count'] = 3
-            self.assertFalse(check_plan(loaded, root)['ok'])
-            with self.assertRaisesRegex(ValueError, '实际渲染主体项数'):
-                Builder(loaded, root, embed_format='keep').render()
+                    self.assertIn(f'data-style="{style}"', html)
 
     def test_facts_only_reading_layout_is_available_for_both_modes(self):
         for mode in ('speech', 'reading'):
@@ -445,12 +305,6 @@ class LayoutSelection(unittest.TestCase):
                     with self.assertRaises(ValueError):
                         load_library()
                 load_library.cache_clear()
-
-    def test_reference_only_sources_cannot_be_claimed_by_new_profiles(self):
-        slide = recorded(next(s for s in fixtures() if s['layout'] == 'service_cards'))
-        source = next(r['id'] for r in load_library()['references'] if r['status'] == 'reference_only')
-        slide['layout_selection']['source_ids'] = [source]
-        self.assertTrue(any('source_ids' in e for e in selection_errors(slide, 'speech', 'scene-white')))
 
     def test_cli_does_not_overwrite_the_plan(self):
         with tempfile.TemporaryDirectory() as temp:

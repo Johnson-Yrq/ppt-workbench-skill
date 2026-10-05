@@ -14,12 +14,6 @@
       "date": "",
       "id": "p01",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "cover",
         "item_count": 1,
@@ -27,11 +21,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "cover.fixed",
-        "source_ids": []
       },
       "credits": [
         {
@@ -83,12 +72,6 @@
       ],
       "id": "p02",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "agenda",
         "item_count": 8,
@@ -96,11 +79,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.side_index",
-        "source_ids": []
       }
     },
     {
@@ -170,12 +148,6 @@
       ],
       "id": "p03",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "mixed",
         "item_count": 2,
@@ -187,11 +159,6 @@
           "facts",
           "facts"
         ]
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "reading.half_diagonal",
-        "source_ids": []
       }
     },
     {
@@ -238,12 +205,6 @@
       ],
       "id": "p04",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "network",
         "item_count": 8,
@@ -251,11 +212,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.hub_spoke",
-        "source_ids": []
       }
     },
     {
@@ -286,12 +242,6 @@
       "note": "时间为风格样稿的虚构计划，不代表真实项目排期。",
       "id": "p05",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "process",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "timeline",
         "item_count": 4,
@@ -305,11 +255,6 @@
           "三月",
           "四月"
         ]
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.step_row",
-        "source_ids": []
       }
     },
     {
@@ -348,12 +293,6 @@
       "conclusion": "内容与触达占 55%，其余用于体验、社区与复盘。",
       "id": "p06",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "data",
         "item_count": 5,
@@ -361,11 +300,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.chart_focus",
-        "source_ids": []
       }
     },
     {
@@ -480,12 +414,6 @@
       ],
       "id": "p07",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "team",
         "item_count": 5,
@@ -493,11 +421,6 @@
           "count": 5,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_people",
-        "source_ids": []
       }
     },
     {
@@ -557,10 +480,7 @@
       "id": "p08",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "capabilities",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
+        "treatment": "open"
       },
       "layout_intent": {
         "relation": "parallel",
@@ -569,11 +489,6 @@
           "count": 3,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.service_cards",
-        "source_ids": []
       }
     },
     {
@@ -615,9 +530,7 @@
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
         "role": "comparison",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
+        "treatment": "open"
       },
       "layout_intent": {
         "relation": "table",
@@ -627,11 +540,6 @@
           "status": "unavailable"
         },
         "column_count": 4
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "table.matrix",
-        "source_ids": []
       }
     },
     {
@@ -667,10 +575,7 @@
       "id": "p10",
       "notes": "风格开发样稿。回环办公、所有人物姓名、项目计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "comparison",
-        "treatment": "open",
-        "rationale": "按本页内容关系采用可编辑共享结构，米白纸面与细线圆环组织清晰的商务信息。",
-        "requirements": []
+        "treatment": "open"
       },
       "layout_intent": {
         "relation": "statistics",
@@ -679,11 +584,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.metric_cards",
-        "source_ids": []
       }
     }
   ]

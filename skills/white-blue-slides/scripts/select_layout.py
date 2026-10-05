@@ -11,8 +11,8 @@ from pathlib import Path
 
 from common import NATIVE_LAYOUTS, SKILL, VARIANTS, presentation_mode
 from chart_contract import chart_errors, slide_charts
-from composition_layouts import SHARED_LAYOUTS, validate_composition, composition_images
-from editorial_contract import EDITORIAL_VARIANTS, validate_editorial_slide
+from composition_layouts import SHARED_LAYOUTS, composition_images
+from editorial_contract import EDITORIAL_VARIANTS
 from style_packs import resolve_style
 
 LIBRARY = SKILL / 'references/layout-library.json'
@@ -44,7 +44,6 @@ SHARED_COUNT_FIELDS = {
 EDITORIAL_COUNT_FIELDS = {'cover': 'single', 'intro': 'single', 'contents': 'items',
                          'about': 'columns', 'services': 'items', 'process': 'items',
                          'portfolio': 'images', 'closing': 'single'}
-SELECTION_FIELDS = {'layout_intent', 'layout_selection'}
 
 
 def profile_settings_errors(profile):
@@ -368,108 +367,14 @@ def choose_slide(slide, mode, style, previous=None, excluded=()):
     return result
 
 
-def observed_count(slide, relation, profile=None):
-    layout = slide.get('layout')
-    field = (profile or {}).get('count_field')
-    if field:
-        if field == 'single':
-            return 1
-        if field == 'columns.photos':
-            return sum(1 if col.get('type') == 'image' and isinstance(col.get('image'), dict)
-                       else len(col['images']) if col.get('type') == 'gallery' and isinstance(col.get('images'), list)
-                       else 0 for col in slide.get('columns', []) if isinstance(col, dict))
-        if field == 'columns.charts':
-            return sum(col.get('type') == 'chart' for col in slide.get('columns', []) if isinstance(col, dict))
-        if field in {'columns.people', 'columns.gallery'}:
-            kind, key = ('people', 'items') if field == 'columns.people' else ('gallery', 'images')
-            return sum(len(col.get(key, [])) for col in slide.get('columns', [])
-                       if isinstance(col, dict) and col.get('type') == kind and isinstance(col.get(key), list))
-        value = slide
-        for part in field.split('.'):
-            value = value.get(part) if isinstance(value, dict) else None
-        return len(value) if isinstance(value, list) else 0
-    if layout == 'reading':
-        kind = {'sequence': 'process', 'comparison': 'matrix', 'hierarchy': 'layers', 'data': 'chart'}.get(relation)
-        blocks = [b for b in slide.get('blocks', []) if isinstance(b, dict) and b.get('type') == kind]
-        if not blocks: return None
-        key = {'process': 'steps', 'matrix': 'rows', 'layers': 'layers', 'chart': 'categories'}[kind]
-        return max(len(b.get(key, [])) for b in blocks)
-    if layout in {'cover', 'closing'}: return 1
-    if layout == 'scene': return len(slide.get('left', [])) + len(slide.get('right', []))
-    if layout == 'flow': return len(slide.get('steps', []))
-    if layout == 'table': return len(slide.get('rows', []))
-    if layout == 'formula': return len(slide.get('formula', {}).get('terms', []))
-    if layout == 'architecture': return sum(x.get('kind') == 'layer' for x in slide.get('labels', []) if isinstance(x, dict))
-    if layout == 'relations': return max((len(x if isinstance(x, list) else x.get('nodes', [])) for x in slide.get('chains', [])), default=0)
-    if layout in {'split', 'triad', 'domains', 'journey'}: return len(slide.get('items', []))
-    return None
-
-
-def selection_errors(slide, mode, style):
-    """Optional metadata is backward compatible; once present it must be truthful."""
-    if 'layout_intent' not in slide and 'layout_selection' not in slide: return []
-    errors = intent_errors(slide)
-    record = slide.get('layout_selection')
-    if not isinstance(record, dict) or type(record.get('version')) is not int or record['version'] != 1:
-        return errors + ['需要 layout_selection: {version: 1, profile: …, source_ids: […]}']
-    if set(record) - {'version', 'profile', 'source_ids'}:
-        errors.append('layout_selection 含未支持的字段')
-    if 'source_ids' not in record:
-        errors.append('layout_selection.source_ids 必须显式记录；无匹配来源使用 []')
-    profiles = {p['id']: p for p in load_library()['profiles']}
-    pid = record.get('profile')
-    if not isinstance(pid, str) or pid not in profiles:
-        return errors + ['layout_selection.profile 未实现或不存在']
-    if errors: return errors
-    profile = profiles[pid]
-    errors.extend(eligibility(profile, slide, mode, style))
-    if slide.get('layout') != profile['layout']: errors.append('选版记录与实际 layout 不一致')
-    for key, value in profile['settings'].items():
-        if slide.get(key) != value or type(slide.get(key)) is not type(value):
-            errors.append(f'选版记录要求 {key}={value}')
-    # The renderer remains the authority for the real fields. Strip only this
-    # optional planning metadata, not unknown body fields that would be ignored.
-    rendered = {key: value for key, value in slide.items() if key not in SELECTION_FIELDS}
-    try:
-        if slide.get('layout') in SHARED_LAYOUTS:
-            validate_composition(rendered)
-        elif slide.get('layout') == 'editorial':
-            validate_editorial_slide(rendered)
-    except (ValueError, TypeError, KeyError) as exc:
-        errors.append(f'实际布局字段无效：{exc}')
-    intent = slide['layout_intent']
-    actual = observed_count(slide, intent['relation'], profile)
-    if actual is not None and actual != intent['item_count']:
-        errors.append(f'layout_intent.item_count={intent["item_count"]}，实际渲染主体项数为 {actual}；同步内容分析与排版')
-    if 'media' in intent and intent['media']['count'] != media_info(slide, intent)[0]:
-        errors.append('layout_intent.media.count 与实际渲染图片数量不一致')
-    if intent['relation'] == 'comparison' and slide.get('layout') == 'table':
-        if len(slide.get('columns', [])) != intent['dimension_count'] + 1:
-            errors.append('比较矩阵列数须为维度数加一列对象名称')
-    if intent['relation'] == 'comparison' and slide.get('layout') == 'reading':
-        if any(len(b.get('columns', [])) != intent['dimension_count'] + 1 for b in slide.get('blocks', []) if isinstance(b, dict) and b.get('type') == 'matrix'):
-            errors.append('阅读比较矩阵列数须为维度数加一列对象名称')
-    if 'block_types' in intent and slide.get('layout') == 'reading' and intent['block_types'] != blocks_for(slide, intent):
-        errors.append('block_types 与实际阅读模块不一致')
-    if 'control_group_count' in intent and slide.get('layout') == 'flow' and intent['control_group_count'] != len(slide.get('groups', [])):
-        errors.append('control_group_count 与实际控制分组数不一致')
-    if intent['relation'] == 'causality' and any(not isinstance(c, dict) or c.get('directional') is not True for c in slide.get('chains', [])):
-        errors.append('因果关系链需要 directional=true')
-    source_ids = record.get('source_ids', [])
-    valid = matching_sources(profile, intent, slide)
-    if not isinstance(source_ids, list) or any(not isinstance(s, str) or s not in valid for s in source_ids):
-        errors.append('source_ids 必须来自与当前关系、项数及 profile 匹配的可适配来源；不能引用未实现布局')
-    return errors
-
-
 def feedback_exclusions(feedback, slide):
-    record = slide.get('layout_selection')
-    pid = record.get('profile') if isinstance(record, dict) else None
-    if not pid: return []
+    # The page's current profiles follow from its rendered layout and settings; no record is kept in the deck.
+    current = [p['id'] for p in load_library()['profiles'] if p['layout'] == slide.get('layout')
+               and all(slide.get(key) == value for key, value in p['settings'].items())]
     for page in feedback.get('pages', []):
         if page.get('id') != slide.get('id'): continue
         issues = page.get('issues', []) + page.get('design', {}).get('issues', [])
-        if any(isinstance(i, dict) and i.get('type') in CAPACITY_ISSUES for i in issues): return [pid]
+        if any(isinstance(i, dict) and i.get('type') in CAPACITY_ISSUES for i in issues): return current
     return []
 
 

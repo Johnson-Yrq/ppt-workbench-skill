@@ -20,7 +20,7 @@
 
 ## 新增十六种构图
 
-下表中的字段直接放在单页对象，不另包 `composition`。每页都有 `id / layout / title / visual`，可选 `chapter / subtitle / surface / notes / title_size / body_size`；通过选版器的新页保留 `layout_intent / layout_selection` 元数据。`header` 仅适用于启用六种预设的风格。图片使用共用的图片对象，`images` 是其数组；`caption` 始终是可编辑文字。未列字段会被拒绝，避免内容被静默丢弃。
+下表中的字段直接放在单页对象，不另包 `composition`。每页都有 `id / layout / title`，可选 `chapter / subtitle / surface / notes / title_size / body_size / visual`。`header` 仅适用于启用六种预设的风格。图片使用共用的图片对象，`images` 是其数组；`caption` 始终是可编辑文字。未列字段会被拒绝，避免内容被静默丢弃。
 
 | `layout` | 构图 | 必需内容 | 可选内容与数量 |
 |---|---|---|---|
@@ -118,8 +118,7 @@
 {
   "layout": "hub_spoke", "title": "用户与价值的关联",
   "center": {"title": "目标用户"},
-  "items": [{"title": "需求"}, {"title": "场景"}, {"title": "体验"}, {"title": "反馈"}],
-  "visual": {"rationale": "四个维度围绕同一用户展开。", "requirements": []}
+  "items": [{"title": "需求"}, {"title": "场景"}, {"title": "体验"}, {"title": "反馈"}]
 }
 ```
 

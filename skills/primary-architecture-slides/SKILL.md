@@ -21,7 +21,7 @@ metadata:
 
 真实新稿沿用同级 [PPT 制作工作台](../ppt-workbench/SKILL.md) 已确认的风格和演讲／阅读用途，仅询问缺少的选择。直接指定本 Skill 已表达风格选择；续做项目保留当前选择。根对象记录 `style: "primary-architecture"` 与 `presentation_mode: "speech" / "reading"`。
 
-逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，用 `select_layout.py` 从真实可执行策略筛选；完整来源库保留 100 条、19 类，来源与渲染能力分层，不把来源编号当作 layout。新增 `type_poster` 与 `editorial_columns` 同样进入共享层，所有风格可用；本包不维护私有渲染器。将选择写为 `layout_intent / layout_selection`，理由沿用 `visual.rationale`，明确要求保留在 `requirements`。
+逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，用 `select_layout.py` 从真实可执行策略筛选；完整来源库保留 100 条、19 类，来源与渲染能力分层，不把来源编号当作 layout。新增 `type_poster` 与 `editorial_columns` 同样进入共享层，所有风格可用；本包不维护私有渲染器。明确要求写入 `visual.requirements`。
 
 按 [数据结构](../white-blue-slides/references/deck-format.md)、[共享布局](../white-blue-slides/references/shared-layouts.md) 组织真实字段。演讲型保留结论和少量支撑；阅读型保留机制、来源与边界，按实际内容选择栏目和图片数量，必要时拆页。不能为仿照拉丁文字的窄栏密度而把中文压得过小。
 

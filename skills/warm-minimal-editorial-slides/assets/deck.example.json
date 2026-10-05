@@ -14,12 +14,6 @@
       "title": "让空间\n回到生活。",
       "surface": "dark",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "subtitle": "A quieter way of living.",
       "kicker": "空间设计 · 品牌提案",
       "image": {
@@ -43,12 +37,6 @@
       "title": "简，而有温度。",
       "surface": "dark",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "copy": "从自然光、触感与日常动作出发，\n让空间保留秩序，也容纳生活的痕迹。",
       "image": {
         "src": "images/living.webp",
@@ -72,10 +60,7 @@
       "surface": "light",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
       "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
+        "role": "explanation"
       },
       "copy": "以克制的色彩与自然材质，\n组织一种舒展、安静、\n经得起日常使用的空间语言。",
       "image": {
@@ -121,12 +106,6 @@
       "title": "01 关于空间",
       "surface": "light",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "lead": "让物件各得其所，\n让生活自然展开。",
       "columns": [
         "空间的舒适，来自尺度、动线与光线之间的协调。先理解人在其中如何停留、工作与相聚，再选择恰当的形态。",
@@ -154,10 +133,7 @@
       "surface": "light",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
       "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
+        "role": "explanation"
       },
       "items": [
         {
@@ -222,12 +198,6 @@
       "title": "03 工作方式",
       "surface": "dark",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "process",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "image": {
         "src": "images/studio.webp",
         "alt": "设计师手中的材质选择，原创生成意象",
@@ -267,12 +237,6 @@
       "title": "05 灵感档案",
       "surface": "light",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "copy": "从整体空间到局部触感，\n观察自然材质如何回应光。",
       "images": [
         {
@@ -354,12 +318,6 @@
       "title": "为日常\n留一点空白。",
       "surface": "dark",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "subtitle": "Make room for living.",
       "copy": "从一束光、一种触感，\n开始下一次空间对话。",
       "image": {

@@ -586,10 +586,9 @@ class Builder:
             else:
                 main = getattr(self, layout)(s)
         header = self.header(s, n, main_title)
-        # Audit thresholds and non-rendered provenance; selection metadata never
-        # becomes slide copy or controls the style's geometry.
+        # Audit thresholds only; planning metadata stays in the project files.
         page = self.design['pages'][n-1]
-        contract = escape(json.dumps({k: page[k] for k in ('image_balance', 'illustration_fill', 'manual', 'layout_intent', 'layout_selection') if page.get(k)}, ensure_ascii=False, separators=(',', ':')), quote=True)
+        contract = escape(json.dumps({k: page[k] for k in ('image_balance', 'illustration_fill', 'manual') if page.get(k)}, ensure_ascii=False, separators=(',', ':')), quote=True)
         return f'<section id="{s["id"]}" class="slide layout-{layout}{extra_cls}' + (' active' if n == 1 else '') + f'"{surface} style="{style}" data-design-contract="{contract}" data-speaker-notes="{escape(notes, quote=True)}" aria-label="第 {n} 页" aria-hidden="' + ('false' if n == 1 else 'true') + f'">{header}<main>{main}</main>{self.footer(n if layout == "editorial" or layout in SHARED_LAYOUTS else None)}</section>'
 
     def structural_errors(self):

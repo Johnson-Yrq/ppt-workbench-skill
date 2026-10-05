@@ -30,12 +30,6 @@
           "details": "Three slender rear architectural volumes, four small glass interface cards, fine gold trim, a few small white planters, and two translucent muted-teal blocks; leave the front stair and glass perimeter complete.",
           "composition": "16:9 landscape, moderate near-isometric camera; central screen about half the image width, laptops one fifth of its width; preserve clear off-white margins, especially below the frontmost base corner."
         }
-      },
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "以大幅产品展陈引入，封面文字负责价值与范围，图中不再重复说明标签。",
-        "requirements": []
       }
     },
     {
@@ -81,8 +75,6 @@
       },
       "visual": {
         "role": "capabilities",
-        "treatment": "open",
-        "rationale": "三项能力是同层级的连续说明，统一无框、左对齐和正文大小；过程支撑将标题与图标放大约 10%，搭配字重、灰青色和短细线轻量强调。",
         "requirements": [
           {
             "feature": "icons",
@@ -111,12 +103,6 @@
           "details": "Fine glass perimeter, small navy interface panels, a single gold connector and one tiny planter; clear scale separation between the platform, operators and laptop.",
           "composition": "4:3, low balanced three-quarter view, complete miniature assembly and soft shadow inside generous margins for use beside the closing copy."
         }
-      },
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "以一次完整装配动作收束，保持场景主导及少量可编辑文字。",
-        "requirements": []
       }
     }
   ],

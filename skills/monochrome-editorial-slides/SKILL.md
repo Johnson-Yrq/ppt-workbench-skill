@@ -17,7 +17,7 @@ metadata:
 
 ## 共享选版与构建
 
-逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 筛选候选，并保留 `layout_intent / layout_selection`。完整来源库含 100 条、19 类；48 个执行策略提供真实渲染路径，未实现来源保留为参考。本包使用共享布局，不把版式封存在专用渲染器。
+逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 筛选候选。完整来源库含 100 条、19 类；48 个执行策略提供真实渲染路径，未实现来源保留为参考。本包使用共享布局，不把版式封存在专用渲染器。
 
 从 [正式演讲示例](assets/deck.example.json) 或 [正式阅读示例](assets/deck.reading.example.json) 了解实际数据字段，再按大纲选择问题分栏、圆形指标、服务块、独立图表、照片转场或其他共享结构。演讲型多图与纯文字内页均按内容选用；不硬塞进 `reading`，也不为旧模板给无图页添加无关图片。历史独立样稿仅保留为视觉转译记录。
 

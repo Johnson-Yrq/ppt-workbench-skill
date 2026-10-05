@@ -13,12 +13,6 @@
       "date": "",
       "id": "p01",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "cover",
         "item_count": 1,
@@ -26,11 +20,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "cover.fixed",
-        "source_ids": []
       }
     },
     {
@@ -89,12 +78,6 @@
       ],
       "id": "p02",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "agenda",
         "item_count": 12,
@@ -102,11 +85,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.side_index",
-        "source_ids": []
       }
     },
     {
@@ -118,10 +96,7 @@
       "id": "p03",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "role": "briefing"
       },
       "layout_intent": {
         "relation": "explanation",
@@ -130,11 +105,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.type_poster",
-        "source_ids": []
       }
     },
     {
@@ -167,12 +137,6 @@
       ],
       "id": "p04",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "explanation",
         "item_count": 2,
@@ -180,11 +144,6 @@
           "count": 1,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_columns",
-        "source_ids": []
       }
     },
     {
@@ -251,12 +210,6 @@
       ],
       "id": "p05",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "team",
         "item_count": 3,
@@ -264,11 +217,6 @@
           "count": 3,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_people",
-        "source_ids": []
       }
     },
     {
@@ -303,12 +251,6 @@
       ],
       "id": "p06",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "explanation",
         "item_count": 3,
@@ -316,11 +258,6 @@
           "count": 1,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_story",
-        "source_ids": []
       }
     },
     {
@@ -419,10 +356,7 @@
       "id": "p07",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "comparison",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "role": "comparison"
       },
       "layout_intent": {
         "relation": "data",
@@ -431,11 +365,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_charts",
-        "source_ids": []
       }
     },
     {
@@ -469,12 +398,6 @@
       ],
       "id": "p08",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "parallel",
         "item_count": 2,
@@ -482,11 +405,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_columns",
-        "source_ids": []
       }
     },
     {
@@ -499,10 +417,7 @@
       "id": "p09",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "role": "briefing"
       },
       "layout_intent": {
         "relation": "explanation",
@@ -511,11 +426,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.type_poster",
-        "source_ids": []
       }
     },
     {
@@ -550,10 +460,7 @@
       "id": "p10",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "capabilities",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "role": "capabilities"
       },
       "layout_intent": {
         "relation": "explanation",
@@ -562,11 +469,6 @@
           "count": 1,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_columns",
-        "source_ids": []
       }
     },
     {
@@ -607,10 +509,7 @@
       "id": "p11",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "capabilities",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "role": "capabilities"
       },
       "layout_intent": {
         "relation": "parallel",
@@ -619,11 +518,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_columns",
-        "source_ids": []
       }
     },
     {
@@ -672,12 +566,6 @@
       ],
       "id": "p12",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "explanation",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "gallery",
         "item_count": 2,
@@ -685,11 +573,6 @@
           "count": 2,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_gallery",
-        "source_ids": []
       }
     },
     {
@@ -725,9 +608,7 @@
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
         "role": "briefing",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "treatment": "open"
       },
       "layout_intent": {
         "relation": "statistics",
@@ -736,11 +617,6 @@
           "count": 1,
           "status": "provided"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.metric_cards",
-        "source_ids": []
       }
     },
     {
@@ -782,12 +658,6 @@
       },
       "id": "p14",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
-      },
       "layout_intent": {
         "relation": "data",
         "item_count": 4,
@@ -795,11 +665,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.chart_focus",
-        "source_ids": []
       }
     },
     {
@@ -831,10 +696,7 @@
       "id": "p15",
       "notes": "风格开发样稿。砚序咨询、人物姓名、业务计划及数字均为虚构示例。照片由内置 imagegen 原创生成，不代表真实客户、团队或经营成果。",
       "visual": {
-        "role": "closing",
-        "treatment": "open",
-        "rationale": "以黑白反转、大衬线字和自然摄影组织本页内容，使用共享可编辑结构承载信息。",
-        "requirements": []
+        "role": "closing"
       },
       "layout_intent": {
         "relation": "contact",
@@ -843,11 +705,6 @@
           "count": 0,
           "status": "unavailable"
         }
-      },
-      "layout_selection": {
-        "version": 1,
-        "profile": "shared.editorial_columns",
-        "source_ids": []
       }
     }
   ]

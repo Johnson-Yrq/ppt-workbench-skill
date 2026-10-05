@@ -30,12 +30,6 @@
           "details": "Three distinct zones on one base; shelves with boxes, a delivery cart, filing trays, one blue folder at the receiving dock; leave clean surfaces on the right for HTML labels.",
           "composition": "Square 1:1, isometric from the right front, building fills about 75% of the frame, all figures and the base complete."
         }
-      },
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "用封面价值与完整协作场景引入",
-        "requirements": []
       }
     },
     {
@@ -91,9 +85,7 @@
       },
       "visual": {
         "role": "controls",
-        "treatment": "mixed",
-        "rationale": "普通任务和责任说明用图标横线，核对材料强调为浅底控制块",
-        "requirements": []
+        "treatment": "mixed"
       }
     },
     {
@@ -114,12 +106,6 @@
           "details": "Model sections with tiny interior desks, a few blank binders on the table, one plant; no confetti or celebration props.",
           "composition": "4:3 wide low scene, people and table complete, slight elevation, calm and collaborative."
         }
-      },
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "简洁致谢配合作场景，不重复装饰标题",
-        "requirements": []
       }
     }
   ],

@@ -243,14 +243,6 @@ def analyze_deck(deck):
     for n, slide in enumerate(deck['slides'], 1):
         prefix = f'第 {n} 页（{slide["title"]}）'
         errors, warnings = [], []
-        # Old decks need no migration. Optional selection metadata is checked
-        # against the restored catalog only when the author supplies it.
-        if 'layout_intent' in slide or 'layout_selection' in slide:
-            from select_layout import selection_errors
-            try:
-                errors.extend(selection_errors(slide, mode, style['id']))
-            except (TypeError, AttributeError, KeyError) as exc:
-                errors.append(f'选版字段结构无效：{exc}')
         if slide.get('layout') == 'editorial':
             try:
                 validate_editorial_slide(slide, style)
@@ -263,17 +255,16 @@ def analyze_deck(deck):
                 errors.append(str(exc))
         if slide.get('layout') == 'reading':
             errors.extend(reading_errors(slide))
-        raw = slide.get('visual')
+        # visual is optional: role and treatment follow the layout; requirements carry the outline's explicit asks.
+        raw = slide.get('visual', {})
         if not isinstance(raw, dict):
-            errors.append('需要 visual 设计决策，包含 role、treatment、rationale、requirements；先按本页内容选择设计元素')
+            errors.append('visual 需要对象')
             raw = {}
         visual = visual_for(dict(slide, visual=raw))
         if visual['role'] not in ROLES: errors.append('visual.role 无效')
         if visual['treatment'] not in {'open', 'panels', 'mixed', 'labels', 'none'}: errors.append('visual.treatment 无效')
-        if not isinstance(raw.get('rationale'), str) or not raw.get('rationale', '').strip():
-            errors.append('visual.rationale 需要简述为何采用本页的图标、分组与标注方式')
-        if not isinstance(raw.get('requirements'), list):
-            errors.append('visual.requirements 需要数组，保留大纲明确要求的图标、卡片、状态等；无明确要求可为空')
+        if not isinstance(raw.get('requirements', []), list):
+            errors.append('visual.requirements 需要数组，保留大纲明确要求的图标、卡片、状态等')
         if visual['role'] == 'architecture' and visual['treatment'] != 'labels':
             errors.append('架构图使用 labels：模型层名与模块文字直接标注，无底板')
         units = heading_units(dict(slide, visual=visual))
@@ -323,11 +314,8 @@ def analyze_deck(deck):
             if style.get('cover_labels_expected', True) and slide.get('variant', 'standard') == 'standard' and not slide.get('labels'):
                 warnings.append('封面没有右侧层级标注 labels；配图含可指的层级、站点或对象时应逐项标注（参照默认封面）')
         page = {'slide_id': slide['id'], 'page': n, 'presentation_mode': mode, 'role': visual['role'], 'treatment': visual['treatment'],
-                'rationale': raw.get('rationale', ''), 'requirements': requirements, 'manual': manual,
+                'requirements': requirements, 'manual': manual,
                 'omissions': omissions, 'planned': counts, 'errors': errors, 'warnings': warnings}
-        for field in ('layout_intent', 'layout_selection'):
-            if isinstance(slide.get(field), dict):
-                page[field] = slide[field]
         if slide.get('layout') == 'editorial':
             page['editorial_variant'] = slide.get('editorial_variant')
         if slide.get('layout') in SHARED_LAYOUTS:

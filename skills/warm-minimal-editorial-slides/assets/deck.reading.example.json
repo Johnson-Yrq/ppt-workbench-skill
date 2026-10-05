@@ -14,12 +14,6 @@
       "title": "让细节\n支持每个决定。",
       "surface": "dark",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "subtitle": "A considered approach.",
       "kicker": "阅读型 · 设计方法说明",
       "image": {
@@ -44,12 +38,6 @@
       "summary": "图片建立整体质感，右侧分别说明材料特性和选择依据。",
       "chapter": "READING / 01",
       "surface": "light",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "matrix",
@@ -122,12 +110,6 @@
       "summary": "上半页并列呈现空间与工作过程，下半页用流程和图表保留讨论依据。",
       "chapter": "READING / 02",
       "surface": "light",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "process",
@@ -215,12 +197,6 @@
       "summary": "对角两幅摄影连接空间尺度与局部触感，文字分区补充方法和判断依据。",
       "chapter": "READING / 03",
       "surface": "dark",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "matrix",
@@ -309,12 +285,6 @@
       "summary": "一幅材料意象配合三组信息，使读者独立理解方法、比较维度和实施边界。",
       "chapter": "READING / 04",
       "surface": "light",
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "blocks": [
         {
           "type": "process",
@@ -408,12 +378,6 @@
       "title": "为日常\n留一点空白。",
       "surface": "dark",
       "notes": "虚构品牌及示例文案；所有配图为生成意象，不代表真实项目案例。版式源于已获用户确认的中文样稿。",
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "以已确认的暖褐摄影、留白与原生可编辑文字组织信息。",
-        "requirements": []
-      },
       "subtitle": "Make room for living.",
       "copy": "从一束光、一种触感，\n开始下一次空间对话。",
       "image": {

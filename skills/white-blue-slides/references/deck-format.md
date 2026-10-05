@@ -99,7 +99,7 @@ class Builder(Base):
 | `images` | 数量依布局：reading 1–3 张；editorial.services 1–3、portfolio 2–6；photo_pair / offset_pair 各 2 张，photo_strip 2–5 张。service_cards 的可选图片写在各条目的 image 中。各图有 src/alt，可选 caption、brief 等字段 |
 | `editorial_variant` | 仅 `editorial`：cover / intro / contents / about / services / process / portfolio / closing；所有风格均可使用 |
 | `composition` | 仅 `reading`：half_lr / half_tb / half_diagonal / quarter，按主体内容分区 |
-| `visual` | 必填；本页角色、分组处理、选择理由和大纲视觉要求，见下节 |
+| `visual` | 可选；大纲明确的视觉要求，及需要偏离布局默认值时的角色与分组处理，见下节 |
 | `bottom / footnote` | 内容页可选；封面和尾页不使用 |
 
 所有文案按纯文字处理，HTML 特殊符号会转义。不要输入 `<br>`；使用 JSON 换行 `\n`。正文都是可编辑节点，图标是内嵌 SVG，配图是 raster 图片。
@@ -146,7 +146,6 @@ class Builder(Base):
 "visual": {
   "role": "comparison",
   "treatment": "panels",
-  "rationale": "五项经营盲区需要等宽比较块；各配一个代表业务对象的图标。",
   "requirements": [
     {"feature":"icons", "min":5, "source":"大纲：五格等宽，每格一个图标"},
     {"feature":"panels", "min":5, "source":"大纲：横向五格"},
@@ -155,7 +154,7 @@ class Builder(Base):
 }
 ```
 
-`role` 可选 `cover/closing/explanation/capabilities/comparison/process/controls/architecture/entities/formula/table/domains/briefing`。`treatment` 可选 `open/panels/mixed/labels/none`。可省略这两个键使用布局默认值，但每页必须有 `rationale` 和 `requirements` 数组；无明确视觉要求时用空数组。依据原始大纲填要求，不能从已生成 HTML 倒推一份恰好通过的契约。
+`role` 可选 `cover/closing/explanation/capabilities/comparison/process/controls/architecture/entities/formula/table/domains/briefing`。`treatment` 可选 `open/panels/mixed/labels/none`。两者默认跟随布局，只在需要不同处理时填写；没有明确视觉要求时整个 `visual` 可省略。依据原始大纲填要求，不能从已生成 HTML 倒推一份恰好通过的契约。
 
 可自动核对的 `feature`：`icons/panels/tags/states/architecture_labels/steps/relations/visual_blocks/tables/layers`。每项 `min` 默认 1，可附 `texts` 数组，检查指定短词确实出现在对应组件里；`source` 保留原句或用户确认要求。深浅分组、场景与对象对应、基线等用 `manual + text + source`，并逐页看图核对。`--check-plan` 按计划核对数量与短词；`manual` 项会列入审查报告的 `manualReview`，供用户看图确认，不触发 Agent 自动截图。
 
@@ -321,10 +320,6 @@ class Builder(Base):
     "src": "images/intro.png",
     "alt": "自然光下的木材、亚麻与陶器形成一组日常物件",
     "caption": "概念摄影 · 用于说明视觉方向"
-  },
-  "visual": {
-    "rationale": "用一张横向摄影和一段简短文字呈现页面主张。",
-    "requirements": []
   }
 }
 ```

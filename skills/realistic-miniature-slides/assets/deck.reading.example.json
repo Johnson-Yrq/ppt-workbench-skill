@@ -19,12 +19,6 @@
         "持续复盘"
       ],
       "notes": "风格与排版示例；不代表某个产品已经具备这些能力。正式制作按真实资料替换。",
-      "visual": {
-        "role": "cover",
-        "treatment": "none",
-        "rationale": "用完整微缩工作空间引入；标题和价值主张保留在可编辑页面中。",
-        "requirements": []
-      },
       "image": {
         "src": "images/01-overview.png",
         "alt": "计划、执行、跟踪和复盘组成的四区微缩团队空间",
@@ -92,12 +86,6 @@
           ]
         }
       ],
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以微缩场景对应工作关系，正文用流程、矩阵和带来源的图表支持独立阅读。",
-        "requirements": []
-      },
       "image": {
         "src": "images/r02-status.png",
         "alt": "团队在相连的计划、执行和复盘区域处理工作",
@@ -178,12 +166,6 @@
           "source": "六周示例数据 · 单位：项 · 非产品实测"
         }
       ],
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以微缩场景对应工作关系，正文用流程、矩阵和带来源的图表支持独立阅读。",
-        "requirements": []
-      },
       "images": [
         {
           "src": "images/r03-workspace.png",
@@ -274,12 +256,6 @@
           "source": "示例：100 项任务的构成 · 非产品实测"
         }
       ],
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以微缩场景对应工作关系，正文用流程、矩阵和带来源的图表支持独立阅读。",
-        "requirements": []
-      },
       "images": [
         {
           "src": "images/r04-context.png",
@@ -398,12 +374,6 @@
           ]
         }
       ],
-      "visual": {
-        "role": "briefing",
-        "treatment": "open",
-        "rationale": "以微缩场景对应工作关系，正文用流程、矩阵和带来源的图表支持独立阅读。",
-        "requirements": []
-      },
       "image": {
         "src": "images/r05-check.png",
         "alt": "团队通过文件与进度白板核对工作交付",
@@ -427,12 +397,6 @@
       "subtitle": "每次复盘，都落到具体行动",
       "message": "看清进展与问题\n共同约定下一步",
       "notes": "收束页示例，不添加未经确认的业绩或联系人。",
-      "visual": {
-        "role": "closing",
-        "treatment": "none",
-        "rationale": "用团队交接场景收束，文字直接表达下一步。",
-        "requirements": []
-      },
       "image": {
         "src": "images/03-next-step.png",
         "alt": "团队在复盘讨论后确认下一步工作",
