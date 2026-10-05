@@ -151,6 +151,8 @@ class EditorialTests(unittest.TestCase):
                 self.assertEqual([c['text'] for c in doc.captions], [im['caption'] for im in expected_images])
                 self.assertTrue(all('data-edit' in c['attrs'] for c in doc.captions))
                 self.assertTrue(all(p['data-speaker-notes'] == '讲者备注 <原样保留>' for p in doc.pages))
+                # Cover and closing display titles shrink to their longest line instead of wrapping into the subtitle.
+                self.assertEqual(['--title-chars:' in p.get('style', '') for p in doc.pages], [v in ('cover', 'closing') for v in EDITORIAL_VARIANTS])
                 self.assertIn('class="header-company">TEST STUDIO', html)
                 self.assertIn('class="header-year">2026', html)
                 self.assertIn('class="footer-label">SHARED FOOTER', html)

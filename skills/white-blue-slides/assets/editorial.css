@@ -30,7 +30,7 @@
 
 /* Split cover: half image, half serif title and short positioning copy. */
 .slide.layout-editorial.editorial-cover>main>.editorial-photo {inset:0 0 0 50%}
-.slide.layout-editorial.editorial-cover h1 {left:90px;top:435px;width:830px;font-size:var(--title-size,var(--layout-title-size,118px));line-height:1.28;letter-spacing:var(--editorial-display-tracking,2px)}
+.slide.layout-editorial.editorial-cover h1 {left:90px;top:435px;width:830px;font-size:var(--title-size,min(var(--layout-title-size,118px),calc(800px / var(--title-chars,6))));line-height:1.28;letter-spacing:var(--editorial-display-tracking,2px)}
 .slide.layout-editorial.editorial-cover .editorial-kicker {position:absolute;left:94px;top:335px;width:800px;font-size:21px;letter-spacing:5px}
 .slide.layout-editorial.editorial-cover .editorial-subtitle {position:absolute;left:94px;top:800px;width:800px;font-size:29px}
 
@@ -86,6 +86,6 @@
 
 /* Closing: a narrow full-height image and an asymmetric serif statement. */
 .slide.layout-editorial.editorial-closing>main>.editorial-photo {left:0;top:0;width:650px;height:100%}
-.slide.layout-editorial.editorial-closing h1 {left:815px;right:72px;top:250px;font-size:var(--title-size,var(--layout-title-size,111px));line-height:1.35;letter-spacing:var(--editorial-display-tracking,2px)}
+.slide.layout-editorial.editorial-closing h1 {left:815px;right:72px;top:250px;font-size:var(--title-size,min(var(--layout-title-size,111px),calc(1000px / var(--title-chars,8))));line-height:1.35;letter-spacing:var(--editorial-display-tracking,2px)}
 .slide.layout-editorial.editorial-closing .editorial-subtitle {position:absolute;left:827px;right:72px;top:636px;font-size:33px}
 .slide.layout-editorial.editorial-closing .editorial-copy {position:absolute;left:830px;right:72px;top:818px;font-size:var(--body-size,27px);color:var(--muted)}

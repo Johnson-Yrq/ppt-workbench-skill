@@ -564,7 +564,7 @@ class Builder:
         style = ''
         if 'title_size' in s:
             style += f'--title-size:{number(s["title_size"], 46, 36, 110, "title_size")}px;'
-        if layout in ('cover', 'closing'):
+        if layout in ('cover', 'closing') or (layout == 'editorial' and editorial_variant(s) in ('cover', 'closing')):
             # longest title line in em (full-width characters count 1, others about half) so a style can size display type to fit
             lines = [line for value in (s.get('title_prefix', ''), s['title']) for line in str(value).split('\n') if line]
             style += f'--title-chars:{max(sum(1 if ord(c) > 0x2E7F else .55 for c in line) for line in lines):.2f};'
