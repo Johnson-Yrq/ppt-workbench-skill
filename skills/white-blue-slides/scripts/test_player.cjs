@@ -13,6 +13,7 @@ function slideFrames() {
     const r = s.getBoundingClientRect(), scale = 1920 / r.width;
     return {id: s.id, regions: ['header', 'main', 'footer'].map(selector => {
       const b = s.querySelector(selector).getBoundingClientRect();
+      if (!b.width && !b.height) return [0, 0, 0, 0]; // hidden region: its box sits at the viewport origin, not on the slide
       return [(b.x-r.x)*scale, (b.y-r.y)*scale, b.width*scale, b.height*scale];
     })};
   });
@@ -43,6 +44,8 @@ async function run() {
     await page.goto(url, {waitUntil: 'load'});
     await page.evaluate(async () => {await document.fonts.ready; await Promise.all([...document.images].map(im => im.decode().catch(() => {})));});
     const count = await page.locator('.slide').count();
+    // Real print order: beforeprint fires on the screen layout, before any other page has been opened.
+    if (await page.locator('.echart').count()) f.printUnvisitedCharts = await page.evaluate(() => {window.dispatchEvent(new Event('beforeprint'));const ok=[...document.querySelectorAll('.echart')].every(el=>el.querySelector('svg'))&&window.deckAPI.current===1;window.dispatchEvent(new Event('afterprint'));return ok;});
     const screenFrames = [];
     for (let i = 0; i < count; i++) {
       await page.evaluate(n => window.deckAPI.show(n), i);
@@ -55,6 +58,8 @@ async function run() {
     await page.keyboard.press('End');
     f.end = await page.evaluate(n => window.deckAPI.current === n, count);
     f.lastNextDisabled = await page.locator('#next').isDisabled();
+    for (const key of ['Meta+o','Control+o','Meta+n','Control+f']) await page.keyboard.press(key);
+    f.modifierKeys = await page.evaluate(() => !document.body.classList.contains('overview-mode') && !document.fullscreenElement) && !await page.locator('#notes-panel').isVisible();
     f.pageCount = Number(await page.locator('#page-input').getAttribute('max'))===count;
     await page.locator('#overview').click();
     f.overview = await page.locator('.slide:visible').count()===count;
@@ -102,7 +107,8 @@ async function run() {
     f.mobileFit = await page.evaluate(() => {const r=document.querySelector('.slide.active').getBoundingClientRect();return r.width<=innerWidth && r.left>=-1 && r.right<=innerWidth+1 && r.bottom<=innerHeight-60;});
     await page.setViewportSize({width:1920,height:1080});
     await page.locator('#fullscreen').click();
-    f.fullscreen = await page.evaluate(() => !!document.fullscreenElement);
+    // Entering and leaving fullscreen are asynchronous; wait for the state instead of reading it straight after the click.
+    f.fullscreen = await page.waitForFunction(() => !!document.fullscreenElement, null, {timeout: 3000}).then(() => true, () => false);
     const sizes = [];
     for (const size of [{width:1920,height:1080},{width:1440,height:900},{width:2560,height:1080},{width:1024,height:768}]) {
       await page.setViewportSize(size);
@@ -126,6 +132,7 @@ async function run() {
       });
       await page.locator('#edit').click();
       await page.evaluate(() => document.exitFullscreen());
+      await page.waitForFunction(() => !document.fullscreenElement, null, {timeout: 3000}).catch(() => {});
     }
     await page.setViewportSize({width:1944,height:1172});
     if (pdf) {
