@@ -13,7 +13,8 @@
   <a href="#快速开始">快速开始</a> ·
   <a href="#视觉风格">视觉风格</a> ·
   <a href="#演讲型与阅读型">演讲型与阅读型</a> ·
-  <a href="#构建与检查">构建与检查</a>
+  <a href="#命令行构建">命令行构建</a> ·
+  <a href="#播放编辑与导出">播放与导出</a>
 </p>
 
 <p><code>Codex / Claude Code</code> &nbsp; <code>共享套件 v3.7.0</code> &nbsp; <a href="LICENSE">MIT 许可证</a></p>
@@ -22,17 +23,17 @@
 
 ---
 
-通过 [`ppt-workbench`](skills/ppt-workbench/SKILL.md) 统一开始制作，选择视觉风格和演讲型／阅读型，再根据大纲安排配图、流程、图表与文字。不同风格独立维护主题、配图提示词和参考图，共用排版、构建、编辑与检查套件。
+把大纲交给 Agent，选好视觉风格和用途，就能拿到一份完整的演示稿：配图、图表和版式都按每页内容安排。入口是 [`ppt-workbench`](skills/ppt-workbench/SKILL.md)。每种风格独立维护主题、配图提示词和参考图，共用同一套版式、图表、编辑与导出工具。
 
-| 整稿风格一致 | 信息适配用途 | 单文件离线交付 |
+| 整稿风格统一 | 信息贴合用途 | 打开即用 |
 |---|---|---|
-| 封面、文字、配图与尾页遵循同一套视觉规范。 | 演讲型服务现场讲解，阅读型保留独立理解所需的解释与依据。 | CSS、JS、图片、图标和图表全部内嵌，支持编辑、另存与打印。 |
+| 封面、字体、配图与尾页遵循同一套视觉规范。 | 演讲型服务现场讲解，阅读型让读者独自也能看懂。 | CSS、脚本、图片、图标和图表全部内嵌，自带编辑、打印与 PPTX 导出。 |
 
-> **交付格式**：构建器输出独立 `.html` 文件。明确需要 `.pptx` 时，用播放器“导出 PPTX”或 `export_pptx.cjs` 从成稿导出可编辑 PowerPoint，并在 PowerPoint 中逐页核对。
+> **交付格式**：一个独立的 `.html` 文件。需要 PowerPoint 时，点播放器的“导出 PPTX”（或运行 `export_pptx.cjs`）得到可编辑的 `.pptx`，再在 PowerPoint 中过一遍。
 
 ## 视觉风格
 
-下方保留三款模型风格的实际页面预览，完整九种风格见后续表格。点击图片可查看原图；示例业务内容与图表数字仅用于说明视觉与排版。
+下方预览三款插画风格，完整九种见后面的表格。点击图片查看原图；示例业务内容与图表数字仅作演示。
 
 | 素白蓝调 | 海蓝玻璃 | 写实微缩 |
 |:---:|:---:|:---:|
@@ -40,34 +41,34 @@
 | 暖白纸底 · 明亮主蓝 · 哑光模型 | 海军蓝 · 玻璃材质 · 香槟金 | 暖灰纸底 · 真实材质 · 生动人物 |
 | [`white-blue-slides`](skills/white-blue-slides/SKILL.md) | [`navy-glass-slides`](skills/navy-glass-slides/SKILL.md) | [`realistic-miniature-slides`](skills/realistic-miniature-slides/SKILL.md) |
 
-九种风格都支持演讲型与阅读型，可用于不同主题的大纲。配图中的对象、动作与关系由业务内容决定；风格负责视觉表达。同一份演示稿选择一种风格，整稿保持一致。
+九种风格都支持演讲型与阅读型。一份演示稿只用一种风格；配图画什么，由你的内容决定。
 
 <details>
-<summary><strong>风格 ID、视觉细节与更多示例</strong></summary>
+<summary><strong>全部九种风格、风格 ID 与更多示例</strong></summary>
 
 | 风格 | `style` ID | 视觉特点 |
 |---|---|---|
-| **素白蓝调** | `scene-white` | 暖白纸底、明亮主蓝、白色哑光模型场景与微缩人物 |
-| **海蓝玻璃** | `saas-3d` | 暖白纸底、海军蓝文字与重点面、灰青及少量香槟金、玻璃与精细微缩展陈 |
-| **写实微缩** | `real-miniature` | 暖灰纸底、石墨与灰蓝、鼠尾草绿及少量赭黄；35–45° 微缩场景、写实 PBR 材质、表情细致的人物，配图无字 |
+| **[素白蓝调](skills/white-blue-slides/SKILL.md)** | `scene-white` | 暖白纸底、明亮主蓝、白色哑光模型场景与微缩人物 |
+| **[海蓝玻璃](skills/navy-glass-slides/SKILL.md)** | `saas-3d` | 暖白纸底、海军蓝文字与重点面、灰青及少量香槟金、精细的玻璃展陈 |
+| **[写实微缩](skills/realistic-miniature-slides/SKILL.md)** | `real-miniature` | 暖灰、石墨、灰蓝、鼠尾草绿及少量赭黄；35–45° 微缩场景、写实材质、表情生动的人物，配图无字 |
 | **[黑白编辑式](skills/monochrome-editorial-slides/SKILL.md)** | `monochrome-editorial` | 黑白页面、大标题、宽阔留白与冷调编辑摄影 |
 | **[暖褐极简编辑式](skills/warm-minimal-editorial-slides/SKILL.md)** | `warm-minimal-editorial` | 暖米白、深褐、克制排版与自然暖调摄影 |
 | **[原色建筑编辑式](skills/primary-architecture-slides/SKILL.md)** | `primary-architecture` | 白底黑字、窄高大标题、错位文字栏、建筑摄影与四色章节页 |
 | **[留白衬线影集](skills/airy-portfolio-slides/SKILL.md)** | `airy-portfolio` | 近白纸色、黑色衬线字、宽阔留白与自然彩色作品摄影 |
-| **[米白环线商务](skills/beige-ring-business-slides/SKILL.md)** | `beige-ring-business` | 温暖米白、黑色无衬线、细线圆环与自然商务摄影 |
-| **[黑白大理石商务](skills/monochrome-marble-slides/SKILL.md)** | `monochrome-marble` | 黑白反转、大衬线标题、天然大理石纹与自然彩色商务摄影 |
+| **[米白环线商务](skills/beige-ring-business-slides/SKILL.md)** | `beige-ring-business` | 温暖米白、黑色无衬线字、细线圆环与自然商务摄影 |
+| **[黑白大理石商务](skills/monochrome-marble-slides/SKILL.md)** | `monochrome-marble` | 黑白反转、大号衬线标题、大理石纹理与自然彩色商务摄影 |
 
 | 素白蓝调 · 分层架构 | 海蓝玻璃 · 演讲型封面 |
 |:---:|:---:|
 | <a href="skills/white-blue-slides/assets/reference-design/approved-architecture.jpg"><img src="skills/white-blue-slides/assets/reference-design/approved-architecture.jpg" alt="五层白色立体架构模型，模块直接标注，蓝色通道展示数据流向" width="440"></a> | <a href="docs/images/examples/speech-cover.png"><img src="docs/images/examples/speech-cover.png" alt="海蓝玻璃演讲型封面：左侧价值主张，右侧三维产品展陈" width="440"></a> |
 
-| 写实微缩 · 阅读型布局 | 素白蓝调 · 页面参考 |
+| 写实微缩 · 阅读型页面 | 素白蓝调 · 页面参考 |
 |:---:|:---:|
 | <a href="docs/images/examples/miniature-reading-diagonal.png"><img src="docs/images/examples/miniature-reading-diagonal.png" alt="写实微缩阅读型对角布局：全景与协作近景搭配责任矩阵和环形图" width="440"></a> | <a href="skills/white-blue-slides/assets/reference-design/approved-overview.jpg"><img src="skills/white-blue-slides/assets/reference-design/approved-overview.jpg" alt="素白蓝调页面与场景参考，展示构图和视觉层级" width="440"></a> |
 
 配图参考：[海蓝玻璃产品展陈](skills/navy-glass-slides/assets/reference-design/approved-product-overview.png) · [写实微缩团队工作空间](skills/realistic-miniature-slides/assets/reference-design/approved-workflow.png)。
 
-参考图用于说明材质、尺度与视觉层级，其中的业务内容不作为新项目事实。
+参考图只用来确定材质、尺度与视觉层级，其中的业务内容不会被当作新项目的事实。
 
 </details>
 
@@ -75,38 +76,38 @@
 
 ### 1. 安装 Skill
 
-电脑已安装 Node.js/npm 后，可以通过 [Skills CLI](https://github.com/vercel-labs/skills#options) 直接从本 GitHub 仓库安装，无需手动克隆或单独发布 npm 包。
+装好 Node.js/npm 后，用 [Skills CLI](https://github.com/vercel-labs/skills#options) 直接从本仓库安装。
 
-**安装到 Codex：**
-
-```bash
-npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a codex
-```
-
-**安装到 Claude Code：**
+**Codex：**
 
 ```bash
-npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a claude-code
+npx skills@latest add Johnson-Yrq/ppt-workbench-skill --skill '*' -g -a codex
 ```
 
-- `--skill '*'`：安装工作台与全部九种风格，共十个包，确保统一入口、共享套件和风格包一起安装。保留星号两侧的引号。
-- `-g`：全局安装，跨项目使用；去掉该参数则安装到当前项目。
-- `-a`：选择目标 Agent。
+**Claude Code：**
+
+```bash
+npx skills@latest add Johnson-Yrq/ppt-workbench-skill --skill '*' -g -a claude-code
+```
+
+- `--skill '*'`：安装工作台与全部九种风格，共十个包；星号两侧的引号要保留。
+- `-g`：全局安装，所有项目可用；去掉则只装到当前项目。
+- `-a`：指定目标 Agent。
 
 <details>
 <summary><strong>查看可用 Skill 或手动安装</strong></summary>
 
-只查看仓库提供的 Skill，不执行安装：
+只列出 Skill，不安装：
 
 ```bash
-npx skills@latest add Johnson-Yrq/JohnsonPPTskill --list
+npx skills@latest add Johnson-Yrq/ppt-workbench-skill --list
 ```
 
-克隆仓库并进入目录：
+或者克隆仓库后复制：
 
 ```bash
-git clone https://github.com/Johnson-Yrq/JohnsonPPTskill.git
-cd JohnsonPPTskill
+git clone https://github.com/Johnson-Yrq/ppt-workbench-skill.git
+cd ppt-workbench-skill
 ```
 
 **Codex：**
@@ -123,22 +124,22 @@ mkdir -p ~/.claude/skills
 cp -R skills/* ~/.claude/skills/
 ```
 
-十个目录须同级放置。`white-blue-slides` 同时包含共享制作套件，其他风格依赖它；`ppt-workbench` 负责统一选择。更新已有安装时，先备份相关技能目录，再同步新版本。仅使用素白蓝调时，也可单独安装 `white-blue-slides`。
+十个目录须同级放置：`white-blue-slides` 带有其他风格依赖的共享套件，`ppt-workbench` 是统一入口。更新前先备份已有目录。只用素白蓝调时，可以单独安装 `white-blue-slides`。
 
 </details>
 
-### 2. 提供大纲，开始制作
+### 2. 把大纲交给 Agent
 
-尚未确定风格或类型时：
+让 Agent 先问风格和用途：
 
 ```text
 用 $ppt-workbench，根据这份大纲制作演示稿，先让我选择风格和演讲型／阅读型。
 ```
 
-已经明确两个选择时：
+已经想好时直接说明：
 
 ```text
-用 $ppt-workbench，选择海蓝玻璃风格，做成阅读型。按内容安排配图、流程、矩阵和图表，完成逐页检查。
+用 $ppt-workbench，选择海蓝玻璃风格，做成阅读型。按内容需要安排配图、流程、矩阵和图表。
 ```
 
 <details>
@@ -158,27 +159,24 @@ cp -R skills/* ~/.claude/skills/
 
 </details>
 
-Agent 只询问缺少的选择；当前任务已经确认的风格和类型直接沿用。用户明确授权由 Agent 选择时，会按目标选择并说明。模板默认值不代表用户选择，续做项目也不会因主题变化自动换风格。
+Agent 只问缺少的选项，项目里已确认的风格和用途直接沿用。说“你来选”，它会按目标挑选并说明理由。模板默认值不算你的选择，续做项目也不会因为换了主题而自动换风格。
 
 ### 3. 打开、演示与编辑
 
-在浏览器中打开交付的 HTML，即可离线演示、编辑文字和图表数据。修改后点击**另存 HTML**保留变更；浏览器内的编辑不会自动回写源文件 `deck.json`。
-
-本次提供中英文 README；Skill 指令、参考文档、示例内容和播放器控件目前仍以中文为主。
+用浏览器打开交付的 HTML，即可离线演示，并直接修改文字和图表数据。改完点**另存 HTML**保存；浏览器里的修改不会回写 `deck.json`。
 
 ## 演讲型与阅读型
 
-| 维度 | 演讲型 `speech` | 阅读型 `reading` |
+| | 演讲型 `speech` | 阅读型 `reading` |
 |---|---|---|
-| 使用方式 | 现场讲解、投屏演示 | 发给读者独立阅读 |
-| 信息组织 | 一个结论和少量支撑，细节可放讲稿 | 页面保留机制、依据、条件与边界 |
-| 可视化 | 主场景、关键步骤、少量标注 | 配图配合流程、矩阵、表格、图标和图表 |
-| 配图分工 | 可作为页面的主要视觉 | 先安排主体版面的 1/2 或 1/4 配图分区 |
-| 内容超量时 | 分页逐步讲解 | 拆成关联页面，保持可读字号和配图面积 |
+| **读者** | 跟随讲解者理解 | 没有讲解，独自阅读 |
+| **每页内容** | 一个结论和少量支撑，细节放讲稿 | 结论、机制、依据与边界都留在页面上 |
+| **可视化** | 主场景、关键步骤、少量标注 | 增加真实的流程节点、比较维度、分层、职责与图表 |
+| **内容超量时** | 拆成多页逐步讲 | 续到关联页面，不靠缩小字号 |
 
-阅读型的信息密度来自更多有意义的关系和证据，不靠缩小字号或堆满段落。没有可靠数值时，用流程、职责、比较和分层关系表达；不为了丰富页面而编造指标。
+用途决定一页要自己讲清多少，不决定用哪种版式、配图比例或字号；所有版式两种用途都能用。阅读型的信息量来自更多有意义的关系和依据，而不是更小的字或更长的段落。没有可靠数字时，用流程、职责、比较或分层来表达，不编造指标。
 
-整稿选择记录在 `deck.json` 根对象。以下仅展示两个选择字段，完整项目另需标题与页面内容：
+两项选择记录在 `deck.json` 根对象（完整项目还需要标题和页面）：
 
 ```json
 {
@@ -187,47 +185,47 @@ Agent 只询问缺少的选择；当前任务已经确认的风格和类型直�
 }
 ```
 
-旧稿省略字段时，仍兼容素白蓝调与演讲型。新稿应根据用户选择显式记录两个字段。详细规则见 [用途与信息密度](skills/white-blue-slides/references/presentation-modes.md)。
+缺少这两个字段的旧稿按素白蓝调、演讲型构建；新稿应显式记录。详见 [用途与信息密度](skills/white-blue-slides/references/presentation-modes.md)。
 
-### 阅读型的四种图文分区
+### `reading` 复合版式
 
-比例按**主体版面分区**计算，不含页头、页脚及全宽摘要。图表、图标和 Logo 属于内容元素，不计为配图。
+共享版式中的 `reading` 把配图和内容模块排成四种固定分区。它是可选版式，两种用途都能用；下面的比例只在选用它时生效，按页面主体计算，不含页头、页脚和全宽摘要。
 
-| 布局 | `composition` | 配图安排 | 其余内容的组织示例 |
+| 分区 | `composition` | 配图 | 其余内容 |
 |---|---|---|---|
-| **1/2 左右** | `half_lr` | 左半区放一张主图 | 右半区放图表＋解释，或流程＋责任矩阵 |
-| **1/2 上下** | `half_tb` | 上半区放 1–3 张图 | 下半区安排两组互补内容，如流程＋趋势 |
-| **1/2 对角** | `half_diagonal` | 左上、右下各一张图 | 右上、左下各一个内容模块，共两图两模块 |
-| **1/4 配图** | `quarter` | 左上四分之一区域放一张图 | 其余三区放图表、表格、图标与文字，共一图三模块 |
+| **1/2 左右** | `half_lr` | 左半区一张主图 | 图表加解释，或流程加责任矩阵 |
+| **1/2 上下** | `half_tb` | 上半区 1–3 张图 | 两组互补内容，如流程加趋势 |
+| **1/2 对角** | `half_diagonal` | 左上、右下各一张图 | 另外两个象限各一个内容模块 |
+| **1/4 配图** | `quarter` | 左上四分之一一张图 | 其余三区放图表、表格、图标与文字 |
 
 <details>
-<summary><strong>查看四种阅读型布局</strong></summary>
+<summary><strong>查看四种分区</strong></summary>
 
 | 1/2 左右 | 1/2 上下 |
 |:---:|:---:|
 | <a href="docs/images/examples/reading-half-lr.png"><img src="docs/images/examples/reading-half-lr.png" alt="阅读型左右各半：左侧产品场景，右侧条形图与工作说明" width="440"></a> | <a href="docs/images/examples/reading-half-tb.png"><img src="docs/images/examples/reading-half-tb.png" alt="阅读型上下各半：上方双场景，下方处理流程与趋势折线图" width="440"></a> |
 
-| 1/2 对角双图 | 1/4 配图 |
+| 1/2 对角 | 1/4 配图 |
 |:---:|:---:|
 | <a href="docs/images/examples/reading-half-diagonal.png"><img src="docs/images/examples/reading-half-diagonal.png" alt="阅读型对角双图：左上和右下配图，其余区域展示能力矩阵与环形图" width="440"></a> | <a href="docs/images/examples/reading-quarter.png"><img src="docs/images/examples/reading-quarter.png" alt="阅读型四分之一配图：其余三区展示数量比较、交付核对表和使用边界" width="440"></a> |
 
-以上为海蓝玻璃风格的 1920 × 1080 实际页面截图，图表数字均为示例。
+海蓝玻璃风格，1920 × 1080 实际页面；图表数字为示例。
 
 </details>
 
-先确定图区，再组织其余内容。多张配图各自解释不同对象、阶段或视角；主体完整，色彩与材质一致。标题和内容按分区对齐，重点项可用字号、图标与字重轻量强调。具体字段与完整页面见 [阅读型示例](skills/navy-glass-slides/assets/deck.reading.example.json)。
+同页有多张配图时，各自表现不同的对象、阶段或视角，色彩与材质保持一致。完整字段见 [阅读型示例](skills/navy-glass-slides/assets/deck.reading.example.json)。
 
-### ECharts 与可编辑数据
+### 离线可编辑图表
 
-阅读型复合页支持**横向条形图、折线图和环形图**，用于类别比较、时间趋势和整体构成。图表需提供单位与来源，并在相邻文字解释判断和边界；示例数字必须标明示例性质。
+两种用途都可以使用图表：**横向条形图**比较类别，**折线图**看时间趋势，**环形图**或**饼图**看整体构成。每张图都要有单位和来源，在旁边写明结论与边界；示例数字要标明是示例。
 
-播放器进入「编辑文字」后，可展开图表右下的「编辑图表数据」，修改类别、系列名和数值。图表同步刷新，「另存 HTML」后重新打开仍可继续编辑；修改数值后需核对文字结论是否仍成立。
+要改数据，在播放器中点「编辑文字」，再展开图表右下角的「编辑图表数据」，修改类别、系列名和数值，图表即时刷新，「另存 HTML」后仍可继续编辑。改了数值，记得核对旁边的结论是否还成立。
 
-图表库、数据与 SVG 图表均随 HTML 离线工作，无需 CDN。当前模板支持 2–8 个类别、1–3 组有限非负数；环形图仅一组且合计大于零。详细约束、字段与示例见 [图表使用说明](skills/white-blue-slides/references/charts.md)。
+图表以 SVG 离线渲染。每张图支持 2–8 个类别、1–3 组有限非负数；环形图和饼图只能有一组，且合计大于零。详见 [图表使用说明](skills/white-blue-slides/references/charts.md)。
 
-### 页头样式
+### 页头、封面与尾页
 
-内容页的页头有六种排布，由 Agent 按每页内容自动选择，不额外询问；想统一用某一种时直接说明即可。颜色和质感跟随所选风格；封面与尾页另有排布，见下节。
+素白蓝调、海蓝玻璃和写实微缩共用六种内容页页头，由 Agent 按每页内容自动选择，不额外询问；你指定某一种时照办。其余六种风格在各自主题中设计页头。
 
 ![六种页头样式](skills/white-blue-slides/assets/header-styles.png)
 
@@ -240,11 +238,9 @@ Agent 只询问缺少的选择；当前任务已经确认的风格和类型直�
 | `aside` 标题副标题分栏 | 标题短、副标题较长的页 |
 | `ghost` 水印页码 | 留白多的页、表格页 |
 
-在 `deck.json` 根字段写 `"header": "band"` 作用于整稿，单页写 `header` 可覆盖。
+在 `deck.json` 根对象写 `"header": "band"` 作用于整稿，单页的 `header` 可以覆盖。
 
-### 封面与尾页排布
-
-封面有四种左右排布，尾页有三种，同样由 Agent 按配图构图选择；想指定时在该页写 `variant`。
+`cover` 封面版式有四种左右排布，`closing` 尾页有三种，由 Agent 按配图构图选择；想自己指定，在该页写 `variant`。
 
 ![封面与尾页排布](skills/white-blue-slides/assets/cover-variants.png)
 
@@ -257,21 +253,23 @@ Agent 只询问缺少的选择；当前任务已经确认的风格和类型直�
 
 ## 制作流程与配图
 
-**确认风格与类型 → 理解大纲 → 选择版式 → 建立 `deck.json` → 检查计划 → 准备配图 → 构建 → 逐页检查 → 交付**
+**确认风格与用途 → 理解大纲 → 逐页选版 → 建立 `deck.json` → 准备配图 → 构建 → 交付 HTML**
 
-| 素材条件 | 后续处理 |
+Agent 根据每页的内容关系、条目数量、图片和数据自主选版。成稿默认由你自己查看，并自行导出 PPTX 或 PDF；需要 Agent 代为检查或导出时，直接告诉它。
+
+| 配图条件 | 处理方式 |
 |---|---|
-| **已有图片** | 先查看并复用，按页面内容核对图片与文字的对应关系。 |
-| **有可直接调用的内置生图工具** | 按逐页简报生成、查看和调整，再构建成稿。 |
-| **没有内置生图工具，用户愿意配置生图 API** | Agent 引导用户在自己的终端配置 provider、基址、模型与密钥，脚本按清单自动生成并写回状态；密钥不经过对话。 |
-| **没有内置生图工具，也不用 API** | 先导出逐页完整提示词和供图清单，收到图片后继续制作；可以分批提供。 |
+| **已有图片** | 先复用，并核对每张图与所在页面是否对应。 |
+| **有内置生图工具** | 为每个适合配图的页面按逐页简报生成，查看、调整后再构建。 |
+| **没有内置工具，但有自己的生图 API** | Agent 引导你在自己的终端配置 provider、基址、模型和密钥，脚本按清单自动生成全部缺图；密钥不经过对话。 |
+| **都没有** | 导出逐页完整提示词和供图清单，收到图片后继续制作，可以分批提供。 |
 
-每张缺图都需要本页独有的 `image.brief`，描述对象与数量、动作或系统处理、关系机制、层级细节与构图。导出器会检查缺项和跨页重复的简报。页面标题、真实数据、业务说明和架构标注留在可编辑内容中。
+每张缺图都需要本页独有的 `image.brief`，写清对象与数量、动作、关系、层级、细节和构图。导出器会提示缺项和跨页重复的简报。标题、真实数据、业务说明和架构标注都放在可编辑内容里，不画进图片。
 
 <details>
 <summary><strong>在 Claude Code 等环境中用自己的生图 API 自动生成</strong></summary>
 
-Claude Code、Cursor 等环境没有内置生图工具。Agent 会先完成拆页、`deck.json` 与提示词导出，然后询问是否使用你自己的生图 API；同意后把配置命令交给你在**自己的终端**执行，密钥以不回显方式输入，保存到 `~/.config/ppt-workbench/image-api.json`（仅当前用户可读），不会出现在对话或项目文件中。
+Claude Code、Cursor 等终端 Agent 没有内置生图工具。Agent 会先完成拆页、`deck.json` 和提示词导出，再询问是否使用你自己的生图 API。你同意后，它会给出一条配置命令，请在**自己的终端**执行。密钥以不回显的方式输入，保存在 `~/.config/ppt-workbench/image-api.json`（仅当前用户可读），不会出现在对话或项目文件中。
 
 ```bash
 # OpenAI 官方或兼容服务（url 换成实际基址，model 换成实际模型名）
@@ -283,129 +281,111 @@ python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider o
 python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider gemini --model gemini-2.5-flash-image
 ```
 
-国内常见的中转服务可用预设，例如 Right Code：`--setup --preset rightapi --model gpt-image-2.5`（异步画图接口，脚本自动提交任务并轮询）。已有 `OPENAI_API_KEY` / `GEMINI_API_KEY` 环境变量时加 `--no-key`。之后由 Agent 执行：`--check` 验证配置（免费）、`--dry-run` 预演、`--pages 2` 先生成一页、再生成其余缺图。结果按清单文件名保存，用页面纸色补边到清单比例，状态写回 `image-manifest.json`；生成后仍逐张查看，不合格改简报后 `--force` 重生成，原图自动保留版本。支持 provider：`openai`（OpenAI Images API 及兼容代理，含 `gpt-image-1`、`dall-e-3`）、`gemini`（`gemini-2.5-flash-image` 等）。字段、请求形式与边界见 [通过生图 API 自动生成配图](skills/white-blue-slides/references/image-api.md)。
+常见中转服务有预设，例如 Right Code：`--setup --preset rightapi --model gpt-image-2.5`（异步画图接口，脚本自动提交任务并轮询结果）。已设置 `OPENAI_API_KEY` 或 `GEMINI_API_KEY` 环境变量时，加 `--no-key`。
+
+之后由 Agent 依次执行：`--check` 验证配置（免费）、`--dry-run` 预演（无需密钥）、`--pages 2` 先试一页，再生成其余缺图。结果按清单文件名保存，用页面纸色补边到目标比例，并记录在 `image-manifest.json`。每张图仍要逐一查看：不合格就改写简报，加 `--force` 重新生成，旧版本自动保留。
+
+支持的 provider：`openai`（OpenAI Images API 及兼容代理，含 `gpt-image-1`、`dall-e-3`）和 `gemini`（`gemini-2.5-flash-image` 等）。字段、请求格式与限制见 [通过生图 API 自动生成配图](skills/white-blue-slides/references/image-api.md)。
 
 </details>
 
 <details>
-<summary><strong>配图内文字与交付文件</strong></summary>
+<summary><strong>配图中的文字与需要保留的文件</strong></summary>
 
-素白蓝调与写实微缩配图默认无字；写实微缩只提供 `ui_text: "none"`，包括白板、屏幕、文件、日历和键帽都不生成文字。海蓝玻璃默认为 `ui_text: "demo"`，只允许软件屏幕内的 Overview、Analytics、Activity、Demo 四个示意标签，也可选择 `none`。配图内的示意图表不充当真实业务数据。
+素白蓝调与写实微缩的配图默认无字；写实微缩只支持 `ui_text: "none"`，白板、屏幕、文件、日历和键帽上都不出现文字。海蓝玻璃默认 `ui_text: "demo"`，软件屏幕内只允许 Overview、Analytics、Activity、Demo 四个示意标签，也可选 `none`。配图里画的图表只是装饰，不代表真实数据。
 
-最终交付物为一个独立 `.html` 文件；`deck.json`、提示词、图片清单和 QA 截图用于制作与续改。缺图的 `--draft` 版本仅用于内部预排。
+最终交付物是一个独立的 `.html` 文件。`deck.json`、提示词和供图清单请保留，方便日后续改。缺图时的 `--draft` 构建只用于内部预排。
 
 </details>
 
-## 构建与检查
+## 命令行构建
 
-以下命令在仓库根目录执行，`project/` 表示本次演示稿的工作目录。
+以下步骤通常由 Agent 代为执行。自己运行时，在仓库根目录执行，`project/` 为本次演示稿的工作目录：
 
 ```text
 project/
 ├── 大纲.md
 ├── deck.json
-├── images/                  # 本项目配图
-├── 演示稿.html              # 最终交付
-└── qa/                      # 截图与检查报告
+├── images/          # 本项目配图
+└── 演示稿.html      # 最终交付
 ```
 
-### 从完整示例开始
-
-可从以下示例建立项目并替换为自己的内容：
+### 从示例开始
 
 | 示例 | 内容 |
 |---|---|
-| [素白蓝调示例](skills/white-blue-slides/assets/deck.example.json) | 封面、场景信息页和尾页 |
-| [海蓝玻璃演讲型示例](skills/navy-glass-slides/assets/deck.example.json) | 低密度产品介绍与轻量强调 |
-| [海蓝玻璃阅读型示例](skills/navy-glass-slides/assets/deck.reading.example.json) | 四类图文分区、流程、矩阵与图表 |
-| [写实微缩演讲型示例](skills/realistic-miniature-slides/assets/deck.example.json) | 团队工作系统、协作交接与轻量强调 |
-| [写实微缩阅读型示例](skills/realistic-miniature-slides/assets/deck.reading.example.json) | 四类图文分区、职责流程与示例任务图表 |
+| [素白蓝调](skills/white-blue-slides/assets/deck.example.json) | 封面、场景信息页和尾页 |
+| [海蓝玻璃 · 演讲型](skills/navy-glass-slides/assets/deck.example.json) | 简洁的产品介绍与轻量强调 |
+| [海蓝玻璃 · 阅读型](skills/navy-glass-slides/assets/deck.reading.example.json) | `reading` 四种分区、流程、矩阵与图表 |
+| [写实微缩 · 演讲型](skills/realistic-miniature-slides/assets/deck.example.json) | 团队工作空间、协作交接与轻量强调 |
+| [写实微缩 · 阅读型](skills/realistic-miniature-slides/assets/deck.reading.example.json) | `reading` 四种分区、职责流程与示例任务图表 |
 
-示例附带配图简报；正式构建前，需要按清单准备对应图片。项目图片路径相对 `deck.json` 所在目录，完整数据格式见 [内容数据与构建](skills/white-blue-slides/references/deck-format.md)。
+其余六种风格也在各自的 `assets/` 目录提供 `deck.example.json` 与 `deck.reading.example.json`。示例附带配图简报，正式构建前需要准备好图片。图片路径相对 `deck.json` 所在目录，完整数据格式见 [内容数据与构建](skills/white-blue-slides/references/deck-format.md)。
 
-### 检查、准备、构建与审查
+### 准备配图并构建
 
 ```bash
-# 1. 检查设计决策和页面结构，不要求图片已经存在
-python3 skills/white-blue-slides/scripts/build_deck.py project/deck.json \
-  --check-plan --out project/design-plan.json
-
-# 2. 导出提示词与供图清单，不调用模型或网络
+# 导出逐页提示词与供图清单（不调用模型，不联网）
 python3 skills/white-blue-slides/scripts/prepare_images.py project/deck.json \
   --out project/image-handoff
 
-# 3. 图片齐全后，构建单文件 HTML
+# 图片齐全后，构建单文件 HTML
 python3 skills/white-blue-slides/scripts/build_deck.py project/deck.json \
   --out project/演示稿.html
+```
 
-# 4. 渲染审查并保存逐页截图
+结构错误或缺图时，构建器会停止并指出需要修改的字段。
+
+<details>
+<summary><strong>可选检查</strong></summary>
+
+需要审查成稿或维护工具时运行：
+
+```bash
+# 检查设计决策与页面结构，不要求图片已存在
+python3 skills/white-blue-slides/scripts/build_deck.py project/deck.json \
+  --check-plan --out project/design-plan.json
+
+# 逐页渲染、保存截图并报告问题
 node skills/white-blue-slides/scripts/audit_deck.cjs project/演示稿.html \
   --out project/qa --browser chrome
 ```
 
-自动检查覆盖文字越界与重叠、缺图、外部依赖、图文分区和图表渲染；逐页视觉检查还需核对配图主体、图文对应和独立阅读时的完整性。修改播放器、导出器或主题后，用 `test_player.cjs` 对任一成稿跑播放器回归测试（翻页、组合快捷键、编辑、另存、PPTX 导出、全屏适配，以及打印时未浏览页的图表）。
+审查会报告文字越界与重叠、缺图、外部依赖、图文分区和图表渲染问题。配图主体是否完整、是否与文字对应，仍需人工判断。
+
+</details>
 
 <details>
 <summary><strong>构建选项与共享版式</strong></summary>
 
-共享选版库提供 **48 个可执行 profile**，包含 **20 种共享构图**。按 [内容自主选版](skills/white-blue-slides/references/layout-selection.md) 选择，字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)；下表保留基础命名布局，便于入门。旧稿无需迁移即可构建：`triad` 按图片在右的 3 项 `split` 渲染，残留的 `layout_selection`、`rationale` 字段会被忽略。
+共享版式库有 **48 个可执行 profile**，其中包含 **20 种共享构图**，所有风格都能使用。Agent 按 [内容自主选版](skills/white-blue-slides/references/layout-selection.md) 选择，字段与容量见 [共享构图合同](skills/white-blue-slides/references/shared-layouts.md)。旧稿无需迁移即可构建：`triad` 按图片在右的 3 项 `split` 渲染，残留的 `layout_selection`、`rationale` 字段会被忽略。
 
-| 可选工具或参数 | 用途 |
+| 工具或参数 | 用途 |
 |---|---|
-| `match_paper.py project/images/*.png --deck project/deck.json --dry-run` | 按当前主题诊断底色与透明通道；允许脚本校准时去掉 dry-run，仅处理轻微偏差并备份 |
-| `--embed-format keep` | 保留原始图片格式；默认优先转 WebP 内嵌 |
+| `match_paper.py project/images/*.png --deck project/deck.json --dry-run` | 按当前主题检查配图底色与透明通道；去掉 `--dry-run` 后校正轻微偏差，并保留备份 |
+| `--embed-format keep` | 保留原图格式，不转 WebP |
 | `--embed-quality 85` | 设置图片压缩质量 |
-| `--builder` | 加载项目新增版式；复用共享组件 |
-| `--allow-restyle` | 用户明确要求超出所选主题，自定义封面或页头页脚时使用 |
+| `--builder` | 加载项目自定义版式（基于共享组件） |
+| `--allow-restyle` | 仅在用户要求时，允许超出所选主题修改封面、页头或页脚 |
 
-选择现有命名风格无需 `--allow-restyle`。
+基础命名版式：
 
 | 版式 | 用途 | 版式 | 用途 |
 |---|---|---|---|
 | `cover` | 封面 | `architecture` | 分层架构与直接标注 |
 | `scene` | 大场景与两侧说明 | `flow` | 步骤与控制点 |
 | `split` | 左右说明或三段控制 | `domains` | 多领域清单 |
-| `journey` | 阶段、比较或路径 | `formula` | 公式与因素关系 |
+| `journey` | 阶段、比较或路径 | `formula` | 因素及其组合关系 |
 | `table` | 表格与边界对照 | `relations` | 实体与关联 |
-| `closing` | 有配图的收束尾页 | `reading` | 四类阅读型复合信息页 |
+| `closing` | 带配图的尾页 | `reading` | 四种复合分区 |
 
-结构化字段（详见 `references/deck-format.md`）：`flow` 控制分组支持 `rows_layout`（自动／同行／标签在上）、行 `kind`（说明／校验／异常）与阅读型 `align_control_rows` 共享行高；`architecture` 标注支持 `prefix`、`detail`、`leader` 引线和流向 `direction`；`journey` 阶段支持 `period` 时间标签与 `fields` 字段组，页底可用 `bottom.type: groups`；配图比例新增 `2:1 / 21:9 / 3:1`，`image.background_mode: white-matte` 可把已确认纯白底的素材映射到当前纸色，HTML、PDF 与 PPTX 一致。
+流程行排布、架构引线、阶段时间标签、更多配图比例（`2:1 / 21:9 / 3:1`）以及 `image.background_mode: white-matte` 等细项，见 [`deck-format.md`](skills/white-blue-slides/references/deck-format.md)。
 
 </details>
 
-## 播放、编辑与保存
+## 播放、编辑与导出
 
-工具栏提供：**总览 · 全屏 · 讲稿 · 编辑文字 · 另存 HTML · 导出 PPTX · 导出 PDF / 打印**。默认画布为 1920 × 1080，并按窗口等比适配。文字编辑后需「另存 HTML」保留修改，浏览器内的修改不会自动回写 `deck.json`。
-
-全屏按屏幕可用区域完整等比显示 16:9 页面，编辑时为工具栏留出空间。PDF 使用 PowerPoint 宽屏尺寸：**960 × 540 pt（13⅓ × 7.5 英寸）**。点击“导出 PDF / 打印”后，在浏览器打印窗口选择另存为 PDF，避免用 A4 或 Letter 覆盖幻灯片纸张尺寸。打印前会先渲染所有图表，包括尚未翻到的页面；全屏状态下打印同样一页一张。
-
-需要稳定的 PDF 尺寸与单页适配观看偏好时，可使用随附脚本（除 Playwright 外另需 `pdf-lib`）：
-
-```bash
-# 如果在浏览器中编辑过，请使用“另存 HTML”保存后的文件作为输入
-node skills/white-blue-slides/scripts/export_pdf.cjs project/演示稿.html \
-  --out project/演示稿.pdf --browser chrome
-```
-
-部分 PDF 阅读器可能忽略观看偏好，此时选择“适合页面”。macOS 将**显示滚动条**设为**始终**时，Chrome PDF 演示可能露出下一页顶部的细条。在已复现案例中，将**系统设置 → 外观 → 显示滚动条 → 滚动时**，然后退出演示、重新加载 PDF、再次选择**演示**，即可消除白条。该设置会影响系统内其他应用的滚动条显示；改 PDF 纸张尺寸不能解决这类阅读器问题。非 16:9 屏幕会保留边带，以免拉伸或裁切。
-
-**HTML 播放器**也提供**全屏**按钮。用户要求 PDF 演示时，应验证指定阅读器中的实际 PDF，不能把 HTML 演示通过当作 PDF 已修复。
-
-**导出 PPTX** 生成可编辑的 PowerPoint 文件，统一使用一种通用字体（默认微软雅黑，Windows 与 macOS 的 Office 都自带）：标题与正文保留为文本框，字号、粗细、颜色与字距不变；信息块、标签与分隔线转为形状；场景图与图标转为图片；ECharts 转为 PowerPoint 原生图表并内嵌数据表（可用“编辑数据”）；讲稿写入备注。位置按实际渲染测量，与 HTML 一致；字体替换后，英文与数字会略宽。导出器内嵌在每份演示稿中，不联网。命令行也可导出，并兼容加入该按钮之前构建的旧稿：
-
-```bash
-node skills/white-blue-slides/scripts/export_pptx.cjs project/演示稿.html \
-  --out project/演示稿.pptx --browser chrome [--font "PingFang SC"]
-```
-
-只有 PDF 时，可用随附转换器生成离线 HTML 演示版（需要 Python + Poppler）。它一次只显示当前页，保留矢量轮廓的清晰度。该演示副本的文字不可编辑、不可选择；保留原 PDF 和可编辑源稿。
-
-```bash
-python3 skills/white-blue-slides/scripts/pdf_to_slides.py project/演示稿.pdf \
-  --out project/全屏演示版.html
-```
-
-旧 HTML 内嵌旧播放器，需要从源项目重新构建才能应用修复；先保留浏览器编辑后的副本，避免覆盖修改。
+工具栏提供：**总览 · 全屏 · 讲稿 · 编辑文字 · 另存 HTML · 导出 PPTX · 导出 PDF / 打印**。页面画布为 1920 × 1080，在任何窗口或屏幕上等比缩放，不拉伸、不裁切；编辑时为工具栏留出空间。编辑后用「另存 HTML」保存，修改不会回写 `deck.json`。
 
 | 按键 | 作用 | 按键 | 作用 |
 |---|---|---|---|
@@ -414,35 +394,72 @@ python3 skills/white-blue-slides/scripts/pdf_to_slides.py project/演示稿.pdf 
 | `Home` / `End` | 首页／末页 | `N` | 讲稿面板 |
 | `Esc` | 退出总览、编辑或讲稿 | URL `#3` | 直接打开第 3 页 |
 
-与 Cmd、Ctrl 或 Alt 组合的按键交给浏览器处理，Cmd+F、Ctrl+P 等快捷键照常可用。
+与 Cmd、Ctrl 或 Alt 组合的按键交给浏览器，Cmd+F、Ctrl+P 等快捷键照常可用。
+
+### 导出 PowerPoint
+
+**导出 PPTX** 生成可编辑的 PowerPoint 文件：标题与正文保留为文本框，字号、粗细、颜色与间距不变；信息块、标签与分隔线转为形状；配图与图标转为图片；图表转为 PowerPoint 原生图表并内嵌数据表（可用“编辑数据”）；讲稿写入备注。元素位置按实际渲染结果测量。全稿统一使用一种字体（默认微软雅黑，Windows 与 macOS 的 Office 都自带），英文和数字可能略宽。导出器内嵌在每份演示稿中，无需联网。命令行导出效果相同，还能处理加入该按钮之前构建的旧稿：
+
+```bash
+node skills/white-blue-slides/scripts/export_pptx.cjs project/演示稿.html \
+  --out project/演示稿.pptx --browser chrome [--font "PingFang SC"]
+```
+
+### PDF 与打印
+
+点“导出 PDF / 打印”会打开浏览器打印窗口，选择“另存为 PDF”，保持幻灯片尺寸，不要改成 A4 或 Letter。页面为 PowerPoint 宽屏尺寸 **960 × 540 pt（13⅓ × 7.5 英寸）**。打印前会先渲染所有图表，包括还没翻到的页面；全屏状态下打印同样一页一张。
+
+需要稳定的页面尺寸和“适合页面”的打开方式时，使用导出脚本（除 Playwright 外还需要 `pdf-lib`）：
+
+```bash
+# 在浏览器中编辑过的话，用「另存 HTML」后的文件导出
+node skills/white-blue-slides/scripts/export_pdf.cjs project/演示稿.html \
+  --out project/演示稿.pdf --browser chrome
+```
+
+<details>
+<summary><strong>PDF 阅读器提示与 PDF 转回演示版</strong></summary>
+
+部分 PDF 阅读器会忽略“适合页面”的设置，此时手动选择即可。macOS 把**显示滚动条**设为**始终**时，Chrome 的 PDF 演示模式可能露出下一页顶部的细条；在我们的测试中，改为**系统设置 → 外观 → 显示滚动条 → 滚动时**，重新加载 PDF 再进入演示即可消除（该设置会影响全系统的滚动条）。修改 PDF 纸张尺寸解决不了这个问题。非 16:9 屏幕会保留上下或左右边带。要用 PDF 演示时，请在实际使用的阅读器里确认效果，HTML 演示正常不代表 PDF 阅读器也正常。
+
+如果只剩 PDF，可以用随附转换器（Python + Poppler）生成离线 HTML 演示版：一次显示一页，矢量轮廓保持清晰。演示版的文字不可编辑、不可选择，请保留原 PDF 和可编辑源稿。
+
+```bash
+python3 skills/white-blue-slides/scripts/pdf_to_slides.py project/演示稿.pdf \
+  --out project/全屏演示版.html
+```
+
+</details>
+
+每个 HTML 文件内嵌构建时的播放器。想用上播放器的修复，从源项目重新构建即可；如果在浏览器里编辑过，先保留那份副本。
 
 ## 扩展与开发
 
-每个风格包维护独立的页面主题、配图基底、参考素材和验收规范。共享脚本负责布局与功能，不随风格复制。
+每个风格包独立维护页面主题、配图基底、参考素材和验收规范。版式与播放器功能由共享脚本提供，不随风格复制。
 
-查看当前可用风格：
+查看已安装的风格：
 
 ```bash
 python3 skills/white-blue-slides/scripts/style_packs.py --list
 ```
 
-清单自动发现同级有效的风格包，返回名称、ID、说明和 Skill 入口。新包接入后会出现在清单中，无需手动修改工作台选项。
+它会自动发现所有同级的有效风格包，返回名称、ID、说明和 Skill 入口。新增的包会自动出现，无需修改工作台。
 
 <details>
 <summary><strong>包结构与新增风格</strong></summary>
 
-新包按视觉特点使用小写英文与短横线命名，统一以 `-slides` 结尾；目录名与 Skill 名一致，中文显示名称用于工作台选择。
+新包按视觉特点用小写英文加短横线命名，以 `-slides` 结尾，并与 Skill 名一致；中文显示名用于工作台中的选择。
 
 ```text
 skills/
-├── ppt-workbench/                 # 统一选择入口
+├── ppt-workbench/                 # 统一入口
 ├── white-blue-slides/             # 素白蓝调 + 共享制作套件
-│   ├── scripts/                  # 构建、配图清单、自动发现与检查
-│   ├── assets/                   # 基础组件、播放器、阅读布局与图表
-│   └── references/               # 数据、类型、图表与接入规范
-├── navy-glass-slides/             # 海蓝玻璃独立风格包
-├── realistic-miniature-slides/    # 写实微缩独立风格包
-└── new-style-slides/              # 未来新增的同级包
+│   ├── scripts/                  # 构建、供图清单、风格发现与检查
+│   ├── assets/                   # 组件、播放器、版式与图表
+│   └── references/               # 数据格式、用途、图表与接入规范
+├── navy-glass-slides/             # 独立风格包
+├── …                              # 其他风格包
+└── new-style-slides/              # 未来新增的风格
     ├── SKILL.md
     ├── agents/openai.yaml
     ├── assets/
@@ -456,14 +473,14 @@ skills/
         └── quality-check.md
 ```
 
-新增包在 `assets/style.json` 声明 `schema: "html-slide-style/v1"`、唯一 ID、风格资源和检查契约。新方向完成样例确认与验证后设为 `ready`，再同级安装；工作台、构建器和配图导出器自动识别。所有新风格继续复用演讲型／阅读型和四种阅读布局。
+在 `assets/style.json` 中声明 `schema: "html-slide-style/v1"`、唯一 ID、风格资源和检查契约。样稿确认并验证通过后设为 `ready`，与其他包同级安装，工作台、构建器和配图导出器会自动识别。新风格同样支持两种用途和全部共享版式。
 
 ```bash
-# 开发时连同 draft 包一起检查；不会使草稿变成可用风格
+# 开发检查时连同 draft 包一起列出（不会因此启用草稿）
 python3 skills/white-blue-slides/scripts/style_packs.py --list --include-drafts
 ```
 
-完整字段、接入步骤和验证要求见 [新增独立风格包](skills/white-blue-slides/references/adding-styles.md)。
+字段、接入步骤与验证要求见 [新增独立风格包](skills/white-blue-slides/references/adding-styles.md)。
 
 </details>
 
@@ -472,15 +489,15 @@ python3 skills/white-blue-slides/scripts/style_packs.py --list --include-drafts
 | 用途 | 依赖 |
 |---|---|
 | 构建 HTML、导出提示词、列出风格、调用生图 API | Python 3.9+ 标准库 |
-| 可选 WebP 压缩、API 生成结果按比例补边 | Pillow；缺少时保留原图格式 |
+| WebP 压缩、API 配图按比例补边 | Pillow（可选；缺少时保留原图格式） |
 | 配图底色校准 | NumPy + Pillow |
-| 自动浏览器审查 | Node.js + Playwright + Chrome/Chromium |
-| 命令行导出可编辑 PPTX | Playwright + Chrome/Chromium（工具栏按钮不需要任何依赖） |
-| PDF 导出（导出时核对页数与尺寸） | Playwright + pdf-lib + Chrome/Chromium |
-| 已有 PDF 转离线演示版 | Python + Poppler（`pdfinfo`、`pdftocairo`） |
-| 可选总览拼图 | Sharp |
+| 浏览器自动检查 | Node.js + Playwright + Chrome/Chromium |
+| 命令行导出 PPTX | Playwright + Chrome/Chromium（工具栏按钮无需任何依赖） |
+| 导出 PDF（核对页数与尺寸） | Playwright + pdf-lib + Chrome/Chromium |
+| 已有 PDF 转演示版 | Python + Poppler（`pdfinfo`、`pdftocairo`） |
+| 总览拼图 | Sharp（可选） |
 
-ECharts 5.6.0 以精简构建随套件内置（条形、折线、饼图与 SVG 渲染器，约 550 KB），无需额外安装或访问 CDN。需要新增图表类型时，在 [`echarts.entry.js`](skills/white-blue-slides/assets/vendor/echarts.entry.js) 中加入并按文件内的命令重新构建。生图能力由当前 Agent 环境提供，安装 Skill 不等于安装生图工具；没有内置工具时可由用户自行配置生图 API（见上文），或人工供图。无法运行自动审查时，使用可用浏览器逐页检查并说明验证范围。
+ECharts 5.6.0 以精简构建随套件内置（条形、折线、饼图与 SVG 渲染器，约 550 KB），无需安装，也不依赖 CDN。要新增图表类型，在 [`echarts.entry.js`](skills/white-blue-slides/assets/vendor/echarts.entry.js) 中引入，并按文件内的命令重新构建。生图能力来自 Agent 环境或你自己的生图 API，不随 Skill 安装。
 
 修改脚本或资源后运行自测：
 
@@ -488,16 +505,16 @@ ECharts 5.6.0 以精简构建随套件内置（条形、折线、饼图与 SVG �
 python3 skills/white-blue-slides/scripts/selftest.py
 ```
 
-自测覆盖共享组件、两种类型、风格独立性、动态新增风格、图表输入、缺图恢复与生图 API 脚本（离线假传输，不联网）。主题或版式发生变化时，再使用真实配图构建并逐页检查；自测不替代视觉验收。
+自测覆盖共享组件、两种用途、风格隔离、风格发现、图表输入、缺图恢复和生图 API 脚本（使用离线假传输）。修改播放器、导出器或主题后，再用 `test_player.cjs` 对任一成稿运行播放器回归测试，覆盖翻页、快捷键、编辑、另存、PPTX 导出、全屏适配与打印。自测不能代替看真实页面：主题或版式改动后，请用真实配图构建并逐页查看。
 
 ## 许可证与素材
 
-项目代码采用 [MIT](LICENSE)。第三方组件保留各自许可证：
+项目代码采用 [MIT](LICENSE) 许可证。第三方组件保留各自的许可证：
 
 - Lucide 图标：[MIT 许可证](skills/white-blue-slides/assets/lucide-LICENSE.txt)。
 - Apache ECharts：[Apache 2.0 许可证](skills/white-blue-slides/assets/vendor/ECHARTS-LICENSE.txt) 与 [NOTICE](skills/white-blue-slides/assets/vendor/ECHARTS-NOTICE.txt)，同时内嵌于含图表的成稿。
 
-套件不包含任何品牌 Logo 或公司名；页脚品牌信息由各项目在 deck 中自行提供。包内参考图用于说明视觉风格，示例业务内容与数字不构成实际产品能力或效果声明。
+套件不包含任何 Logo 或公司名，页脚品牌信息由各项目自行提供。参考图用于展示风格，示例业务内容与数字不代表任何真实产品的能力或效果。
 
 ---
 

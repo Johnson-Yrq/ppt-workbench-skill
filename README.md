@@ -5,7 +5,7 @@
 <h1>PPT-workbench-skill</h1>
 
 <p><strong>Turn an outline into a polished, editable slide deck.</strong></p>
-<p>Nine visual styles. Two ways to present. One HTML file that works offline.</p>
+<p>Nine visual styles · Live or self-guided reading · One offline HTML file</p>
 
 <p><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
@@ -13,7 +13,8 @@
   <a href="#quick-start">Quick start</a> ·
   <a href="#visual-styles">Visual styles</a> ·
   <a href="#presentation-modes">Presentation modes</a> ·
-  <a href="#build-and-check">Build &amp; check</a>
+  <a href="#build-from-the-command-line">Build</a> ·
+  <a href="#present-edit-and-export">Present &amp; export</a>
 </p>
 
 <p><code>Codex / Claude Code</code> &nbsp; <code>Toolkit v3.7.0</code> &nbsp; <a href="LICENSE">MIT License</a></p>
@@ -22,17 +23,17 @@
 
 ---
 
-Start with [`ppt-workbench`](skills/ppt-workbench/SKILL.md), choose a visual style and a presentation mode, and build a deck from your outline. Each style maintains its own theme, illustration prompts, and references, while sharing the same layout, editing, and validation toolkit.
+Give your agent an outline, pick a visual style and a presentation mode, and get back a finished deck: illustrations, charts, and layouts chosen to fit each page. Start with [`ppt-workbench`](skills/ppt-workbench/SKILL.md). Each style owns its theme, illustration prompts, and references; all styles share one toolkit for layouts, charts, editing, and export.
 
-| Consistent design | Content that fits the audience | A portable result |
+| One consistent look | Content that fits the audience | Nothing to install for viewers |
 |---|---|---|
-| Matching covers, typography, illustrations, and closing slides. | Concise slides for live talks, or detailed pages for independent reading. | Embedded CSS, JavaScript, images, icons, and charts, with editing and printing built in. |
+| Covers, type, illustrations, and closings follow a single style. | Concise slides for a live talk, or complete pages for reading alone. | CSS, scripts, images, icons, and charts are embedded; editing, printing, and PPTX export are built in. |
 
-> **Output format:** the builder produces a self-contained `.html` file. For an explicit `.pptx` request, export an editable PowerPoint from the finished deck with the player's **Export PPTX** button or `export_pptx.cjs`, then check it page by page in PowerPoint.
+> **Output:** a self-contained `.html` file. Need PowerPoint? Use the player's **Export PPTX** button (or `export_pptx.cjs`) to get an editable `.pptx`, then review it in PowerPoint.
 
 ## Visual styles
 
-Examples from the three model-based styles are shown below; all nine available styles are listed in the table that follows. Click an image to view it at full size. Business content and chart values shown here are illustrative.
+Three illustrated styles are previewed below; the table that follows lists all nine. Click an image for full size. Business content and chart values are illustrative.
 
 | White & Blue | Navy Glass | Realistic Miniature |
 |:---:|:---:|:---:|
@@ -40,16 +41,16 @@ Examples from the three model-based styles are shown below; all nine available s
 | Warm white · Bright blue · Matte models | Navy · Glass · Champagne gold | Warm gray · Natural materials · Expressive figures |
 | [`white-blue-slides`](skills/white-blue-slides/SKILL.md) | [`navy-glass-slides`](skills/navy-glass-slides/SKILL.md) | [`realistic-miniature-slides`](skills/realistic-miniature-slides/SKILL.md) |
 
-All nine styles support both presentation modes. Choose one style per deck; the subject, actions, and relationships in each illustration come from the content.
+Every style works in both presentation modes. A deck uses one style throughout; what each illustration shows comes from your content.
 
 <details>
-<summary><strong>Style IDs, visual details, and more examples</strong></summary>
+<summary><strong>All nine styles, style IDs, and more examples</strong></summary>
 
-| Style | `style` ID | Visual direction |
+| Style | `style` ID | Look |
 |---|---|---|
-| **White & Blue** · 素白蓝调 | `scene-white` | Warm white paper, vivid blue accents, matte white model scenes, and miniature figures. |
-| **Navy Glass** · 海蓝玻璃 | `saas-3d` | Warm white paper, navy text and emphasis areas, muted teal, a little champagne gold, and detailed glass displays. |
-| **Realistic Miniature** · 写实微缩 | `real-miniature` | Warm gray, graphite, gray blue, sage, and a little ochre; 35–45° miniature scenes with realistic PBR materials and expressive figures. Text-free illustrations. |
+| **[White & Blue](skills/white-blue-slides/SKILL.md)** · 素白蓝调 | `scene-white` | Warm white paper, vivid blue accents, matte white model scenes, and miniature figures. |
+| **[Navy Glass](skills/navy-glass-slides/SKILL.md)** · 海蓝玻璃 | `saas-3d` | Warm white paper, navy text and emphasis, muted teal, a touch of champagne gold, and detailed glass displays. |
+| **[Realistic Miniature](skills/realistic-miniature-slides/SKILL.md)** · 写实微缩 | `real-miniature` | Warm gray, graphite, gray blue, sage, and a little ochre; 35–45° miniature scenes with realistic materials and expressive figures. Text-free illustrations. |
 | **[Monochrome Editorial](skills/monochrome-editorial-slides/SKILL.md)** · 黑白编辑式 | `monochrome-editorial` | Black and white pages, large titles, generous space, and cool editorial photography. |
 | **[Warm Minimal Editorial](skills/warm-minimal-editorial-slides/SKILL.md)** · 暖褐极简编辑式 | `warm-minimal-editorial` | Warm cream, deep brown, restrained typography, and warm natural photography. |
 | **[Primary Architecture](skills/primary-architecture-slides/SKILL.md)** · 原色建筑编辑式 | `primary-architecture` | White and black, tall condensed titles, offset text columns, architectural photography, and four-color chapter pages. |
@@ -61,13 +62,13 @@ All nine styles support both presentation modes. Choose one style per deck; the 
 |:---:|:---:|
 | <a href="skills/white-blue-slides/assets/reference-design/approved-architecture.jpg"><img src="skills/white-blue-slides/assets/reference-design/approved-architecture.jpg" alt="Layered white architecture model with labels and blue data paths" width="440"></a> | <a href="docs/images/examples/speech-cover.png"><img src="docs/images/examples/speech-cover.png" alt="Navy Glass cover with a value proposition and a three-dimensional product display" width="440"></a> |
 
-| Realistic Miniature · Reading layout | White & Blue · Page reference |
+| Realistic Miniature · Reading page | White & Blue · Page reference |
 |:---:|:---:|
 | <a href="docs/images/examples/miniature-reading-diagonal.png"><img src="docs/images/examples/miniature-reading-diagonal.png" alt="Realistic Miniature reading page with diagonal scenes, a responsibility matrix, and a donut chart" width="440"></a> | <a href="skills/white-blue-slides/assets/reference-design/approved-overview.jpg"><img src="skills/white-blue-slides/assets/reference-design/approved-overview.jpg" alt="White and Blue reference page showing scene composition and visual hierarchy" width="440"></a> |
 
 Illustration references: [Navy Glass product display](skills/navy-glass-slides/assets/reference-design/approved-product-overview.png) · [Realistic Miniature team workspace](skills/realistic-miniature-slides/assets/reference-design/approved-workflow.png).
 
-References establish materials, scale, and visual hierarchy. Their business content is not a factual source for a new project.
+References set materials, scale, and visual hierarchy. Their business content is never used as fact in a new project.
 
 </details>
 
@@ -75,39 +76,37 @@ References establish materials, scale, and visual hierarchy. Their business cont
 
 ### 1. Install the skills
 
-With Node.js/npm installed, use the [Skills CLI](https://github.com/vercel-labs/skills#options) to install directly from this repository.
+With Node.js/npm available, install straight from this repository with the [Skills CLI](https://github.com/vercel-labs/skills#options).
 
 **Codex**
 
 ```bash
-npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a codex
+npx skills@latest add Johnson-Yrq/ppt-workbench-skill --skill '*' -g -a codex
 ```
 
 **Claude Code**
 
 ```bash
-npx skills@latest add Johnson-Yrq/JohnsonPPTskill --skill '*' -g -a claude-code
+npx skills@latest add Johnson-Yrq/ppt-workbench-skill --skill '*' -g -a claude-code
 ```
 
-`--skill '*'` installs the workbench and all nine style packages together, for ten packages in total; keep the quotes around `*`. `-g` makes the skills available across projects; omit it for a project-local installation. `-a` selects the agent.
+`--skill '*'` installs the workbench and all nine styles (ten packages); keep the quotes. `-g` installs for all projects; drop it to install into the current project only. `-a` picks the agent.
 
 <details>
-<summary><strong>List available skills or install manually</strong></summary>
+<summary><strong>List the skills or install manually</strong></summary>
 
 List the skills without installing:
 
 ```bash
-npx skills@latest add Johnson-Yrq/JohnsonPPTskill --list
+npx skills@latest add Johnson-Yrq/ppt-workbench-skill --list
 ```
 
-Or clone the repository:
+Or clone the repository and copy the packages:
 
 ```bash
-git clone https://github.com/Johnson-Yrq/JohnsonPPTskill.git
-cd JohnsonPPTskill
+git clone https://github.com/Johnson-Yrq/ppt-workbench-skill.git
+cd ppt-workbench-skill
 ```
-
-Copy all ten packages into the directory for your agent.
 
 **Codex**
 
@@ -123,25 +122,24 @@ mkdir -p ~/.claude/skills
 cp -R skills/* ~/.claude/skills/
 ```
 
-Keep all ten directories side by side. `white-blue-slides` includes the shared toolkit used by the other styles; `ppt-workbench` provides the common entry point. Back up existing skill directories before updating. If you only need White & Blue, you can install `white-blue-slides` on its own.
+Keep the ten directories side by side: `white-blue-slides` carries the shared toolkit the other styles depend on, and `ppt-workbench` is the common entry point. Back up existing copies before updating. For White & Blue alone, `white-blue-slides` can be installed by itself.
 
 </details>
 
 ### 2. Give your agent an outline
 
-**If you want to choose the style and mode together:**
+**Let the agent ask for the style and mode:**
 
 ```text
 Use $ppt-workbench to turn this outline into a slide deck.
-First, let me choose a visual style and a mode: live presentation or independent reading.
+Let me choose the visual style and whether it's for a live talk or for reading.
 ```
 
-**If you already know what you want:**
+**Or say what you want up front:**
 
 ```text
 Use $ppt-workbench with the Navy Glass style in reading mode.
-Organize this outline into illustrations, processes, matrices, and charts as appropriate.
-Check every slide before delivery.
+Use illustrations, processes, matrices, and charts where they fit the content.
 ```
 
 <details>
@@ -162,27 +160,26 @@ Keep the illustrations free of text.
 
 </details>
 
-The agent asks only for missing choices and reuses decisions already confirmed for the current project. If you explicitly delegate the choice, it selects and explains a suitable direction. Template defaults do not count as your choice, and a change of subject does not automatically change an existing deck's style.
+The agent asks only for what is missing and reuses choices already made for the project. Say "you choose" and it picks a direction and explains why. Template defaults never count as your choice, and a new topic does not change an existing deck's style.
 
 ### 3. Open, present, and edit
 
-Open the delivered HTML in a browser. Present offline, edit text and chart data, then use **Save HTML** (`另存 HTML`) to keep your changes. Browser edits do not automatically update the source `deck.json`.
+Open the HTML in any modern browser. Present offline, edit text and chart data in place, and click **Save HTML** (`另存 HTML`) to keep your edits. Browser edits do not flow back into `deck.json`.
 
-The English README documents the existing toolkit; skill instructions, reference documents, examples, and player controls are currently primarily in Chinese.
+Skill instructions, reference documents, examples, and player labels are mainly in Chinese.
 
 ## Presentation modes
 
 | | Live presentation · `speech` | Independent reading · `reading` |
 |---|---|---|
-| **Audience** | A speaker guides the audience. | Readers explore the deck on their own. |
-| **Content** | One conclusion with a few supporting points; details can go in speaker notes. | Mechanisms, evidence, conditions, and boundaries stay on the page. |
-| **Visuals** | A main scene, key steps, and a few annotations. | Illustrations, processes, matrices, tables, icons, and charts. |
-| **Illustration area** | May be the main visual focus. | Reserve half or a quarter of the body area first. |
-| **When content grows** | Split it into a sequence of slides. | Split it into related pages while preserving readable type and image area. |
+| **Audience** | Follows a speaker. | Reads alone, with no one to explain. |
+| **Each page** | One conclusion and a few supporting points; details go in speaker notes. | Conclusion, mechanism, evidence, and limits on the page. |
+| **Visuals** | A main scene, key steps, a few labels. | Adds real process steps, comparison dimensions, layers, responsibilities, and charts. |
+| **When content grows** | Spread it over more slides. | Continue on a related page instead of shrinking the type. |
 
-Reading mode adds meaningful relationships and evidence, not smaller type or longer paragraphs. When reliable numbers are unavailable, use processes, responsibilities, comparisons, or layers instead of inventing metrics.
+The mode sets how much a page must explain on its own, not which layout, image ratio, or font size it uses; every layout is available in both modes. Reading pages gain density from meaningful relationships and evidence, not smaller type or longer paragraphs. Without reliable numbers, use processes, responsibilities, comparisons, or layers rather than inventing metrics.
 
-Record both choices at the root of `deck.json`:
+Both choices are recorded at the root of `deck.json` (a complete deck also needs a title and slides):
 
 ```json
 {
@@ -191,21 +188,21 @@ Record both choices at the root of `deck.json`:
 }
 ```
 
-This snippet shows only the two selection fields; a complete project also needs its title and slides. Older decks without these fields remain compatible with White & Blue and speech mode. New projects should record explicit choices. See [modes and information density](skills/white-blue-slides/references/presentation-modes.md).
+Older decks without these fields build as White & Blue in speech mode; new decks should record both. See [modes and information density](skills/white-blue-slides/references/presentation-modes.md).
 
-### Four reading layouts
+### The `reading` composite layout
 
-The proportions apply to the **slide body**, excluding headers, footers, and full-width summaries. Charts, icons, and logos are content elements, not illustrations.
+One of the shared layouts, `reading`, arranges illustrations and content blocks in four fixed compositions. It is optional and works in either mode; the proportions below apply only when this layout is chosen. They refer to the slide body, excluding the header, footer, and full-width summaries.
 
-| Layout | `composition` | Illustration placement | Remaining content |
+| Composition | `composition` | Illustrations | Other content |
 |---|---|---|---|
 | **Half · Left / right** | `half_lr` | One main image in the left half. | A chart with explanation, or a process with a responsibility matrix. |
 | **Half · Top / bottom** | `half_tb` | 1–3 images in the top half. | Two complementary groups, such as a process and a trend. |
-| **Half · Diagonal** | `half_diagonal` | One image at top left and one at bottom right. | One content block in each of the other two quadrants. |
-| **Quarter · One image** | `quarter` | One image in the top-left quarter. | Three blocks combining charts, tables, icons, and text. |
+| **Half · Diagonal** | `half_diagonal` | One image top left, one bottom right. | One content block in each remaining quadrant. |
+| **Quarter · One image** | `quarter` | One image in the top-left quarter. | Three blocks of charts, tables, icons, and text. |
 
 <details>
-<summary><strong>Preview all four reading layouts</strong></summary>
+<summary><strong>Preview the four compositions</strong></summary>
 
 | Half · Left / right | Half · Top / bottom |
 |:---:|:---:|
@@ -215,23 +212,23 @@ The proportions apply to the **slide body**, excluding headers, footers, and ful
 |:---:|:---:|
 | <a href="docs/images/examples/reading-half-diagonal.png"><img src="docs/images/examples/reading-half-diagonal.png" alt="Diagonal reading layout with two images, a capability matrix, and a donut chart" width="440"></a> | <a href="docs/images/examples/reading-quarter.png"><img src="docs/images/examples/reading-quarter.png" alt="Quarter-image reading layout with a comparison chart, delivery checklist, and usage boundaries" width="440"></a> |
 
-Navy Glass screenshots, each 1920 × 1080. Chart values are sample data.
+Navy Glass, 1920 × 1080. Chart values are sample data.
 
 </details>
 
-Reserve the image areas before arranging the other content. Multiple images should explain different subjects, stages, or viewpoints, with complete subjects and consistent colors and materials. Align headings and content to their regions; use modest changes in size, icon scale, or weight for emphasis. See the [complete reading example](skills/navy-glass-slides/assets/deck.reading.example.json).
+When several images share a page, each should show a different subject, stage, or viewpoint, with consistent colors and materials. See the [complete reading example](skills/navy-glass-slides/assets/deck.reading.example.json).
 
-### Offline charts and editable data
+### Offline, editable charts
 
-Reading pages support **horizontal bar, line, and donut charts** for category comparisons, time trends, and parts of a whole. Include units and sources, explain the conclusion and its limits beside the chart, and clearly label sample data.
+Charts are available in both modes: **horizontal bar** for comparing categories, **line** for trends over time, and **donut** or **pie** for parts of a whole. Give every chart a unit and a source, explain the takeaway and its limits next to it, and label sample data as such.
 
-In the player, select **Edit text** (`编辑文字`), then expand **Edit chart data** (`编辑图表数据`) at the chart's bottom right. Change categories, series names, and values; the chart updates immediately. Saving and reopening the HTML preserves editability. Recheck the accompanying conclusions after changing values.
+To change the data, click **Edit text** (`编辑文字`) in the player, then open **Edit chart data** (`编辑图表数据`) at the chart's bottom right. Categories, series names, and values update the chart instantly and survive **Save HTML**. Recheck the accompanying conclusion after changing values.
 
-The library, data, and SVG charts work offline without a CDN. Supported inputs are 2–8 categories and 1–3 series of finite, nonnegative values. Donut charts accept one series with a positive total. See the [chart reference](skills/white-blue-slides/references/charts.md).
+Charts render offline as SVG. Each takes 2–8 categories and 1–3 series of finite, nonnegative values; donut and pie take one series with a positive total. See the [chart reference](skills/white-blue-slides/references/charts.md).
 
-### Header styles
+### Headers, covers, and closings
 
-Content pages offer six header arrangements; the agent picks one per page from the content without asking, or uses the one you name. Colors follow the chosen style; covers and closings have their own arrangements below.
+White & Blue, Navy Glass, and Realistic Miniature share six content-page header arrangements. The agent picks one per page from the content without asking, or uses the one you name. The other six styles design their own headers in their themes.
 
 ![Six header styles](skills/white-blue-slides/assets/header-styles.png)
 
@@ -246,9 +243,7 @@ Content pages offer six header arrangements; the agent picks one per page from t
 
 Set `"header": "band"` at the root of `deck.json` for the whole deck; a slide's own `header` overrides it.
 
-### Cover and closing arrangements
-
-Covers have four left/right arrangements and closings three. The agent picks one from the illustration's composition; set `variant` on the slide to choose yourself.
+The `cover` layout has four left/right arrangements and `closing` has three. The agent picks one to suit the illustration's composition; set `variant` on the slide to choose yourself.
 
 ![Cover and closing arrangements](skills/white-blue-slides/assets/cover-variants.png)
 
@@ -261,21 +256,23 @@ Covers have four left/right arrangements and closings three. The agent picks one
 
 ## Workflow and illustrations
 
-**Choose style and mode → Read the outline → Plan layouts → Write `deck.json` → Check the plan → Prepare images → Build → Inspect every slide → Deliver**
+**Choose style and mode → Read the outline → Choose a layout per page → Write `deck.json` → Prepare images → Build → Deliver the HTML**
 
-| Available assets | What happens next |
+The agent chooses layouts on its own from each page's content relationships, item counts, images, and data. By default you review the finished deck and export PPTX or PDF yourself; ask the agent if you want it to inspect slides or export for you.
+
+| Images available | What happens |
 |---|---|
-| **Existing images** | Inspect and reuse them, checking that each image matches its slide's content. |
-| **A directly callable image-generation tool** | Generate from per-slide briefs, inspect the images, and refine them before building. |
-| **No built-in tool, but the user has an image API** | The agent guides the user to configure the provider, base URL, model, and key in their own terminal; a script then generates every missing image from the checklist and records the result. The key never passes through the chat. |
-| **No built-in tool and no API** | Export complete per-slide prompts and an asset checklist, then continue when images are supplied. Images can arrive in batches. |
+| **Your own images** | The agent reuses them and checks that each matches its slide. |
+| **A built-in image tool** | The agent generates an illustration for every suitable page from per-slide briefs, reviews it, and refines it before building. |
+| **No built-in tool, but you have an image API** | The agent walks you through configuring the provider, base URL, model, and key in your own terminal; a script then generates every missing image. The key never passes through the chat. |
+| **Neither** | The agent exports complete per-slide prompts and an asset checklist, then continues when you supply images, in batches if you like. |
 
-Each missing image needs a unique `image.brief` describing subjects and counts, actions or system behavior, relationships, hierarchy, detail, and composition. The exporter checks for missing fields and repeated briefs across slides. Keep titles, real data, business explanations, and architecture labels in editable content.
+Each missing image needs its own `image.brief`: subjects and counts, actions, relationships, hierarchy, detail, and composition. The exporter flags missing fields and briefs repeated across slides. Titles, real data, explanations, and architecture labels stay in editable content, not in the image.
 
 <details>
-<summary><strong>Generate with your own image API in Claude Code and similar environments</strong></summary>
+<summary><strong>Generate images with your own API in Claude Code and similar tools</strong></summary>
 
-Claude Code, Cursor, and other terminal agents have no built-in image tool. The agent first finishes the slide plan, `deck.json`, and the prompt export, then asks whether you want to use your own image API. If you agree, it hands you a setup command to run in **your own terminal**. The key is read without echo and stored in `~/.config/ppt-workbench/image-api.json` (readable only by you); it never appears in the conversation or in project files.
+Claude Code, Cursor, and other terminal agents have no built-in image tool. The agent first finishes the slide plan, `deck.json`, and the prompt export, then asks whether to use your own image API. If you agree, it gives you a setup command to run in **your own terminal**. The key is typed without echo and stored in `~/.config/ppt-workbench/image-api.json`, readable only by you; it never appears in the conversation or in project files.
 
 ```bash
 # OpenAI or an OpenAI-compatible service (replace the base URL and model as needed)
@@ -287,127 +284,111 @@ python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider o
 python3 skills/white-blue-slides/scripts/generate_images.py --setup --provider gemini --model gemini-2.5-flash-image
 ```
 
-Relay services have presets, for example Right Code: `--setup --preset rightapi --model gpt-image-2.5` (an asynchronous drawing API; the script submits the task and polls for the result). Add `--no-key` if `OPENAI_API_KEY` or `GEMINI_API_KEY` is already set. The agent then runs `--check` (a free connectivity test), `--dry-run` (a preview that needs no key), `--pages 2` to generate one slide first, and finally the remaining missing images. Results are saved under the checklist file names, padded to the requested ratio with the page paper colour, and recorded in `image-manifest.json`. Every generated image is still inspected; rewrite the brief and rerun with `--force` to regenerate, and earlier versions are kept automatically. Supported providers: `openai` (the OpenAI Images API and compatible proxies, including `gpt-image-1` and `dall-e-3`) and `gemini` (`gemini-2.5-flash-image` and similar). See [Generating illustrations through an image API](skills/white-blue-slides/references/image-api.md) for fields, request shapes, and limits.
+Relay services have presets, for example Right Code: `--setup --preset rightapi --model gpt-image-2.5` (an asynchronous API; the script submits each task and polls for the result). Add `--no-key` if `OPENAI_API_KEY` or `GEMINI_API_KEY` is already set.
+
+The agent then runs `--check` (a free connectivity test), `--dry-run` (a preview that needs no key), `--pages 2` to try one slide, and finally the remaining images. Results use the checklist file names, are padded to the requested ratio with the page's paper color, and are recorded in `image-manifest.json`. Every image is still reviewed: rewrite the brief and rerun with `--force` to regenerate; earlier versions are kept.
+
+Providers: `openai` (the OpenAI Images API and compatible proxies, including `gpt-image-1` and `dall-e-3`) and `gemini` (`gemini-2.5-flash-image` and similar). See [Generating illustrations through an image API](skills/white-blue-slides/references/image-api.md) for fields, request shapes, and limits.
 
 </details>
 
 <details>
-<summary><strong>Text inside illustrations and delivery files</strong></summary>
+<summary><strong>Text inside illustrations, and what to keep</strong></summary>
 
-White & Blue and Realistic Miniature use text-free illustrations by default. Realistic Miniature only supports `ui_text: "none"`, including on whiteboards, screens, documents, calendars, and keycaps. Navy Glass defaults to `ui_text: "demo"`, allowing only **Overview**, **Analytics**, **Activity**, and **Demo** inside software screens; it also supports `none`. Decorative charts in illustrations are not real business data.
+White & Blue and Realistic Miniature illustrations are text-free by default; Realistic Miniature only supports `ui_text: "none"`, so whiteboards, screens, documents, calendars, and keycaps stay blank. Navy Glass defaults to `ui_text: "demo"`, which allows only **Overview**, **Analytics**, **Activity**, and **Demo** on software screens; it also supports `none`. Charts drawn inside illustrations are decoration, not data.
 
-The final deliverable is one standalone `.html` file. Keep `deck.json`, prompts, asset checklists, and QA screenshots for production and future edits. A `--draft` build with missing images is only an internal layout preview.
+You receive one standalone `.html` file. Keep `deck.json`, the prompts, and the asset checklist for future edits. A `--draft` build with missing images is only an internal layout preview.
 
 </details>
 
-## Build and check
+## Build from the command line
 
-Run these commands from the repository root. `project/` is the working directory for your deck.
+The agent normally runs these steps for you. Run them yourself from the repository root, with `project/` as the deck's working directory:
 
 ```text
 project/
 ├── outline.md
 ├── deck.json
 ├── images/          # Project illustrations
-├── presentation.html
-└── qa/              # Screenshots and inspection reports
+└── presentation.html
 ```
 
 ### Start from an example
 
-| Example | Included content |
+| Example | Contents |
 |---|---|
-| [White & Blue](skills/white-blue-slides/assets/deck.example.json) | Cover, scene-based information pages, and a closing slide. |
+| [White & Blue](skills/white-blue-slides/assets/deck.example.json) | Cover, a scene-based information page, and a closing slide. |
 | [Navy Glass · Speech](skills/navy-glass-slides/assets/deck.example.json) | A concise product introduction with subtle emphasis. |
-| [Navy Glass · Reading](skills/navy-glass-slides/assets/deck.reading.example.json) | All four reading layouts, processes, matrices, and charts. |
+| [Navy Glass · Reading](skills/navy-glass-slides/assets/deck.reading.example.json) | All four `reading` compositions, processes, matrices, and charts. |
 | [Realistic Miniature · Speech](skills/realistic-miniature-slides/assets/deck.example.json) | A team workspace, collaboration handoffs, and subtle emphasis. |
-| [Realistic Miniature · Reading](skills/realistic-miniature-slides/assets/deck.reading.example.json) | All four reading layouts, responsibilities, and sample task charts. |
+| [Realistic Miniature · Reading](skills/realistic-miniature-slides/assets/deck.reading.example.json) | All four `reading` compositions, responsibilities, and sample task charts. |
 
-Examples include illustration briefs. Prepare the required images before a final build. Image paths are relative to the directory containing `deck.json`. See the [deck format reference](skills/white-blue-slides/references/deck-format.md).
+Each of the other six styles ships `deck.example.json` and `deck.reading.example.json` in its `assets/` folder. Examples include illustration briefs; prepare the images before a final build. Image paths are relative to `deck.json`. See the [deck format reference](skills/white-blue-slides/references/deck-format.md).
 
-### Validate, prepare, build, and inspect
+### Prepare images and build
 
 ```bash
-# 1. Check design decisions and slide structure; images need not exist yet.
-python3 skills/white-blue-slides/scripts/build_deck.py project/deck.json \
-  --check-plan --out project/design-plan.json
-
-# 2. Export prompts and an asset checklist; no model or network calls.
+# Export per-slide prompts and an asset checklist (no model or network calls).
 python3 skills/white-blue-slides/scripts/prepare_images.py project/deck.json \
   --out project/image-handoff
 
-# 3. Build the self-contained HTML once all images are ready.
+# Build the self-contained HTML once the images are ready.
 python3 skills/white-blue-slides/scripts/build_deck.py project/deck.json \
   --out project/presentation.html
+```
 
-# 4. Inspect the rendered deck and save screenshots of every slide.
+The builder stops on structural errors and missing images and names the field to fix.
+
+<details>
+<summary><strong>Optional checks</strong></summary>
+
+Run these when you want a review, or when changing the toolkit:
+
+```bash
+# Check design decisions and slide structure; images need not exist yet.
+python3 skills/white-blue-slides/scripts/build_deck.py project/deck.json \
+  --check-plan --out project/design-plan.json
+
+# Render every slide, save screenshots, and report problems.
 node skills/white-blue-slides/scripts/audit_deck.cjs project/presentation.html \
   --out project/qa --browser chrome
 ```
 
-Automated checks cover text overflow and overlap, missing images, external dependencies, image/content regions and chart rendering. Visual review must also verify complete image subjects, accurate image/text relationships, and sufficient context for independent readers. After changing the player, exporters or a theme, run `test_player.cjs` on any built deck as a player regression test (navigation, modifier shortcuts, editing, save, PPTX export, fullscreen fit, and charts on unvisited pages at print time).
+The audit reports text overflow and overlap, missing images, external dependencies, image and content regions, and chart rendering. It does not judge whether an illustration's subject is complete or matches the text; check that by eye.
+
+</details>
 
 <details>
 <summary><strong>Build options and shared layouts</strong></summary>
 
-The shared catalogue offers **48 executable profiles**, including **20 shared compositions**. Choose by content using the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); see the [shared composition contracts](skills/white-blue-slides/references/shared-layouts.md) for fields and capacities. The introductory table below retains the original named layouts. Older decks keep building as they are: `triad` renders as a three-item `split` with the image on the right, and leftover `layout_selection` or `rationale` fields are ignored.
+The shared library has **48 layout profiles**, including **20 shared compositions**, and every style can use them. The agent selects them as described in the [layout selection guide](skills/white-blue-slides/references/layout-selection.md); fields and capacities are in the [shared composition reference](skills/white-blue-slides/references/shared-layouts.md). Older decks build unchanged: `triad` renders as a three-item `split` with the image on the right, and leftover `layout_selection` or `rationale` fields are ignored.
 
 | Tool or option | Purpose |
 |---|---|
-| `match_paper.py project/images/*.png --deck project/deck.json --dry-run` | Diagnose background color and alpha against the active theme; permitted local correction handles mild differences and keeps backups. |
-| `--embed-format keep` | Keep the original image format instead of the default WebP preference. |
+| `match_paper.py project/images/*.png --deck project/deck.json --dry-run` | Check illustration backgrounds and transparency against the active theme; without `--dry-run`, it corrects mild differences and keeps backups. |
+| `--embed-format keep` | Keep original image formats instead of converting to WebP. |
 | `--embed-quality 85` | Set image compression quality. |
-| `--builder` | Load project-specific layouts that reuse shared components. |
-| `--allow-restyle` | Allow cover, header, or footer customization beyond the chosen theme when explicitly requested by the user. |
+| `--builder` | Load project-specific layouts built from shared components. |
+| `--allow-restyle` | Allow cover, header, or footer changes beyond the chosen theme, only when the user asks for them. |
 
-Selecting a supplied style does not require `--allow-restyle`.
+The basic named layouts:
 
 | Layout | Purpose | Layout | Purpose |
 |---|---|---|---|
 | `cover` | Cover | `architecture` | Layered architecture with direct labels |
 | `scene` | A main scene with notes on both sides | `flow` | Steps and control points |
 | `split` | Two-sided explanations or three-part controls | `domains` | Multiple domain lists |
-| `journey` | Stages, comparisons, or paths | `formula` | Formulas and relationships between factors |
+| `journey` | Stages, comparisons, or paths | `formula` | Factors and how they combine |
 | `table` | Tables and boundary comparisons | `relations` | Entities and connections |
-| `closing` | An illustrated closing slide | `reading` | The four composite reading layouts |
+| `closing` | An illustrated closing slide | `reading` | The four composite compositions |
 
-Structured fields (see `references/deck-format.md`): `flow` control groups accept `rows_layout` (auto / inline / stacked), a row `kind` (detail / check / exception) and, in reading mode, `align_control_rows` for shared row heights; `architecture` labels accept `prefix`, `detail`, a `leader` line and a flow `direction`; `journey` stages accept a `period` tag and a `fields` group, and the bottom band accepts `bottom.type: groups`; image ratios add `2:1 / 21:9 / 3:1`, and `image.background_mode: white-matte` maps confirmed pure-white assets onto the current paper color consistently in HTML, PDF and PPTX.
+Finer controls, such as flow row layouts, architecture leader lines, journey period tags, extra image ratios (`2:1 / 21:9 / 3:1`), and `image.background_mode: white-matte`, are documented in [`deck-format.md`](skills/white-blue-slides/references/deck-format.md).
 
 </details>
 
-## Present, edit, and save
+## Present, edit, and export
 
-The player includes **Overview · Fullscreen · Speaker notes · Edit text · Save HTML · Export PPTX · Export PDF / Print**. Its default canvas is 1920 × 1080 and scales proportionally to the window. Use **Save HTML** after editing; browser changes do not write back to `deck.json`.
-
-Fullscreen fits the entire 16:9 slide to the available screen without stretching or cropping; editing reserves space for the toolbar. PDF pages use PowerPoint widescreen dimensions: **960 × 540 pt (13⅓ × 7.5 in)**. The toolbar opens the browser print dialog; select Save as PDF and avoid overriding the slide size with A4 or Letter. Printing first renders every chart, including pages not yet visited, and also works while in fullscreen.
-
-For reproducible PDF dimensions and a single-page, fit-to-page opening preference, export with the included script (requires `pdf-lib` in addition to Playwright):
-
-```bash
-# Use the saved HTML as input if you edited the deck in the browser.
-node skills/white-blue-slides/scripts/export_pdf.cjs project/presentation.html \
-  --out project/presentation.pdf --browser chrome
-```
-
-PDF readers may ignore viewing preferences; select **Fit page** if needed. On macOS, Chrome's PDF presentation mode can expose a thin strip of the next page when **Show scroll bars** is set to **Always**. In the reproduced case, changing **System Settings → Appearance → Show scroll bars → When scrolling**, then exiting presentation mode, reloading the PDF, and entering **Present** again removed the strip. This setting affects scroll bars system-wide. Changing PDF paper size does not address that viewer issue. Screens with other aspect ratios retain side or top/bottom bars.
-
-The **HTML player** also provides a **Fullscreen** button. If PDF presentation is requested, verify the actual PDF in the chosen reader; a successful HTML presentation does not validate the PDF viewer.
-
-**Export PPTX** produces an editable PowerPoint file in one universal font (Microsoft YaHei by default, available in Office on Windows and macOS): headings and body text stay text boxes with their size, weight, colour and spacing; panels, tags and rules become shapes; scene images and icons become pictures; ECharts become native PowerPoint charts with an embedded workbook (**Edit Data** works); speaker notes become slide notes. Positions are measured from the rendered page, so the PPTX matches the HTML; fonts are substituted, so Latin text and digits can run slightly wider. The exporter is embedded in every deck and needs no network. The same export is available from the command line, which also handles decks built before the button existed:
-
-```bash
-node skills/white-blue-slides/scripts/export_pptx.cjs project/presentation.html \
-  --out project/presentation.pptx --browser chrome [--font "PingFang SC"]
-```
-
-If only the PDF remains, create an offline HTML presentation with the included converter (Python + Poppler). It displays one page at a time and preserves vector outlines. This presentation copy has no editable or selectable text; keep the PDF and any editable source.
-
-```bash
-python3 skills/white-blue-slides/scripts/pdf_to_slides.py project/presentation.pdf \
-  --out project/presentation-fullscreen.html
-```
-
-Existing HTML files embed their original player; rebuild from the source project to pick up fixes, preserving any browser-edited copies first.
+The toolbar offers **Overview · Fullscreen · Speaker notes · Edit text · Save HTML · Export PPTX · Export PDF / Print**. Slides are 1920 × 1080 and scale to fit any window or screen without stretching or cropping; in edit mode, space is reserved for the toolbar. After editing, use **Save HTML**; changes are not written back to `deck.json`.
 
 | Key | Action | Key | Action |
 |---|---|---|---|
@@ -416,35 +397,72 @@ Existing HTML files embed their original player; rebuild from the source project
 | `Home` / `End` | First / last slide | `N` | Speaker notes |
 | `Esc` | Close overview, editing, or notes | URL `#3` | Open slide 3 directly |
 
-Keys pressed with Cmd, Ctrl, or Alt are left to the browser, so shortcuts such as Cmd+F or Ctrl+P keep working.
+Keys pressed with Cmd, Ctrl, or Alt go to the browser, so shortcuts such as Cmd+F and Ctrl+P keep working.
+
+### PowerPoint
+
+**Export PPTX** creates an editable PowerPoint file. Headings and body text stay text boxes with their size, weight, color, and spacing; panels, tags, and rules become shapes; illustrations and icons become pictures; charts become native PowerPoint charts with an embedded workbook (**Edit Data** works); speaker notes become slide notes. Positions are measured from the rendered page. One font is used throughout (Microsoft YaHei by default, included with Office on Windows and macOS), so Latin text and digits may run slightly wider. The exporter is embedded in every deck and works offline. The command line does the same, and also handles decks built before the button existed:
+
+```bash
+node skills/white-blue-slides/scripts/export_pptx.cjs project/presentation.html \
+  --out project/presentation.pptx --browser chrome [--font "PingFang SC"]
+```
+
+### PDF and printing
+
+**Export PDF / Print** opens the browser's print dialog. Choose **Save as PDF** and keep the slide size; don't switch to A4 or Letter. Pages are PowerPoint widescreen, **960 × 540 pt (13⅓ × 7.5 in)**. Every chart is rendered before printing, including slides you haven't opened, and printing from fullscreen also gives one slide per page.
+
+For consistent page size and a fit-to-page opening view, use the export script (requires `pdf-lib` as well as Playwright):
+
+```bash
+# If you edited the deck in the browser, export the saved HTML.
+node skills/white-blue-slides/scripts/export_pdf.cjs project/presentation.html \
+  --out project/presentation.pdf --browser chrome
+```
+
+<details>
+<summary><strong>PDF viewer tips and converting a PDF back to slides</strong></summary>
+
+Some PDF readers ignore the fit-to-page preference; choose **Fit page** manually. On macOS with **Show scroll bars** set to **Always**, Chrome's PDF presentation mode can show a thin strip of the next page. Setting **System Settings → Appearance → Show scroll bars** to **When scrolling**, then reloading the PDF and presenting again, removed it in our tests (this changes scroll bars system-wide). Changing the PDF paper size does not help. Screens that aren't 16:9 keep bars at the sides or top and bottom. When a PDF will be presented, check it in that reader; a working HTML presentation doesn't prove the PDF viewer will behave.
+
+If only the PDF survives, the included converter (Python + Poppler) turns it into an offline HTML slideshow that shows one page at a time with sharp vector outlines. Its text cannot be edited or selected, so keep the PDF and any editable source.
+
+```bash
+python3 skills/white-blue-slides/scripts/pdf_to_slides.py project/presentation.pdf \
+  --out project/presentation-fullscreen.html
+```
+
+</details>
+
+Each HTML file embeds the player it was built with. To pick up player fixes, rebuild from the project, keeping any browser-edited copy first.
 
 ## Extend the toolkit
 
-Each style package owns its theme, illustration base prompt, references, and quality rules. Shared scripts handle layouts and functionality without being duplicated per style.
+Each style package owns its theme, illustration base prompt, references, and quality rules. Layouts and player features live in the shared scripts and are never copied per style.
 
-List the available styles:
+List the installed styles:
 
 ```bash
 python3 skills/white-blue-slides/scripts/style_packs.py --list
 ```
 
-Discovery returns the name, ID, description, and skill entry point for valid sibling packages. New packages appear automatically without editing the workbench's options.
+This finds every valid sibling package and returns its name, ID, description, and skill entry point. A new package appears automatically; the workbench needs no edits.
 
 <details>
 <summary><strong>Package structure and adding a style</strong></summary>
 
-Use a lowercase, hyphenated English package name ending in `-slides`, matching the skill name. The Chinese display name appears in the workbench selection.
+Name the package in lowercase, hyphenated English after its look, ending in `-slides`, and match the skill name. The Chinese display name is what the workbench shows.
 
 ```text
 skills/
 ├── ppt-workbench/                 # Common entry point
 ├── white-blue-slides/             # White & Blue + shared toolkit
-│   ├── scripts/                  # Build, asset handoff, discovery, and QA
+│   ├── scripts/                  # Build, image handoff, discovery, and checks
 │   ├── assets/                   # Components, player, layouts, and charts
-│   └── references/               # Data, modes, charts, and extension rules
+│   └── references/               # Deck format, modes, charts, and extension rules
 ├── navy-glass-slides/             # Independent style package
-├── realistic-miniature-slides/    # Independent style package
-└── new-style-slides/              # Future sibling package
+├── …                              # Other style packages
+└── new-style-slides/              # A future style
     ├── SKILL.md
     ├── agents/openai.yaml
     ├── assets/
@@ -458,14 +476,14 @@ skills/
         └── quality-check.md
 ```
 
-Declare `schema: "html-slide-style/v1"`, a unique ID, style resources, and an audit contract in `assets/style.json`. After sample approval and validation, mark the package `ready` and install it alongside the others. The workbench, builder, and image exporter discover it automatically. New styles reuse both presentation modes and all four reading layouts.
+In `assets/style.json`, declare `schema: "html-slide-style/v1"`, a unique ID, the style's resources, and its audit contract. Once the sample deck is approved and validated, mark the package `ready` and install it next to the others; the workbench, builder, and image exporter pick it up automatically. New styles get both presentation modes and every shared layout.
 
 ```bash
-# Include draft packages for development checks; this does not activate them.
+# Include draft packages in development checks (this does not activate them).
 python3 skills/white-blue-slides/scripts/style_packs.py --list --include-drafts
 ```
 
-See [adding an independent style package](skills/white-blue-slides/references/adding-styles.md) for fields, integration steps, and validation requirements.
+See [adding an independent style package](skills/white-blue-slides/references/adding-styles.md) for fields, integration steps, and validation.
 
 </details>
 
@@ -474,32 +492,32 @@ See [adding an independent style package](skills/white-blue-slides/references/ad
 | Task | Dependencies |
 |---|---|
 | Build HTML, export prompts, list styles, call an image API | Python 3.9+ standard library |
-| Optional WebP compression; padding API results to the requested ratio | Pillow; original formats are preserved if unavailable |
+| WebP compression; padding API images to the requested ratio | Pillow (optional; original formats are kept without it) |
 | Match illustration backgrounds | NumPy + Pillow |
-| Automated browser inspection | Node.js + Playwright + Chrome/Chromium |
-| Editable PPTX export from the command line | Playwright + Chrome/Chromium (the toolbar button needs nothing) |
-| PDF export (page count and size verified at export time) | Playwright + pdf-lib + Chrome/Chromium |
-| Offline presentation from an existing PDF | Python + Poppler (`pdfinfo`, `pdftocairo`) |
-| Optional overview contact sheet | Sharp |
+| Automated browser checks | Node.js + Playwright + Chrome/Chromium |
+| PPTX export from the command line | Playwright + Chrome/Chromium (the toolbar button needs nothing) |
+| PDF export (page count and size verified) | Playwright + pdf-lib + Chrome/Chromium |
+| Slideshow from an existing PDF | Python + Poppler (`pdfinfo`, `pdftocairo`) |
+| Overview contact sheet | Sharp (optional) |
 
-ECharts 5.6.0 is bundled as a trimmed build (bar, line and pie charts with the SVG renderer, about 550 KB); no separate installation or CDN is needed. To support another chart type, add it to [`echarts.entry.js`](skills/white-blue-slides/assets/vendor/echarts.entry.js) and rebuild with the command in that file. Image generation depends on the agent environment and is not installed with the skills; without a built-in tool, the user can configure their own image API (see above) or supply images manually. If automated inspection is unavailable, inspect each slide in an available browser and state the scope of validation.
+ECharts 5.6.0 is bundled as a trimmed build (bar, line, and pie charts with the SVG renderer, about 550 KB), so no install or CDN is needed. To add a chart type, import it in [`echarts.entry.js`](skills/white-blue-slides/assets/vendor/echarts.entry.js) and rebuild with the command in that file. Image generation comes from your agent environment or your own image API, not from the skills.
 
-After changing scripts or assets, run:
+After changing scripts or assets, run the self-test:
 
 ```bash
 python3 skills/white-blue-slides/scripts/selftest.py
 ```
 
-The self-test covers shared components, both modes, style isolation, dynamic style discovery, chart inputs, recovery from missing images, and the image API script (offline fake transport, no network). After theme or layout changes, also build with real illustrations and inspect every slide; self-tests do not replace visual review.
+It covers shared components, both modes, style isolation, style discovery, chart inputs, recovery from missing images, and the image API script (with a fake offline transport). After changing the player, exporters, or a theme, also run `test_player.cjs` on any built deck; it checks navigation, shortcuts, editing, saving, PPTX export, fullscreen fit, and printing. Self-tests don't replace looking at real slides: after theme or layout changes, build with real illustrations and review every page.
 
 ## License and assets
 
-Project code is licensed under [MIT](LICENSE). Third-party components retain their own licenses:
+Project code is licensed under [MIT](LICENSE). Third-party components keep their own licenses:
 
 - Lucide icons: [MIT license](skills/white-blue-slides/assets/lucide-LICENSE.txt).
 - Apache ECharts: [Apache 2.0 license](skills/white-blue-slides/assets/vendor/ECHARTS-LICENSE.txt) and [NOTICE](skills/white-blue-slides/assets/vendor/ECHARTS-NOTICE.txt), also embedded in decks that contain charts.
 
-The kit ships no brand logo or company name; each project supplies its own footer branding in the deck. Reference images demonstrate visual styles. Example business content and numbers are not claims about actual product capabilities or results.
+The kit ships no logo or company name; each deck supplies its own footer branding. Reference images illustrate the styles. Example business content and numbers are not claims about any real product.
 
 ---
 
