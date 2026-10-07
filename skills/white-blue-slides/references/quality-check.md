@@ -22,7 +22,7 @@ python3 <shared>/scripts/build_deck.py <project>/deck.json --check-plan --out <p
 node <shared>/scripts/audit_deck.cjs <project>/演示稿.html --out <project>/qa --browser chrome
 ```
 
-计划诊断提供设计字段、容量、坐标与资源信息。渲染审查器输出逐页截图及 `report.json`，可诊断越界、重叠、缺图、外部依赖、图表标签和所选 reading 布局的模块边界等问题。`ok` 只表示自动诊断通过，不证明内容或美感；没有运行时不声称通过。遇到失败时先区分环境、输入与布局问题，不反复运行同一失败命令。
+计划诊断提供设计字段、容量、坐标与资源信息。渲染审查器输出逐页截图及 `report.json`，可诊断越界、重叠、缺图、外部依赖、图表标签和所选 reading 布局的模块边界等问题，并提醒页标题超过两行与各页条目名字重不一致。`ok` 只表示自动诊断通过，不证明内容或美感；没有运行时不声称通过。遇到失败时先区分环境、输入与布局问题，不反复运行同一失败命令。
 
 ## 开发与维护检查
 

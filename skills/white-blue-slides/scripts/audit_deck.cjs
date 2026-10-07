@@ -140,7 +140,14 @@ async function run() {
         }
         if([...s.querySelectorAll('.journey-item')].some(el=>el.getBoundingClientRect().width/(sr.width/1920)<240))warnings.push({type:'journey-caption-narrow',hint:'阶段栏宽较窄；优先调整场景构图及图文占幅，再选择短字段或其他版式'});
 
-        return {page:Number(document.querySelector('#page-input').value),id:s.id,title:s.querySelector('h1').textContent,issues,brokenImages,imageBalance,imageArea,warnings,manualReview:contract.manual||[]};
+        // Page titles stay within two lines; vertical or concealed titles are design choices, not text runs.
+        const h1=s.querySelector('h1');
+        if(h1&&!isCover&&visible(h1)&&!/vertical/.test(getComputedStyle(h1).writingMode)){const cs=getComputedStyle(h1),lh=parseFloat(cs.lineHeight)||parseFloat(cs.fontSize)*1.2,lines=Math.round(h1.getBoundingClientRect().height/(sr.height/1080)/lh);if(lines>2)warnings.push({type:'title-over-two-lines',lines,text:label(h1),hint:'标题控制在两行内：先精简措辞或在语义处断行，再降低 title_size 或加宽标题栏。'});}
+        // Each page's strongest item name (h2, chart titles excluded) is compared across pages after the loop;
+        // weaker h2 on the same page are an in-page hierarchy, such as hub branches under a semibold centre.
+        const names=[...s.querySelectorAll('h2')].filter(el=>visible(el)&&!el.closest('.comp-chart_focus,.comp-column-chart'));
+        const itemWeights=names.length?[String(Math.max(...names.map(el=>Number(getComputedStyle(el).fontWeight))))]:[];
+        return {page:Number(document.querySelector('#page-input').value),id:s.id,title:s.querySelector('h1').textContent,issues,brokenImages,imageBalance,imageArea,warnings,itemWeights,manualReview:contract.manual||[]};
       });
       report.pages.push(checks);
       const shot = path.join(out, `p${String(i+1).padStart(2,'0')}.png`);
@@ -152,6 +159,8 @@ async function run() {
       await sharp({create:{width:cols*(thumbWidth+gap)+gap,height:rows*(thumbHeight+gap)+gap,channels:3,background:'#E3E6EA'}}).composite(tiles).png().toFile(path.join(out,'overview.png'));
       report.overview = path.join(out,'overview.png');
     } catch(e) {report.overviewNote = '联系表未生成；逐页截图可用。'+e.message;}
+    const weightPages={};for(const p of report.pages)for(const w of p.itemWeights)(weightPages[w]=weightPages[w]||[]).push(p.page);
+    if(Object.keys(weightPages).length>1){const first=report.pages.find(p=>p.itemWeights.length);if(first)first.warnings.push({type:'item-weight-inconsistent',pages:weightPages,hint:'条目名与栏目名（h2）在各页应为同一字重；统一在风格主题中设置，不逐页补丁。'});}
     report.warnings = report.pages.flatMap(p=>p.warnings.map(w=>({page:p.page,...w})));
     report.ok = report.pages.every(p => !p.issues.length && !p.brokenImages.length) && !report.errors.length && !report.externalRequests.length
       && !report.selfContained.externalElements.length && !report.selfContained.cssImports && !report.selfContained.draft;
