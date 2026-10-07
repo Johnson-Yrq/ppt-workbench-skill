@@ -77,7 +77,7 @@
 
 | 预设 | 基址 | 特点 |
 |---|---|---|
-| `rightapi` | `https://www.rightapi.ai/draw/v1` | 请求体固定 `async: true`；轮询 `https://www.rightapi.ai/v1/tasks/{task_id}`（站点级，不带 `/draw`）；`size` 用比例串（`1:1 / 16:9 / 9:16 / 4:3`）；参考图为 data URL 数组；模型名按服务商列表，如 `gpt-image-2.5`、`nano-banana-fast` |
+| `rightapi` | `https://rightapi.ai/draw/v1` | 请求体固定 `async: true`；轮询 `https://rightapi.ai/v1/tasks/{task_id}`（站点级，不带 `/draw`）；`size` 用比例串（`1:1 / 16:9 / 9:16 / 4:3`）；参考图为 data URL 数组；模型名按服务商列表，如 `gpt-image-2.5`、`nano-banana-fast` |
 
 其他中转服务用 `--setup --provider openai --url <基址>` 后，在配置文件中按需补 `async / tasks_url / size_style / ratios / reference_transport / image_size` 字段。轮询把 `queued / processing / in_progress` 视为进行中，`completed`（或直接返回 `data`）视为完成，`failed` 读取 `error.message` 记入清单。
 

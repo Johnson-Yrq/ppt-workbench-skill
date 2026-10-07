@@ -242,7 +242,7 @@ class Presets(GenerateImages):
         self.assertEqual(self.run_cli('--setup', '--preset', 'rightapi', '--model', 'gpt-image-2.5', '--no-key'), 0)
         stored = json.loads(self.config.read_text(encoding='utf-8'))
         self.assertEqual((stored['preset'], stored['url'], stored['async'], stored['tasks_url'], stored['reference_transport']),
-                         ('rightapi', 'https://www.rightapi.ai/draw/v1', True, 'https://www.rightapi.ai/v1/tasks/{task_id}', 'data_url'))
+                         ('rightapi', 'https://rightapi.ai/draw/v1', True, 'https://rightapi.ai/v1/tasks/{task_id}', 'data_url'))
         os.environ[gi.ENV['api_key']] = 'sk-relay-key-123456'
         (self.handoff / 'style-reference.png').write_bytes(placeholder_png(32, 32))
         manifest = self.manifest(); manifest['style_reference'] = 'style-reference.png'
@@ -250,10 +250,10 @@ class Presets(GenerateImages):
         fake = AsyncRelay(); gi.http_request = fake
         gi.time.sleep = lambda s: None
         self.assertEqual(self.run_cli('--check'), 0)
-        self.assertEqual(fake.calls[0]['url'], 'https://www.rightapi.ai/v1/models')
+        self.assertEqual(fake.calls[0]['url'], 'https://rightapi.ai/v1/models')
         self.assertEqual(self.run_cli(str(self.root / 'deck.json'), '--pages', '2'), 0)
         submit = [c for c in fake.calls if c['url'].endswith('/images/generations')][0]
-        self.assertEqual(submit['url'], 'https://www.rightapi.ai/draw/v1/images/generations')
+        self.assertEqual(submit['url'], 'https://rightapi.ai/draw/v1/images/generations')
         body = json.loads(submit['body'])
         self.assertTrue(body['async'])
         self.assertEqual(body['model'], 'gpt-image-2.5')
@@ -262,7 +262,7 @@ class Presets(GenerateImages):
         self.assertNotIn('response_format', body)
         polls = [c for c in fake.calls if '/tasks/' in c['url']]
         self.assertEqual(len(polls), 2)
-        self.assertEqual(polls[0]['url'], 'https://www.rightapi.ai/v1/tasks/task_abc123')
+        self.assertEqual(polls[0]['url'], 'https://rightapi.ai/v1/tasks/task_abc123')
         self.assertEqual(polls[0]['headers']['Authorization'], 'Bearer sk-relay-key-123456')
         entry = [e for e in self.manifest()['images'] if e['page'] == 2][0]
         self.assertEqual((entry['status'], entry['method'], entry['reference_used']), ('generated', 'api:openai/gpt-image-2.5', True))

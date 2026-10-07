@@ -47,8 +47,8 @@ REFERENCE_TRANSPORTS = ('multipart', 'data_url')
 TASK_PENDING = {'queued', 'pending', 'processing', 'in_progress', 'running', 'submitted'}
 # Relay services that wrap the Images API with their own conventions. `--setup --preset NAME` copies these fields into the config.
 PRESETS = {
-    'rightapi': {'provider': 'openai', 'url': 'https://www.rightapi.ai/draw/v1', 'model': 'gpt-image-2.5', 'async': True,
-                 'tasks_url': 'https://www.rightapi.ai/v1/tasks/{task_id}', 'check_url': 'https://www.rightapi.ai/v1/models',
+    'rightapi': {'provider': 'openai', 'url': 'https://rightapi.ai/draw/v1', 'model': 'gpt-image-2.5', 'async': True,
+                 'tasks_url': 'https://rightapi.ai/v1/tasks/{task_id}', 'check_url': 'https://rightapi.ai/v1/models',
                  'size_style': 'ratio', 'ratios': ['1:1', '16:9', '9:16', '4:3'], 'reference_transport': 'data_url',
                  'label': 'Right Code 中转（异步画图接口）'},
 }
