@@ -41,4 +41,4 @@
 - 项目内中文样稿：`examples/airy-portfolio/留白衬线影集-中文风格样稿.html`。
 - 提示词与素材记录：`examples/airy-portfolio/image-prompts.json`、`examples/airy-portfolio/image-sources.json`。
 
-本方向的样稿批准已经满足；正式制作不再次索取同一方向批准。安装与更新遵循共享接入验证流程，具体完成状态以安装验证结果为准，本记录不代替验证。普通成稿默认交付 HTML，由用户自行导出和检查，明确要求的 PPTX／PDF 仍需完成。
+本方向的样稿批准已经满足；正式制作不再次索取同一方向批准。安装与更新遵循共享接入验证流程，具体完成状态以安装验证结果为准，本记录不代替验证。普通成稿默认交付 HTML，交付前做基本排版 QA，由用户自行导出，明确要求的 PPTX／PDF 仍需完成。

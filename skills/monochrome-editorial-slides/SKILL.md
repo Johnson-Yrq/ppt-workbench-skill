@@ -1,6 +1,6 @@
 ---
 name: monochrome-editorial-slides
-description: 在用户选择黑白编辑式风格或续做该风格项目时制作可编辑 HTML 演示稿；使用黑白页面、大标题、留白与丰富的冷调编辑摄影，默认由用户自行导出和检查。未选风格时经 ppt-workbench 接入。
+description: 在用户选择黑白编辑式风格或续做该风格项目时制作可编辑 HTML 演示稿；使用黑白页面、大标题、留白与丰富的冷调编辑摄影，交付前做基本排版 QA，默认由用户自行导出。未选风格时经 ppt-workbench 接入。
 metadata:
   version: "0.3.0"
 ---
@@ -13,7 +13,7 @@ metadata:
 
 ## 默认交付
 
-制作并交付可编辑、离线单文件 HTML。PPTX／PDF 导出与成稿检查由用户通过播放器自行完成；Agent 不自动做整稿内容自检、逐页截图、图表复核、播放／编辑回归、PPTX 结构检测或 PowerPoint 实看。修复构建失败和缺失的必需素材，完成制作后直接交付，不设置额外验收或批准节点。用户后续明确要求代为导出或检查时才执行对应步骤，见共享 [交付规则](../white-blue-slides/references/export.md#默认交付与职责)。[检查参考](references/quality-check.md)供用户自行查看，或在明确委托检查及维护 Skill 时使用。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。[检查参考](references/quality-check.md)补充本风格的看图要点。
 
 ## 共享选版与构建
 
@@ -39,4 +39,4 @@ python3 <shared>/scripts/build_deck.py <project>/deck.json --out <project>/演�
 - 演讲型保留一条结论与少量支撑；阅读型保留解释、来源与边界。用途不限制布局、图片比例或统一字号，按内容选共享结构。
 - 页头、封面尾页、字阶与边距由本包独立设计，不继承最早三个风格的六种页头；共享的是主体布局与功能。
 - 同级 `white-blue-slides` 为共享套件；复用其 [数据结构](../white-blue-slides/references/deck-format.md)、[类型规则](../white-blue-slides/references/presentation-modes.md)、[图表契约](../white-blue-slides/references/charts.md) 与 [导出规范](../white-blue-slides/references/export.md)，不读取它的视觉规范作为本包主题。
-- 播放器保留“导出 PPTX”与“导出 PDF / 打印”按钮供用户使用，不把导出与自检作为默认制作步骤。
+- 播放器保留“导出 PPTX”与“导出 PDF / 打印”按钮供用户使用，不把导出作为默认制作步骤；基本排版 QA 是默认步骤。

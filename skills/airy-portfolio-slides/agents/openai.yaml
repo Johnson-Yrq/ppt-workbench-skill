@@ -1,4 +1,4 @@
 interface:
   display_name: "留白衬线影集 PPT"
   short_description: "近白纸色、黑色衬线字、宽阔留白与自然彩色摄影的独立影集风格"
-  default_prompt: "使用 $airy-portfolio-slides 制作留白衬线影集风格的 HTML 演示稿，沿用已批准的衬线文字、宽阔留白与自然彩色摄影，按内容选择可编辑共享布局；仅确认尚缺的用途，导出与成稿检查由我自行完成。"
+  default_prompt: "使用 $airy-portfolio-slides 制作留白衬线影集风格的 HTML 演示稿，沿用已批准的衬线文字、宽阔留白与自然彩色摄影，按内容选择可编辑共享布局；仅确认尚缺的用途，交付前逐页做排版 QA，导出由我自行完成。"

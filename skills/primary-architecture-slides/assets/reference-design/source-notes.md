@@ -35,4 +35,4 @@
 
 已批准的历史中文样稿位于 `examples/primary-architecture/原色建筑编辑式-中文风格样稿.html`。`assets/deck.example.json` 与 `assets/deck.reading.example.json` 为可复用的数据结构样例；其中内容不是事实模板。正式项目使用共享构建器与 `deck.json`。`type_poster` 与 `editorial_columns` 已接入共享层，本包只维护自己的视觉与配图资产。
 
-本次方向确认已满足共享 [新增独立风格包](../../../white-blue-slides/references/adding-styles.md#最小清单示例) 的要求，安装与维护遵循 [接入验证与安装](../../../white-blue-slides/references/adding-styles.md#接入验证与安装)。将来另开独立方向仍须取得自己的批准；普通成稿默认由用户自行导出和检查。
+本次方向确认已满足共享 [新增独立风格包](../../../white-blue-slides/references/adding-styles.md#最小清单示例) 的要求，安装与维护遵循 [接入验证与安装](../../../white-blue-slides/references/adding-styles.md#接入验证与安装)。将来另开独立方向仍须取得自己的批准；普通成稿交付前做基本排版 QA，默认由用户自行导出。

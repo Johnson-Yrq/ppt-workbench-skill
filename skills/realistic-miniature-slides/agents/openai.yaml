@@ -1,6 +1,6 @@
 interface:
   display_name: "写实微缩演示稿"
   short_description: "暖灰石墨配色、写实材质与细致人物的微缩场景，按演讲或阅读用途制作可编辑离线 HTML 演示稿"
-  default_prompt: "使用 $realistic-miniature-slides，沿用已确认的风格和用途，根据我的大纲制作可编辑离线 HTML，并主动生成内容相关的无文字写实微缩配图；导出与成稿检查由我自行完成。"
+  default_prompt: "使用 $realistic-miniature-slides，沿用已确认的风格和用途，根据我的大纲制作可编辑离线 HTML，并主动生成内容相关的无文字写实微缩配图；交付前逐页做排版 QA，导出由我自行完成。"
 policy:
   allow_implicit_invocation: true

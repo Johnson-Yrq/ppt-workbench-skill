@@ -1,6 +1,6 @@
 ---
 name: monochrome-marble-slides
-description: 在用户选择黑白大理石商务风格或续做该方向时，制作可编辑离线 HTML 演示稿，以黑白反转、大衬线字、天然大理石纹理与自然彩色商务摄影呈现商业计划和公司介绍，默认由用户自行导出和检查。
+description: 在用户选择黑白大理石商务风格或续做该方向时，制作可编辑离线 HTML 演示稿，以黑白反转、大衬线字、天然大理石纹理与自然彩色商务摄影呈现商业计划和公司介绍，交付前做基本排版 QA，默认由用户自行导出。
 metadata:
   version: "1.0.0"
 ---
@@ -44,6 +44,6 @@ python3 <shared>/scripts/build_deck.py <project>/deck.json --out <project>/演�
 
 ## 交付与维护
 
-默认交付可编辑、离线单文件 HTML，由用户自行导出和检查；普通制作不自动执行整稿内容审查、批量截图、逐页验收或导出检查。用户明确要求 PPTX、PDF 或代查时，完成全部已要求的产物与必要验证。构建失败、结构错误和缺失资源仍须修复，见 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
 
 主题和共享代码开发必须按 [开发验证](references/quality-check.md#风格开发与接入) 完成与改动相称的 QA，由 Agent 检查并修复，不将内部验收转交用户。本方向已满足的批准不重复索取；未来独立新方向的采用与安装确认仍在可审阅样稿之后按原定范围执行。

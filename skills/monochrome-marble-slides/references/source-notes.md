@@ -47,4 +47,4 @@
 - 提示词与出处：项目 `image-prompts.json` 和 `image-sources.json`，记录内置 imagegen 生成方式及本地路径。
 - 结构样例：本包 `assets/deck.example.json` 与 `assets/deck.reading.example.json`，分别用于演讲与阅读用途。
 
-人物、身份、业务计划和数字均为示意，不声称属于真实公司、团队或经营成果。默认交付可编辑离线 HTML，由用户自行导出与检查；Skill 开发验证仍由 Agent 完成，已明确要求的 PDF、PPTX 或代查不能留作可选后续。
+人物、身份、业务计划和数字均为示意，不声称属于真实公司、团队或经营成果。默认交付可编辑离线 HTML，交付前做基本排版 QA，由用户自行导出；Skill 开发验证仍由 Agent 完成，已明确要求的 PDF、PPTX 或代查不能留作可选后续。

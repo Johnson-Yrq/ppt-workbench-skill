@@ -1,6 +1,6 @@
 ---
 name: warm-minimal-editorial-slides
-description: 在用户选择暖褐极简编辑式风格或续做该风格项目时制作可编辑离线 HTML 演示稿；适用于品牌、作品集、生活方式、空间文旅、公司工作室及文化提案，以暖米白、深褐和丰富的暖调摄影组织内容。默认由用户自行导出和检查。
+description: 在用户选择暖褐极简编辑式风格或续做该风格项目时制作可编辑离线 HTML 演示稿；适用于品牌、作品集、生活方式、空间文旅、公司工作室及文化提案，以暖米白、深褐和丰富的暖调摄影组织内容。交付前做基本排版 QA，默认由用户自行导出。
 metadata:
   version: "1.1.0"
 ---
@@ -19,15 +19,15 @@ metadata:
 
 先按共享 [制作大纲](../white-blue-slides/references/outline.md) 把用户内容转化为适合所选风格与用途的 `大纲.md`（逐页结论、关系与数量、上屏文字、版式、配图、讲稿与【待补】），再按大纲动手。
 
-逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 选择真实可执行候选。共 48 个执行策略；本包可使用全部共享结构，不只八个 `editorial` 变体。选版不增加用户批准或自动成稿审查步骤。
+逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 选择真实可执行候选。共 48 个执行策略；本包可使用全部共享结构，不只八个 `editorial` 变体。选版不增加用户批准步骤；交付前统一做基本排版 QA。
 
 演讲型可从 [正式演讲示例](assets/deck.example.json) 起步，使用 `layout: "editorial"` 的封面、介绍、目录、关于、服务、流程、作品集和收束变体；准确字段见共享 [editorial 契约](../white-blue-slides/references/deck-format.md#editorial编辑式图文页面)。阅读型可从 [正式阅读示例](assets/deck.reading.example.json) 了解数据组织，再按内容自由选择共享布局，保留机制、依据与边界；示例中的 `reading` 四分区是可选结构，不限制所有阅读页。示例只演示结构，业务内容与图片须按实际大纲改写。页头、封面尾页、字阶和边距沿用本包独立设计，不继承六种预设；新增主体布局进入共享层供所有风格复用。
 
-默认交付可编辑、离线单文件 HTML，用户通过播放器自行导出 PPTX／PDF 并检查。Agent 不自动核对整稿内容、不批量截图、不运行成稿审查或播放／编辑回归，也不自动导出或打开 PPTX；构建失败和缺失资源仍需修复。用户明确要求代为导出或检查时，仅执行所请求的部分，参考共享 [导出与分工](../white-blue-slides/references/export.md#默认交付与职责) 及本包 [检查边界](references/quality-check.md)。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。本包看图要点见 [检查边界](references/quality-check.md)。
 
 ## 构建命令
 
-`<shared>` 为同级 `white-blue-slides`，`<project>` 为本次项目目录。普通制作准备数据与图片后直接构建，不预先运行计划或成稿审查：
+`<shared>` 为同级 `white-blue-slides`，`<project>` 为本次项目目录。普通制作准备数据与图片后直接构建，不预先运行计划诊断；构建后做基本排版 QA：
 
 ```sh
 # 导出本风格逐图简报与文件清单；不调用模型

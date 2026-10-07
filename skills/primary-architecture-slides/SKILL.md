@@ -1,6 +1,6 @@
 ---
 name: primary-architecture-slides
-description: 在用户选择原色建筑编辑式风格或续做该方向时，制作可编辑离线 HTML 演示稿。白底黑字、窄高大字、错位文字栏、黑白建筑摄影与四色章节页；使用独立页头和共享布局，默认由用户自行导出和检查。
+description: 在用户选择原色建筑编辑式风格或续做该方向时，制作可编辑离线 HTML 演示稿。白底黑字、窄高大字、错位文字栏、黑白建筑摄影与四色章节页；使用独立页头和共享布局，交付前做基本排版 QA，默认由用户自行导出。
 metadata:
   version: "1.0.0"
 ---
@@ -38,6 +38,6 @@ python3 <shared>/scripts/build_deck.py <project>/deck.json --out <project>/演�
 
 ## 交付与维护
 
-默认交付可编辑、离线单文件 HTML，由用户通过播放器自行导出 PPTX／PDF 并检查。Agent 修复构建失败和缺失资源，不自动开展整稿内容审查、批量截图、逐页验收、播放／编辑回归或导出检查，也不将内部自检转交用户。用户明确委托代为导出或检查时，只执行对应范围；见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
 
 开发本风格及其共享布局时，才按 [开发验证](references/quality-check.md#风格开发与接入) 完成与改动相称的结构、视觉与功能验证。已完成的批准不重复索取；将来另开独立方向时才建立新的方向批准。只修改说明文档不触发整稿检查或导出。

@@ -1,6 +1,6 @@
 ---
 name: ppt-workbench
-description: 按用户选择的视觉风格和演讲型／阅读型用途制作可编辑、离线单文件 HTML 演示稿。用于 PPT 大纲、方案汇报、产品介绍及本套件的风格扩展；主动生成相关配图，默认由用户自行导出和检查成稿。
+description: 按用户选择的视觉风格和演讲型／阅读型用途制作可编辑、离线单文件 HTML 演示稿。用于 PPT 大纲、方案汇报、产品介绍及本套件的风格扩展；主动生成相关配图，交付前逐页做基本排版 QA，PPTX／PDF 默认由用户自行导出。
 metadata:
   version: "1.2.0"
 ---
@@ -26,11 +26,11 @@ python3 <shared>/scripts/style_packs.py --list
 
 ## 按选择制作
 
-读取清单中所选风格的 `skill_file`，以它作为实际制作流程；加载其视觉与配图规范。共享的数据结构、版式、图表与播放器由该风格引用，不另起问卷或第二套制作流程；检查文档只在用户要求代查或维护工具时读取。
+读取清单中所选风格的 `skill_file`，以它作为实际制作流程；加载其视觉与配图规范。共享的数据结构、版式、图表与播放器由该风格引用，不另起问卷或第二套制作流程；交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 逐页看图并修改。
 
 先按共享 [制作大纲](../white-blue-slides/references/outline.md) 把用户内容转化为适合所选风格与用途的 `大纲.md`（逐页结论、关系与数量、上屏文字、版式、配图、讲稿与【待补】），再按大纲动手。
 
-逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，再用 `select_layout.py` 筛选真实可执行的候选。共 48 个执行策略，不把某一批新增构图当作全部布局。常规选版自主完成，不增加批准或成稿自检步骤。
+逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据条件，再用 `select_layout.py` 筛选真实可执行的候选。共 48 个执行策略，不把某一批新增构图当作全部布局。常规选版自主完成，不增加批准步骤。
 
 两种类型的规则见 [用途与信息密度](../white-blue-slides/references/presentation-modes.md)：演讲型围绕结论和少量支撑展开；阅读型把机制、依据与边界留在页面，用图表、流程、矩阵、图标和文字增加信息。用途不限定固定配图比例、栏目数量、字号或布局，按内容从共享版式选择。配图承担明确作用，图表有可靠数据才采用 [离线 ECharts](../white-blue-slides/references/charts.md)。
 
@@ -38,7 +38,7 @@ python3 <shared>/scripts/style_packs.py --list
 
 有生图能力时，主动为适合的页面生成内容相关的图片，不只在大纲点名“配图”的页面放图。让多数适合配图的内容页有独立场景，按内容采用主图、条带、局部特写或多图；保持所选风格和图片之间的差异。明确要求纯文字、无图或固定构图的页面照办；图表与关键文字仍保持可编辑。
 
-默认交付独立 HTML，由用户通过播放器自行导出 PPTX／PDF 并检查。Agent 不自动核对整稿内容、不批量截图、不运行成稿审查或播放／编辑回归，也不自动导出、解析或打开 PPTX；构建错误仍须修复。具体边界见共享 [交付与用户自行导出](../white-blue-slides/references/export.md#默认交付与职责)。用户后续明确要求代为导出或检查时，只执行所请求的步骤。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
 
 ## 持续新增风格
 

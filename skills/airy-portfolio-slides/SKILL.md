@@ -1,6 +1,6 @@
 ---
 name: airy-portfolio-slides
-description: 在用户选择留白衬线影集风格或续做该方向时，制作可编辑离线 HTML 演示稿，以近白纸色、黑色衬线字、宽阔留白与自然彩色摄影呈现作品，默认由用户自行导出和检查。
+description: 在用户选择留白衬线影集风格或续做该方向时，制作可编辑离线 HTML 演示稿，以近白纸色、黑色衬线字、宽阔留白与自然彩色摄影呈现作品，交付前做基本排版 QA，默认由用户自行导出。
 metadata:
   version: "1.0.0"
 ---
@@ -42,6 +42,6 @@ python3 <shared>/scripts/build_deck.py <project>/deck.json --out <project>/演�
 
 ## 交付与维护
 
-默认交付可编辑、离线单文件 HTML，由用户自行导出和检查；不自动执行整稿内容审查、批量截图、逐页验收或导出检查。用户明确要求 PPTX、PDF 或代查时，完成相应产物与检查，不将已要求的导出留作可选后续。修复构建失败与资源缺失仍属于制作工作，详见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
 
 风格主题与共享代码开发按 [开发验证](references/quality-check.md#风格开发与接入) 做与改动相称的验证，不将其作为普通成稿的自动验收流程。已完成的同范围批准不重复索取；将来另开独立方向时才建立新的方向批准。只修改文档时检查相关结构与链接即可。

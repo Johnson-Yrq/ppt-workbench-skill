@@ -1,6 +1,6 @@
 ---
 name: realistic-miniature-slides
-description: 在用户选择写实微缩风格或续做该风格项目时制作可编辑离线 HTML 演示稿，采用暖灰、石墨、灰蓝与鼠尾草绿，主动生成无文字的 35–45° 写实微缩配图。默认由用户自行导出和检查；未选风格时经 ppt-workbench 接入。
+description: 在用户选择写实微缩风格或续做该风格项目时制作可编辑离线 HTML 演示稿，采用暖灰、石墨、灰蓝与鼠尾草绿，主动生成无文字的 35–45° 写实微缩配图。交付前做基本排版 QA，默认由用户自行导出；未选风格时经 ppt-workbench 接入。
 metadata:
   version: "1.3.0"
 ---
@@ -18,7 +18,7 @@ metadata:
 
 用途明确后，从 [演讲型示例](assets/deck.example.json) 或 [阅读型示例](assets/deck.reading.example.json) 建立项目。示例文案与数字仅用于展示排版，按实际大纲替换，不视作用户的选择或产品承诺。
 
-默认交付独立 HTML，成稿导出与检查由用户自行完成，见共享 [交付规则](../white-blue-slides/references/export.md#默认交付与职责)。不自动内容自检、批量截图、运行成稿审查或播放／编辑回归，也不自动导出或检查 PPTX／PDF。用户明确委托代为导出或检查时，只执行所请求步骤。
+默认交付可编辑、离线单文件 HTML。交付前按共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`，逐页看截图检查布局是否合理（碰撞、重心与留白、对齐、层次、断行、密度、图片裁切），修改并重建后再交付，交付时简述看过与改过的页。PPTX／PDF 由用户通过播放器自行导出；Agent 不自动导出、不做 PowerPoint 实看或播放／编辑回归。用户明确要求 PPTX、PDF 或更深入的检查时，完成所要求的部分。构建失败、结构错误与缺失资源须修复，见共享 [默认交付与职责](../white-blue-slides/references/export.md#默认交付与职责)。
 
 ## 从内容到成稿
 
@@ -26,7 +26,7 @@ metadata:
 2. **选共享版式并建立计划。** 按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 从 48 个执行策略筛选。按 [数据结构与构建方法](../white-blue-slides/references/deck-format.md) 写真实字段；新增布局进入共享层，不限定本风格专用。大纲明确的视觉要求写入 `visual.requirements`，直接用于配图与构建，不另启内容预检。标题默认配语义图标，不适用时写具体 `icon_omit_reason`。
 3. **按页准备配图。** 阅读 [配图流程](references/image-workflow.md)。逐图简报描述对象、动作、结构、材质细节与构图；保持 35–45° 镜头和 PBR 材质，人物在场时有细致五官、自然手势与衣物褶皱。数量和关系以本页内容为准，可用无人设备场景，不把每页套成四个办公分区。默认 `ui_text: "none"`，标题、说明、数字均由 HTML 承载。
 4. **组织可编辑内容。** 阅读型按内容关系安排图片、流程、矩阵、解释和 [ECharts](../white-blue-slides/references/charts.md)，不规定固定图文比例或分区数量；多图分别解释不同阶段或视角。旧 `reading` 四分区仍是可选布局，其结构合同仅在选用时适用。数量图表标明单位与来源，示例标明示例，不补造产品效果。控制区长文字、阶段字段和架构分层标注使用共享构建器的结构化字段，先匹配列宽与配图比例，再调整细节。普通条目保持无框、相同缩进；重点标题和图标可放大约 10%，不突然增加一张卡片。
-5. **构建并交付。** 使用共享构建器加载本包主题，完成必需内容与配图并修复构建失败。交付独立 `.html`，由用户自行检查和导出；JSON 与提示词是过程文件。[检查参考](references/quality-check.md)仅供用户自行检查、明确委托检查或维护 Skill 时使用。
+5. **构建并交付。** 使用共享构建器加载本包主题，完成必需内容与配图并修复构建失败。做基本排版 QA 后交付独立 `.html`，导出由用户自行完成；JSON 与提示词是过程文件。[检查参考](references/quality-check.md)补充本风格的看图要点。
 
 ## 命令
 

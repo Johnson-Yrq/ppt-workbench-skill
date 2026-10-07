@@ -90,7 +90,7 @@ python3 <shared>/scripts/select_layout.py <project>/layout-plan.json --out <proj
 
 没有候选时，报告为 `needs_revision`。继续完成其他页面，本页按实际缺口补素材或数据、重组内容，或在页数约束内拆页；不能删掉必要事实、缩小字号或改变已确认风格来通过。只有无法同时满足的核心约束才需要用户决定。
 
-默认由用户自行导出和检查成稿，不要求 Agent 运行 `--check-plan`、批量截图、逐页审查或导出回归。用户明确委托检查、提供问题反馈，或维护共享工具时，才在对应范围内使用诊断和重选能力：
+交付前的 [基本排版 QA](layout-qa.md) 发现版式问题、用户提供问题反馈，或维护共享工具时，在对应范围内使用诊断和重选能力：
 
 ```sh
 python3 <shared>/scripts/select_layout.py <project>/deck.json --feedback <project>/qa/report.json --out <project>/layout-retry.json

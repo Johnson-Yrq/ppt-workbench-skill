@@ -1,6 +1,6 @@
 ---
 name: navy-glass-slides
-description: 在用户选择海蓝玻璃风格或续做该风格项目时制作可编辑离线 HTML 演示稿，采用暖白、海军蓝、灰青、少量香槟金及玻璃微缩展陈配图。主动生成相关图片，默认由用户自行导出和检查；未选风格时经 ppt-workbench 接入。
+description: 在用户选择海蓝玻璃风格或续做该风格项目时制作可编辑离线 HTML 演示稿，采用暖白、海军蓝、灰青、少量香槟金及玻璃微缩展陈配图。主动生成相关图片，交付前做基本排版 QA，默认由用户自行导出；未选风格时经 ppt-workbench 接入。
 metadata:
   version: "1.6.0"
 ---
@@ -16,7 +16,7 @@ metadata:
 - 风格选择顺序：用户明确选择 > 当前项目已记录的 `style` > 询问缺少的选择。直接调用本 Skill 即选择海蓝玻璃风格；软件主题本身不代表已选择。通用请求先按 [PPT 制作工作台](../ppt-workbench/SKILL.md) 一次确认缺少的风格与类型；明确选择其他风格时通过 `<shared>/scripts/style_packs.py --list` 读取对应入口。续做旧稿保留其风格；要换风格时遵循用户指定的范围。
 - 本 Skill 的 `deck.json` 根字段写 `"style": "saas-3d"`。共享构建器中，未写 `style` 的旧项目仍采用原风格。此命名风格已包含独立主题，不需要 `--allow-restyle`。
 - `navy-glass-slides` 与 `white-blue-slides` 两个目录须同级安装。`<style>` 指本目录；`<shared>` 指同级 `white-blue-slides`；`<project>` 指当前制作目录。共享脚本、版式和播放器，不复制一套脚本。套件不含品牌，Logo 与公司名仅在用户提供时写入 deck。
-- 使用本 Skill 时读取本目录的设计与配图规范；不加载另一套 Skill 的 `SKILL.md` 或素白蓝调视觉规范。共享的 [数据结构与构建方法](../white-blue-slides/references/deck-format.md) 只提供技术契约；视觉外观由本风格决定。成稿检查与导出默认由用户完成，遵循共享 [交付规则](../white-blue-slides/references/export.md#默认交付与职责)；检查文档不作为默认制作步骤。
+- 使用本 Skill 时读取本目录的设计与配图规范；不加载另一套 Skill 的 `SKILL.md` 或素白蓝调视觉规范。共享的 [数据结构与构建方法](../white-blue-slides/references/deck-format.md) 只提供技术契约；视觉外观由本风格决定。交付前做共享 [基本排版 QA](../white-blue-slides/references/layout-qa.md)，导出默认由用户完成，遵循共享 [交付规则](../white-blue-slides/references/export.md#默认交付与职责)。
 
 首次制作时阅读 [设计系统](references/design-system.md)，查看 `assets/reference-design/approved-product-overview.png`（已确认示例）与 `assets/reference-design/target-style.png`（目标参考）。参考图限定材质、尺度、层级和渲染气质，其中品牌、金额、图表与对象数量不构成事实或模板要求。该设计方向已确认，正常制作与检查不需要重新选择风格。
 
@@ -29,7 +29,7 @@ metadata:
 3. **建立计划。** 使用共享数据结构。大纲明确的项数、图标、状态、深浅分组、架构层级等逐条进入 `visual.requirements`，直接用于配图与构建，不另启内容预检。分组标题默认选语义相关的共享 SVG 图标；不适用时填具体的 `icon_omit_reason`，不为凑数添加。
 4. **按需要准备配图。** 阅读 [配图流程](references/image-workflow.md)，对需要配图的页面，按本页对象、用户操作或系统处理、业务关系、层次细节与构图写 `image.brief`。有可直接调用的内置生图工具就生成并查看；用户已给图先看后复用。没有内置工具时导出完整提示词与文件名清单，询问用户是否用自己的生图 API 按共享 [image-api](../white-blue-slides/references/image-api.md) 自动生成，否则人工供图；继续完成独立的文字和版式工作，准确列出尚缺图片。
 5. **构建与排版。** 调用共享构建器，自动加载本目录主题与配图基底。页面标题、正文、流程、矩阵、架构标注和真实指标始终可编辑。阅读型按内容选择共享版式，不限定图文比例、四种分区或统一字阶，放不下则拆页。需要展示的场景主体完整，按实际可见本体调整 `zoom` 与偏移；架构文字直接对齐模块，不能用面板遮错。`custom_css` 只微调内容区；确需新结构时按 [共享布局扩展](../white-blue-slides/references/adding-styles.md#共享布局扩展) 实现并让其他风格复用，不覆盖公共组件。
-6. **交付 HTML。** 完成必需内容与配图，修复构建失败后交付独立 `.html`；提示词与 JSON 是过程文件。不自动运行内容自检、批量截图、成稿审查、播放／编辑回归或 PPTX／PDF 导出与检查。[检查参考](references/quality-check.md)供用户自行使用；明确委托 Agent 代为导出或检查时，只执行所要求的步骤。
+6. **交付 HTML。** 完成必需内容与配图，修复构建失败后交付独立 `.html`；提示词与 JSON 是过程文件。交付前按 [基本排版 QA](../white-blue-slides/references/layout-qa.md) 运行 `audit_deck.cjs`、逐页看图并修改；不自动做播放／编辑回归或 PPTX／PDF 导出。[检查参考](references/quality-check.md)补充本风格的看图要点；明确委托 Agent 代为导出时，执行所要求的步骤。
 
 数量比较、趋势或构成适合图表时，使用 [ECharts 图表契约](../white-blue-slides/references/charts.md)，保留数据来源与相邻解释。图表、数据和播放器一起内嵌，支持离线编辑与保存。
 
