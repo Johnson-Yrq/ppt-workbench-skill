@@ -23,6 +23,8 @@ metadata:
 
 真实新稿沿用同级 [PPT 制作工作台](../ppt-workbench/SKILL.md) 已确认的风格和演讲／阅读用途，只询问缺少的选择。直接指定本 Skill 表达风格选择，续做保留当前项目选择；其用途规则见 [演示稿类型](../white-blue-slides/references/presentation-modes.md)。根对象记录 `style: "airy-portfolio"` 与 `presentation_mode: "speech" / "reading"`。
 
+先按共享 [制作大纲](../white-blue-slides/references/outline.md) 把用户内容转化为适合所选风格与用途的 `大纲.md`（逐页结论、关系与数量、上屏文字、版式、配图、讲稿与【待补】），再按大纲动手。
+
 逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材和数据条件。使用 [数据结构](../white-blue-slides/references/deck-format.md)、[共享布局](../white-blue-slides/references/shared-layouts.md) 的真实字段，明确要求写入 `visual.requirements`。当前共享构图为 20 种、可执行 profile 为 48 个；本方向复用并扩展 `type_poster / editorial_columns`，不维护私有版式渲染器。
 
 演讲型突出照片和核心判断，阅读型补齐机制、上下文、来源与边界，必要时拆页。用途不强制采用 `layout: reading`、等分图区或另一套字阶。图表遵循 [图表契约](../white-blue-slides/references/charts.md)，仅使用真实数据。文字与照片的数量来自内容，不要求每份稿复刻样稿的十页顺序。

@@ -17,6 +17,8 @@ metadata:
 
 共享套件是同级 `white-blue-slides`。复用其 [类型规则](../white-blue-slides/references/presentation-modes.md)、[数据结构](../white-blue-slides/references/deck-format.md)、[图表契约](../white-blue-slides/references/charts.md) 和播放器；不读取素白蓝调的视觉规范作为本包主题。根对象记录 `style: "warm-minimal-editorial"` 与 `presentation_mode: "speech" / "reading"`。
 
+先按共享 [制作大纲](../white-blue-slides/references/outline.md) 把用户内容转化为适合所选风格与用途的 `大纲.md`（逐页结论、关系与数量、上屏文字、版式、配图、讲稿与【待补】），再按大纲动手。
+
 逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 选择真实可执行候选。共 48 个执行策略；本包可使用全部共享结构，不只八个 `editorial` 变体。选版不增加用户批准或自动成稿审查步骤。
 
 演讲型可从 [正式演讲示例](assets/deck.example.json) 起步，使用 `layout: "editorial"` 的封面、介绍、目录、关于、服务、流程、作品集和收束变体；准确字段见共享 [editorial 契约](../white-blue-slides/references/deck-format.md#editorial编辑式图文页面)。阅读型可从 [正式阅读示例](assets/deck.reading.example.json) 了解数据组织，再按内容自由选择共享布局，保留机制、依据与边界；示例中的 `reading` 四分区是可选结构，不限制所有阅读页。示例只演示结构，业务内容与图片须按实际大纲改写。页头、封面尾页、字阶和边距沿用本包独立设计，不继承六种预设；新增主体布局进入共享层供所有风格复用。

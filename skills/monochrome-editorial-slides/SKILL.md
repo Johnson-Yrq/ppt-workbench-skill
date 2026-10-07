@@ -17,6 +17,8 @@ metadata:
 
 ## 共享选版与构建
 
+先按共享 [制作大纲](../white-blue-slides/references/outline.md) 把用户内容转化为适合所选风格与用途的 `大纲.md`（逐页结论、关系与数量、上屏文字、版式、配图、讲稿与【待补】），再按大纲动手。
+
 逐页按共享 [内容自主选版](../white-blue-slides/references/layout-selection.md) 判断关系、数量、素材与数据，用 `select_layout.py` 筛选候选。48 个执行策略都有真实渲染路径。本包使用共享布局，不把版式封存在专用渲染器。
 
 从 [正式演讲示例](assets/deck.example.json) 或 [正式阅读示例](assets/deck.reading.example.json) 了解实际数据字段，再按大纲选择问题分栏、圆形指标、服务块、独立图表、照片转场或其他共享结构。演讲型多图与纯文字内页均按内容选用；不硬塞进 `reading`，也不为旧模板给无图页添加无关图片。历史独立样稿仅保留为视觉转译记录。
