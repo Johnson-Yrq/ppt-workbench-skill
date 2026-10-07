@@ -88,6 +88,8 @@ new-style-slides/
 
 主题加载顺序为基础组件 → 当前所选共享布局的几何 → 所选风格 CSS → 用户已要求的项目颜色覆盖。`reading` 的几何只用于选择了该 layout 的页面，不随阅读型用途全局套用。新主题完整声明 `--paper / --blue / --ink / --muted / --line / --panel / --radius`，可用 `--diagram-accent` 指定流程和图表辅助色；颜色令牌使用六位十六进制。独立设计封面、页头、页码、图标、面板、表格、流程、图表与尾页的视觉，复用共享主体布局与组件；不继承其他风格的字号、边距或固定图文比例。不同风格 CSS 不会同时加载。
 
+从英文或拉丁字体参考转译字阶时，按中文重新定字号：中文字面撑满方格，同样像素的中文标题视觉上约为英文的 1.5–2 倍。以常规字重为主，内容标题宜在 68–84px 一档、正文 24–26px，并以中文样稿实际截图确认简约感。标题缩小后单行可能伸到页码区，页头与在主体中放标题的布局都要为页码预留右侧空间。风格包宜附一份版式经验（本主题精调过哪些共享结构、哪些结构在本风格中易乱、每页字数预算），示例见 [黑白大理石版式选用](../../monochrome-marble-slides/references/layout-guide.md)。
+
 图表基础三色依次读取 `--diagram-accent / --diagram-strong / --chart-tertiary`，网格读取 `--chart-grid`。可选 `--chart-quaternary / --chart-quinary` 在原三色后补充第 4、5 色；不声明便保留原三色，浏览器与原生 PPTX 导出一致。指标进度条可独立声明 `--progress-track / --progress-fill`。新风格按自己的配色提供令牌，既有主题不因此改变。
 
 `SKILL.md` 写清本包对应的 `style`，引用共享的 [类型规则](presentation-modes.md)、[数据结构](deck-format.md)、[图表契约](charts.md) 和运行命令；不读取原风格的 SKILL 正文作为制作流程。使用动态工作台只确认缺少的选择，已确认的模式不再询问。每个包支持 speech 与 reading，差异放在信息组织而非固定排版或另建重复风格包。

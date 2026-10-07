@@ -9,7 +9,7 @@ metadata:
 
 整稿 style ID 为 `monochrome-marble`，正式版本 **1.0.0**，状态 **ready**。用户已于 **2026-10-05** 明确回复「采用，安装，并提交」，批准当前中文样稿方向、正式接入、安装及本次相关改动提交；同方向制作无需再次确认视觉。批准范围与交付位置见 [来源说明](references/source-notes.md#批准状态与交付位置)，安装完成状态以实际安装位置验证及主任务报告为准。
 
-先读 [设计系统](references/design-system.md)，准备图片时读 [配图流程](references/image-workflow.md)。本包独立维护页头、封面、字体、字阶、留白、黑白表面和大理石纹理；内容字段、共享构图、播放器、编辑、保存与导出复用共享层。原参考与逐页转译见 [来源说明](references/source-notes.md)。
+先读 [设计系统](references/design-system.md)；写 `deck.json` 前读 [版式选用与内容预算](references/layout-guide.md)，优先使用本主题精调过的结构并控制每页字数；准备图片时读 [配图流程](references/image-workflow.md)。本包独立维护页头、封面、字体、字阶、留白、黑白表面和大理石纹理；内容字段、共享构图、播放器、编辑、保存与导出复用共享层。原参考与逐页转译见 [来源说明](references/source-notes.md)。
 
 ## 已批准样稿
 
