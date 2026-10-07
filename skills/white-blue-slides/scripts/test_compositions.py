@@ -351,6 +351,36 @@ class CompositionTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.load(self.deck([bad]))
 
+    def test_hierarchy_fields_render_editable_numbers_lists_and_one_emphasis(self):
+        slide = self.sample('editorial_columns')
+        slide.update(title_column=0, columns=[
+            {'type': 'text', 'eyebrow': 'SCENARIO 01', 'paragraphs': ['一句引导']},
+            {'type': 'groups', 'numbered': True, 'items': [
+                {'title': '要点甲', 'text': '说明甲'}, {'title': '要点乙', 'emphasis': True}]},
+            {'type': 'text', 'heading': '清单栏', 'list': True, 'paragraphs': ['单行条目', '条目名\n条目说明']}])
+        for style in self.styles:
+            with self.subTest(style=style):
+                html, _ = self.render(self.deck([slide], style))
+                values = EditableText(html).values
+                for value in ('SCENARIO 01', '01', '02', '单行条目', '条目名', '条目说明', '清单栏'):
+                    self.assertIn(value, values)
+                self.assertIn('class="comp-groups-grid is-numbered"', html)
+                self.assertEqual(html.count('class="comp-column-group has-number is-emphasis"'), 1)
+                self.assertIn('comp-column-text is-list"', html)
+                self.assertEqual(html.count('class="comp-list-entry"'), 1)
+        for mutate in (lambda s: s['columns'][0].update(eyebrow=' '),
+                       lambda s: s['columns'][2].update(list='yes'),
+                       lambda s: s['columns'][2].pop('paragraphs'),
+                       lambda s: s['columns'][1].update(numbered=1),
+                       lambda s: s['columns'][1]['items'][0].update(icon='CircleCheck'),
+                       lambda s: s['columns'][1]['items'][0].update(emphasis=True),
+                       lambda s: s['columns'][1]['items'][0].update(emphasis='true')):
+            with self.subTest(mutate=mutate):
+                bad = copy.deepcopy(slide)
+                mutate(bad)
+                with self.assertRaises(ValueError):
+                    self.load(self.deck([bad]))
+
     def test_side_index_accepts_twelve_entries_and_rejects_thirteen(self):
         slide = self.sample('side_index')
         slide['items'] = [{'title': f'目录条目 {i + 1}'} for i in range(12)]

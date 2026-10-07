@@ -9,7 +9,7 @@ metadata:
 
 整稿 style ID 为 `monochrome-editorial`，清单状态为 **ready**。八页中文风格样稿的视觉方向已获确认，正式项目使用共享构建器与 `deck.json`；使用本风格无需重新确认设计方向。
 
-先读 [设计系统](references/design-system.md)，配图前读 [配图流程](references/image-workflow.md)。文字、胶囊、圆形指标与图表保持可编辑；有生图能力时主动生成多张内容相关照片，使摄影贯穿适合配图的页面，不限于大纲明确写“配图”的页面。纯文字、无图与固定构图要求优先。
+先读 [设计系统](references/design-system.md)，写 `deck.json` 前读 [版式层次与文字页选版](references/layout-guide.md)，配图前读 [配图流程](references/image-workflow.md)。文字、胶囊、圆形指标与图表保持可编辑；有生图能力时主动生成多张内容相关照片，使摄影贯穿适合配图的页面，不限于大纲明确写“配图”的页面。纯文字、无图与固定构图要求优先。
 
 ## 默认交付
 

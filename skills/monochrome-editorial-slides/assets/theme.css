@@ -177,3 +177,11 @@ footer{border-top:0}
 .ed-closing .ed-closing-message{position:absolute;left:106px;top:690px;font-size:27px;line-height:1.8;color:var(--muted)}
 .ed-closing .ed-rule{position:absolute;left:104px;right:104px;top:860px}
 .ed-closing .ed-closing-byline{position:absolute;left:104px;top:888px;font-size:23px;line-height:1.7}
+/* Editorial columns read in three levels: page title, a semibold item or column name, then a muted note. */
+body[data-style="monochrome-editorial"] .comp-editorial_columns{--column-heading-size:36px;--column-strong-weight:600}
+body[data-style="monochrome-editorial"] .comp-editorial_columns :is(.comp-column-group h2,.comp-column-heading){font-weight:600}
+body[data-style="monochrome-editorial"] .comp-editorial_columns .comp-column-group p{font-size:24px;line-height:1.55;color:var(--muted)}
+body[data-style="monochrome-editorial"] .comp-editorial_columns .comp-column-group.is-emphasis p{color:var(--paper)}
+body[data-style="monochrome-editorial"] .comp-editorial_columns .comp-groups-grid:not(.is-numbered){--column-groups-gap:0px}
+body[data-style="monochrome-editorial"] .comp-editorial_columns .comp-groups-grid:not(.is-numbered)>.comp-column-group{padding:24px 0;border-top:1px solid var(--line)}
+body[data-style="monochrome-editorial"] .comp-editorial_columns .comp-groups-grid:not(.is-numbered)>.comp-column-group.is-emphasis{margin-top:14px;padding:24px 26px;border-top:0}

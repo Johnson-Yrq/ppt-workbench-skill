@@ -76,11 +76,11 @@
 
 | 栏目 `type` | 必需字段 | 可选字段与容量 |
 |---|---|---|
-| `text` | 正文栏使用 `paragraphs`，1–6 个非空字符串 | `heading` 非空字符串；已有 heading，或本栏是 title_column 且 show_title 为 true 时可省略 paragraphs。空数组不代表省略，仍会拒绝 |
+| `text` | 正文栏使用 `paragraphs`，1–6 个非空字符串 | `heading` 非空字符串；已有 heading，或本栏是 title_column 且 show_title 为 true 时可省略 paragraphs。空数组不代表省略，仍会拒绝。`eyebrow` 为 heading 与正文之上的小号灰字（如 `SCENARIO 01 · OPERATIONS`）。`list: true` 把 paragraphs 排成细线分隔的清单，heading 下加粗线；清单条目写成 `名称\n说明` 时，名称加粗、说明转为灰色小字 |
 | `image` | `image`，单个图片对象 | 图片对象可用下述 `frame` |
 | `gallery` | `images`，2–8 个独立图片对象 | `grid_columns: 1 / 2`，默认 2；八图可形成两列四行。`row_weights` 仅用于 grid_columns 为 1，数组长度须与 images 相同，每项为 0.5–4 的有限数字，按图片顺序分配相对行高；省略时等高 |
 | `people` | `items`，1–4 个成员对象，每项必须有 `image / name / role` | 姓名与角色为非空字符串并保持可编辑；不以说明段落替代独立身份字段 |
-| `groups` | `items`，2–6 个对象，每项必须有非空 `title` | 每项可选非空 `text` 与有效 `icon` 名称，图标来自 assets/icons.json。`group_columns: 1 / 2`，默认 1；四组设为 2 列即可形成 2 × 2 文字区。条目为无序分组，不带步骤号或箭头 |
+| `groups` | `items`，2–6 个对象，每项必须有非空 `title` | 每项可选非空 `text` 与有效 `icon` 名称，图标来自 assets/icons.json；可选 `emphasis: true` 把一项反白强调（每栏最多一项，用于贯穿其余各项的一层，如治理、安全）。`group_columns: 1 / 2`，默认 1；四组设为 2 列即可形成 2 × 2 文字区。`numbered: true` 在每项前放可编辑的 `01 / 02 / 03` 序号并加顶线，便于口头指代和跨页成系列；序号不表示步骤，有先后用 `step_row` 或 `flow`。numbered 时条目不写 icon |
 | `chart` | `chart`，完整 `{title, chart_type, categories, series, unit, source}` 图表对象 | 非空 `copy` 解释文字；图表在上，标题与解释在下，来源另行保留。沿用 [图表契约](charts.md)，不接受任意 ECharts 配置 |
 
 图片对象沿用 `src / alt` 必填及 `caption / ratio / brief / ui_text / zoom / offset_x / offset_y / edge_fade / background_mode` 等共同字段。此布局的嵌套图片还可写 `frame: "none" / "monitor"`，默认 `none`。`monitor` 使用 CSS 绘制简化显示器框，屏幕图像仍是独立图片；不生成真实产品界面，不把框内照片宣称为可编辑模型。比例沿用受支持的 `ratio`，monitor 未指定时按 16:9 处理。

@@ -37,9 +37,9 @@ COMMON_FIELDS = {'id', 'layout', 'title', 'chapter', 'subtitle', 'header', 'note
 IMAGE_FIELDS = {'src', 'alt', 'caption', 'ratio', 'brief', 'ui_text', 'zoom', 'offset_x',
                 'offset_y', 'edge_fade', 'background_mode'}
 COLUMN_FIELDS = {
-    'text': {'heading', 'paragraphs'}, 'image': {'image'},
+    'text': {'heading', 'paragraphs', 'eyebrow', 'list'}, 'image': {'image'},
     'gallery': {'images', 'grid_columns', 'row_weights'}, 'people': {'items'},
-    'groups': {'items', 'group_columns'}, 'chart': {'chart', 'copy'},
+    'groups': {'items', 'group_columns', 'numbered'}, 'chart': {'chart', 'copy'},
 }
 
 
@@ -117,6 +117,12 @@ def editorial_columns(slide):
         if kind == 'text':
             if 'heading' in column:
                 _text(column['heading'], label + '.heading')
+            if 'eyebrow' in column:
+                _text(column['eyebrow'], label + '.eyebrow')
+            if type(column.get('list', False)) is not bool:
+                raise ValueError(f'{label}.list 必须为 true / false')
+            if column.get('list') and 'paragraphs' not in column:
+                raise ValueError(f'{label}.list 需要 paragraphs 作为条目')
             if 'paragraphs' in column:
                 for paragraph in _column_list(column, 'paragraphs', 1, 6, label):
                     _text(paragraph, label + '.paragraphs[]')
@@ -145,14 +151,23 @@ def editorial_columns(slide):
                 if 'image' not in person:
                     raise ValueError(f'{label}.items[].image 需要图片对象')
         elif kind == 'groups':
-            for group in _column_list(column, 'items', 2, 6, label):
-                _object(group, ('title', 'text', 'icon'), ('title',), label + '.items[]')
+            if type(column.get('numbered', False)) is not bool:
+                raise ValueError(f'{label}.numbered 必须为 true / false')
+            groups = _column_list(column, 'items', 2, 6, label)
+            for group in groups:
+                _object(group, ('title', 'text', 'icon', 'emphasis'), ('title',), label + '.items[]')
+                if type(group.get('emphasis', False)) is not bool:
+                    raise ValueError(f'{label}.items[].emphasis 必须为 true / false')
+                if column.get('numbered') and 'icon' in group:
+                    raise ValueError(f'{label}.numbered 已用序号标记条目，items[] 不再写 icon')
                 if 'text' in group:
                     _text(group['text'], label + '.items[].text')
                 if 'icon' in group:
                     _text(group['icon'], label + '.items[].icon')
                     if group['icon'] not in _icon_names():
                         raise ValueError(f'{label}.items[] 未知图标 {group["icon"]}；查看 assets/icons.json 中的键名')
+            if sum(bool(group.get('emphasis')) for group in groups) > 1:
+                raise ValueError(f'{label}.items[] 最多一项 emphasis')
             if type(column.get('group_columns', 1)) is not int or column.get('group_columns', 1) not in (1, 2):
                 raise ValueError(f'{label}.group_columns 可选 1 / 2')
         elif kind == 'chart':
@@ -398,11 +413,20 @@ def render_composition(builder, slide):
             if i == slide.get('title_column', 0):
                 hidden = ' is-concealed' if not slide.get('show_title', True) else ''
                 content += '<div class="comp-column-title' + hidden + '">' + title() + '</div>'
-            content += f'<div class="comp-column-content comp-column-{kind}">'
+            listed = ' is-list' if kind == 'text' and column.get('list') else ''
+            content += f'<div class="comp-column-content comp-column-{kind}{listed}">'
             if kind == 'text':
+                if column.get('eyebrow'):
+                    content += e('p', column['eyebrow'], 'comp-column-eyebrow')
                 if column.get('heading'):
                     content += e('h2', column['heading'], 'comp-column-heading')
-                content += ''.join(e('p', paragraph) for paragraph in column.get('paragraphs', []))
+                for paragraph in column.get('paragraphs', []):
+                    name, _, rest = paragraph.partition('\n')
+                    if listed and rest.strip() and name.strip():
+                        # A two-line list entry reads as name, then a muted note.
+                        content += '<div class="comp-list-entry">' + e('p', name, 'comp-list-name') + e('p', rest.strip(), 'comp-list-text') + '</div>'
+                    else:
+                        content += e('p', paragraph)
             elif kind == 'image':
                 content += image(column['image'])
             elif kind == 'gallery':
@@ -417,13 +441,17 @@ def render_composition(builder, slide):
                     content += e('p', column['copy'], 'comp-chart-copy')
                 content += '</div>' + builder.chart(column['chart'])
             elif kind == 'groups':
-                content += '<div class="comp-groups-grid" style="--group-columns:' + str(column.get('group_columns', 1)) + '">'
-                for group in column['items']:
+                numbered = column.get('numbered')
+                content += '<div class="comp-groups-grid' + (' is-numbered' if numbered else '') + '" style="--group-columns:' + str(column.get('group_columns', 1)) + '">'
+                for n, group in enumerate(column['items'], 1):
                     copy = e('h2', group['title']) + (e('p', group['text']) if group.get('text') else '')
+                    emphasis = ' is-emphasis' if group.get('emphasis') else ''
                     if group.get('icon'):
-                        content += '<article class="comp-column-group has-icon">' + builder.icon(group['icon']) + '<div class="comp-group-copy">' + copy + '</div></article>'
+                        content += '<article class="comp-column-group has-icon' + emphasis + '">' + builder.icon(group['icon']) + '<div class="comp-group-copy">' + copy + '</div></article>'
+                    elif numbered:
+                        content += '<article class="comp-column-group has-number' + emphasis + '">' + e('span', f'{n:02d}', 'comp-group-number') + '<div class="comp-group-copy">' + copy + '</div></article>'
                     else:
-                        content += '<article class="comp-column-group">' + copy + '</article>'
+                        content += '<article class="comp-column-group' + emphasis + '">' + copy + '</article>'
                 content += '</div>'
             content += '</div></section>'
     elif layout == 'photo_pair':

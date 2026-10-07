@@ -185,6 +185,19 @@
 .comp-column-group h2:last-child{margin-bottom:0}
 .comp-column-group.has-icon{display:flex;align-items:flex-start;gap:var(--column-group-icon-gap,22px)}
 .comp-column-group>.semantic-icon{width:var(--column-group-icon-size,42px);height:var(--column-group-icon-size,42px);flex:none;color:var(--diagram-accent,var(--ink))}
+/* Optional hierarchy: eyebrow above a text column, ruled list columns, numbered points and one inverted group. */
+.comp-editorial_columns .comp-column-eyebrow{font-size:var(--column-eyebrow-size,20px);line-height:1.4;letter-spacing:.1em;color:var(--muted)}
+.comp-editorial_columns .comp-column-text.is-list{gap:0}
+.comp-editorial_columns .comp-column-text.is-list>.comp-column-eyebrow{margin-bottom:14px}
+.comp-editorial_columns .comp-column-text.is-list>.comp-column-heading{padding-bottom:16px;margin-bottom:4px;border-bottom:2px solid currentColor}
+.comp-editorial_columns .comp-column-text.is-list>p:not(.comp-column-eyebrow),.comp-editorial_columns .comp-column-text.is-list>.comp-list-entry{padding:var(--column-list-pad,16px) 0;border-bottom:1px solid var(--line)}
+.comp-editorial_columns .comp-list-entry .comp-list-name{font-size:var(--column-list-name-size,28px);font-weight:var(--column-strong-weight,600);color:var(--ink);line-height:1.5}
+.comp-editorial_columns .comp-list-entry .comp-list-text{font-size:var(--column-note-size,22px);line-height:1.5;color:var(--muted)}
+.comp-groups-grid.is-numbered>.comp-column-group{display:grid;grid-template-columns:var(--column-number-width,76px) minmax(0,1fr);align-content:start;padding-top:20px;border-top:1px solid var(--ink)}
+.comp-groups-grid.is-numbered .comp-group-number{font-size:var(--column-number-size,40px);line-height:1;font-weight:300;font-variant-numeric:tabular-nums}
+.comp-column-group.is-emphasis{padding:24px 26px;background:var(--ink);color:var(--paper)}
+.comp-column-group.is-emphasis :is(h2,.semantic-icon,.comp-group-number){color:var(--paper)}
+.comp-column-group.is-emphasis p{color:var(--paper);opacity:.72}
 .comp-group-copy{min-width:0}
 .comp-column-chart{flex:1;display:flex;flex-direction:column;gap:var(--column-chart-gap,20px)}
 .comp-column-chart>.chart-shell{position:relative;order:0;flex:0 1 auto;height:320px;min-height:160px}
